@@ -1,6 +1,7 @@
 import React from 'react';
+import { AuthContext } from '../auth/AuthProvider';
 
-const Home = () => {
+const Home = ({ history }) => {
   return (
     <div>
       <p>home</p>

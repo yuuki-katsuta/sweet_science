@@ -1,10 +1,11 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
-const Login = () => {
+const Login = ({ history }) => {
   return (
     <div>
       <p>ログイン</p>
     </div>
   );
 };
-export default Login;
+export default withRouter(Login);
