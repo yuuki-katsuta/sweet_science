@@ -1,4 +1,5 @@
 import React from 'react';
+import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './auth/AuthProvider';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Home from './components/Home';
@@ -10,7 +11,7 @@ function App() {
     <div>
       <AuthProvider>
         <BrowserRouter>
-          <Route exact path='/' component={Home} />
+          <PrivateRoute exact path='/' component={Home} />
           <Route exact path='/signup' component={SignUp} />
           <Route exact path='/login' component={Login} />
         </BrowserRouter>
