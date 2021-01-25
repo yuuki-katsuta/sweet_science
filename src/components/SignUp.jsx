@@ -50,16 +50,16 @@ const SignUp = ({ history }) => {
             サインイン
           </button>
         </div>
-        <div>
-          <button
-            onClick={() => {
-              history.push('/login');
-            }}
-          >
-            サインイン済みの場合クリック
-          </button>
-        </div>
       </form>
+      <div>
+        <button
+          onClick={() => {
+            history.push('/login');
+          }}
+        >
+          サインイン済みの場合クリック
+        </button>
+      </div>
     </div>
   );
 };
