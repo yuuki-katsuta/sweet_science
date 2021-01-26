@@ -5,6 +5,7 @@ export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   //ログイン
   const login = async (email, password, history) => {
@@ -35,10 +36,12 @@ export const AuthProvider = ({ children }) => {
 
   //認証状態の変化を監視
   useEffect(() => {
+    setIsLoading(true);
     //認証されていれば user オブジェクトに値が設定され、未認証であれば、null が設定される
     //ログイン状態が変化すると呼び出される
     auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      setIsLoading(false);
     });
   }, []);
 
@@ -49,6 +52,7 @@ export const AuthProvider = ({ children }) => {
         login: login,
         signup: signup,
         currentUser,
+        isLoading,
       }}
     >
       {children}

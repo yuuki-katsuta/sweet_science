@@ -1,16 +1,22 @@
 import React, { useContext, useState } from 'react';
 import { withRouter } from 'react-router';
 import { AuthContext } from '../auth/AuthProvider';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Redirect } from 'react-router-dom';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useContext(AuthContext);
+  const { login, isLoading, currentUser } = useContext(AuthContext);
 
   const handleSubmit = () => {
     login(email, password, history);
   };
-  return (
+  return isLoading ? (
+    <CircularProgress />
+  ) : currentUser ? (
+    <Redirect to={'/'} />
+  ) : (
     <div>
       <p>ログイン</p>
       <form>

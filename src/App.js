@@ -13,9 +13,9 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <PrivateRoute exact path='/' component={Home} />
+          <PrivateRoute exact path='/chat/:id' component={Chat} />
           <Route exact path='/signup' component={SignUp} />
           <Route exact path='/login' component={Login} />
-          <Route exact path='/chat/:id' component={Chat} />
         </BrowserRouter>
       </AuthProvider>
     </div>
