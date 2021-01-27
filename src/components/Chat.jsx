@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../auth/AuthProvider';
+import { Redirect } from 'react-router-dom';
 import { db } from '../base';
 
 const Chat = ({ history, match, location }) => {
@@ -9,6 +10,7 @@ const Chat = ({ history, match, location }) => {
 
   //データ取得
   const fetchMessages = () => {
+    if (!location.state) return;
     const messages = db
       .collection('chats')
       .doc(`${location.state.room}`)
@@ -19,7 +21,6 @@ const Chat = ({ history, match, location }) => {
         let msg = [];
         querySnapshot.forEach((doc) => {
           if (doc.data()) {
-            console.log(doc.data());
             msg.push({
               message: doc.data().message,
             });
@@ -42,7 +43,6 @@ const Chat = ({ history, match, location }) => {
     })();
     //クリーンアップ関数を返す
     return () => {
-      console.log('a¥');
       unmounted = true;
     };
     //eslint-disable-next-line
@@ -66,7 +66,7 @@ const Chat = ({ history, match, location }) => {
       });
   };
 
-  return (
+  return location.state ? (
     <div>
       <p>chat {match.params.id}</p>
       <input
@@ -95,6 +95,8 @@ const Chat = ({ history, match, location }) => {
         戻る
       </button>
     </div>
+  ) : (
+    <Redirect to={'/'} />
   );
 };
 export default Chat;

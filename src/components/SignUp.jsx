@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthProvider';
+import TextInputField from './TextInputField';
+import Button from '@material-ui/core/Button';
 
 const SignUp = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -17,52 +19,52 @@ const SignUp = ({ history }) => {
     <Redirect to={'/'} />
   ) : (
     <div>
+      <h1>サインイン</h1>
       <form>
-        <p>サインイン</p>
-        name
-        <input
-          name='name'
+        <TextInputField
+          id={'standard-name-required'}
+          label={'name'}
+          name={'name'}
+          type={'name'}
+          placeholder={'Name'}
           value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
+          setName={setName}
         />
-        email
-        <input
-          name='email'
+        <TextInputField
+          id={'standard-required'}
+          label={'email'}
+          name={'email'}
+          type={'email'}
+          placeholder={'Email'}
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          setName={setEmail}
         />
-        password
-        <input
-          name='password'
+        <TextInputField
+          id={'standard-password-input'}
+          label={'password'}
+          name={'password'}
+          type={'password'}
+          placeholder={'Pasword'}
           value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+          setName={setPassword}
         />
         <div>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleSubmit();
-            }}
+          <Button
+            variant='outlined'
+            style={{ margin: '16px 0' }}
+            onClick={handleSubmit}
           >
             サインイン
-          </button>
+          </Button>
         </div>
       </form>
-      <div>
-        <button
-          onClick={() => {
-            history.push('/login');
-          }}
-        >
-          サインイン済みの場合クリック
-        </button>
-      </div>
+      <Button
+        onClick={() => {
+          history.push('/login');
+        }}
+      >
+        サインイン済みの場合クリック
+      </Button>
     </div>
   );
 };

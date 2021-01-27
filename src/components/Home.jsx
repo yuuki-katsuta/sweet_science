@@ -16,7 +16,6 @@ const Home = ({ history }) => {
         // }
         const newChats = [];
         querySnapshot.forEach((doc) => {
-          console.log(doc.id);
           newChats.push(doc.id);
         });
         setChats(newChats);

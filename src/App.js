@@ -6,16 +6,28 @@ import Home from './components/Home';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Chat from './components/Chat';
+import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+
+const Main = styled.main`
+  text-align: center;
+  margin: 80px auto 0;
+`;
 
 function App() {
   return (
     <div>
       <AuthProvider>
         <BrowserRouter>
-          <PrivateRoute exact path='/' component={Home} />
-          <PrivateRoute exact path='/chat/:id' component={Chat} />
-          <Route exact path='/signup' component={SignUp} />
-          <Route exact path='/login' component={Login} />
+          <Container maxWidth='sm'>
+            <Main>
+              <PrivateRoute exact path='/' component={Home} />
+              <PrivateRoute exact path='/chat/:id' component={Chat} />
+              <Route exact path='/signup' component={SignUp} />
+              <Route exact path='/login' component={Login} />
+            </Main>
+          </Container>
         </BrowserRouter>
       </AuthProvider>
     </div>

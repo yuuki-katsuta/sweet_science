@@ -3,6 +3,8 @@ import { withRouter } from 'react-router';
 import { AuthContext } from '../auth/AuthProvider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from 'react-router-dom';
+import TextInputField from './TextInputField';
+import Button from '@material-ui/core/Button';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -18,38 +20,43 @@ const Login = ({ history }) => {
     <Redirect to={'/'} />
   ) : (
     <div>
-      <p>ログイン</p>
+      <h1>ログイン</h1>
       <form>
-        email
-        <input
+        <TextInputField
+          id={'standard-required'}
+          label={'email'}
+          name={'email'}
+          type={'email'}
+          placeholder={'Email'}
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          setName={setEmail}
         />
-        password
-        <input
+        <TextInputField
+          id={'standard-password-input'}
+          label={'password'}
+          name={'password'}
+          type={'password'}
+          placeholder={'Pasword'}
           value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+          setName={setPassword}
         />
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            handleSubmit();
-          }}
-        >
-          ログイン
-        </button>
+        <div>
+          <Button
+            variant='outlined'
+            style={{ margin: '16px 0' }}
+            onClick={handleSubmit}
+          >
+            ログイン
+          </Button>
+        </div>
       </form>
-      <button
+      <Button
         onClick={() => {
           history.push('/signup');
         }}
       >
-        アカウント作成
-      </button>
+        サインインしてない場合クリック
+      </Button>
     </div>
   );
 };
