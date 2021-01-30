@@ -69,6 +69,7 @@ const Chat = ({ history, match, location }) => {
   return location.state ? (
     <div>
       <p>chat {match.params.id}</p>
+      <h2>{location.state.room}</h2>
       <input
         value={text}
         onChange={(e) => {

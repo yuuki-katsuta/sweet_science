@@ -40,6 +40,14 @@ export const AuthProvider = ({ children }) => {
     //認証されていれば user オブジェクトに値が設定され、未認証であれば、null が設定される
     //ログイン状態が変化すると呼び出される
     auth.onAuthStateChanged((user) => {
+      if (user) {
+        user.getIdTokenResult(true).then((idTokenResult) => {
+          console.log(idTokenResult.claims);
+          if (idTokenResult.claims.admin) {
+            console.log('claims.admin');
+          }
+        });
+      }
       setCurrentUser(user);
       setIsLoading(false);
     });

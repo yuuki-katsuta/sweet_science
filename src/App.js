@@ -7,7 +7,6 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Chat from './components/Chat';
 import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 const Main = styled.main`
