@@ -13,7 +13,7 @@ const Chat = ({ history, match, location }) => {
     if (!location.state) return;
     return db
       .collection('chats')
-      .doc(`${location.state.room}`)
+      .doc(`${location.state.match}`)
       .collection('messages')
       .orderBy('createdAt', 'desc')
       .get()
@@ -48,7 +48,7 @@ const Chat = ({ history, match, location }) => {
   const messageAdd = () => {
     if (text === '') return;
     db.collection('chats')
-      .doc(`${location.state.room}`)
+      .doc(`${location.state.match}`)
       .collection('messages')
       .add({
         user: currentUser.displayName,
@@ -65,7 +65,7 @@ const Chat = ({ history, match, location }) => {
   return location.state ? (
     <div>
       <p>chat {match.params.id}</p>
-      <h2>{location.state.room}</h2>
+      <h2>{location.state.match}</h2>
       <input
         value={text}
         onChange={(e) => {
@@ -83,7 +83,6 @@ const Chat = ({ history, match, location }) => {
       {messages.map((data, index) => {
         return <div key={index}>{data.message}</div>;
       })}
-      {/* <p>{location.state.room}</p> */}
       <button
         onClick={() => {
           history.push('/');

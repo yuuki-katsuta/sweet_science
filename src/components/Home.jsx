@@ -1,11 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../auth/AuthProvider';
 import { db } from '../base';
+import MatchInformation from './MatchInformation';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 
 const Home = ({ history }) => {
   const { adminUser } = useContext(AuthContext);
   const [matches, setMatches] = useState([]);
-  const [matchName, setMatchName] = useState('');
 
   //取得
   const fetchChats = () => {
@@ -19,21 +24,6 @@ const Home = ({ history }) => {
           newChats.push(doc.id);
         });
         return newChats;
-      });
-  };
-
-  //追加
-  const addChat = () => {
-    if (matchName === '') return;
-    db.collection('chats')
-      .doc(`${matchName}`)
-      .set({
-        createdAt: new Date(),
-      })
-      .then(async () => {
-        const chatNames = await fetchChats();
-        setMatches(chatNames);
-        setMatchName('');
       });
   };
 
@@ -56,39 +46,28 @@ const Home = ({ history }) => {
   return (
     <div>
       <h2>試合一覧</h2>
-      <div>
-        {matches.map((chat, index) => {
-          return (
-            <div
-              key={index}
-              onClick={() => {
-                history.push({
-                  pathname: `/chat/${index}`,
-                  state: { room: chat },
-                });
-              }}
-            >
-              {chat}
-            </div>
-          );
-        })}
+      <div style={{ height: '60vh', overflow: 'scroll' }}>
+        <List component='nav' aria-label='secondary mailbox folders'>
+          {matches.map((match, index) => {
+            return (
+              <ListItem button alignItems='center' key={index}>
+                <ListItemText
+                  primary={<Typography align='center'>{match}</Typography>}
+                  onClick={() => {
+                    history.push({
+                      pathname: `/chat/${index}`,
+                      state: { match: match },
+                    });
+                  }}
+                />
+              </ListItem>
+            );
+          })}
+        </List>
       </div>
+      <Divider />
       {adminUser && (
-        <div>
-          <input
-            value={matchName}
-            onChange={(e) => {
-              setMatchName(e.target.value);
-            }}
-          />
-          <button
-            onClick={() => {
-              addChat();
-            }}
-          >
-            追加
-          </button>
-        </div>
+        <MatchInformation fetchChats={fetchChats} setMatches={setMatches} />
       )}
     </div>
   );
