@@ -11,7 +11,7 @@ const Chat = ({ history, match, location }) => {
   //データ取得
   const fetchMessages = () => {
     if (!location.state) return;
-    const messages = db
+    return db
       .collection('chats')
       .doc(`${location.state.room}`)
       .collection('messages')
@@ -28,20 +28,16 @@ const Chat = ({ history, match, location }) => {
         });
         return msg.reverse();
       });
-    return messages;
   };
 
   useEffect(() => {
     let unmounted = false;
     (async () => {
-      const result = await fetchMessages();
-
-      //アンマウントされていなければステートを更新
+      const messages = await fetchMessages();
       if (!unmounted) {
-        setMessages(result);
+        setMessages(messages);
       }
     })();
-    //クリーンアップ関数を返す
     return () => {
       unmounted = true;
     };

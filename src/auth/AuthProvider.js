@@ -6,6 +6,7 @@ export const AuthContext = React.createContext();
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [adminUser, setAdminUser] = useState(false);
 
   //ログイン
   const login = async (email, password, history) => {
@@ -42,9 +43,9 @@ export const AuthProvider = ({ children }) => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         user.getIdTokenResult(true).then((idTokenResult) => {
-          console.log(idTokenResult.claims);
           if (idTokenResult.claims.admin) {
             console.log('claims.admin');
+            setAdminUser(true);
           }
         });
       }
@@ -61,6 +62,8 @@ export const AuthProvider = ({ children }) => {
         signup: signup,
         currentUser,
         isLoading,
+        adminUser,
+        setAdminUser,
       }}
     >
       {children}

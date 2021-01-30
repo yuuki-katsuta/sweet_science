@@ -3,36 +3,59 @@ import { AuthContext } from '../auth/AuthProvider';
 import { auth, db } from '../base';
 
 const Home = ({ history }) => {
+  const { currentUser, adminUser, setAdminUser } = useContext(AuthContext);
   const [chats, setChats] = useState([]);
-  //const Chats = db.collection('Chats');
+  const [chatName, setChatName] = useState('');
 
   //取得
   const fetchChats = () => {
-    db.collection('chats')
+    return db
+      .collection('chats')
+      .orderBy('createdAt', 'desc')
       .get()
       .then((querySnapshot) => {
-        // if (doc.data()) {
-        //   console.log(doc.data());
-        // }
         const newChats = [];
         querySnapshot.forEach((doc) => {
           newChats.push(doc.id);
         });
-        setChats(newChats);
+        return newChats;
+      });
+  };
+
+  //追加
+  const addChat = () => {
+    if (chatName === '') return;
+    db.collection('chats')
+      .doc(`${chatName}`)
+      .set({
+        createdAt: new Date(),
+      })
+      .then(async () => {
+        const chatNames = await fetchChats();
+        setChats(chatNames);
+        setChatName('');
       });
   };
 
   useEffect(() => {
-    fetchChats();
+    let unmounted = false;
+    (async () => {
+      const chatNames = await fetchChats();
+      //アンマウントされていなければステートを更新
+      if (!unmounted) {
+        setChats(chatNames);
+      }
+    })();
+    //クリーンアップ関数を返す
+    return () => {
+      unmounted = true;
+    };
+    // eslint-disable-next-line
   }, []);
 
-  const { currentUser } = useContext(AuthContext);
   return (
     <div>
-      <p>home</p>
       <p>{currentUser.displayName}</p>
-      <p>{currentUser.uid}</p>
-
       <div>
         {chats.map((chat, index) => {
           return (
@@ -51,9 +74,26 @@ const Home = ({ history }) => {
           );
         })}
       </div>
-
+      {adminUser && (
+        <div>
+          <input
+            value={chatName}
+            onChange={(e) => {
+              setChatName(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              addChat();
+            }}
+          >
+            追加
+          </button>
+        </div>
+      )}
       <button
         onClick={() => {
+          setAdminUser(false);
           auth.signOut();
         }}
       >
