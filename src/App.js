@@ -2,6 +2,7 @@ import React from 'react';
 import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './auth/AuthProvider';
 import { BrowserRouter, Route } from 'react-router-dom';
+import Header from './components/Header';
 import Home from './components/Home';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
@@ -16,20 +17,19 @@ const Main = styled.main`
 
 function App() {
   return (
-    <div>
-      <AuthProvider>
-        <BrowserRouter>
-          <Container maxWidth='sm'>
-            <Main>
-              <PrivateRoute exact path='/' component={Home} />
-              <PrivateRoute exact path='/chat/:id' component={Chat} />
-              <Route exact path='/signup' component={SignUp} />
-              <Route exact path='/login' component={Login} />
-            </Main>
-          </Container>
-        </BrowserRouter>
-      </AuthProvider>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Header />
+        <Container maxWidth='sm'>
+          <Main>
+            <PrivateRoute exact path='/' component={Home} />
+            <PrivateRoute exact path='/chat/:id' component={Chat} />
+            <Route exact path='/signup' component={SignUp} />
+            <Route exact path='/login' component={Login} />
+          </Main>
+        </Container>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

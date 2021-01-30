@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../auth/AuthProvider';
-import { auth, db } from '../base';
+import { db } from '../base';
 
 const Home = ({ history }) => {
-  const { currentUser, adminUser, setAdminUser } = useContext(AuthContext);
-  const [chats, setChats] = useState([]);
-  const [chatName, setChatName] = useState('');
+  const { adminUser } = useContext(AuthContext);
+  const [matches, setMatches] = useState([]);
+  const [matchName, setMatchName] = useState('');
 
   //取得
   const fetchChats = () => {
@@ -24,16 +24,16 @@ const Home = ({ history }) => {
 
   //追加
   const addChat = () => {
-    if (chatName === '') return;
+    if (matchName === '') return;
     db.collection('chats')
-      .doc(`${chatName}`)
+      .doc(`${matchName}`)
       .set({
         createdAt: new Date(),
       })
       .then(async () => {
         const chatNames = await fetchChats();
-        setChats(chatNames);
-        setChatName('');
+        setMatches(chatNames);
+        setMatchName('');
       });
   };
 
@@ -43,7 +43,7 @@ const Home = ({ history }) => {
       const chatNames = await fetchChats();
       //アンマウントされていなければステートを更新
       if (!unmounted) {
-        setChats(chatNames);
+        setMatches(chatNames);
       }
     })();
     //クリーンアップ関数を返す
@@ -55,14 +55,13 @@ const Home = ({ history }) => {
 
   return (
     <div>
-      <p>{currentUser.displayName}</p>
+      <h2>試合一覧</h2>
       <div>
-        {chats.map((chat, index) => {
+        {matches.map((chat, index) => {
           return (
             <div
               key={index}
               onClick={() => {
-                // history.push(`/chat/${index}`);
                 history.push({
                   pathname: `/chat/${index}`,
                   state: { room: chat },
@@ -77,9 +76,9 @@ const Home = ({ history }) => {
       {adminUser && (
         <div>
           <input
-            value={chatName}
+            value={matchName}
             onChange={(e) => {
-              setChatName(e.target.value);
+              setMatchName(e.target.value);
             }}
           />
           <button
@@ -91,14 +90,6 @@ const Home = ({ history }) => {
           </button>
         </div>
       )}
-      <button
-        onClick={() => {
-          setAdminUser(false);
-          auth.signOut();
-        }}
-      >
-        ログアウト
-      </button>
     </div>
   );
 };
