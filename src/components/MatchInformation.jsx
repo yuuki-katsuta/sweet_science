@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { db } from '../base';
 
-const MatchInformation = ({ fetchChats }) => {
+const MatchInformation = ({
+  fetchMatches,
+  setRows,
+  updateMatchInformation,
+}) => {
   const [fighter1, setFighter1] = useState('');
   const [fighter2, setFighter2] = useState('');
   const [division, setiDvision] = useState('');
@@ -9,29 +13,26 @@ const MatchInformation = ({ fetchChats }) => {
 
   //追加
   const addChat = () => {
-    db.collection('chats')
-      .doc(`${fighter1} vs ${fighter2}`) //ここで入力した名前の組がドキュメント名
-      .set({
-        fighter1: fighter1,
-        fighter2: fighter2,
-        division: division,
-        date: date,
-        createdAt: new Date(),
-      })
-      .then(async () => {
-        const chatNames = await fetchChats();
-
-        //各オブジェクトのkeyを抽出
-        const newMatchNames = [];
-        chatNames.forEach((_, index) => {
-          newMatchNames.push(...Object.keys(chatNames[index]));
+    if (fighter1)
+      db.collection('chats')
+        .doc(`${fighter1} vs ${fighter2}`)
+        .set({
+          fighter1: fighter1,
+          fighter2: fighter2,
+          division: division,
+          date: date,
+          createdAt: new Date(),
+        })
+        .then(async () => {
+          const matchInformation = await fetchMatches();
+          //試合情報を追加
+          const newMatchInformation = updateMatchInformation(matchInformation);
+          setRows(newMatchInformation);
+          setFighter1('');
+          setFighter2('');
+          setiDvision('');
+          setDate('');
         });
-
-        setFighter1('');
-        setFighter2('');
-        setiDvision('');
-        setDate('');
-      });
   };
 
   return (

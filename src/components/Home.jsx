@@ -15,10 +15,10 @@ import Divider from '@material-ui/core/Divider';
 
 const Home = ({ history }) => {
   const { adminUser } = useContext(AuthContext);
-  const [matchInformation, setMatchInformation] = useState([]);
+  //テーブルのデータの状態
+  const [rows, setRows] = useState([]);
 
   //テーブルに表示するデータ
-  const rows = [...matchInformation];
   const columns = [
     { id: 'id', label: 'ID', minWidth: 120 },
     { id: 'date', label: 'date', minWidth: 150 },
@@ -47,7 +47,7 @@ const Home = ({ history }) => {
   };
 
   //試合情報を取得
-  const fetchChats = () => {
+  const fetchMatches = () => {
     return db
       .collection('chats')
       .orderBy('createdAt', 'desc')
@@ -55,38 +55,37 @@ const Home = ({ history }) => {
       .then((querySnapshot) => {
         const newChats = [];
         querySnapshot.forEach((doc) => {
-          newChats.push({ [doc.id]: doc.data() });
+          newChats.push(doc.data());
         });
         return newChats;
       });
   };
 
+  const updateMatchInformation = (matchInformation) => {
+    const newMatchInformation = [];
+    matchInformation.forEach((match, index) => {
+      newMatchInformation.push({
+        id: index,
+        title: `${match.fighter1} vs ${match.fighter2}`,
+        date: match.date,
+        division: match.division,
+        fighter1: match.fighter1,
+        fighter2: match.fighter2,
+      });
+    });
+    return newMatchInformation;
+  };
+
   useEffect(() => {
     let unmounted = false;
     (async () => {
-      const chatNames = await fetchChats();
-
+      const matchInformation = await fetchMatches();
       //試合情報を追加
-      const newMatchInformation = [];
-      let data = [];
-      //console.log(chatNames);
-      chatNames.forEach((_, index) => {
-        //オブジェクトからvalueを取り出して配列へ格納
-        data.push(...Object.values(chatNames[index]));
-        newMatchInformation.push({
-          id: index,
-          title: `${data[index].fighter1} vs ${data[index].fighter2}`,
-          date: data[index].date,
-          division: data[index].division,
-          fighter1: data[index].fighter1,
-          fighter2: data[index].fighter2,
-        });
-      });
+      const newMatchInformation = updateMatchInformation(matchInformation);
 
       //アンマウントされていなければステートを更新
       if (!unmounted) {
-        //setMatches(newMatchNames);
-        setMatchInformation(newMatchInformation);
+        setRows(newMatchInformation);
       }
     })();
     //クリーンアップ関数を返す
@@ -128,7 +127,7 @@ const Home = ({ history }) => {
                       onClick={() => {
                         history.push({
                           pathname: `/chat/${index}`,
-                          state: { match: row.title }, //ドキュメント名（試合のタイトル名を渡す）
+                          state: { match: row.title }, //試合のタイトル名を渡す
                         });
                       }}
                     >
@@ -161,7 +160,11 @@ const Home = ({ history }) => {
       {adminUser && (
         <div style={{ margin: '50px 0 60px' }}>
           <Divider />
-          <MatchInformation fetchChats={fetchChats} />
+          <MatchInformation
+            fetchMatches={fetchMatches}
+            setRows={setRows}
+            updateMatchInformation={updateMatchInformation}
+          />
         </div>
       )}
     </div>
