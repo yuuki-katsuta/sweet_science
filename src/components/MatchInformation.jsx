@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { db } from '../base';
 
-const MatchInformation = ({ fetchChats, setMatches }) => {
-  const [matchName, setMatchName] = useState('');
+const MatchInformation = ({ fetchChats }) => {
   const [fighter1, setFighter1] = useState('');
   const [fighter2, setFighter2] = useState('');
   const [division, setiDvision] = useState('');
@@ -10,9 +9,8 @@ const MatchInformation = ({ fetchChats, setMatches }) => {
 
   //追加
   const addChat = () => {
-    if (matchName === '') return;
     db.collection('chats')
-      .doc(`${matchName}`)
+      .doc(`${fighter1} vs ${fighter2}`) //ここで入力した名前の組がドキュメント名
       .set({
         fighter1: fighter1,
         fighter2: fighter2,
@@ -22,8 +20,13 @@ const MatchInformation = ({ fetchChats, setMatches }) => {
       })
       .then(async () => {
         const chatNames = await fetchChats();
-        setMatches(chatNames);
-        setMatchName('');
+
+        //各オブジェクトのkeyを抽出
+        const newMatchNames = [];
+        chatNames.forEach((_, index) => {
+          newMatchNames.push(...Object.keys(chatNames[index]));
+        });
+
         setFighter1('');
         setFighter2('');
         setiDvision('');
@@ -34,13 +37,7 @@ const MatchInformation = ({ fetchChats, setMatches }) => {
   return (
     <div>
       <div>
-        <p>試合名</p>
-        <input
-          value={matchName}
-          onChange={(e) => {
-            setMatchName(e.target.value);
-          }}
-        />
+        <p>試合名情報</p>
 
         <p>ファイター1</p>
         <input
