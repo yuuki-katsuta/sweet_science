@@ -20,11 +20,11 @@ const Home = ({ history }) => {
 
   //テーブルに表示するデータ
   const columns = [
-    { id: 'id', label: 'ID', minWidth: 120 },
-    { id: 'date', label: 'date', minWidth: 150 },
-    { id: 'division', label: 'division', minWidth: 170 },
-    { id: 'fighter1', label: 'fighter', minWidth: 170 },
-    { id: 'fighter2', label: 'fighter', minWidth: 170 },
+    { id: 'id', label: 'ID', minWidth: 100 },
+    { id: 'date', label: 'date', minWidth: 120 },
+    { id: 'division', label: 'division', minWidth: 150 },
+    { id: 'fighter1', label: 'fighter', minWidth: 190 },
+    { id: 'fighter2', label: 'fighter', minWidth: 190 },
   ];
 
   const useStyles = makeStyles({
