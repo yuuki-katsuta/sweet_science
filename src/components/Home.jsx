@@ -10,13 +10,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import MatchInformation from './MatchInformation';
+import AddMatchInformation from './AddMatchInformation';
 import Divider from '@material-ui/core/Divider';
 
 const Home = ({ history }) => {
   const { adminUser } = useContext(AuthContext);
-  //テーブルのデータの状態
-  const [rows, setRows] = useState([]);
+  const [matchData, setMatchData] = useState([]);
 
   //テーブルに表示するデータ
   const columns = [
@@ -47,7 +46,7 @@ const Home = ({ history }) => {
   };
 
   //試合情報を取得
-  const fetchMatches = () => {
+  const getMatcheInformation = () => {
     return db
       .collection('chats')
       .orderBy('createdAt', 'desc')
@@ -71,6 +70,7 @@ const Home = ({ history }) => {
         division: match.division,
         fighter1: match.fighter1,
         fighter2: match.fighter2,
+        url: match.url,
       });
     });
     return newMatchInformation;
@@ -79,13 +79,13 @@ const Home = ({ history }) => {
   useEffect(() => {
     let unmounted = false;
     (async () => {
-      const matchInformation = await fetchMatches();
+      const matchInformation = await getMatcheInformation();
       //試合情報を追加
       const newMatchInformation = updateMatchInformation(matchInformation);
 
       //アンマウントされていなければステートを更新
       if (!unmounted) {
-        setRows(newMatchInformation);
+        setMatchData(newMatchInformation);
       }
     })();
     //クリーンアップ関数を返す
@@ -115,9 +115,9 @@ const Home = ({ history }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
+              {matchData
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
+                .map((match, index) => {
                   return (
                     <TableRow
                       hover
@@ -127,12 +127,12 @@ const Home = ({ history }) => {
                       onClick={() => {
                         history.push({
                           pathname: `/chat/${index}`,
-                          state: { match: row.title }, //試合のタイトル名を渡す
+                          state: { match: match.title, url: match.url },
                         });
                       }}
                     >
                       {columns.map((column, index) => {
-                        const value = row[column.id];
+                        const value = match[column.id];
                         return (
                           <TableCell key={index} align={column.align}>
                             {column.format && typeof value === 'number'
@@ -150,7 +150,7 @@ const Home = ({ history }) => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component='div'
-          count={rows.length}
+          count={matchData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
@@ -160,9 +160,9 @@ const Home = ({ history }) => {
       {adminUser && (
         <div style={{ margin: '50px 0 60px' }}>
           <Divider />
-          <MatchInformation
-            fetchMatches={fetchMatches}
-            setRows={setRows}
+          <AddMatchInformation
+            getMatcheInformation={getMatcheInformation}
+            setMatchData={setMatchData}
             updateMatchInformation={updateMatchInformation}
           />
         </div>

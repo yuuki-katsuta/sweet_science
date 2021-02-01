@@ -2,8 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../auth/AuthProvider';
 import { Redirect } from 'react-router-dom';
 import { db } from '../base';
+import ReactPlayer from 'react-player/youtube';
 
-const Chat = ({ history, match, location }) => {
+const Chat = ({ history, location }) => {
   const { currentUser } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
@@ -63,9 +64,16 @@ const Chat = ({ history, match, location }) => {
   };
 
   return location.state ? (
-    <div>
-      <p>chat {match.params.id}</p>
-      <h2>{location.state.match}</h2>
+    <div style={{ margin: '0  0 100px' }}>
+      <h1>{location.state.match}</h1>
+      <ReactPlayer
+        url={location.state.url}
+        controls={true}
+        width='90%'
+        height='450px'
+        style={{ margin: '0 auto' }}
+      />
+
       <input
         value={text}
         onChange={(e) => {

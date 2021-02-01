@@ -6,15 +6,16 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const MatchInformation = ({
-  fetchMatches,
-  setRows,
+const AddMatchInformation = ({
+  getMatcheInformation,
+  setMatchData,
   updateMatchInformation,
 }) => {
   const [fighter1, setFighter1] = useState('');
   const [fighter2, setFighter2] = useState('');
   const [division, setiDvision] = useState('');
   const [date, setDate] = useState('');
+  const [url, setUrl] = useState('');
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,11 +27,6 @@ const MatchInformation = ({
     },
     fab: {
       margin: theme.spacing(2),
-    },
-    absolute: {
-      position: 'absolute',
-      bottom: theme.spacing(2),
-      right: theme.spacing(3),
     },
   }));
   const classes = useStyles();
@@ -45,17 +41,19 @@ const MatchInformation = ({
           fighter2: fighter2,
           division: division,
           date: date,
+          url: url,
           createdAt: new Date(),
         })
         .then(async () => {
-          const matchInformation = await fetchMatches();
+          const matchInformation = await getMatcheInformation();
           //試合情報を追加
           const newMatchInformation = updateMatchInformation(matchInformation);
-          setRows(newMatchInformation);
+          setMatchData(newMatchInformation);
           setFighter1('');
           setFighter2('');
           setiDvision('');
           setDate('');
+          setUrl('');
         });
   };
 
@@ -98,6 +96,16 @@ const MatchInformation = ({
             setDate(e.target.value);
           }}
         />
+        <TextField
+          fullWidth={true}
+          id='url'
+          label='video url'
+          color='secondary'
+          value={url}
+          onChange={(e) => {
+            setUrl(e.target.value);
+          }}
+        />
       </form>
       <div style={{ display: 'flex', justifyContent: 'flex-End' }}>
         <Tooltip title='Add' aria-label='add'>
@@ -116,4 +124,4 @@ const MatchInformation = ({
     </>
   );
 };
-export default MatchInformation;
+export default AddMatchInformation;
