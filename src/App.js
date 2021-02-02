@@ -20,14 +20,16 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Header />
-        <Container maxWidth='md'>
-          <Main>
+        <Main>
+          <Container maxWidth='md'>
             <PrivateRoute exact path='/' component={Home} />
-            <PrivateRoute exact path='/chat/:id' component={Chat} />
             <Route exact path='/signup' component={SignUp} />
             <Route exact path='/login' component={Login} />
-          </Main>
-        </Container>
+          </Container>
+          <Container maxWidth='lg'>
+            <PrivateRoute exact path='/chat/:id' component={Chat} />
+          </Container>
+        </Main>
       </BrowserRouter>
     </AuthProvider>
   );

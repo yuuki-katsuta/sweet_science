@@ -3,11 +3,13 @@ import { AuthContext } from '../auth/AuthProvider';
 import { Redirect } from 'react-router-dom';
 import { db } from '../base';
 import ReactPlayer from 'react-player/youtube';
+import MediaQuery from 'react-responsive';
 
 const Chat = ({ history, location }) => {
   const { currentUser } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
+  const [loadError, isloadError] = useState(false);
 
   //データ取得
   const fetchMessages = () => {
@@ -37,6 +39,10 @@ const Chat = ({ history, location }) => {
       const messages = await fetchMessages();
       if (!unmounted) {
         setMessages(messages);
+        //URLを再生できない場合発火
+        if (ReactPlayer.canPlay(location.state.url) === false) {
+          isloadError(true);
+        }
       }
     })();
     return () => {
@@ -66,13 +72,37 @@ const Chat = ({ history, location }) => {
   return location.state ? (
     <div style={{ margin: '0  0 100px' }}>
       <h1>{location.state.match}</h1>
-      <ReactPlayer
-        url={location.state.url}
-        controls={true}
-        width='90%'
-        height='450px'
-        style={{ margin: '0 auto' }}
-      />
+
+      {location.state.url ? (
+        <div>
+          {loadError ? (
+            <h4>Unable to load video...</h4>
+          ) : (
+            <div>
+              <MediaQuery query='(max-width: 659px)'>
+                <ReactPlayer
+                  width='100%'
+                  height='250px'
+                  controls={true}
+                  style={{ margin: '0 auto' }}
+                  url={location.state.url}
+                />
+              </MediaQuery>
+              <MediaQuery query='(min-width: 660px)'>
+                <ReactPlayer
+                  width='70%'
+                  height='450px'
+                  controls={true}
+                  style={{ margin: '0 auto' }}
+                  url={location.state.url}
+                />
+              </MediaQuery>
+            </div>
+          )}
+        </div>
+      ) : (
+        <h4>I'm sorry, there is no video...</h4>
+      )}
 
       <input
         value={text}

@@ -33,7 +33,7 @@ const AddMatchInformation = ({
 
   //追加
   const addChat = () => {
-    if (fighter1)
+    if (fighter1 && fighter2 && division && date) {
       db.collection('chats')
         .doc(`${fighter1} vs ${fighter2}`)
         .set({
@@ -55,6 +55,9 @@ const AddMatchInformation = ({
           setDate('');
           setUrl('');
         });
+    } else {
+      alert('item is not entered');
+    }
   };
 
   return (
