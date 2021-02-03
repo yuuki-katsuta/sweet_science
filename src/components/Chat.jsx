@@ -95,7 +95,7 @@ const Chat = ({ history, location }) => {
                   width='560'
                   height='315'
                   src={`https://www.youtube.com/embed/${location.state.id}`}
-                  frameBorder='0'
+                  frameBorder='1'
                   allowFullScreen
                 ></iframe>
               </div>
