@@ -2,14 +2,13 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../auth/AuthProvider';
 import { Redirect } from 'react-router-dom';
 import { db } from '../base';
-import ReactPlayer from 'react-player/youtube';
-import MediaQuery from 'react-responsive';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 const Chat = ({ history, location }) => {
   const { currentUser } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
-  const [loadError, isloadError] = useState(false);
 
   //データ取得
   const fetchMessages = () => {
@@ -39,10 +38,6 @@ const Chat = ({ history, location }) => {
       const messages = await fetchMessages();
       if (!unmounted) {
         setMessages(messages);
-        //URLを再生できない場合発火
-        if (ReactPlayer.canPlay(location.state.url) === false) {
-          isloadError(true);
-        }
       }
     })();
     return () => {
@@ -69,65 +64,73 @@ const Chat = ({ history, location }) => {
       });
   };
 
+  const useStyles = makeStyles({
+    videoWrapper: {
+      position: 'relative',
+      width: '100%',
+      paddingTop: '56.25%',
+      margin: '0 auto',
+    },
+    video: {
+      position: 'absolute',
+      top: '0',
+      right: '0',
+      width: '100%',
+      height: '100%',
+    },
+  });
+  const classes = useStyles();
+
   return location.state ? (
     <div style={{ margin: '0  0 100px' }}>
-      <h1>{location.state.match}</h1>
-
-      {location.state.url ? (
-        <div>
-          {loadError ? (
-            <h4>Unable to load video...</h4>
-          ) : (
+      <Container maxWidth='md'>
+        <h1>{location.state.match}</h1>
+        {location.state.id ? (
+          <div>
             <div>
-              <MediaQuery query='(max-width: 659px)'>
-                <ReactPlayer
-                  width='100%'
-                  height='250px'
-                  controls={true}
-                  style={{ margin: '0 auto' }}
-                  url={location.state.url}
-                />
-              </MediaQuery>
-              <MediaQuery query='(min-width: 660px)'>
-                <ReactPlayer
-                  width='70%'
-                  height='450px'
-                  controls={true}
-                  style={{ margin: '0 auto' }}
-                  url={location.state.url}
-                />
-              </MediaQuery>
+              <div className={classes.videoWrapper}>
+                <iframe
+                  className={classes.video}
+                  title={location.state.title}
+                  width='560'
+                  height='315'
+                  src={`https://www.youtube.com/embed/${location.state.id}`}
+                  frameBorder='0'
+                  allowFullScreen
+                ></iframe>
+              </div>
             </div>
-          )}
-        </div>
-      ) : (
-        <h4>I'm sorry, there is no video...</h4>
-      )}
+          </div>
+        ) : (
+          <h4>I'm sorry, there is no video...</h4>
+        )}
+      </Container>
+      <Container maxWidth='lg'>
+        <input
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+        />
+        <button
+          onClick={() => {
+            messageAdd();
+          }}
+        >
+          送信
+        </button>
 
-      <input
-        value={text}
-        onChange={(e) => {
-          setText(e.target.value);
-        }}
-      />
-      <button
-        onClick={() => {
-          messageAdd();
-        }}
-      >
-        送信
-      </button>
-
-      {messages.map((data, index) => {
-        return <div key={index}>{data.message}</div>;
-      })}
-      <button
-        onClick={() => {
-          history.push('/');
-        }}
-      >
-        戻る
-      </button>
+        {messages.map((data, index) => {
+          return <div key={index}>{data.message}</div>;
+        })}
+        <button
+          onClick={() => {
+            history.push('/');
+          }}
+        >
+          戻る
+        </button>
+      </Container>
     </div>
   ) : (
     <Redirect to={'/'} />

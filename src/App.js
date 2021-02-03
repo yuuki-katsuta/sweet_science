@@ -26,9 +26,7 @@ function App() {
             <Route exact path='/signup' component={SignUp} />
             <Route exact path='/login' component={Login} />
           </Container>
-          <Container maxWidth='lg'>
-            <PrivateRoute exact path='/chat/:id' component={Chat} />
-          </Container>
+          <PrivateRoute exact path='/chat/:id' component={Chat} />
         </Main>
       </BrowserRouter>
     </AuthProvider>

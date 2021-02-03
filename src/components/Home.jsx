@@ -70,7 +70,7 @@ const Home = ({ history }) => {
         division: match.division,
         fighter1: match.fighter1,
         fighter2: match.fighter2,
-        url: match.url,
+        videoId: match.url.split('v=')[1],
       });
     });
     return newMatchInformation;
@@ -127,7 +127,7 @@ const Home = ({ history }) => {
                       onClick={() => {
                         history.push({
                           pathname: `/chat/${index}`,
-                          state: { match: match.title, url: match.url },
+                          state: { match: match.title, id: match.videoId },
                         });
                       }}
                     >

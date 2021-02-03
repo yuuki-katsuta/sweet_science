@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = () => {
+const Header = ({ history }) => {
   const { currentUser, setAdminUser } = useContext(AuthContext);
 
   const classes = useStyles();
@@ -77,6 +77,7 @@ const Header = () => {
                   style={{ margin: '0' }}
                   onClick={() => {
                     auth.signOut();
+                    history.push('/login');
                     setAdminUser(false);
                   }}
                 >
