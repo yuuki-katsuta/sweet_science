@@ -11,11 +11,11 @@ const Chat = ({ history, location }) => {
   const [text, setText] = useState('');
 
   //データ取得
-  const fetchMessages = () => {
+  const getMessages = () => {
     if (!location.state) return;
     return db
       .collection('chats')
-      .doc(`${location.state.match}`)
+      .doc(`${location.state.title}`)
       .collection('messages')
       .orderBy('createdAt', 'desc')
       .get()
@@ -25,9 +25,11 @@ const Chat = ({ history, location }) => {
           if (doc.data()) {
             msg.push({
               message: doc.data().message,
+              user: doc.data().user,
             });
           }
         });
+        //配列の要素を反転
         return msg.reverse();
       });
   };
@@ -35,7 +37,7 @@ const Chat = ({ history, location }) => {
   useEffect(() => {
     let unmounted = false;
     (async () => {
-      const messages = await fetchMessages();
+      const messages = await getMessages();
       if (!unmounted) {
         setMessages(messages);
       }
@@ -50,7 +52,7 @@ const Chat = ({ history, location }) => {
   const messageAdd = () => {
     if (text === '') return;
     db.collection('chats')
-      .doc(`${location.state.match}`)
+      .doc(`${location.state.title}`)
       .collection('messages')
       .add({
         user: currentUser.displayName,
@@ -58,17 +60,19 @@ const Chat = ({ history, location }) => {
         createdAt: new Date(),
       })
       .then(async () => {
-        const result = await fetchMessages();
+        const result = await getMessages();
         setMessages(result);
         setText('');
       });
   };
 
   const useStyles = makeStyles({
-    videoWrapper: {
+    movieInner: {
       position: 'relative',
-      width: '100%',
       paddingTop: '56.25%',
+    },
+    videoWrapper: {
+      width: '90%',
       margin: '0 auto',
     },
     video: {
@@ -84,11 +88,11 @@ const Chat = ({ history, location }) => {
   return location.state ? (
     <div style={{ margin: '0  0 100px' }}>
       <Container maxWidth='md'>
-        <h1>{location.state.match}</h1>
+        <h1>{location.state.title}</h1>
         {location.state.id ? (
           <div>
-            <div>
-              <div className={classes.videoWrapper}>
+            <div className={classes.videoWrapper}>
+              <div className={classes.movieInner}>
                 <iframe
                   className={classes.video}
                   title={location.state.title}
@@ -121,7 +125,11 @@ const Chat = ({ history, location }) => {
         </button>
 
         {messages.map((data, index) => {
-          return <div key={index}>{data.message}</div>;
+          return (
+            <div key={index}>
+              {data.user}: {data.message}
+            </div>
+          );
         })}
         <button
           onClick={() => {

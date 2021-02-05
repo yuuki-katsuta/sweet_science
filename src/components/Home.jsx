@@ -16,40 +16,21 @@ const Home = ({ history }) => {
       .orderBy('createdAt', 'desc')
       .get()
       .then((querySnapshot) => {
-        const newChats = [];
+        const newMatcheInformation = [];
         querySnapshot.forEach((doc) => {
-          newChats.push(doc.data());
+          newMatcheInformation.push(doc.data());
         });
-        return newChats;
+        return newMatcheInformation;
       });
-  };
-
-  const updateMatchInformation = (matchInformation) => {
-    const newMatchInformation = [];
-    matchInformation.forEach((match, index) => {
-      newMatchInformation.push({
-        id: index,
-        title: `${match.fighter1} vs ${match.fighter2}`,
-        date: match.date,
-        division: match.division,
-        fighter1: match.fighter1,
-        fighter2: match.fighter2,
-        videoId: match.url.split('v=')[1],
-      });
-    });
-    return newMatchInformation;
   };
 
   useEffect(() => {
     let unmounted = false;
     (async () => {
       const matchInformation = await getMatcheInformation();
-      //試合情報を追加
-      const newMatchInformation = updateMatchInformation(matchInformation);
-
       //アンマウントされていなければステートを更新
       if (!unmounted) {
-        setMatchData(newMatchInformation);
+        setMatchData(matchInformation);
       }
     })();
     //クリーンアップ関数を返す
@@ -61,7 +42,7 @@ const Home = ({ history }) => {
 
   return (
     <div>
-      <h2>試合一覧</h2>
+      <h2>Match List</h2>
       <MatchList history={history} matchData={matchData} />
       {adminUser && (
         <div style={{ margin: '50px 0 60px' }}>
@@ -69,7 +50,6 @@ const Home = ({ history }) => {
           <AddMatchInformation
             getMatcheInformation={getMatcheInformation}
             setMatchData={setMatchData}
-            updateMatchInformation={updateMatchInformation}
           />
         </div>
       )}

@@ -31,8 +31,7 @@ const MatchList = ({ history, matchData }) => {
 
   //テーブルに表示するデータ
   const columns = [
-    { id: 'id', label: 'ID', minWidth: 100 },
-    { id: 'date', label: 'date', minWidth: 120 },
+    { id: 'date', label: 'date', minWidth: 140 },
     { id: 'division', label: 'division', minWidth: 150 },
     { id: 'fighter1', label: 'fighter', minWidth: 190 },
     { id: 'fighter2', label: 'fighter', minWidth: 190 },
@@ -67,7 +66,7 @@ const MatchList = ({ history, matchData }) => {
                     onClick={() => {
                       history.push({
                         pathname: `/chat/${index}`,
-                        state: { match: match.title, id: match.videoId },
+                        state: { title: match.title, id: match.videoId },
                       });
                     }}
                   >

@@ -6,11 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const AddMatchInformation = ({
-  getMatcheInformation,
-  setMatchData,
-  updateMatchInformation,
-}) => {
+const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
   const [fighter1, setFighter1] = useState('');
   const [fighter2, setFighter2] = useState('');
   const [division, setiDvision] = useState('');
@@ -34,21 +30,22 @@ const AddMatchInformation = ({
   //追加
   const addChat = () => {
     if (fighter1 && fighter2 && division && date) {
+      //urlから動画のIdを取得
+      const videoId = url ? url.split('v=')[1] : null;
       db.collection('chats')
         .doc(`${fighter1} vs ${fighter2}`)
         .set({
+          title: `${fighter1} vs ${fighter2}`,
           fighter1: fighter1,
           fighter2: fighter2,
           division: division,
           date: date,
-          url: url,
+          videoId: videoId,
           createdAt: new Date(),
         })
         .then(async () => {
           const matchInformation = await getMatcheInformation();
-          //試合情報を追加
-          const newMatchInformation = updateMatchInformation(matchInformation);
-          setMatchData(newMatchInformation);
+          setMatchData(matchInformation);
           setFighter1('');
           setFighter2('');
           setiDvision('');
