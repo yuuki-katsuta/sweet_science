@@ -28,6 +28,7 @@ const Chat = ({ history, location }) => {
             msg.push({
               message: doc.data().message,
               user: doc.data().user,
+              uid: doc.data().uid,
             });
           }
         });
@@ -59,6 +60,7 @@ const Chat = ({ history, location }) => {
       .add({
         user: currentUser.displayName,
         message: text,
+        uid: currentUser.uid,
         createdAt: new Date(),
       })
       .then(async () => {
@@ -73,6 +75,8 @@ const Chat = ({ history, location }) => {
       overflow: 'auto',
       gridRow: 1,
       width: '100%',
+      maxWidth: '1100px',
+      margin: '0 auto',
     },
     movieInner: {
       position: 'relative',
@@ -89,12 +93,15 @@ const Chat = ({ history, location }) => {
       width: '100%',
       height: '100%',
     },
+    ownMessage: {
+      backgroundColor: '#F5F5F5',
+    },
   });
   const classes = useStyles();
 
   return location.state ? (
     <div style={{ margin: '0  0 100px' }}>
-      <Container maxWidth='md'>
+      <Container maxWidth='md' disableGutters={true}>
         <h1>{location.state.title}</h1>
         {location.state.id ? (
           <div>
@@ -116,7 +123,11 @@ const Chat = ({ history, location }) => {
           <h4>I'm sorry, there is no video...</h4>
         )}
       </Container>
-      <Container maxWidth='lg'>
+      <Container
+        maxWidth='lg'
+        disableGutters={true}
+        style={{ padding: '0 10px' }}
+      >
         <input
           value={text}
           onChange={(e) => {
@@ -131,12 +142,16 @@ const Chat = ({ history, location }) => {
           送信
         </button>
 
-        <List
-          className={classes.list}
-          style={{ maxWidth: '1100px', margin: '0 auto' }}
-        >
-          {messages.map(({ user, message }, index) => {
-            return <MessageItem key={index} name={user} message={message} />;
+        <List className={classes.root}>
+          {messages.map(({ user, uid, message }, index) => {
+            return (
+              <div
+                key={index}
+                className={uid === currentUser.uid ? classes.ownMessage : null}
+              >
+                <MessageItem name={user} message={message} />
+              </div>
+            );
           })}
         </List>
 
