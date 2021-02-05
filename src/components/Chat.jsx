@@ -3,7 +3,9 @@ import { AuthContext } from '../auth/AuthProvider';
 import { Redirect } from 'react-router-dom';
 import { db } from '../base';
 import { makeStyles } from '@material-ui/core/styles';
+import MessageItem from './MessageItem';
 import Container from '@material-ui/core/Container';
+import List from '@material-ui/core/List';
 
 const Chat = ({ history, location }) => {
   const { currentUser } = useContext(AuthContext);
@@ -67,6 +69,11 @@ const Chat = ({ history, location }) => {
   };
 
   const useStyles = makeStyles({
+    list: {
+      overflow: 'auto',
+      gridRow: 1,
+      width: '100%',
+    },
     movieInner: {
       position: 'relative',
       paddingTop: '56.25%',
@@ -124,13 +131,15 @@ const Chat = ({ history, location }) => {
           送信
         </button>
 
-        {messages.map((data, index) => {
-          return (
-            <div key={index}>
-              {data.user}: {data.message}
-            </div>
-          );
-        })}
+        <List
+          className={classes.list}
+          style={{ maxWidth: '1100px', margin: '0 auto' }}
+        >
+          {messages.map(({ user, message }, index) => {
+            return <MessageItem key={index} name={user} message={message} />;
+          })}
+        </List>
+
         <button
           onClick={() => {
             history.push('/');
