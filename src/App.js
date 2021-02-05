@@ -21,10 +21,12 @@ function App() {
       <BrowserRouter>
         <Header />
         <Main>
-          <Container maxWidth='md'>
-            <PrivateRoute exact path='/' component={Home} />
+          <Container maxWidth='sm'>
             <Route exact path='/signup' component={SignUp} />
             <Route exact path='/login' component={Login} />
+          </Container>
+          <Container maxWidth='md'>
+            <PrivateRoute exact path='/' component={Home} />
           </Container>
           <PrivateRoute exact path='/chat/:id' component={Chat} />
         </Main>

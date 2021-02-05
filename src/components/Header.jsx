@@ -75,8 +75,8 @@ const Header = ({ history }) => {
               <MenuItem onClick={handleClose}>
                 <p
                   style={{ margin: '0' }}
-                  onClick={() => {
-                    auth.signOut();
+                  onClick={async () => {
+                    await auth.signOut();
                     history.push('/login');
                     setAdminUser(false);
                   }}

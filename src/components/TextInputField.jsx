@@ -13,7 +13,7 @@ const TextInputField = ({
   return (
     <TextField
       size='medium'
-      style={{ margin: '16px 0', width: '65%' }}
+      style={{ margin: '16px 0', width: '100%', maxWidth: '552px' }}
       name={name}
       id={id}
       label={label}
