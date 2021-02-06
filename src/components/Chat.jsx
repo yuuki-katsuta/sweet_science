@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
+import RoomIcon from '@material-ui/icons/Room';
 
 const Chat = ({ history, location }) => {
   const { currentUser } = useContext(AuthContext);
@@ -22,7 +23,7 @@ const Chat = ({ history, location }) => {
     if (!location.state) return;
     return db
       .collection('chats')
-      .doc(`${location.state.title}`)
+      .doc(`${location.state.matchData.title}`)
       .collection('messages')
       .orderBy('createdAt', 'desc')
       .get()
@@ -60,7 +61,7 @@ const Chat = ({ history, location }) => {
   const messageAdd = () => {
     if (text === '') return;
     db.collection('chats')
-      .doc(`${location.state.title}`)
+      .doc(`${location.state.matchData.title}`)
       .collection('messages')
       .add({
         user: currentUser.displayName,
@@ -88,8 +89,9 @@ const Chat = ({ history, location }) => {
       paddingTop: '56.25%',
     },
     videoWrapper: {
-      width: '90%',
+      width: '95%',
       margin: '0 auto',
+      maxWidth: '830px',
     },
     video: {
       position: 'absolute',
@@ -108,20 +110,33 @@ const Chat = ({ history, location }) => {
   return location.state ? (
     <div style={{ margin: '0  0 50px' }}>
       <Container maxWidth='md' disableGutters={true}>
-        <h1>{location.state.title}</h1>
-        {location.state.id ? (
+        <h1>{location.state.matchData.title}</h1>
+        {location.state.matchData.videoId ? (
           <div>
             <div className={classes.videoWrapper}>
               <div className={classes.movieInner}>
                 <iframe
                   className={classes.video}
-                  title={location.state.title}
+                  title={location.state.matchData.title}
                   width='560'
                   height='315'
-                  src={`https://www.youtube.com/embed/${location.state.id}`}
+                  src={`https://www.youtube.com/embed/${location.state.matchData.videoId}`}
                   frameBorder='1'
                   allowFullScreen
                 ></iframe>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <p>
+                  <span>
+                    <RoomIcon fontSize='small' />
+                  </span>
+                  {location.state.matchData.venue}
+                </p>
+                <p>
+                  {/* {location.state.matchData.score} */}
+                  {/* referee: Ernie Sharif | Luigi Boscarelli 116-111 | Robert
+                  Hoyle 114-113 | Octavio Rodriguez 117-109 */}
+                </p>
               </div>
             </div>
           </div>

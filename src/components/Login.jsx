@@ -15,7 +15,7 @@ const Login = ({ history }) => {
     login(email, password, history);
   };
   return isLoading ? (
-    <CircularProgress />
+    <CircularProgress style={{ marginTop: '180px' }} />
   ) : currentUser ? (
     <Redirect to={'/'} />
   ) : (

@@ -12,6 +12,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
   const [division, setiDvision] = useState('');
   const [date, setDate] = useState('');
   const [url, setUrl] = useState('');
+  const [venue, setVenue] = useState('');
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,6 +43,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           date: date,
           videoId: videoId,
           createdAt: new Date(),
+          venue: venue,
         })
         .then(async () => {
           const matchInformation = await getMatcheInformation();
@@ -51,6 +53,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           setiDvision('');
           setDate('');
           setUrl('');
+          setVenue('');
         });
     } else {
       alert('item is not entered');
@@ -105,6 +108,16 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           value={url}
           onChange={(e) => {
             setUrl(e.target.value);
+          }}
+        />
+        <TextField
+          fullWidth={true}
+          id='venue'
+          label='venue'
+          color='secondary'
+          value={venue}
+          onChange={(e) => {
+            setVenue(e.target.value);
           }}
         />
       </form>
