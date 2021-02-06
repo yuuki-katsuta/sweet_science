@@ -30,7 +30,10 @@ const MessageItem = ({ name, message }) => {
             className={classes.inline}
             color='textPrimary'
           >
-            {message}
+            {/* {message} */}
+            {message.split('\n').map((t, i) => {
+              return <div key={i}>{t}</div>;
+            })}
           </Typography>
         }
       />
