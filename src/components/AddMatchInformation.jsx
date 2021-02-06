@@ -13,6 +13,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
   const [date, setDate] = useState('');
   const [url, setUrl] = useState('');
   const [venue, setVenue] = useState('');
+  const [score, setScore] = useState('');
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,7 +31,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
 
   //追加
   const addChat = () => {
-    if (fighter1 && fighter2 && division && date) {
+    if (fighter1 && fighter2 && division && date && venue) {
       //urlから動画のIdを取得
       const videoId = url ? url.split('v=')[1] : null;
       db.collection('chats')
@@ -44,6 +45,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           videoId: videoId,
           createdAt: new Date(),
           venue: venue,
+          score: score,
         })
         .then(async () => {
           const matchInformation = await getMatcheInformation();
@@ -54,6 +56,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           setDate('');
           setUrl('');
           setVenue('');
+          setScore('');
         });
     } else {
       alert('item is not entered');
@@ -118,6 +121,16 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           value={venue}
           onChange={(e) => {
             setVenue(e.target.value);
+          }}
+        />
+        <TextField
+          fullWidth={true}
+          id='score'
+          label='score'
+          color='secondary'
+          value={score}
+          onChange={(e) => {
+            setScore(e.target.value);
           }}
         />
       </form>

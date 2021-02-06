@@ -132,16 +132,23 @@ const Chat = ({ history, location }) => {
                   </span>
                   {location.state.matchData.venue}
                 </p>
-                <p>
-                  {/* {location.state.matchData.score} */}
-                  {/* referee: Ernie Sharif | Luigi Boscarelli 116-111 | Robert
-                  Hoyle 114-113 | Octavio Rodriguez 117-109 */}
-                </p>
+                <p>{location.state.matchData.score}</p>
               </div>
             </div>
           </div>
         ) : (
-          <h4>I'm sorry, there is no video...</h4>
+          <div>
+            <h4>I'm sorry, there is no video...</h4>
+            <div>
+              <p>
+                <span>
+                  <RoomIcon fontSize='small' />
+                </span>
+                {location.state.matchData.venue}
+              </p>
+              <p>{location.state.matchData.score}</p>
+            </div>
+          </div>
         )}
       </Container>
       <Container
