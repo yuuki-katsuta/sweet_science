@@ -14,17 +14,23 @@ const Main = styled.main`
   text-align: center;
   margin: 50px auto 0;
 `;
+const Auth = styled.div`
+  text-align: center;
+  margin: 100px auto 0;
+`;
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Header />
-        <Main>
-          <Container maxWidth='sm'>
+        <Container maxWidth='sm'>
+          <Auth>
             <Route exact path='/signup' component={SignUp} />
             <Route exact path='/login' component={Login} />
-          </Container>
+          </Auth>
+        </Container>
+        <Main>
           <Container maxWidth='md'>
             <PrivateRoute exact path='/' component={Home} />
           </Container>

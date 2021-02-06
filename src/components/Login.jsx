@@ -19,7 +19,7 @@ const Login = ({ history }) => {
   ) : currentUser ? (
     <Redirect to={'/'} />
   ) : (
-    <div>
+    <div style={{ maxWidth: '552px', margin: '0 auto' }}>
       <h1>ログイン</h1>
       <form>
         <TextInputField
