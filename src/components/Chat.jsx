@@ -10,8 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 
 const Chat = ({ history, location }) => {
   const { currentUser } = useContext(AuthContext);
@@ -98,6 +97,7 @@ const Chat = ({ history, location }) => {
       right: '0',
       width: '100%',
       height: '100%',
+      border: 'medium solid #222222',
     },
     ownMessage: {
       backgroundColor: '#F5F5F5',
@@ -106,7 +106,7 @@ const Chat = ({ history, location }) => {
   const classes = useStyles();
 
   return location.state ? (
-    <div style={{ margin: '0  0 100px' }}>
+    <div style={{ margin: '0  0 50px' }}>
       <Container maxWidth='md' disableGutters={true}>
         <h1>{location.state.title}</h1>
         {location.state.id ? (
@@ -150,19 +150,21 @@ const Chat = ({ history, location }) => {
         <div style={{ width: '70%', margin: '0 auto' }}>
           <Grid container>
             <Grid item xs={1} style={{ position: 'relative' }}>
-              <ListItemIcon
+              <IconButton
                 style={{
                   position: 'absolute',
-                  bottom: '0',
-                  left: '16px',
+                  bottom: '-10px',
+                  right: '10px',
+                }}
+                onClick={() => {
+                  history.push('/');
                 }}
               >
-                <AccountCircleIcon fontSize='large' />
-              </ListItemIcon>
+                <KeyboardReturnIcon fontSize='large' />
+              </IconButton>
             </Grid>
             <Grid item xs={10}>
               <TextField
-                // style={{ width: '100%' }}
                 fullWidth={true}
                 id='standard-multiline-static'
                 label='メッセージを送る'
@@ -188,13 +190,6 @@ const Chat = ({ history, location }) => {
           </Grid>
         </div>
       </Container>
-      <button
-        onClick={() => {
-          history.push('/');
-        }}
-      >
-        戻る
-      </button>
     </div>
   ) : (
     <Redirect to={'/'} />

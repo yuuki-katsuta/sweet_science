@@ -17,9 +17,9 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
     root: {
       '& > *': {
         margin: theme.spacing(1),
-        width: '25ch',
+        width: '30ch',
       },
-      margin: '30px 0 0',
+      margin: '16px 0 0',
     },
     fab: {
       margin: theme.spacing(2),
@@ -59,6 +59,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
 
   return (
     <>
+      <h2>Add Match</h2>
       <form className={classes.root} noValidate autoComplete='off'>
         <TextField
           id='fighter1'

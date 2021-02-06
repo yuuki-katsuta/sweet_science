@@ -12,7 +12,7 @@ import Container from '@material-ui/core/Container';
 
 const Main = styled.main`
   text-align: center;
-  margin: 80px auto 0;
+  margin: 50px auto 0;
 `;
 
 function App() {
