@@ -100,6 +100,7 @@ const Chat = ({ history, location }) => {
       width: '100%',
       height: '100%',
       border: 'medium solid #222222',
+      boxShadow: '0px 0px 10px',
     },
     ownMessage: {
       backgroundColor: '#F5F5F5',
@@ -127,12 +128,15 @@ const Chat = ({ history, location }) => {
               </div>
               <div style={{ textAlign: 'right' }}>
                 <p>
+                  {location.state.matchData.date}(JST)
                   <span>
                     <RoomIcon fontSize='small' />
                   </span>
                   {location.state.matchData.venue}
                 </p>
-                <p>{location.state.matchData.score}</p>
+                {location.state.matchData.overview.split('\n').map((t, i) => {
+                  return <p key={i}>{t}</p>;
+                })}
               </div>
             </div>
           </div>
@@ -141,12 +145,15 @@ const Chat = ({ history, location }) => {
             <h4>I'm sorry, there is no video...</h4>
             <div>
               <p>
+                <span>{location.state.matchData.date} </span>
                 <span>
                   <RoomIcon fontSize='small' />
                 </span>
                 {location.state.matchData.venue}
               </p>
-              <p>{location.state.matchData.score}</p>
+              {location.state.matchData.overview.split('\n').map((t, i) => {
+                return <p key={i}>{t}</p>;
+              })}
             </div>
           </div>
         )}

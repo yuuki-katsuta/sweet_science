@@ -13,7 +13,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
   const [date, setDate] = useState('');
   const [url, setUrl] = useState('');
   const [venue, setVenue] = useState('');
-  const [score, setScore] = useState('');
+  const [overview, setOverview] = useState('');
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,7 +45,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           videoId: videoId,
           createdAt: new Date(),
           venue: venue,
-          score: score,
+          overview: overview,
         })
         .then(async () => {
           const matchInformation = await getMatcheInformation();
@@ -56,7 +56,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           setDate('');
           setUrl('');
           setVenue('');
-          setScore('');
+          setOverview('');
         });
     } else {
       alert('item is not entered');
@@ -125,12 +125,13 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
         />
         <TextField
           fullWidth={true}
-          id='score'
-          label='score'
-          color='secondary'
-          value={score}
+          id='standard-multiline-static'
+          label='write overview...'
+          multiline
+          rows={2}
+          value={overview}
           onChange={(e) => {
-            setScore(e.target.value);
+            setOverview(e.target.value);
           }}
         />
       </form>

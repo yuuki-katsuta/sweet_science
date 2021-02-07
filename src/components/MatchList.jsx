@@ -31,11 +31,11 @@ const MatchList = ({ history, matchData }) => {
 
   //テーブルに表示するデータ
   const columns = [
-    { id: 'date', label: 'date', minWidth: 100 },
+    { id: 'date', label: 'date', minWidth: 120 },
     { id: 'division', label: 'division', minWidth: 130 },
     { id: 'fighter1', label: 'fighter', minWidth: 190 },
     { id: 'fighter2', label: 'fighter', minWidth: 190 },
-    { id: 'venue', label: 'venue', minWidth: 100 },
+    { id: 'venue', label: 'venue', minWidth: 180 },
   ];
   return (
     <Paper className={classes.root}>
