@@ -3,6 +3,8 @@ import { auth } from '../base';
 import { withRouter } from 'react-router';
 import { AuthContext } from '../auth/AuthProvider';
 import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -23,6 +25,13 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
 }));
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#424242',
+    },
+  },
+});
 
 const Header = ({ history }) => {
   const { currentUser, setAdminUser } = useContext(AuthContext);
@@ -39,56 +48,58 @@ const Header = ({ history }) => {
     setAnchorEl(null);
   };
   return currentUser ? (
-    <div className={classes.root}>
-      <FormGroup></FormGroup>
-      <AppBar position='static'>
-        <Toolbar>
-          <Typography variant='h6' className={classes.title}>
-            Sweet Science
-          </Typography>
-          <div>
-            <IconButton
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              onClick={handleMenu}
-              color='inherit'
-            >
-              <AccountCircle fontSize='large' />
-            </IconButton>
-            <Menu
-              id='menu-appbar'
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>
-                <p
-                  style={{ margin: '0' }}
-                  onClick={async () => {
-                    await auth.signOut();
-                    history.push('/login');
-                    setAdminUser(false);
-                  }}
-                >
-                  Log out
-                </p>
-              </MenuItem>
-            </Menu>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <FormGroup></FormGroup>
+        <AppBar position='fixed'>
+          <Toolbar>
+            <Typography variant='h6' className={classes.title}>
+              Sweet Science
+            </Typography>
+            <div>
+              <IconButton
+                aria-label='account of current user'
+                aria-controls='menu-appbar'
+                aria-haspopup='true'
+                onClick={handleMenu}
+                color='inherit'
+              >
+                <AccountCircle fontSize='large' />
+              </IconButton>
+              <Menu
+                id='menu-appbar'
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <p
+                    style={{ margin: '0' }}
+                    onClick={async () => {
+                      await auth.signOut();
+                      history.push('/login');
+                      setAdminUser(false);
+                    }}
+                  >
+                    Log out
+                  </p>
+                </MenuItem>
+              </Menu>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+    </ThemeProvider>
   ) : null;
 };
 
