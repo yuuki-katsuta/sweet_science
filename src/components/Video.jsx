@@ -20,8 +20,7 @@ const Video = ({ matchData }) => {
       right: '0',
       width: '100%',
       height: '100%',
-      border: 'medium solid #222222',
-      boxShadow: '0px 0px 10px',
+      border: 'medium solid #666666',
     },
   });
   const classes = useStyles();
@@ -57,7 +56,7 @@ const Video = ({ matchData }) => {
           </div>
         </div>
       ) : (
-        <div>
+        <div style={{ marginBottom: '56px' }}>
           <h4>I'm sorry, there is no video...</h4>
           <div>
             <p>

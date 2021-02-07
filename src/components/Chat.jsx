@@ -78,10 +78,12 @@ const Chat = ({ history, location }) => {
       gridRow: 1,
       width: '100%',
       maxWidth: '1100px',
-      margin: '10px auto 10px',
+      margin: '24px auto 10px',
+      borderTop: 'medium solid #CCCCCC',
+      padding: 0,
     },
     ownMessage: {
-      backgroundColor: '#F5F5F5',
+      backgroundColor: 'white',
     },
   });
   const classes = useStyles();
@@ -94,18 +96,23 @@ const Chat = ({ history, location }) => {
         disableGutters={true}
         style={{ padding: '0 10px' }}
       >
-        <List className={classes.list}>
-          {messages.map(({ user, uid, message }, index) => {
-            return (
-              <div
-                key={index}
-                className={uid === currentUser.uid ? classes.ownMessage : null}
-              >
-                <MessageItem name={user} message={message} />
-              </div>
-            );
-          })}
-        </List>
+        {messages && (
+          <List className={classes.list}>
+            {messages.map(({ user, uid, message }, index) => {
+              return (
+                <div
+                  key={index}
+                  className={
+                    uid === currentUser.uid ? classes.ownMessage : null
+                  }
+                >
+                  <MessageItem name={user} message={message} />
+                </div>
+              );
+            })}
+          </List>
+        )}
+
         <MessageAddField
           history={history}
           messageAdd={messageAdd}
