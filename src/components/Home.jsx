@@ -40,9 +40,13 @@ const Home = ({ history }) => {
     // eslint-disable-next-line
   }, []);
 
+  const titleFont = {
+    fontFamily: 'Arimo',
+  };
+
   return (
     <div>
-      <h2>Match List</h2>
+      <h1 style={titleFont}>Match List</h1>
       <MatchList history={history} matchData={matchData} />
       {adminUser && (
         <div style={{ margin: '50px 0 60px' }}>

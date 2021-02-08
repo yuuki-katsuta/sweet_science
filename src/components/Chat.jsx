@@ -79,7 +79,7 @@ const Chat = ({ history, location }) => {
       width: '100%',
       maxWidth: '1100px',
       margin: '24px auto 10px',
-      borderTop: 'medium solid #CCCCCC',
+      borderTop: 'thin solid #CCCCCC',
       padding: 0,
     },
     ownMessage: {
@@ -97,7 +97,7 @@ const Chat = ({ history, location }) => {
         style={{ padding: '0 10px' }}
       >
         {messages && (
-          <List className={classes.list}>
+          <List className={messages.length === 0 ? null : classes.list}>
             {messages.map(({ user, uid, message }, index) => {
               return (
                 <div

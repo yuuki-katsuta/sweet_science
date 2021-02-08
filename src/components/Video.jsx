@@ -22,11 +22,15 @@ const Video = ({ matchData }) => {
       height: '100%',
       border: 'medium solid #666666',
     },
+    titleFont: {
+      fontFamily: 'Lato',
+    },
   });
+
   const classes = useStyles();
   return (
     <Container maxWidth='md' disableGutters={true}>
-      <h1>{matchData.title}</h1>
+      <h1 className={classes.titleFont}>{matchData.title}</h1>
       {matchData.videoId ? (
         <div>
           <div className={classes.videoWrapper}>

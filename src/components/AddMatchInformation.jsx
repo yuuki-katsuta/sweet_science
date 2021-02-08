@@ -16,6 +16,9 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
   const [overview, setOverview] = useState('');
 
   const useStyles = makeStyles((theme) => ({
+    titleFont: {
+      fontFamily: 'Arimo',
+    },
     root: {
       '& > *': {
         margin: theme.spacing(1),
@@ -65,7 +68,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
 
   return (
     <>
-      <h2>Add Match</h2>
+      <h1 className={classes.titleFont}>Add Match</h1>
       <form className={classes.root} noValidate autoComplete='off'>
         <TextField
           id='fighter1'
