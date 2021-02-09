@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { AuthContext } from '../auth/AuthProvider';
 import { Redirect } from 'react-router-dom';
 import { db } from '../base';
@@ -13,6 +13,7 @@ const Chat = ({ history, location }) => {
   const { currentUser } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
+  const ref = useRef();
 
   //データ取得
   const getMessages = () => {
@@ -22,6 +23,7 @@ const Chat = ({ history, location }) => {
       .doc(`${location.state.matchData.title}`)
       .collection('messages')
       .orderBy('createdAt', 'desc')
+      .limit(30)
       .get()
       .then((querySnapshot) => {
         let msg = [];
@@ -55,6 +57,8 @@ const Chat = ({ history, location }) => {
         const result = await getMessages();
         setMessages(result);
         setText('');
+        //自動スクロール
+        ref.current.scrollIntoView({ behavior: 'smooth' });
       });
   };
 
@@ -74,6 +78,7 @@ const Chat = ({ history, location }) => {
 
   const useStyles = makeStyles({
     list: {
+      maxHeight: '56vh',
       overflow: 'auto',
       gridRow: 1,
       width: '100%',
@@ -83,7 +88,7 @@ const Chat = ({ history, location }) => {
       padding: 0,
     },
     ownMessage: {
-      backgroundColor: 'white',
+      backgroundColor: '#EEEEEE',
     },
   });
   const classes = useStyles();
@@ -96,23 +101,19 @@ const Chat = ({ history, location }) => {
         disableGutters={true}
         style={{ padding: '0 10px' }}
       >
-        {messages && (
-          <List className={messages.length === 0 ? null : classes.list}>
-            {messages.map(({ user, uid, message }, index) => {
-              return (
-                <div
-                  key={index}
-                  className={
-                    uid === currentUser.uid ? classes.ownMessage : null
-                  }
-                >
-                  <MessageItem name={user} message={message} />
-                </div>
-              );
-            })}
-          </List>
-        )}
-
+        <List className={messages.length === 0 ? null : classes.list}>
+          {messages.map(({ user, uid, message }, index) => {
+            return (
+              <div
+                ref={ref}
+                key={index}
+                className={uid === currentUser.uid ? classes.ownMessage : null}
+              >
+                <MessageItem name={user} message={message} />
+              </div>
+            );
+          })}
+        </List>
         <MessageAddField
           history={history}
           messageAdd={messageAdd}
