@@ -109,7 +109,12 @@ const Chat = ({ history, location }) => {
                 key={index}
                 className={uid === currentUser.uid ? classes.ownMessage : null}
               >
-                <MessageItem name={user} message={message} />
+                <MessageItem
+                  name={user}
+                  message={message}
+                  uid={uid}
+                  currentUser={currentUser}
+                />
               </div>
             );
           })}
