@@ -24,19 +24,17 @@ const Login = ({ history }) => {
       <form>
         <TextInputField
           id={'standard-required'}
-          label={'email'}
+          label={'Email'}
           name={'email'}
           type={'email'}
-          placeholder={'Email'}
           value={email}
           setName={setEmail}
         />
         <TextInputField
           id={'standard-password-input'}
-          label={'password'}
+          label={'Password'}
           name={'password'}
           type={'password'}
-          placeholder={'Pasword'}
           value={password}
           setName={setPassword}
         />

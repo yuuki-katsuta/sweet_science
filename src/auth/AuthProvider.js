@@ -19,7 +19,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   //サインイン
-  const signup = async (email, password, name, history) => {
+  const signup = async (email, password, confirmPassword, name, history) => {
+    if (name === '') {
+      alert('Please enter your name');
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
     try {
       //新しいアカウントが作成されると、そのユーザーは自動的にログイン
       await auth.createUserWithEmailAndPassword(email, password);

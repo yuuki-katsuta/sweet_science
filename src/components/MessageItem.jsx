@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Divider from '@material-ui/core/Divider';
 
 const MessageItem = ({ name, message, uid, currentUser }) => {
   const useStyles = makeStyles(() => ({
@@ -15,7 +16,7 @@ const MessageItem = ({ name, message, uid, currentUser }) => {
   const classes = useStyles();
   return uid === currentUser.uid ? (
     <div>
-      <ListItem divider={true} alignItems='flex-start'>
+      <ListItem alignItems='flex-start'>
         <ListItemText
           secondary={
             <Typography component='span' variant='body2' color='textPrimary'>
@@ -26,7 +27,7 @@ const MessageItem = ({ name, message, uid, currentUser }) => {
                     display: 'inline-block',
                   }}
                 >
-                  <h4 style={{ textAlign: 'right', margin: '0 0px 6px 0px' }}>
+                  <h4 style={{ textAlign: 'right', margin: '0 0px 3px 0px' }}>
                     {name}
                   </h4>
                   {message.split('\n').map((t, i) => {
@@ -49,6 +50,7 @@ const MessageItem = ({ name, message, uid, currentUser }) => {
           </ListItemIcon>
         </div>
       </ListItem>
+      <Divider variant='middle' />
     </div>
   ) : (
     <ListItem divider={true} alignItems='flex-start'>

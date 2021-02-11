@@ -8,12 +8,9 @@ import Button from '@material-ui/core/Button';
 const SignUp = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
   const { signup, currentUser } = useContext(AuthContext);
-
-  const handleSubmit = () => {
-    signup(email, password, name, history);
-  };
 
   return currentUser ? (
     <Redirect to={'/'} />
@@ -23,36 +20,43 @@ const SignUp = ({ history }) => {
       <form>
         <TextInputField
           id={'standard-name-required'}
-          label={'name'}
+          label={'Name'}
           name={'name'}
           type={'name'}
-          placeholder={'Name'}
           value={name}
           setName={setName}
         />
         <TextInputField
           id={'standard-required'}
-          label={'email'}
+          label={'Email'}
           name={'email'}
           type={'email'}
-          placeholder={'Email'}
           value={email}
           setName={setEmail}
         />
         <TextInputField
           id={'standard-password-input'}
-          label={'password'}
+          label={'Password'}
           name={'password'}
           type={'password'}
-          placeholder={'Pasword'}
           value={password}
           setName={setPassword}
+        />
+        <TextInputField
+          id={'standard-Password-input'}
+          label={'Confirm Password'}
+          name={'password'}
+          type={'password'}
+          value={confirmPassword}
+          setName={setConfirmPassword}
         />
         <div>
           <Button
             variant='outlined'
             style={{ margin: '16px 0' }}
-            onClick={handleSubmit}
+            onClick={() => {
+              signup(email, password, confirmPassword, name, history);
+            }}
           >
             サインイン
           </Button>
