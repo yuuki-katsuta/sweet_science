@@ -36,8 +36,21 @@ export const AuthProvider = ({ children }) => {
       //プロフィール設定
       await user.updateProfile({
         displayName: name,
+        email: email,
       });
       history.push('/');
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  //displayname変更
+  const changeCurrentName = async (newName) => {
+    try {
+      await auth.currentUser.updateProfile({
+        displayName: newName,
+      });
+      alert('Updated the name');
     } catch (error) {
       alert(error);
     }
@@ -72,6 +85,7 @@ export const AuthProvider = ({ children }) => {
         isLoading,
         adminUser,
         setAdminUser,
+        changeCurrentName,
       }}
     >
       {children}

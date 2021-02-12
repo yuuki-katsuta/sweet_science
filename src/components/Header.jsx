@@ -82,10 +82,17 @@ const Header = ({ history }) => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <p
-                    style={{ margin: '0' }}
+                  <span
+                    onClick={() => {
+                      history.push('/profile');
+                    }}
+                  >
+                    Profile
+                  </span>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <span
                     onClick={async () => {
                       await auth.signOut();
                       history.push('/login');
@@ -93,7 +100,7 @@ const Header = ({ history }) => {
                     }}
                   >
                     Log out
-                  </p>
+                  </span>
                 </MenuItem>
               </Menu>
             </div>
