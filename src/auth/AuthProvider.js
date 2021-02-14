@@ -56,6 +56,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  //email変更
+  const changeCurrentEmail = async (newEmail, setEmail) => {
+    try {
+      await auth.currentUser.updateEmail(newEmail);
+      alert('Updated the email');
+    } catch (error) {
+      setEmail('');
+      alert(error);
+    }
+  };
+
   //認証状態の変化を監視
   useEffect(() => {
     setIsLoading(true);
@@ -86,6 +97,7 @@ export const AuthProvider = ({ children }) => {
         adminUser,
         setAdminUser,
         changeCurrentName,
+        changeCurrentEmail,
       }}
     >
       {children}
