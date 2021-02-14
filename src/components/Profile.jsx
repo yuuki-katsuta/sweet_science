@@ -6,6 +6,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TextInputField from './TextInputField';
 import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -14,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
+    height: '200px',
+    width: '40%',
+    minWidth: '300px',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -43,10 +47,16 @@ const Profile = () => {
 
   const Item = ({ nameSelected, emailSelected, handleOpen }) => {
     return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          marginBottom: '10px',
+        }}
+      >
         {nameSelected && (
           <h3>
-            name:
+            Name:&nbsp;&nbsp;
             {!name
               ? currentUser.displayName
               : isNameChanged
@@ -56,7 +66,7 @@ const Profile = () => {
         )}
         {emailSelected && (
           <h3>
-            email:
+            Email:&nbsp;&nbsp;
             {!email
               ? currentUser.email
               : isEmailChanged
@@ -64,14 +74,16 @@ const Profile = () => {
               : email}
           </h3>
         )}
-        <CreateIcon
+        <IconButton
+          style={{ margin: '0 0 3px auto' }}
           onClick={() => {
             nameSelected && setIsNameChanged(true);
             emailSelected && setIsEmailChanged(true);
             handleOpen();
           }}
-          style={{ margin: '0 0 3px auto' }}
-        />
+        >
+          <CreateIcon />
+        </IconButton>
       </div>
     );
   };
@@ -80,18 +92,16 @@ const Profile = () => {
     <div>
       <h1>Your Profile</h1>
       <h2>Here you can edit your profile</h2>
-
       <div
         style={{
           width: '35%',
-          margin: '0 auto',
+          margin: '50px auto 0',
           textAlign: 'left',
           minWidth: '260px',
         }}
       >
         <Item nameSelected handleOpen={handleOpen} />
         <Item emailSelected handleOpen={handleOpen} />
-
         <Modal
           className={classes.modal}
           open={open}
@@ -120,16 +130,18 @@ const Profile = () => {
                       setName={setName}
                       placeholder={currentUser.displayName}
                     />
-                    <CreateIcon
+                    <IconButton
                       onClick={async () => {
                         if (name === '' || name === currentUser.displayName) {
                           handleClose();
                           return;
                         }
                         handleClose();
-                        await changeCurrentName(name);
+                        await changeCurrentName(name, setName);
                       }}
-                    />
+                    >
+                      <CreateIcon />
+                    </IconButton>
                   </div>
                 </>
               )}
@@ -150,7 +162,7 @@ const Profile = () => {
                       setName={setEmail}
                       placeholder={currentUser.email}
                     />
-                    <CreateIcon
+                    <IconButton
                       onClick={async () => {
                         if (email === '' || email === currentUser.email) {
                           handleClose();
@@ -159,7 +171,9 @@ const Profile = () => {
                         handleClose();
                         await changeCurrentEmail(email, setEmail).then();
                       }}
-                    />
+                    >
+                      <CreateIcon />
+                    </IconButton>
                   </div>
                 </>
               )}

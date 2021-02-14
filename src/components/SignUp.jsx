@@ -25,6 +25,7 @@ const SignUp = ({ history }) => {
           type={'name'}
           value={name}
           setName={setName}
+          placeholder={'Please use no more than 10 characters'}
         />
         <TextInputField
           id={'standard-required'}

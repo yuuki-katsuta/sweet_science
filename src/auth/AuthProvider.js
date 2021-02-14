@@ -14,21 +14,18 @@ export const AuthProvider = ({ children }) => {
       await auth.signInWithEmailAndPassword(email, password);
       history.push('/');
     } catch (error) {
-      alert(error);
+      alert(error.message);
     }
   };
 
   //サインイン
   const signup = async (email, password, confirmPassword, name, history) => {
-    if (name === '') {
-      alert('Please enter your name');
-      return;
-    }
-    if (password !== confirmPassword) {
-      alert('Passwords do not match');
-      return;
-    }
     try {
+      if (name === '') throw new Error('Please enter your name');
+      if (name.length > 10)
+        throw new Error('Please use no more than 10 characters');
+      if (password !== confirmPassword)
+        throw new Error('Passwords do not match');
       //新しいアカウントが作成されると、そのユーザーは自動的にログイン
       await auth.createUserWithEmailAndPassword(email, password);
       //現在ログインしているユーザーを取得するには、currentUser プロパティを使用
@@ -40,19 +37,22 @@ export const AuthProvider = ({ children }) => {
       });
       history.push('/');
     } catch (error) {
-      alert(error);
+      alert(error.message);
     }
   };
 
   //displayname変更
-  const changeCurrentName = async (newName) => {
+  const changeCurrentName = async (newName, setName) => {
     try {
+      if (newName.length > 10)
+        throw new Error('Please use no more than 10 characters');
       await auth.currentUser.updateProfile({
         displayName: newName,
       });
       alert('Updated the name');
     } catch (error) {
-      alert(error);
+      alert(error.message);
+      setName('');
     }
   };
 
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
       alert('Updated the email');
     } catch (error) {
       setEmail('');
-      alert(error);
+      alert(error.message);
     }
   };
 
@@ -76,7 +76,6 @@ export const AuthProvider = ({ children }) => {
       if (user) {
         user.getIdTokenResult(true).then((idTokenResult) => {
           if (idTokenResult.claims.admin) {
-            console.log('claims.admin');
             setAdminUser(true);
           }
         });
