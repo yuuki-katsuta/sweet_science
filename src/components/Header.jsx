@@ -55,7 +55,16 @@ const Header = ({ history }) => {
         <AppBar position='fixed'>
           <Toolbar>
             <Typography variant='h6' className={classes.title}>
-              Sweet Science
+              <span
+                style={{
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  history.push('/');
+                }}
+              >
+                Sweet Science
+              </span>
             </Typography>
             <div>
               <IconButton

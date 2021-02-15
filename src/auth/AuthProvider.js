@@ -34,6 +34,7 @@ export const AuthProvider = ({ children }) => {
       await user.updateProfile({
         displayName: name,
         email: email,
+        password: password,
       });
       history.push('/');
     } catch (error) {
@@ -51,8 +52,8 @@ export const AuthProvider = ({ children }) => {
       });
       alert('Updated the name');
     } catch (error) {
-      alert(error.message);
       setName('');
+      alert(error.message);
     }
   };
 
@@ -63,6 +64,18 @@ export const AuthProvider = ({ children }) => {
       alert('Updated the email');
     } catch (error) {
       setEmail('');
+      alert(error.message);
+    }
+  };
+
+  //password変更
+  const ChangeCurrentPassword = async (newPassword, confirmPassword) => {
+    try {
+      if (newPassword !== confirmPassword)
+        throw new Error('Passwords do not match');
+      await auth.currentUser.updatePassword(newPassword);
+      alert('Updated the password');
+    } catch (error) {
       alert(error.message);
     }
   };
@@ -97,6 +110,7 @@ export const AuthProvider = ({ children }) => {
         setAdminUser,
         changeCurrentName,
         changeCurrentEmail,
+        ChangeCurrentPassword,
       }}
     >
       {children}
