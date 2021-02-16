@@ -4,10 +4,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import TextInputField from './TextInputField';
+import Button from '@material-ui/core/Button';
 import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
+import EditName from './Profile/EditName';
+import EditEmail from './Profile/EditEmail';
+import EditPassword from './Profile/EditPassword';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -27,16 +29,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = () => {
-  const {
-    currentUser,
-    changeCurrentName,
-    changeCurrentEmail,
-    ChangeCurrentPassword,
-  } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [isNameChanged, setIsNameChanged] = useState(false);
   const [isEmailChanged, setIsEmailChanged] = useState(false);
   const [isPasswordChanged, setIsPasswordChanged] = useState(false);
@@ -53,7 +48,7 @@ const Profile = () => {
     setIsPasswordChanged(false);
   };
 
-  const Item = ({ nameSelected, emailSelected, handleOpen }) => {
+  const ProfileItem = ({ nameSelected, emailSelected }) => {
     return (
       <div
         style={{
@@ -108,8 +103,8 @@ const Profile = () => {
           minWidth: '260px',
         }}
       >
-        <Item nameSelected handleOpen={handleOpen} />
-        <Item emailSelected handleOpen={handleOpen} />
+        <ProfileItem nameSelected />
+        <ProfileItem emailSelected />
       </div>
       <Button
         variant='outlined'
@@ -132,106 +127,20 @@ const Profile = () => {
         <Fade in={open}>
           <div className={classes.paper}>
             {isNameChanged && (
-              <>
-                <h3>Please enter a new Name</h3>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                >
-                  <TextInputField
-                    id={'standard-name-required'}
-                    name={'name'}
-                    type={'name'}
-                    value={name}
-                    setName={setName}
-                    placeholder={currentUser.displayName}
-                  />
-                  <IconButton
-                    onClick={async () => {
-                      if (name === '' || name === currentUser.displayName) {
-                        handleClose();
-                        return;
-                      }
-                      handleClose();
-                      await changeCurrentName(name, setName);
-                    }}
-                  >
-                    <CreateIcon />
-                  </IconButton>
-                </div>
-              </>
+              <EditName
+                name={name}
+                setName={setName}
+                handleClose={handleClose}
+              />
             )}
             {isEmailChanged && (
-              <>
-                <h3>Please enter a new Email</h3>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                >
-                  <TextInputField
-                    id={'standard-name-required'}
-                    name={'email'}
-                    type={'email'}
-                    value={email}
-                    setName={setEmail}
-                    placeholder={currentUser.email}
-                  />
-                  <IconButton
-                    onClick={async () => {
-                      if (email === '' || email === currentUser.email) {
-                        handleClose();
-                        return;
-                      }
-                      handleClose();
-                      await changeCurrentEmail(email, setEmail);
-                    }}
-                  >
-                    <CreateIcon />
-                  </IconButton>
-                </div>
-              </>
+              <EditEmail
+                email={email}
+                setEmail={setEmail}
+                handleClose={handleClose}
+              />
             )}
-            {isPasswordChanged && (
-              <>
-                <h3>Please enter a new Password</h3>
-                <TextInputField
-                  type={'password'}
-                  value={newPassword}
-                  setName={setNewPassword}
-                  label={'New Password'}
-                  placeholder={'New Password'}
-                />
-                <TextInputField
-                  type={'password'}
-                  value={confirmPassword}
-                  setName={setConfirmPassword}
-                  label={'Confirim Password'}
-                  placeholder={'Confirim Password'}
-                />
-                <IconButton
-                  style={{
-                    display: 'flex',
-                    margin: '0 0 0 auto',
-                  }}
-                  onClick={async () => {
-                    if (newPassword === '' || confirmPassword === '') {
-                      handleClose();
-                      return;
-                    }
-                    await ChangeCurrentPassword(confirmPassword, newPassword);
-                    setNewPassword('');
-                    setConfirmPassword('');
-                    handleClose();
-                  }}
-                >
-                  <CreateIcon />
-                </IconButton>
-              </>
-            )}
+            {isPasswordChanged && <EditPassword handleClose={handleClose} />}
           </div>
         </Fade>
       </Modal>
