@@ -10,33 +10,30 @@ const EditName = ({ name, setName, handleClose }) => {
   return (
     <>
       <h3>Please enter a new Name</h3>
-      <div
+      <TextInputField
+        id={'standard-name-required'}
+        name={'name'}
+        type={'name'}
+        value={name}
+        setName={setName}
+        placeholder={currentUser.displayName}
+      />
+      <IconButton
         style={{
           display: 'flex',
-          alignItems: 'center',
+          margin: '0 0 0 auto',
+        }}
+        onClick={async () => {
+          if (name === '' || name === currentUser.displayName) {
+            handleClose();
+            return;
+          }
+          handleClose();
+          await changeCurrentName(name, setName);
         }}
       >
-        <TextInputField
-          id={'standard-name-required'}
-          name={'name'}
-          type={'name'}
-          value={name}
-          setName={setName}
-          placeholder={currentUser.displayName}
-        />
-        <IconButton
-          onClick={async () => {
-            if (name === '' || name === currentUser.displayName) {
-              handleClose();
-              return;
-            }
-            handleClose();
-            await changeCurrentName(name, setName);
-          }}
-        >
-          <CreateIcon />
-        </IconButton>
-      </div>
+        <CreateIcon />
+      </IconButton>
     </>
   );
 };

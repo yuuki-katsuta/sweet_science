@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import firebase from 'firebase/app';
 import { auth } from '../base.js';
 
 export const AuthContext = React.createContext();
@@ -42,6 +43,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  //再認証
+  const Reauthentication = async (currentPassword) => {
+    const credential = await firebase.auth.EmailAuthProvider.credential(
+      currentUser.email,
+      currentPassword
+    );
+    await auth.currentUser.reauthenticateWithCredential(credential);
+  };
+
   //displayname変更
   const changeCurrentName = async (newName, setName) => {
     try {
@@ -58,8 +68,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   //email変更
-  const changeCurrentEmail = async (newEmail, setEmail) => {
+  const changeCurrentEmail = async (currentPassword, newEmail, setEmail) => {
     try {
+      await Reauthentication(currentPassword);
       await auth.currentUser.updateEmail(newEmail);
       alert('Updated the email');
     } catch (error) {
@@ -69,10 +80,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   //password変更
-  const ChangeCurrentPassword = async (newPassword, confirmPassword) => {
+  const ChangeCurrentPassword = async (
+    currentPassword,
+    newPassword,
+    confirmPassword
+  ) => {
     try {
       if (newPassword !== confirmPassword)
         throw new Error('Passwords do not match');
+      await Reauthentication(currentPassword);
       await auth.currentUser.updatePassword(newPassword);
       alert('Updated the password');
     } catch (error) {

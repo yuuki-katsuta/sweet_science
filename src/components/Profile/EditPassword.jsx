@@ -6,12 +6,20 @@ import IconButton from '@material-ui/core/IconButton';
 
 const EditPassword = ({ handleClose }) => {
   const { ChangeCurrentPassword } = useContext(AuthContext);
+  const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   return (
     <>
       <h3>Please enter a new Password</h3>
+      <TextInputField
+        type={'password'}
+        value={currentPassword}
+        setName={setCurrentPassword}
+        label={'Current Password'}
+        placeholder={'Current Password'}
+      />
       <TextInputField
         type={'password'}
         value={newPassword}
@@ -36,7 +44,12 @@ const EditPassword = ({ handleClose }) => {
             handleClose();
             return;
           }
-          await ChangeCurrentPassword(confirmPassword, newPassword);
+          await ChangeCurrentPassword(
+            currentPassword,
+            confirmPassword,
+            newPassword
+          );
+          setCurrentPassword('');
           setNewPassword('');
           setConfirmPassword('');
           handleClose();
