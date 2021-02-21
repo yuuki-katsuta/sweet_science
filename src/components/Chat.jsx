@@ -33,6 +33,7 @@ const Chat = ({ history, location }) => {
               message: doc.data().message,
               user: doc.data().user,
               uid: doc.data().uid,
+              photoURL: doc.data().photoURL,
             });
           }
         });
@@ -52,6 +53,7 @@ const Chat = ({ history, location }) => {
         message: text,
         uid: currentUser.uid,
         createdAt: new Date(),
+        photoURL: currentUser.photoURL,
       })
       .then(async () => {
         const result = await getMessages();
@@ -102,7 +104,7 @@ const Chat = ({ history, location }) => {
         style={{ padding: '0 10px' }}
       >
         <List className={messages.length === 0 ? null : classes.list}>
-          {messages.map(({ user, uid, message }, index) => {
+          {messages.map(({ user, uid, message, photoURL }, index) => {
             return (
               <div
                 ref={ref}
@@ -113,6 +115,7 @@ const Chat = ({ history, location }) => {
                   name={user}
                   message={message}
                   uid={uid}
+                  photoURL={photoURL}
                   currentUser={currentUser}
                 />
               </div>

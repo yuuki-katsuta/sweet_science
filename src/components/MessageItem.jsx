@@ -4,13 +4,18 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Divider from '@material-ui/core/Divider';
+import Avatar from '@material-ui/core/Avatar';
 
-const MessageItem = ({ name, message, uid, currentUser }) => {
-  const useStyles = makeStyles(() => ({
+const MessageItem = ({ name, message, uid, currentUser, photoURL }) => {
+  const useStyles = makeStyles((theme) => ({
     inline: {
       display: 'inline',
+    },
+    Image: {
+      width: theme.spacing(5.5),
+      height: theme.spacing(5.5),
+      border: '1px solid #ccc',
     },
   }));
   const classes = useStyles();
@@ -43,10 +48,14 @@ const MessageItem = ({ name, message, uid, currentUser }) => {
             style={{
               display: 'inline-block',
               textAlign: 'right',
-              marginTop: '4px',
+              margin: '4px 0 0 16px',
             }}
           >
-            <AccountCircleIcon fontSize='large' />
+            <Avatar
+              alt='uploaded'
+              src={currentUser.photoURL}
+              className={classes.Image}
+            />
           </ListItemIcon>
         </div>
       </ListItem>
@@ -54,11 +63,12 @@ const MessageItem = ({ name, message, uid, currentUser }) => {
     </div>
   ) : (
     <ListItem divider={true} alignItems='flex-start'>
-      <ListItemIcon>
-        <AccountCircleIcon
-          fontSize='large'
-          style={{ margin: '0 24px 0 0px' }}
-        />
+      <ListItemIcon
+        style={{
+          margin: '4px 16px 0 0',
+        }}
+      >
+        <Avatar alt='uploaded' src={photoURL} className={classes.Image} />
       </ListItemIcon>
       <ListItemText
         primary={name}
