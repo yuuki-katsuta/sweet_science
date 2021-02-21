@@ -4,9 +4,12 @@ import { AuthContext } from '../../auth/AuthProvider';
 import firebase from 'firebase/app';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const UserImage = () => {
-  const { currentUser, ChangePhtoUrl } = useContext(AuthContext);
+  const { currentUser, ChangePhtoUrl, ResetPhtoUrl } = useContext(AuthContext);
   const [image, setImage] = useState('');
   const [imageUrl, setImageUrl] = useState(currentUser.photoURL);
 
@@ -71,7 +74,38 @@ const UserImage = () => {
     <div className='App'>
       <div className={classes.root}>
         {currentUser.photoURL ? (
-          <Avatar alt='uploaded' src={imageUrl} className={classes.image} />
+          <span
+            style={{
+              position: 'relative',
+            }}
+          >
+            <Avatar alt='uploaded' src={imageUrl} className={classes.image} />
+            {imageUrl !== '' && (
+              <Tooltip title='Remove photo' arrow placement='right-start'>
+                <IconButton
+                  aria-label='delete'
+                  style={{
+                    position: 'absolute',
+                    left: '52px',
+                    bottom: '25px',
+                  }}
+                  onClick={() => {
+                    const result = window.confirm(
+                      'Are you sure you want to reset your current avatar?'
+                    );
+                    if (result) {
+                      ResetPhtoUrl();
+                      setImageUrl('');
+                    } else {
+                      return;
+                    }
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            )}
+          </span>
         ) : (
           <Avatar alt='uploaded' className={classes.image} />
         )}

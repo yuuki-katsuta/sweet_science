@@ -108,6 +108,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const ResetPhtoUrl = () => {
+    try {
+      const user = auth.currentUser;
+      user.updateProfile({
+        photoURL: '',
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   //認証状態の変化を監視
   useEffect(() => {
     setIsLoading(true);
@@ -140,6 +151,7 @@ export const AuthProvider = ({ children }) => {
         changeCurrentEmail,
         ChangeCurrentPassword,
         ChangePhtoUrl,
+        ResetPhtoUrl,
       }}
     >
       {children}
