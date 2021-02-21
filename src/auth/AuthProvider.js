@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }) => {
         displayName: name,
         email: email,
         password: password,
+        photoURL: '',
       });
       history.push('/');
     } catch (error) {
@@ -96,6 +97,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const ChangePhtoUrl = async (imageURL) => {
+    try {
+      const user = auth.currentUser;
+      await user.updateProfile({
+        photoURL: imageURL,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   //認証状態の変化を監視
   useEffect(() => {
     setIsLoading(true);
@@ -127,6 +139,7 @@ export const AuthProvider = ({ children }) => {
         changeCurrentName,
         changeCurrentEmail,
         ChangeCurrentPassword,
+        ChangePhtoUrl,
       }}
     >
       {children}

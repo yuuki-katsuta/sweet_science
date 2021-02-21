@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditName from './Profile/EditName';
 import EditEmail from './Profile/EditEmail';
 import EditPassword from './Profile/EditPassword';
+import UserImage from './Profile/UserImage';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     height: 'auto',
     width: '40%',
-    minWidth: '300px',
+    minWidth: '280px',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -54,7 +55,7 @@ const Profile = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          marginBottom: '10px',
+          overflow: 'auto',
         }}
       >
         {nameSelected && (
@@ -95,18 +96,20 @@ const Profile = () => {
     <div>
       <h1>Your Profile</h1>
       <h2>Here you can edit your profile</h2>
+      <UserImage />
       <div
         style={{
           width: '35%',
-          margin: '50px auto 0',
+          margin: '20px auto 0',
           textAlign: 'left',
-          minWidth: '260px',
+          minWidth: '310px',
         }}
       >
         <ProfileItem nameSelected />
         <ProfileItem emailSelected />
       </div>
       <Button
+        style={{ margin: '16px 24px' }}
         variant='outlined'
         onClick={() => {
           setIsPasswordChanged(true);
