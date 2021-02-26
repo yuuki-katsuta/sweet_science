@@ -43,49 +43,56 @@ const MessageItem = ({ name, message, uid, currentUser, photoURL }) => {
             </Typography>
           }
         />
-        <div>
-          <ListItemIcon
+        <ListItemIcon
+          style={{
+            display: 'inline-block',
+            textAlign: 'right',
+            margin: '4px 0 0 0',
+          }}
+        >
+          <Avatar
+            alt='uploaded'
+            src={currentUser.photoURL}
+            className={classes.Image}
             style={{
-              display: 'inline-block',
               textAlign: 'right',
-              margin: '4px 0 0 16px',
+              display: 'inline-block',
             }}
-          >
-            <Avatar
-              alt='uploaded'
-              src={currentUser.photoURL}
-              className={classes.Image}
-            />
-          </ListItemIcon>
-        </div>
+          />
+        </ListItemIcon>
       </ListItem>
       <Divider variant='middle' />
     </div>
   ) : (
-    <ListItem divider={true} alignItems='flex-start'>
-      <ListItemIcon
-        style={{
-          margin: '4px 16px 0 0',
-        }}
-      >
-        <Avatar alt='uploaded' src={photoURL} className={classes.Image} />
-      </ListItemIcon>
-      <ListItemText
-        primary={name}
-        secondary={
-          <Typography
-            component='span'
-            variant='body2'
-            className={classes.inline}
-            color='textPrimary'
+    <div>
+      <ListItem alignItems='flex-start'>
+        <div>
+          <ListItemIcon
+            style={{
+              margin: '4px 0 0 0',
+            }}
           >
-            {message.split('\n').map((t, i) => {
-              return <div key={i}>{t}</div>;
-            })}
-          </Typography>
-        }
-      />
-    </ListItem>
+            <Avatar alt='uploaded' src={photoURL} className={classes.Image} />
+          </ListItemIcon>
+        </div>
+        <ListItemText
+          primary={name}
+          secondary={
+            <Typography
+              component='span'
+              variant='body2'
+              className={classes.inline}
+              color='textPrimary'
+            >
+              {message.split('\n').map((t, i) => {
+                return <div key={i}>{t}</div>;
+              })}
+            </Typography>
+          }
+        />
+      </ListItem>
+      <Divider variant='middle' />
+    </div>
   );
 };
 export default MessageItem;

@@ -5,15 +5,32 @@ import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
-
+import AddScore from './AddScore';
 const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
-  const [fighter1, setFighter1] = useState('');
-  const [fighter2, setFighter2] = useState('');
-  const [division, setiDvision] = useState('');
-  const [date, setDate] = useState('');
-  const [url, setUrl] = useState('');
-  const [venue, setVenue] = useState('');
-  const [overview, setOverview] = useState('');
+  const [MatchSummary, setMatchSummary] = useState({
+    fighter1: '',
+    fighter2: '',
+    division: '',
+    date: '',
+    url: '',
+    venue: '',
+    overview: '',
+  });
+  const [judgeA, setJudgeA] = useState({
+    name: '',
+    fighterScore: [],
+    opponentScore: [],
+  });
+  const [judgeB, setJudgeB] = useState({
+    name: '',
+    fighterScore: [],
+    opponentScore: [],
+  });
+  const [judgeC, setJudgeC] = useState({
+    name: '',
+    fighterScore: [],
+    opponentScore: [],
+  });
 
   const useStyles = makeStyles((theme) => ({
     titleFont: {
@@ -31,9 +48,19 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
     },
   }));
   const classes = useStyles();
+  //console.log(judgeA, judgeB, judgeC);
 
   //追加
   const addChat = () => {
+    const {
+      fighter1,
+      fighter2,
+      division,
+      date,
+      venue,
+      url,
+      overview,
+    } = MatchSummary;
     if (fighter1 && fighter2 && division && date && venue) {
       //urlから動画のIdを取得
       const videoId = url ? url.split('v=')[1] : null;
@@ -53,91 +80,130 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
         .then(async () => {
           const matchInformation = await getMatcheInformation();
           setMatchData(matchInformation);
-          setFighter1('');
-          setFighter2('');
-          setiDvision('');
-          setDate('');
-          setUrl('');
-          setVenue('');
-          setOverview('');
+          setMatchSummary({
+            fighter1: '',
+            fighter2: '',
+            division: '',
+            date: '',
+            url: '',
+            venue: '',
+            overview: '',
+          });
         });
     } else {
       alert('item is not entered');
     }
   };
-
+  console.log(MatchSummary);
   return (
     <>
       <h1 className={classes.titleFont}>Add Match</h1>
       <form className={classes.root} noValidate autoComplete='off'>
         <TextField
           id='fighter1'
+          name='fighter1'
           label='fighter'
           color='secondary'
-          value={fighter1}
+          value={MatchSummary.fighter1}
           onChange={(e) => {
-            setFighter1(e.target.value);
+            setMatchSummary({
+              ...MatchSummary,
+              [e.target.name]: e.target.value,
+            });
           }}
         />
         <TextField
           id='fighter2'
+          name='fighter2'
           label='fighter'
           color='secondary'
-          value={fighter2}
+          value={MatchSummary.fighter2}
           onChange={(e) => {
-            setFighter2(e.target.value);
+            setMatchSummary({
+              ...MatchSummary,
+              [e.target.name]: e.target.value,
+            });
           }}
         />
         <TextField
           id='division'
+          name='division'
           label='division'
           color='secondary'
-          value={division}
+          value={MatchSummary.division}
           onChange={(e) => {
-            setiDvision(e.target.value);
+            setMatchSummary({
+              ...MatchSummary,
+              [e.target.name]: e.target.value,
+            });
           }}
         />
         <TextField
           id='date'
+          name='date'
           label='date'
           color='secondary'
-          value={date}
+          value={MatchSummary.date}
           onChange={(e) => {
-            setDate(e.target.value);
+            setMatchSummary({
+              ...MatchSummary,
+              [e.target.name]: e.target.value,
+            });
           }}
         />
         <TextField
           fullWidth={true}
           id='url'
+          name='url'
           label='video url'
           color='secondary'
-          value={url}
+          value={MatchSummary.url}
           onChange={(e) => {
-            setUrl(e.target.value);
+            setMatchSummary({
+              ...MatchSummary,
+              [e.target.name]: e.target.value,
+            });
           }}
         />
         <TextField
           fullWidth={true}
           id='venue'
+          name='venue'
           label='venue'
           color='secondary'
-          value={venue}
+          value={MatchSummary.venue}
           onChange={(e) => {
-            setVenue(e.target.value);
+            setMatchSummary({
+              ...MatchSummary,
+              [e.target.name]: e.target.value,
+            });
           }}
         />
         <TextField
           fullWidth={true}
           id='standard-multiline-static'
+          name='overview'
           label='write overview...'
           multiline
           rows={2}
-          value={overview}
+          value={MatchSummary.overview}
           onChange={(e) => {
-            setOverview(e.target.value);
+            setMatchSummary({
+              ...MatchSummary,
+              [e.target.name]: e.target.value,
+            });
           }}
         />
       </form>
+
+      <AddScore
+        judgeA={judgeA}
+        judgeB={judgeB}
+        judgeC={judgeC}
+        setJudgeA={setJudgeA}
+        setJudgeB={setJudgeB}
+        setJudgeC={setJudgeC}
+      />
       <div style={{ display: 'flex', justifyContent: 'flex-End' }}>
         <Tooltip title='Add' aria-label='add'>
           <Fab

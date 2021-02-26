@@ -21,7 +21,7 @@ const TextInputField = ({
       placeholder={placeholder}
       value={value}
       onChange={(e) => {
-        setName(e.target.value);
+        setName({ [e.target.name]: e.target.value });
       }}
     />
   );
