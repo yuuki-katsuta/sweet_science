@@ -107,7 +107,7 @@ const Chat = ({ history, location }) => {
       <Container
         maxWidth='lg'
         disableGutters={true}
-        style={{ padding: '0 10px' }}
+        style={{ padding: '0 10px', marginTop: '40px' }}
       >
         <List className={messages.length === 0 ? null : classes.list}>
           {messages.map(({ user, uid, message, photoURL }, index) => {

@@ -35,8 +35,6 @@ function createData(
   };
 }
 
-//dbから取得
-
 const Score = ({ matchData }) => {
   const [ScoringA, setScoringA] = useState([]);
   const [ScoringB, setScoringB] = useState([]);

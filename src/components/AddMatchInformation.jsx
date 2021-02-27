@@ -132,6 +132,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
         setMatchSummary={setMatchSummary}
       />
       <FormControlLabel
+        style={{ marginTop: '8px' }}
         control={
           <Switch
             checked={checked}

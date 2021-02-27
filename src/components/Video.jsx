@@ -59,8 +59,7 @@ const Video = ({ matchData }) => {
           </div>
         </div>
       ) : (
-        <div style={{ marginBottom: '56px' }}>
-          <h4>I'm sorry, there is no video...</h4>
+        <div style={{ marginBottom: '24px' }}>
           <div>
             <p>
               <span>{matchData.date} </span>
