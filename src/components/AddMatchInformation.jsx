@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { db } from '../base';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddScore from './AddScore';
-
+import AddMatchSummary from './AddMatchSummary';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
@@ -40,13 +39,6 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
   const useStyles = makeStyles((theme) => ({
     titleFont: {
       fontFamily: 'Arimo',
-    },
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '30ch',
-      },
-      margin: '16px 0 0',
     },
     fab: {
       margin: theme.spacing(2),
@@ -94,7 +86,6 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
             overview: '',
           });
         });
-      //ここに移動？
       if (checked && judgeA.name && judgeB.name && judgeC.name) {
         //A
         const judgeAFighterScore = judgeA.fighterScore.split('/').map(Number);
@@ -106,7 +97,6 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
         const judgeCFighterScore = judgeC.fighterScore.split('/').map(Number);
         const judgeCOpponentScore = judgeC.fighterScore.split('/').map(Number);
 
-        //dbへ登録
         const scoreData = db
           .collection('chats')
           .doc(`${fighter} vs ${opponent}`)
@@ -133,103 +123,10 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
   return (
     <>
       <h1 className={classes.titleFont}>Add Match</h1>
-      <form className={classes.root} noValidate autoComplete='off'>
-        <TextField
-          id='fighter'
-          name='fighter'
-          label='fighter'
-          color='secondary'
-          value={MatchSummary.fighter}
-          onChange={(e) => {
-            setMatchSummary({
-              ...MatchSummary,
-              [e.target.name]: e.target.value,
-            });
-          }}
-        />
-        <TextField
-          id='opponent'
-          name='opponent'
-          label='opponent'
-          color='secondary'
-          value={MatchSummary.opponent}
-          onChange={(e) => {
-            setMatchSummary({
-              ...MatchSummary,
-              [e.target.name]: e.target.value,
-            });
-          }}
-        />
-        <TextField
-          id='division'
-          name='division'
-          label='division'
-          color='secondary'
-          value={MatchSummary.division}
-          onChange={(e) => {
-            setMatchSummary({
-              ...MatchSummary,
-              [e.target.name]: e.target.value,
-            });
-          }}
-        />
-        <TextField
-          id='date'
-          name='date'
-          label='date'
-          color='secondary'
-          value={MatchSummary.date}
-          onChange={(e) => {
-            setMatchSummary({
-              ...MatchSummary,
-              [e.target.name]: e.target.value,
-            });
-          }}
-        />
-        <TextField
-          fullWidth={true}
-          id='url'
-          name='url'
-          label='video url'
-          color='secondary'
-          value={MatchSummary.url}
-          onChange={(e) => {
-            setMatchSummary({
-              ...MatchSummary,
-              [e.target.name]: e.target.value,
-            });
-          }}
-        />
-        <TextField
-          fullWidth={true}
-          id='venue'
-          name='venue'
-          label='venue'
-          color='secondary'
-          value={MatchSummary.venue}
-          onChange={(e) => {
-            setMatchSummary({
-              ...MatchSummary,
-              [e.target.name]: e.target.value,
-            });
-          }}
-        />
-        <TextField
-          fullWidth={true}
-          id='standard-multiline-static'
-          name='overview'
-          label='write overview...'
-          multiline
-          rows={2}
-          value={MatchSummary.overview}
-          onChange={(e) => {
-            setMatchSummary({
-              ...MatchSummary,
-              [e.target.name]: e.target.value,
-            });
-          }}
-        />
-      </form>
+      <AddMatchSummary
+        MatchSummary={MatchSummary}
+        setMatchSummary={setMatchSummary}
+      />
       <FormControlLabel
         control={
           <Switch
