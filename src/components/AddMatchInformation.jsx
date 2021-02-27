@@ -72,6 +72,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           createdAt: new Date(),
           venue: venue,
           overview: overview,
+          scoreData: checked,
         })
         .then(async () => {
           const matchInformation = await getMatcheInformation();
@@ -103,14 +104,17 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           .collection('score');
 
         scoreData.doc(`${judgeA.name}`).set({
+          judge: judgeA.name,
           fighter: judgeAFighterScore,
           opponent: judgeAOpponentScore,
         });
         scoreData.doc(`${judgeB.name}`).set({
+          judge: judgeB.name,
           fighter: judgeBFighterScore,
           opponent: judgeBOpponentScore,
         });
         scoreData.doc(`${judgeC.name}`).set({
+          judge: judgeC.name,
           fighter: judgeCFighterScore,
           opponent: judgeCOpponentScore,
         });

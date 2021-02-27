@@ -8,6 +8,7 @@ import MessageAddField from './MessageAddField';
 import MessageItem from './MessageItem';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
+import Score from './Score.jsx';
 
 const Chat = ({ history, location }) => {
   const { currentUser } = useContext(AuthContext);
@@ -97,7 +98,12 @@ const Chat = ({ history, location }) => {
 
   return location.state ? (
     <div style={{ margin: '0  0 50px' }}>
-      <Video matchData={location.state.matchData} />
+      <Container maxWidth='md' disableGutters={true}>
+        <Video matchData={location.state.matchData} />
+        {location.state.matchData.scoreData && (
+          <Score matchData={location.state.matchData} />
+        )}
+      </Container>
       <Container
         maxWidth='lg'
         disableGutters={true}

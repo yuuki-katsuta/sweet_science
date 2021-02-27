@@ -1,6 +1,5 @@
 import React from 'react';
 import RoomIcon from '@material-ui/icons/Room';
-import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
 const Video = ({ matchData }) => {
@@ -29,7 +28,7 @@ const Video = ({ matchData }) => {
 
   const classes = useStyles();
   return (
-    <Container maxWidth='md' disableGutters={true}>
+    <div>
       <h1 className={classes.titleFont}>{matchData.title}</h1>
       {matchData.videoId ? (
         <div>
@@ -76,7 +75,7 @@ const Video = ({ matchData }) => {
           </div>
         </div>
       )}
-    </Container>
+    </div>
   );
 };
 export default Video;
