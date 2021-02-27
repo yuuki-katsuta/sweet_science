@@ -6,10 +6,14 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddScore from './AddScore';
+
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+
 const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
   const [MatchSummary, setMatchSummary] = useState({
-    fighter1: '',
-    fighter2: '',
+    fighter: '',
+    opponent: '',
     division: '',
     date: '',
     url: '',
@@ -18,19 +22,20 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
   });
   const [judgeA, setJudgeA] = useState({
     name: '',
-    fighterScore: [],
-    opponentScore: [],
+    fighterScore: '',
+    opponentScore: '',
   });
   const [judgeB, setJudgeB] = useState({
     name: '',
-    fighterScore: [],
-    opponentScore: [],
+    fighterScore: '',
+    opponentScore: '',
   });
   const [judgeC, setJudgeC] = useState({
     name: '',
-    fighterScore: [],
-    opponentScore: [],
+    fighterScore: '',
+    opponentScore: '',
   });
+  const [checked, setChecked] = useState(false);
 
   const useStyles = makeStyles((theme) => ({
     titleFont: {
@@ -48,28 +53,27 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
     },
   }));
   const classes = useStyles();
-  //console.log(judgeA, judgeB, judgeC);
 
   //追加
   const addChat = () => {
     const {
-      fighter1,
-      fighter2,
+      fighter,
+      opponent,
       division,
       date,
       venue,
       url,
       overview,
     } = MatchSummary;
-    if (fighter1 && fighter2 && division && date && venue) {
+    if (fighter && opponent && division && date && venue) {
       //urlから動画のIdを取得
       const videoId = url ? url.split('v=')[1] : null;
       db.collection('chats')
-        .doc(`${fighter1} vs ${fighter2}`)
+        .doc(`${fighter} vs ${opponent}`)
         .set({
-          title: `${fighter1} vs ${fighter2}`,
-          fighter1: fighter1,
-          fighter2: fighter2,
+          title: `${fighter} vs ${opponent}`,
+          fighter: fighter,
+          opponent: opponent,
           division: division,
           date: date,
           videoId: videoId,
@@ -81,8 +85,8 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           const matchInformation = await getMatcheInformation();
           setMatchData(matchInformation);
           setMatchSummary({
-            fighter1: '',
-            fighter2: '',
+            fighter: '',
+            opponent: '',
             division: '',
             date: '',
             url: '',
@@ -90,21 +94,52 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
             overview: '',
           });
         });
+      //ここに移動？
+      if (checked && judgeA.name && judgeB.name && judgeC.name) {
+        //A
+        const judgeAFighterScore = judgeA.fighterScore.split('/').map(Number);
+        const judgeAOpponentScore = judgeA.fighterScore.split('/').map(Number);
+        //B
+        const judgeBFighterScore = judgeB.fighterScore.split('/').map(Number);
+        const judgeBOpponentScore = judgeB.fighterScore.split('/').map(Number);
+        //C
+        const judgeCFighterScore = judgeC.fighterScore.split('/').map(Number);
+        const judgeCOpponentScore = judgeC.fighterScore.split('/').map(Number);
+
+        //dbへ登録
+        const scoreData = db
+          .collection('chats')
+          .doc(`${fighter} vs ${opponent}`)
+          .collection('score');
+
+        scoreData.doc(`${judgeA.name}`).set({
+          fighter: judgeAFighterScore,
+          opponent: judgeAOpponentScore,
+        });
+        scoreData.doc(`${judgeB.name}`).set({
+          fighter: judgeBFighterScore,
+          opponent: judgeBOpponentScore,
+        });
+        scoreData.doc(`${judgeC.name}`).set({
+          fighter: judgeCFighterScore,
+          opponent: judgeCOpponentScore,
+        });
+        setChecked(false);
+      }
     } else {
       alert('item is not entered');
     }
   };
-  console.log(MatchSummary);
   return (
     <>
       <h1 className={classes.titleFont}>Add Match</h1>
       <form className={classes.root} noValidate autoComplete='off'>
         <TextField
-          id='fighter1'
-          name='fighter1'
+          id='fighter'
+          name='fighter'
           label='fighter'
           color='secondary'
-          value={MatchSummary.fighter1}
+          value={MatchSummary.fighter}
           onChange={(e) => {
             setMatchSummary({
               ...MatchSummary,
@@ -113,11 +148,11 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           }}
         />
         <TextField
-          id='fighter2'
-          name='fighter2'
-          label='fighter'
+          id='opponent'
+          name='opponent'
+          label='opponent'
           color='secondary'
-          value={MatchSummary.fighter2}
+          value={MatchSummary.opponent}
           onChange={(e) => {
             setMatchSummary({
               ...MatchSummary,
@@ -195,15 +230,30 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           }}
         />
       </form>
-
-      <AddScore
-        judgeA={judgeA}
-        judgeB={judgeB}
-        judgeC={judgeC}
-        setJudgeA={setJudgeA}
-        setJudgeB={setJudgeB}
-        setJudgeC={setJudgeC}
+      <FormControlLabel
+        control={
+          <Switch
+            checked={checked}
+            onChange={() => {
+              setChecked(!checked);
+            }}
+            name='checked'
+            color='primary'
+          />
+        }
+        label='Add Score'
       />
+      {checked ? (
+        <AddScore
+          judgeA={judgeA}
+          judgeB={judgeB}
+          judgeC={judgeC}
+          setJudgeA={setJudgeA}
+          setJudgeB={setJudgeB}
+          setJudgeC={setJudgeC}
+        />
+      ) : null}
+
       <div style={{ display: 'flex', justifyContent: 'flex-End' }}>
         <Tooltip title='Add' aria-label='add'>
           <Fab

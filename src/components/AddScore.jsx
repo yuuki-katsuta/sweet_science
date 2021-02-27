@@ -24,7 +24,7 @@ const AddScore = ({
           onChange={(e) => {
             setJudgeA({
               ...judgeA,
-              fighterScore: [e.target.value],
+              fighterScore: e.target.value,
             });
           }}
         />
@@ -34,7 +34,7 @@ const AddScore = ({
           onChange={(e) => {
             setJudgeA({
               ...judgeA,
-              opponentScore: [e.target.value],
+              opponentScore: e.target.value,
             });
           }}
         />
@@ -53,7 +53,7 @@ const AddScore = ({
           onChange={(e) => {
             setJudgeB({
               ...judgeB,
-              fighterScore: [e.target.value],
+              fighterScore: e.target.value,
             });
           }}
         />
@@ -63,7 +63,7 @@ const AddScore = ({
           onChange={(e) => {
             setJudgeB({
               ...judgeB,
-              opponentScore: [e.target.value],
+              opponentScore: e.target.value,
             });
           }}
         />
@@ -82,7 +82,7 @@ const AddScore = ({
           onChange={(e) => {
             setJudgeC({
               ...judgeC,
-              fighterScore: [e.target.value],
+              fighterScore: e.target.value,
             });
           }}
         />
@@ -92,7 +92,7 @@ const AddScore = ({
           onChange={(e) => {
             setJudgeC({
               ...judgeC,
-              opponentScore: [e.target.value],
+              opponentScore: e.target.value,
             });
           }}
         />

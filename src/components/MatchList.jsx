@@ -33,8 +33,8 @@ const MatchList = ({ history, matchData }) => {
   const columns = [
     { id: 'date', label: 'date', minWidth: 140 },
     { id: 'division', label: 'division', minWidth: 140 },
-    { id: 'fighter1', label: 'fighter', minWidth: 180 },
-    { id: 'fighter2', label: 'fighter', minWidth: 180 },
+    { id: 'fighter', label: 'fighter', minWidth: 180 },
+    { id: 'opponent', label: 'opponent', minWidth: 180 },
     { id: 'venue', label: 'venue', minWidth: 180 },
   ];
   return (
