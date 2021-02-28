@@ -1,5 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +12,24 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 const MatchList = ({ history, matchData }) => {
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#424242',
+      },
+    },
+  });
+  const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
+      fontSize: 15.5,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+
   const useStyles = makeStyles({
     root: {
       width: '100%',
@@ -40,20 +60,22 @@ const MatchList = ({ history, matchData }) => {
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label='sticky table'>
-          <TableHead>
-            <TableRow>
-              {columns.map((column, index) => (
-                <TableCell
-                  key={index}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
+        <Table stickyHeader aria-label='customized table'>
+          <ThemeProvider theme={theme}>
+            <TableHead>
+              <TableRow>
+                {columns.map((column, index) => (
+                  <StyledTableCell
+                    key={index}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </StyledTableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+          </ThemeProvider>
           <TableBody>
             {matchData
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
