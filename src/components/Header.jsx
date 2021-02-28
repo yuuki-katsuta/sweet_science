@@ -94,6 +94,15 @@ const Header = ({ history }) => {
                 <MenuItem onClick={handleClose}>
                   <span
                     onClick={() => {
+                      history.push('/about');
+                    }}
+                  >
+                    About
+                  </span>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <span
+                    onClick={() => {
                       history.push('/profile');
                     }}
                   >
