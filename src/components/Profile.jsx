@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     height: 'auto',
     width: '40%',
-    minWidth: '280px',
+    minWidth: '270px',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -55,7 +55,6 @@ const Profile = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          overflow: 'auto',
         }}
       >
         {nameSelected && (
@@ -72,9 +71,15 @@ const Profile = () => {
           <h3>
             Email:&nbsp;&nbsp;
             {!email
-              ? currentUser.email
+              ? currentUser.email.length > 20
+                ? currentUser.email.substr(0, 20) + '...'
+                : currentUser.email
               : isEmailChanged
-              ? currentUser.email
+              ? currentUser.email.length > 20
+                ? currentUser.email.substr(0, 20) + '...'
+                : currentUser.email
+              : email.length > 20
+              ? email.substr(0, 20) + '...'
               : email}
           </h3>
         )}
@@ -102,14 +107,14 @@ const Profile = () => {
           width: '35%',
           margin: '20px auto 0',
           textAlign: 'left',
-          minWidth: '310px',
+          minWidth: '300px',
         }}
       >
         <ProfileItem nameSelected />
         <ProfileItem emailSelected />
       </div>
       <Button
-        style={{ margin: '16px 24px' }}
+        style={{ margin: '16px auto 42px' }}
         variant='outlined'
         onClick={() => {
           setIsPasswordChanged(true);
