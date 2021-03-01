@@ -90,13 +90,13 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
       if (checked && judgeA.name && judgeB.name && judgeC.name) {
         //A
         const judgeAFighterScore = judgeA.fighterScore.split('/').map(Number);
-        const judgeAOpponentScore = judgeA.fighterScore.split('/').map(Number);
+        const judgeAOpponentScore = judgeA.opponentScore.split('/').map(Number);
         //B
         const judgeBFighterScore = judgeB.fighterScore.split('/').map(Number);
-        const judgeBOpponentScore = judgeB.fighterScore.split('/').map(Number);
+        const judgeBOpponentScore = judgeB.opponentScore.split('/').map(Number);
         //C
         const judgeCFighterScore = judgeC.fighterScore.split('/').map(Number);
-        const judgeCOpponentScore = judgeC.fighterScore.split('/').map(Number);
+        const judgeCOpponentScore = judgeC.opponentScore.split('/').map(Number);
 
         const scoreData = db
           .collection('chats')

@@ -33,9 +33,11 @@ function App() {
           </Auth>
         </Container>
         <Main>
-          <Container maxWidth='md'>
+          <Container maxWidth='lg'>
             <PrivateRoute exact path='/' component={Home} />
             <PrivateRoute exact path='/profile' component={Profile} />
+          </Container>
+          <Container maxWidth='md'>
             <PrivateRoute exact path='/about' component={About} />
           </Container>
           <PrivateRoute exact path='/chat/:id' component={Chat} />

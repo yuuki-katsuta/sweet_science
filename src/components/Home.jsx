@@ -4,6 +4,7 @@ import { db } from '../base';
 import MatchList from './MatchList';
 import AddMatchInformation from './AddMatchInformation';
 import Divider from '@material-ui/core/Divider';
+import Container from '@material-ui/core/Container';
 
 const Home = ({ history }) => {
   const { adminUser } = useContext(AuthContext);
@@ -48,15 +49,17 @@ const Home = ({ history }) => {
     <div>
       <h1 style={titleFont}>Match List</h1>
       <MatchList history={history} matchData={matchData} />
-      {adminUser && (
-        <div style={{ margin: '50px 0 60px' }}>
-          <Divider />
-          <AddMatchInformation
-            getMatcheInformation={getMatcheInformation}
-            setMatchData={setMatchData}
-          />
-        </div>
-      )}
+      <Container maxWidth='md'>
+        {adminUser && (
+          <div style={{ margin: '50px 0 60px' }}>
+            <Divider />
+            <AddMatchInformation
+              getMatcheInformation={getMatcheInformation}
+              setMatchData={setMatchData}
+            />
+          </div>
+        )}
+      </Container>
     </div>
   );
 };

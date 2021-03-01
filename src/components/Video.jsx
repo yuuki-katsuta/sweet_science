@@ -46,7 +46,7 @@ const Video = ({ matchData }) => {
             </div>
             <div style={{ textAlign: 'right' }}>
               <p>
-                {matchData.date}(JST)
+                {matchData.date}
                 <span>
                   <RoomIcon fontSize='small' />
                 </span>

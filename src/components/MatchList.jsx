@@ -1,6 +1,9 @@
 import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
+import {
+  withStyles,
+  makeStyles,
+  createMuiTheme,
+} from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -33,6 +36,8 @@ const MatchList = ({ history, matchData }) => {
   const useStyles = makeStyles({
     root: {
       width: '100%',
+      maxWidth: '1050px',
+      margin: '0 auto',
     },
     container: {
       maxHeight: 440,
@@ -50,7 +55,7 @@ const MatchList = ({ history, matchData }) => {
   };
 
   //テーブルに表示するデータ
-  const columns = [
+  const colums = [
     { id: 'date', label: 'date', minWidth: 140 },
     { id: 'division', label: 'division', minWidth: 140 },
     { id: 'fighter', label: 'fighter', minWidth: 180 },
@@ -60,17 +65,17 @@ const MatchList = ({ history, matchData }) => {
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label='customized table'>
+        <Table stickyHeader aria-label='a dense table'>
           <ThemeProvider theme={theme}>
             <TableHead>
               <TableRow>
-                {columns.map((column, index) => (
+                {colums.map((colum, index) => (
                   <StyledTableCell
                     key={index}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
+                    align={colum.align}
+                    style={{ minWidth: colum.minWidth }}
                   >
-                    {column.label}
+                    {colum.label}
                   </StyledTableCell>
                 ))}
               </TableRow>
@@ -93,16 +98,16 @@ const MatchList = ({ history, matchData }) => {
                       });
                     }}
                   >
-                    {columns.map((column, index) => {
-                      const value = match[column.id];
+                    {colums.map((colum, index) => {
+                      const value = match[colum.id];
                       return (
                         <TableCell
                           key={index}
-                          align={column.align}
+                          align={colum.align}
                           style={{ cursor: 'pointer' }}
                         >
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
+                          {colum.format && typeof value === 'number'
+                            ? colum.format(value)
                             : value}
                         </TableCell>
                       );

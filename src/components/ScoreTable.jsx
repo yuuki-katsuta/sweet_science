@@ -1,15 +1,55 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createMuiTheme,
+  MuiThemeProvider,
+  withStyles,
+} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 const ScoreTable = ({ Scoring }) => {
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#424242',
+      },
+    },
+    overrides: {
+      MuiTableCell: {
+        root: {
+          paddingTop: 4,
+          paddingBottom: 4,
+          paddingRight: 8,
+          '&:last-child': {
+            paddingRight: 8,
+          },
+        },
+      },
+    },
+  });
+
+  const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
+      fontSize: 15.5,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+
   const useStyles = makeStyles({
+    root: {
+      width: '100%',
+      marginBottom: '10px',
+      overflowX: 'auto',
+    },
     table: {
       minWidth: 650,
     },
@@ -17,48 +57,55 @@ const ScoreTable = ({ Scoring }) => {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper} style={{ marginBottom: '14px' }}>
-      <Table className={classes.table} size='small' aria-label='a dense table'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Round</TableCell>
-            <TableCell align='right'>1</TableCell>
-            <TableCell align='right'>2</TableCell>
-            <TableCell align='right'>3</TableCell>
-            <TableCell align='right'>4</TableCell>
-            <TableCell align='right'>5</TableCell>
-            <TableCell align='right'>6</TableCell>
-            <TableCell align='right'>7</TableCell>
-            <TableCell align='right'>8</TableCell>
-            <TableCell align='right'>9</TableCell>
-            <TableCell align='right'>10</TableCell>
-            <TableCell align='right'>11</TableCell>
-            <TableCell align='right'>12</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {Scoring.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component='th' scope='row'>
-                {row.name}
-              </TableCell>
-              <TableCell align='right'>{row.one}</TableCell>
-              <TableCell align='right'>{row.two}</TableCell>
-              <TableCell align='right'>{row.three}</TableCell>
-              <TableCell align='right'>{row.four}</TableCell>
-              <TableCell align='right'>{row.five}</TableCell>
-              <TableCell align='right'>{row.six}</TableCell>
-              <TableCell align='right'>{row.seven}</TableCell>
-              <TableCell align='right'>{row.eight}</TableCell>
-              <TableCell align='right'>{row.nine}</TableCell>
-              <TableCell align='right'>{row.ten}</TableCell>
-              <TableCell align='right'>{row.eleven}</TableCell>
-              <TableCell align='right'>{row.twelve}</TableCell>
+    <MuiThemeProvider theme={theme}>
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Round</StyledTableCell>
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((round, key) => {
+                return (
+                  <StyledTableCell align='right' key={key}>
+                    {round}
+                  </StyledTableCell>
+                );
+              })}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {Scoring.map((row) => {
+              return (
+                <TableRow key={row.name}>
+                  <TableCell component='th' scope='row'>
+                    {row.name}
+                  </TableCell>
+                  {[
+                    'one',
+                    'two',
+                    'three',
+                    'four',
+                    'five',
+                    'six',
+                    'seven',
+                    'eight',
+                    'nine',
+                    'ten',
+                    'eleven',
+                    'twelve',
+                  ].map((number, key) => {
+                    return (
+                      <TableCell align='right' key={key}>
+                        {row[number]}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Paper>
+    </MuiThemeProvider>
   );
 };
 export default ScoreTable;
