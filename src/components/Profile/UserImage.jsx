@@ -7,11 +7,13 @@ import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import SendIcon from '@material-ui/icons/Send';
 
 const UserImage = () => {
   const { currentUser, ChangePhtoUrl, ResetPhtoUrl } = useContext(AuthContext);
   const [image, setImage] = useState('');
   const [imageUrl, setImageUrl] = useState(currentUser.photoURL);
+  const [filename, setFileName] = useState('');
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,6 +32,7 @@ const UserImage = () => {
 
   const handleImage = (event) => {
     const image = event.target.files[0];
+    setFileName(image.name);
     setImage(image);
   };
   const onSubmit = (event) => {
@@ -47,13 +50,7 @@ const UserImage = () => {
       complete
     );
   };
-  const next = (snapshot) => {
-    // 進行中のsnapshotを得る
-    // アップロードの進行度を表示
-    const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    console.log(percent + '% done');
-    console.log(snapshot);
-  };
+  const next = (snapshot) => {};
   const error = (error) => {
     alert(error.message);
   };
@@ -68,6 +65,8 @@ const UserImage = () => {
         await ChangePhtoUrl(fireBaseUrl);
         setImageUrl(currentUser.photoURL);
       });
+    setImage('');
+    setFileName('');
   };
 
   return (
@@ -110,10 +109,28 @@ const UserImage = () => {
           <Avatar alt='uploaded' className={classes.image} />
         )}
       </div>
-      <form onSubmit={onSubmit}>
-        <input type='file' onChange={handleImage} />
-        <button>送信</button>
-      </form>
+      <div>
+        <label style={{ fontWeight: 'bold', cursor: 'pointer' }}>
+          ファイルを選択
+          <input
+            onChange={handleImage}
+            type='file'
+            style={{ display: 'none' }}
+          />
+        </label>
+        {filename.length > 15 ? (
+          <span>{` (${filename.substr(0, 15) + '...'}) `}</span>
+        ) : (
+          <span>{filename}</span>
+        )}
+        <IconButton
+          onClick={(e) => {
+            onSubmit(e);
+          }}
+        >
+          <SendIcon />
+        </IconButton>
+      </div>
     </div>
   );
 };

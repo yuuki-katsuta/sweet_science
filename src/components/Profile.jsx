@@ -105,7 +105,7 @@ const Profile = () => {
       <div
         style={{
           width: '35%',
-          margin: '20px auto 0',
+          margin: '0 auto ',
           textAlign: 'left',
           minWidth: '300px',
         }}
