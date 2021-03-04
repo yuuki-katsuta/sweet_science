@@ -62,10 +62,14 @@ const ScoreTable = ({ Scoring }) => {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <StyledTableCell>Round</StyledTableCell>
+              <StyledTableCell className='scoreTable'>Round</StyledTableCell>
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((round, key) => {
                 return (
-                  <StyledTableCell align='right' key={key}>
+                  <StyledTableCell
+                    align='right'
+                    key={key}
+                    className='scoreTable'
+                  >
                     {round}
                   </StyledTableCell>
                 );
@@ -76,7 +80,7 @@ const ScoreTable = ({ Scoring }) => {
             {Scoring.map((row) => {
               return (
                 <TableRow key={row.name}>
-                  <TableCell component='th' scope='row'>
+                  <TableCell component='th' scope='row' className='scoreTable'>
                     {row.name}
                   </TableCell>
                   {[
@@ -94,7 +98,7 @@ const ScoreTable = ({ Scoring }) => {
                     'twelve',
                   ].map((number, key) => {
                     return (
-                      <TableCell align='right' key={key}>
+                      <TableCell align='right' key={key} className='scoreTable'>
                         {row[number]}
                       </TableCell>
                     );

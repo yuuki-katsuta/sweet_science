@@ -123,6 +123,7 @@ const Chat = ({ history, location }) => {
                   uid={uid}
                   photoURL={photoURL}
                   currentUser={currentUser}
+                  className='messageItem'
                 />
               </div>
             );

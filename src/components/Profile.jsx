@@ -99,7 +99,7 @@ const Profile = () => {
 
   return (
     <div>
-      <h1>Your Profile</h1>
+      <h2>Your Profile</h2>
       <h2>Here you can edit your profile</h2>
       <UserImage />
       <div

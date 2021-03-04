@@ -19,5 +19,101 @@ body {
   box-sizing: border-box;
 }
 p {
-  margin: 8px
+  margin: 2px;
+}
+
+@media screen and (min-width:280px) {
+  /*画面サイズが280pxからはここを読み込む*/
+  p {
+    font-size: 3vmin;
+  }
+  h1 {
+    font-size: 5vmin;
+  }
+  th.scoreTable {
+    font-size: 3vmin;
+    padding-bottom: 0;
+    padding-Top: 0;
+    padding-left: 8px;
+  }
+  td.scoreTable {
+    font-size: 3vmin;
+    padding-bottom: 0;
+    padding-Top: 0;
+    padding-left: 8px;
+  }
+  li.MuiListItem-gutters {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  span.MuiTypography-root {
+    font-size: 2vmin;
+  }
+  svg.MuiSvgIcon-fontSizeSmall {
+    font-size: 2.9vmin;
+  }
+}
+@media screen and (min-width:680px) and ( max-width:1024px) {
+  /*画面サイズが768pxから1024pxまではここを読み込む*/
+  div.listItem {
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+  span.MuiTypography-root {
+    font-size: 1.8vmin;
+  }
+  th.scoreTable {
+    font-size: 2vmin;
+    padding-bottom: 0;
+    padding-Top: 0;
+    padding-left: 8px;
+  }
+  td.scoreTable {
+    font-size: 1.6vmin;
+    padding-bottom: 0;
+    padding-Top: 0;
+    padding-left: 8px;
+  }
+  h1 {
+    font-size: 4.5vmin;
+  }
+  h4 {
+    font-size: 2vmin;
+  }
+  p {
+    font-size: 2.4vmin;
+  }
+}
+@media screen and (min-width:1024px) {
+
+  /*画面サイズが1024pxからはここを読み込む*/
+  div.listItem {
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+  h1 {
+    font-size: 32px;
+  }
+  p{
+    font-size: 16px;
+    margin: 2px;
+  }
+  span.MuiTypography-root {
+    font-size: 1.8vmin;
+  }
+  th.scoreTable  {
+    font-size: 18px;
+    padding-bottom: 5px;
+    padding-Top: 5px;
+    padding-left: 16px;
+  }
+  td.scoreTable {
+    font-size: 16px;
+    padding-bottom: 0;
+    padding-Top: 0;
+    padding-left: 8px;
+  }
+  svg.MuiSvgIcon-fontSizeSmall {
+    font-size: 20px;
+  }
 }

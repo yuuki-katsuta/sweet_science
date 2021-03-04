@@ -13,9 +13,12 @@ const MessageItem = ({ name, message, uid, currentUser, photoURL }) => {
       display: 'inline',
     },
     Image: {
-      width: theme.spacing(5.5),
-      height: theme.spacing(5.5),
+      width: '10vmin',
+      height: '10vmin',
       border: '1px solid #ccc',
+      display: 'inline-block',
+      maxWidth: '50px',
+      maxHeight: '50px',
     },
   }));
   const classes = useStyles();
@@ -23,6 +26,7 @@ const MessageItem = ({ name, message, uid, currentUser, photoURL }) => {
     <div>
       <ListItem alignItems='flex-start'>
         <ListItemText
+          className='listItem'
           secondary={
             <Typography component='span' variant='body2' color='textPrimary'>
               <div style={{ textAlign: 'right' }}>
@@ -46,7 +50,7 @@ const MessageItem = ({ name, message, uid, currentUser, photoURL }) => {
         <ListItemIcon
           style={{
             display: 'inline-block',
-            textAlign: 'right',
+            textAlign: 'center',
             margin: '4px 0 0 0',
           }}
         >
@@ -54,10 +58,6 @@ const MessageItem = ({ name, message, uid, currentUser, photoURL }) => {
             alt='uploaded'
             src={currentUser.photoURL}
             className={classes.Image}
-            style={{
-              textAlign: 'right',
-              display: 'inline-block',
-            }}
           />
         </ListItemIcon>
       </ListItem>
@@ -66,16 +66,17 @@ const MessageItem = ({ name, message, uid, currentUser, photoURL }) => {
   ) : (
     <div>
       <ListItem alignItems='flex-start'>
-        <div>
-          <ListItemIcon
-            style={{
-              margin: '4px 0 0 0',
-            }}
-          >
-            <Avatar alt='uploaded' src={photoURL} className={classes.Image} />
-          </ListItemIcon>
-        </div>
+        <ListItemIcon
+          style={{
+            margin: '4px 0 0 0',
+            textAlign: 'center',
+            display: 'inline-block',
+          }}
+        >
+          <Avatar alt='uploaded' src={photoURL} className={classes.Image} />
+        </ListItemIcon>
         <ListItemText
+          className='listItem'
           primary={name}
           secondary={
             <Typography

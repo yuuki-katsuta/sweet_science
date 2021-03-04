@@ -64,7 +64,7 @@ const MatchList = ({ history, matchData }) => {
     { id: 'venue', label: 'Venue', minWidth: 280 },
   ];
   const ForResponsiveColums = [
-    { id: 'date', label: 'Date', minWidth: 130 },
+    { id: 'date', label: 'Date', minWidth: 120 },
     { id: 'fighter', label: 'Fighter', minWidth: 180 },
     { id: 'opponent', label: 'Opponent', minWidth: 180 },
     { id: 'division', label: 'Division', minWidth: 120 },

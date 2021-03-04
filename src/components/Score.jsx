@@ -48,7 +48,14 @@ const Score = ({ matchData }) => {
   const useStyles = makeStyles({
     judger: {
       textAlign: 'left',
-      margin: '0 0 5px 8px',
+      margin: '0 0 0 8px',
+      fontSize: '2.5vmin',
+      '@media screen and (min-width:680px) and ( max-width:1024px)': {
+        fontSize: '12px',
+      },
+      '@media (min-width: 1024px)': {
+        fontSize: '16px',
+      },
     },
   });
   const classes = useStyles();
