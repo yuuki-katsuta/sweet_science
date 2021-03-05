@@ -126,7 +126,7 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
   };
   return (
     <>
-      <h1 className={classes.titleFont}>Add Match</h1>
+      <h2 className={classes.titleFont}>Add Match</h2>
       <AddMatchSummary
         MatchSummary={MatchSummary}
         setMatchSummary={setMatchSummary}

@@ -22,7 +22,7 @@ const UserImage = () => {
       },
     },
     image: {
-      margin: '0 auto 16px',
+      margin: '0 auto',
       border: '1px solid #ccc',
       width: theme.spacing(18),
       height: theme.spacing(18),

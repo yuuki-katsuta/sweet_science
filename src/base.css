@@ -21,6 +21,9 @@ body {
 p {
   margin: 2px;
 }
+svg.MuiAvatar-fallback {
+  height: 90%;
+}
 
 @media screen and (min-width:280px) {
   /*画面サイズが280pxからはここを読み込む*/
@@ -29,6 +32,9 @@ p {
   }
   h1 {
     font-size: 5vmin;
+  }
+  h2 {
+    font-size: 22px
   }
   th.scoreTable {
     font-size: 3vmin;
@@ -93,6 +99,9 @@ p {
   }
   h1 {
     font-size: 32px;
+  }
+  h2 {
+    font-size: 27px;
   }
   p{
     font-size: 16px;

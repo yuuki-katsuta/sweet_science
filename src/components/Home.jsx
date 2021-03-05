@@ -47,7 +47,7 @@ const Home = ({ history }) => {
 
   return (
     <div>
-      <h1 style={titleFont}>Match List</h1>
+      <h2 style={titleFont}>Match List</h2>
       <MatchList history={history} matchData={matchData} />
       <Container maxWidth='md'>
         {adminUser && (

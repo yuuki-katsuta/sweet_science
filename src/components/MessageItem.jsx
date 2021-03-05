@@ -11,6 +11,7 @@ const MessageItem = ({ name, message, uid, currentUser, photoURL }) => {
   const useStyles = makeStyles((theme) => ({
     inline: {
       display: 'inline',
+      wordBreak: 'break-word',
     },
     Image: {
       width: '10vmin',
@@ -34,6 +35,7 @@ const MessageItem = ({ name, message, uid, currentUser, photoURL }) => {
                   style={{
                     textAlign: 'left',
                     display: 'inline-block',
+                    wordBreak: 'break-word',
                   }}
                 >
                   <h4 style={{ textAlign: 'right', margin: '0 0px 3px 0px' }}>
