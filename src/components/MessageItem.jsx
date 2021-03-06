@@ -14,9 +14,9 @@ const MessageItem = ({ name, message, uid, currentUser, photoURL }) => {
       wordBreak: 'break-word',
     },
     Image: {
-      width: '10vmin',
-      height: '10vmin',
-      border: '1px solid #ccc',
+      width: '11.5vmin',
+      height: '11.5vmin',
+      border: '1px solid #AAAAAA',
       display: 'inline-block',
       maxWidth: '50px',
       maxHeight: '50px',

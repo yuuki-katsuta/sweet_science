@@ -100,7 +100,7 @@ const Profile = () => {
   return (
     <div>
       <h2>Your Profile</h2>
-      <h2>Here you can edit your profile</h2>
+      <h3>Here you can edit your profile</h3>
       <UserImage />
       <div
         style={{

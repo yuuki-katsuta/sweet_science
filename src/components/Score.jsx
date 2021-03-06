@@ -49,7 +49,7 @@ const Score = ({ matchData }) => {
     judger: {
       textAlign: 'left',
       margin: '0 0 0 8px',
-      fontSize: '2.5vmin',
+      fontSize: '3.5vmin',
       '@media screen and (min-width:680px) and ( max-width:1024px)': {
         fontSize: '12px',
       },

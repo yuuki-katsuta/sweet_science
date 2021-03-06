@@ -18,7 +18,7 @@ const Main = styled.main`
 `;
 const Auth = styled.div`
   text-align: center;
-  margin: 100px auto 0;
+  margin: 80px auto 0;
 `;
 
 function App() {

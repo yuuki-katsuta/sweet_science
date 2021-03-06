@@ -28,24 +28,24 @@ svg.MuiAvatar-fallback {
 @media screen and (min-width:280px) {
   /*画面サイズが280pxからはここを読み込む*/
   p {
-    font-size: 3vmin;
+    font-size: 3.5vmin;
   }
   h1 {
     font-size: 5vmin;
   }
   h2 {
-    font-size: 22px
+    font-size: 28px
   }
   th.scoreTable {
     font-size: 3vmin;
-    padding-bottom: 0;
-    padding-Top: 0;
+    padding-bottom: 2px;
+    padding-Top: 2px;
     padding-left: 8px;
   }
   td.scoreTable {
     font-size: 3vmin;
-    padding-bottom: 0;
-    padding-Top: 0;
+    padding-bottom: 2px;
+    padding-Top: 2px;
     padding-left: 8px;
   }
   li.MuiListItem-gutters {
@@ -53,7 +53,13 @@ svg.MuiAvatar-fallback {
     padding-left: 5px;
   }
   span.MuiTypography-root {
-    font-size: 2vmin;
+    font-size: 3.5vmin;
+  }
+  span.MuiListItemText-primary {
+    font-weight: 600
+  }
+  span.MuiFormControlLabel-label {
+    font-size: 5vmin;
   }
   svg.MuiSvgIcon-fontSizeSmall {
     font-size: 2.9vmin;
@@ -74,14 +80,14 @@ svg.MuiAvatar-fallback {
   }
   th.scoreTable {
     font-size: 2vmin;
-    padding-bottom: 0;
-    padding-Top: 0;
+    padding-bottom: 3px;
+    padding-Top: 3px;
     padding-left: 8px;
   }
   td.scoreTable {
-    font-size: 1.6vmin;
-    padding-bottom: 0;
-    padding-Top: 0;
+    font-size: 1.8vmin;
+    padding-bottom: 3px;
+    padding-Top: 3px;
     padding-left: 8px;
   }
   h1 {

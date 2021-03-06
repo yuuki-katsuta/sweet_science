@@ -97,7 +97,7 @@ const Chat = ({ history, location }) => {
   const classes = useStyles();
 
   return location.state ? (
-    <div style={{ margin: '0  0 50px' }}>
+    <div style={{ margin: '0  0 25px' }}>
       <Container maxWidth='md' disableGutters={true}>
         <Video matchData={location.state.matchData} />
         {location.state.matchData.scoreData && (
