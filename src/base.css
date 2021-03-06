@@ -58,6 +58,10 @@ svg.MuiAvatar-fallback {
   svg.MuiSvgIcon-fontSizeSmall {
     font-size: 2.9vmin;
   }
+  div.MuiContainer-root {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 @media screen and (min-width:680px) and ( max-width:1024px) {
   /*画面サイズが768pxから1024pxまではここを読み込む*/

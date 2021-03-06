@@ -2,9 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../auth/AuthProvider';
 import { db } from '../base';
 import MatchList from './MatchList';
+import News from './News';
 import AddMatchInformation from './AddMatchInformation';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
+const titleFont = {
+  fontFamily: 'Arimo',
+};
 
 const Home = ({ history }) => {
   const { adminUser } = useContext(AuthContext);
@@ -41,16 +45,13 @@ const Home = ({ history }) => {
     // eslint-disable-next-line
   }, []);
 
-  const titleFont = {
-    fontFamily: 'Arimo',
-  };
-
   return (
     <div>
       <h2 style={titleFont}>Match List</h2>
       <MatchList history={history} matchData={matchData} />
-      <Container maxWidth='md'>
-        {adminUser && (
+
+      {adminUser ? (
+        <Container maxWidth='md'>
           <div style={{ margin: '50px 0 60px' }}>
             <Divider />
             <AddMatchInformation
@@ -58,8 +59,24 @@ const Home = ({ history }) => {
               setMatchData={setMatchData}
             />
           </div>
-        )}
-      </Container>
+        </Container>
+      ) : (
+        <Container maxWidth='md'>
+          <div
+            style={{
+              width: '100%',
+              margin: '72px auto 0',
+              textAlign: 'center',
+            }}
+          >
+            <News
+              title={matchData.title}
+              creationTime={matchData.createdAt}
+              matchData={matchData}
+            />
+          </div>
+        </Container>
+      )}
     </div>
   );
 };
