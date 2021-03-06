@@ -36,6 +36,9 @@ svg.MuiAvatar-fallback {
   h2 {
     font-size: 28px
   }
+  td.MuiTableCell-sizeSmall {
+    padding: 14px 6px 14px 16px;
+  }
   th.scoreTable {
     font-size: 3vmin;
     padding-bottom: 2px;
