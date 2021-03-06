@@ -19,16 +19,14 @@ const Chat = ({ history, location }) => {
   //データ取得
   const getMessages = () => {
     if (!location.state) return;
-    return db
-      .collection('chats')
+    db.collection('chats')
       .doc(`${location.state.matchData.title}`)
       .collection('messages')
       .orderBy('createdAt', 'desc')
-      .limit(30)
-      .get()
-      .then((querySnapshot) => {
+      .limit(35)
+      .onSnapshot((Snapshot) => {
         let msg = [];
-        querySnapshot.forEach((doc) => {
+        Snapshot.forEach((doc) => {
           if (doc.data()) {
             msg.push({
               message: doc.data().message,
@@ -39,7 +37,7 @@ const Chat = ({ history, location }) => {
           }
         });
         //配列の要素を反転
-        return msg.reverse();
+        setMessages(msg.reverse());
       });
   };
 
@@ -57,8 +55,7 @@ const Chat = ({ history, location }) => {
         photoURL: currentUser.photoURL,
       })
       .then(async () => {
-        const result = await getMessages();
-        setMessages(result);
+        await getMessages();
         setText('');
         //自動スクロール
         ref.current.scrollIntoView({ behavior: 'smooth' });
@@ -66,16 +63,7 @@ const Chat = ({ history, location }) => {
   };
 
   useEffect(() => {
-    let unmounted = false;
-    (async () => {
-      const messages = await getMessages();
-      if (!unmounted) {
-        setMessages(messages);
-      }
-    })();
-    return () => {
-      unmounted = true;
-    };
+    getMessages();
     //eslint-disable-next-line
   }, []);
 
@@ -129,6 +117,7 @@ const Chat = ({ history, location }) => {
             );
           })}
         </List>
+
         <MessageAddField
           history={history}
           messageAdd={messageAdd}

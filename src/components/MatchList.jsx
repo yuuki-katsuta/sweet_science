@@ -41,7 +41,7 @@ const MatchList = ({ history, matchData }) => {
       margin: '0 auto',
     },
     container: {
-      maxHeight: 440,
+      maxHeight: 700,
     },
   });
   const classes = useStyles();

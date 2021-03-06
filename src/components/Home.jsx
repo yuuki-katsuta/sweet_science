@@ -49,7 +49,6 @@ const Home = ({ history }) => {
     <div>
       <h2 style={titleFont}>Match List</h2>
       <MatchList history={history} matchData={matchData} />
-
       {adminUser ? (
         <Container maxWidth='md'>
           <div style={{ margin: '50px 0 60px' }}>
