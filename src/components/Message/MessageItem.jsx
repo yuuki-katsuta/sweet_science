@@ -1,101 +1,114 @@
-import React from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
+import { AuthContext } from '../../auth/AuthProvider';
+import { db } from '../../base';
 import { makeStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Divider from '@material-ui/core/Divider';
-import Avatar from '@material-ui/core/Avatar';
+import MessageAddField from './/MessageAddField';
+import MessageList from './MessageList';
+import List from '@material-ui/core/List';
 
-const MessageItem = ({ name, message, uid, currentUser, photoURL }) => {
-  const useStyles = makeStyles((theme) => ({
-    inline: {
-      display: 'inline',
-      wordBreak: 'break-word',
+const MessageItem = ({ history, matchData }) => {
+  const { currentUser } = useContext(AuthContext);
+  const [messages, setMessages] = useState([]);
+  const [text, setText] = useState('');
+  const ref = useRef();
+
+  const useStyles = makeStyles({
+    list: {
+      maxHeight: '56vh',
+      overflow: 'auto',
+      gridRow: 1,
+      width: '100%',
+      maxWidth: '1100px',
+      margin: '24px auto 10px',
+      borderTop: 'thin solid #CCCCCC',
+      padding: 0,
     },
-    Image: {
-      width: '11.5vmin',
-      height: '11.5vmin',
-      border: '1px solid #AAAAAA',
-      display: 'inline-block',
-      maxWidth: '50px',
-      maxHeight: '50px',
+    ownMessage: {
+      backgroundColor: '#EEEEEE',
     },
-  }));
+  });
   const classes = useStyles();
-  return uid === currentUser.uid ? (
-    <div>
-      <ListItem alignItems='flex-start'>
-        <ListItemText
-          className='listItem'
-          secondary={
-            <Typography component='span' variant='body2' color='textPrimary'>
-              <div style={{ textAlign: 'right' }}>
-                <div
-                  style={{
-                    textAlign: 'left',
-                    display: 'inline-block',
-                    wordBreak: 'break-word',
-                  }}
-                >
-                  <h4 style={{ textAlign: 'right', margin: '0 0px 3px 0px' }}>
-                    {name}
-                  </h4>
-                  {message.split('\n').map((t, i) => {
-                    return <div key={i}>{t}</div>;
-                  })}
-                </div>
-              </div>
-            </Typography>
+
+  useEffect(() => {
+    getMessages();
+    //eslint-disable-next-line
+  }, []);
+
+  //データ取得
+  const getMessages = () => {
+    if (!matchData) return;
+    db.collection('chats')
+      .doc(`${matchData.title}`)
+      .collection('messages')
+      .orderBy('createdAt', 'desc')
+      .limit(35)
+      .onSnapshot((Snapshot) => {
+        let msg = [];
+        Snapshot.forEach((doc) => {
+          if (doc.data()) {
+            msg.push({
+              message: doc.data().message,
+              user: doc.data().user,
+              uid: doc.data().uid,
+              photoURL: doc.data().photoURL,
+            });
           }
-        />
-        <ListItemIcon
-          style={{
-            display: 'inline-block',
-            textAlign: 'center',
-            margin: '4px 0 0 0',
-          }}
-        >
-          <Avatar
-            alt='uploaded'
-            src={currentUser.photoURL}
-            className={classes.Image}
-          />
-        </ListItemIcon>
-      </ListItem>
-      <Divider variant='middle' />
-    </div>
-  ) : (
-    <div>
-      <ListItem alignItems='flex-start'>
-        <ListItemIcon
-          style={{
-            margin: '4px 0 0 0',
-            textAlign: 'center',
-            display: 'inline-block',
-          }}
-        >
-          <Avatar alt='uploaded' src={photoURL} className={classes.Image} />
-        </ListItemIcon>
-        <ListItemText
-          className='listItem'
-          primary={name}
-          secondary={
-            <Typography
-              component='span'
-              variant='body2'
-              className={classes.inline}
-              color='textPrimary'
+        });
+        //配列の要素を反転
+        setMessages(msg.reverse());
+      });
+  };
+
+  //追加
+  const messageAdd = () => {
+    if (text === '') return;
+    db.collection('chats')
+      .doc(`${matchData.title}`)
+      .collection('messages')
+      .add({
+        user: currentUser.displayName,
+        message: text,
+        uid: currentUser.uid,
+        createdAt: new Date(),
+        photoURL: currentUser.photoURL,
+      })
+      .then(async () => {
+        await getMessages();
+        setText('');
+        //自動スクロール
+        ref.current.scrollIntoView({ behavior: 'smooth' });
+      });
+  };
+  return (
+    <>
+      <List className={messages.length === 0 ? null : classes.list}>
+        {messages.map(({ user, uid, message, photoURL }, index) => {
+          return (
+            <div
+              ref={ref}
+              key={index}
+              className={uid === currentUser.uid ? classes.ownMessage : null}
             >
-              {message.split('\n').map((t, i) => {
-                return <div key={i}>{t}</div>;
-              })}
-            </Typography>
-          }
-        />
-      </ListItem>
-      <Divider variant='middle' />
-    </div>
+              <MessageList
+                name={user}
+                message={message}
+                uid={uid}
+                photoURL={photoURL}
+                currentUser={currentUser}
+                className='messageItem'
+              />
+            </div>
+          );
+        })}
+      </List>
+
+      <MessageAddField
+        history={history}
+        messageAdd={messageAdd}
+        text={text}
+        setText={setText}
+      />
+    </>
   );
 };
 export default MessageItem;
