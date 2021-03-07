@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { withRouter } from 'react-router';
-import { AuthContext } from '../auth/AuthProvider';
+import { AuthContext } from '../../auth/AuthProvider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from 'react-router-dom';
-import TextInputField from './TextInputField';
+import TextInputField from '../TextInputField';
 import Button from '@material-ui/core/Button';
 
 const Login = ({ history }) => {

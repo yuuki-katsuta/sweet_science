@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { AuthContext } from '../auth/AuthProvider.js';
+import { AuthContext } from '../../auth/AuthProvider.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -7,10 +7,10 @@ import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
-import EditName from './Profile/EditName';
-import EditEmail from './Profile/EditEmail';
-import EditPassword from './Profile/EditPassword';
-import UserImage from './Profile/UserImage';
+import EditName from './EditName';
+import EditEmail from './EditEmail';
+import EditPassword from './EditPassword';
+import UserImage from './UserImage';
 
 const useStyles = makeStyles((theme) => ({
   modal: {

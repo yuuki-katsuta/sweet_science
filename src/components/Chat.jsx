@@ -3,12 +3,12 @@ import { AuthContext } from '../auth/AuthProvider';
 import { Redirect } from 'react-router-dom';
 import { db } from '../base';
 import { makeStyles } from '@material-ui/core/styles';
-import Video from './Video';
-import MessageAddField from './MessageAddField';
-import MessageItem from './MessageItem';
+import Video from '../Video/Video';
+import MessageAddField from './Message/MessageAddField';
+import MessageItem from './Message/MessageItem';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
-import Score from './Score.jsx';
+import Score from './Score/Score.jsx';
 
 const Chat = ({ history, location }) => {
   const { currentUser } = useContext(AuthContext);

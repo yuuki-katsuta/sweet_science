@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
-import { AuthContext } from '../auth/AuthProvider';
-import TextInputField from './TextInputField';
+import { AuthContext } from '../../auth/AuthProvider';
+import TextInputField from '../TextInputField';
 import Button from '@material-ui/core/Button';
 
 const SignUp = ({ history }) => {

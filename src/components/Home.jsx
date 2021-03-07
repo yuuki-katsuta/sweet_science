@@ -3,12 +3,9 @@ import { AuthContext } from '../auth/AuthProvider';
 import { db } from '../base';
 import MatchList from './MatchList';
 import News from './News';
-import AddMatchInformation from './AddMatchInformation';
+import AddMatchInformation from './Add/AddMatchInformation';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
-const titleFont = {
-  fontFamily: 'Arimo',
-};
 
 const Home = ({ history }) => {
   const { adminUser } = useContext(AuthContext);
@@ -47,7 +44,7 @@ const Home = ({ history }) => {
 
   return (
     <div>
-      <h2 style={titleFont}>Match List</h2>
+      <h2 style={{ fontFamily: 'Arimo' }}>Match List</h2>
       <MatchList history={history} matchData={matchData} />
       {adminUser ? (
         <Container maxWidth='md'>

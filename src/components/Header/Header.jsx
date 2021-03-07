@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { auth } from '../base';
+import { auth } from '../../base';
 import { withRouter } from 'react-router';
-import { AuthContext } from '../auth/AuthProvider';
+import { AuthContext } from '../../auth/AuthProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
