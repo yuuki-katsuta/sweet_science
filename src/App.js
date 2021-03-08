@@ -4,44 +4,24 @@ import { AuthProvider } from './auth/AuthProvider';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Home from './components/Home';
-import Login from './components/Auth/Login';
-import SignUp from './components/Auth/SignUp';
+import Auth from './components/Auth/Auth';
 import Chat from './components/Chat';
 import Profile from './components/Profile/Profile';
 import About from './components/About';
-import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
-
-const Main = styled.main`
-  text-align: center;
-  margin: 120px auto 0;
-`;
-const Auth = styled.div`
-  text-align: center;
-  margin: 80px auto 0;
-`;
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Header />
-        <Container maxWidth='sm'>
-          <Auth>
-            <Route exact path='/signup' component={SignUp} />
-            <Route exact path='/login' component={Login} />
-          </Auth>
+        <Route exact path='/auth' component={Auth} />
+        <PrivateRoute exact path='/' component={Home} />
+        <Container maxWidth='md'>
+          <PrivateRoute exact path='/profile' component={Profile} />
+          <PrivateRoute exact path='/about' component={About} />
         </Container>
-        <Main>
-          <Container maxWidth='lg'>
-            <PrivateRoute exact path='/' component={Home} />
-            <PrivateRoute exact path='/profile' component={Profile} />
-          </Container>
-          <Container maxWidth='md'>
-            <PrivateRoute exact path='/about' component={About} />
-          </Container>
-          <PrivateRoute exact path='/chat/:id' component={Chat} />
-        </Main>
+        <PrivateRoute exact path='/chat/:id' component={Chat} />
       </BrowserRouter>
     </AuthProvider>
   );

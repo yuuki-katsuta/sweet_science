@@ -113,7 +113,7 @@ const Header = ({ history }) => {
                   <span
                     onClick={async () => {
                       await auth.signOut();
-                      history.push('/login');
+                      history.push('/auth');
                       setAdminUser(false);
                     }}
                   >
