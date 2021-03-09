@@ -8,7 +8,6 @@ import Auth from './components/Auth/Auth';
 import Chat from './components/Chat';
 import Profile from './components/Profile/Profile';
 import About from './components/About';
-import Container from '@material-ui/core/Container';
 
 function App() {
   return (
@@ -17,10 +16,8 @@ function App() {
         <Header />
         <Route exact path='/auth' component={Auth} />
         <PrivateRoute exact path='/' component={Home} />
-        <Container maxWidth='md'>
-          <PrivateRoute exact path='/profile' component={Profile} />
-          <PrivateRoute exact path='/about' component={About} />
-        </Container>
+        <PrivateRoute exact path='/profile' component={Profile} />
+        <PrivateRoute exact path='/about' component={About} />
         <PrivateRoute exact path='/chat/:id' component={Chat} />
       </BrowserRouter>
     </AuthProvider>

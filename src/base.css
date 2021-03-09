@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Kreon:wght@600&family=Lato&family=Markazi+Text:wght@600&family=Montserrat&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@600&family=Hepta+Slab:wght@500&family=Kreon:wght@600&family=Lato&family=Markazi+Text:wght@600&family=Montserrat&family=Roboto&family=Varta:wght@700&display=swap');
 
+html {
+  margin: 0;
+
+}
 body {
   color: rgba(0, 0, 0, 0.87);
   margin: 0;
+
   font-size: 0.875rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400;
@@ -24,6 +29,10 @@ p {
 svg.MuiAvatar-fallback {
   height: 90%;
 }
+div.container {
+  text-align: center;
+  margin: 120px auto 0
+}
 
 @media screen and (min-width:280px) {
   /*画面サイズが280pxからはここを読み込む*/
@@ -40,15 +49,15 @@ svg.MuiAvatar-fallback {
     padding: 14px 6px 14px 16px;
   }
   th.scoreTable {
-    font-size: 3vmin;
-    padding-bottom: 2px;
-    padding-Top: 2px;
+    font-size: 3.3vmin;
+    padding-bottom: 4px;
+    padding-Top: 4px;
     padding-left: 8px;
   }
   td.scoreTable {
-    font-size: 3vmin;
-    padding-bottom: 2px;
-    padding-Top: 2px;
+    font-size: 3.5vmin;
+    padding-bottom: 4px;
+    padding-Top: 4px;
     padding-left: 8px;
   }
   li.MuiListItem-gutters {
@@ -123,8 +132,11 @@ svg.MuiAvatar-fallback {
     font-size: 16px;
     margin: 2px;
   }
+  h4 {
+    font-size: 17px;
+  }
   span.MuiTypography-root {
-    font-size: 1.8vmin;
+    font-size: 17px;
   }
   th.scoreTable  {
     font-size: 16px;

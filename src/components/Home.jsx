@@ -43,7 +43,7 @@ const Home = ({ history }) => {
   }, []);
 
   return (
-    <div>
+    <div class='container'>
       <h2 style={{ fontFamily: 'Arimo' }}>Match List</h2>
       <MatchList history={history} matchData={matchData} />
       {adminUser ? (

@@ -11,6 +11,7 @@ import EditName from './EditName';
 import EditEmail from './EditEmail';
 import EditPassword from './EditPassword';
 import UserImage from './UserImage';
+import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -98,60 +99,62 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <h2>Your Profile</h2>
-      <h3>Here you can edit your profile</h3>
-      <UserImage />
-      <div
-        style={{
-          width: '35%',
-          margin: '0 auto ',
-          textAlign: 'left',
-          minWidth: '300px',
-        }}
-      >
-        <ProfileItem nameSelected />
-        <ProfileItem emailSelected />
-      </div>
-      <Button
-        style={{ margin: '16px auto 42px' }}
-        variant='outlined'
-        onClick={() => {
-          setIsPasswordChanged(true);
-          setOpen(true);
-        }}
-      >
-        Change Password
-      </Button>
-      <Modal
-        className={classes.modal}
-        open={open}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <div className={classes.paper}>
-            {isNameChanged && (
-              <EditName
-                name={name}
-                setName={setName}
-                handleClose={handleClose}
-              />
-            )}
-            {isEmailChanged && (
-              <EditEmail
-                email={email}
-                setEmail={setEmail}
-                handleClose={handleClose}
-              />
-            )}
-            {isPasswordChanged && <EditPassword handleClose={handleClose} />}
-          </div>
-        </Fade>
-      </Modal>
+    <div class='container'>
+      <Container maxWidth='md'>
+        <h2>Your Profile</h2>
+        <h3>Here you can edit your profile</h3>
+        <UserImage />
+        <div
+          style={{
+            width: '35%',
+            margin: '0 auto ',
+            textAlign: 'left',
+            minWidth: '300px',
+          }}
+        >
+          <ProfileItem nameSelected />
+          <ProfileItem emailSelected />
+        </div>
+        <Button
+          style={{ margin: '16px auto 42px' }}
+          variant='outlined'
+          onClick={() => {
+            setIsPasswordChanged(true);
+            setOpen(true);
+          }}
+        >
+          Change Password
+        </Button>
+        <Modal
+          className={classes.modal}
+          open={open}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <div className={classes.paper}>
+              {isNameChanged && (
+                <EditName
+                  name={name}
+                  setName={setName}
+                  handleClose={handleClose}
+                />
+              )}
+              {isEmailChanged && (
+                <EditEmail
+                  email={email}
+                  setEmail={setEmail}
+                  handleClose={handleClose}
+                />
+              )}
+              {isPasswordChanged && <EditPassword handleClose={handleClose} />}
+            </div>
+          </Fade>
+        </Modal>
+      </Container>
     </div>
   );
 };
