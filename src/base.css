@@ -65,7 +65,7 @@ div.container {
     padding-left: 6px;
   }
   span.MuiTypography-root {
-    font-size: 3.8vmin;
+    font-size: 3.5vmin;
   }
   span.MuiListItemText-primary {
     font-weight: 600
@@ -133,10 +133,10 @@ div.container {
     margin: 2px;
   }
   h4 {
-    font-size: 17px;
+    font-size: 16px;
   }
   span.MuiTypography-root {
-    font-size: 17px;
+    font-size: 16px;
   }
   th.scoreTable  {
     font-size: 16px;

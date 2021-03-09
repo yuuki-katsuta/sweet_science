@@ -19,7 +19,7 @@ const Video = ({ matchData }) => {
       right: '0',
       width: '100%',
       height: '100%',
-      border: 'medium solid #666666',
+      border: '1px solid #111111',
     },
     titleFont: {
       fontFamily: 'Lato',
@@ -29,7 +29,7 @@ const Video = ({ matchData }) => {
   const classes = useStyles();
   return (
     <div>
-      <h1 className={classes.titleFont}>{matchData.title}</h1>
+      <h1>{matchData.title}</h1>
       {matchData.videoId ? (
         <div>
           <div className={classes.videoWrapper}>

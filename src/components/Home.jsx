@@ -43,8 +43,8 @@ const Home = ({ history }) => {
   }, []);
 
   return (
-    <div class='container'>
-      <h2 style={{ fontFamily: 'Arimo' }}>Match List</h2>
+    <div className='container'>
+      <h2>Boxing Fights</h2>
       <MatchList history={history} matchData={matchData} />
       {adminUser ? (
         <Container maxWidth='md'>

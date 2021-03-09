@@ -87,6 +87,20 @@ const Auth = ({ history }) => {
             <Typography component='h1' variant='h5'>
               Log in
             </Typography>
+            <div
+              style={{
+                margin: '18px 0 8px',
+                color: '#666666',
+                fontWeight: 'bold',
+              }}
+            >
+              <p>
+                ボクシングファンのためのチャットアプリ
+                <br />
+                試合内容や採点結果についてに談論することができます！
+              </p>
+            </div>
+
             <form className={classes.form} noValidate>
               <TextField
                 variant='outlined'
@@ -118,7 +132,6 @@ const Auth = ({ history }) => {
                   setPassword(e.target.value);
                 }}
               />
-
               <Button
                 fullWidth
                 variant='contained'
@@ -130,6 +143,7 @@ const Auth = ({ history }) => {
               >
                 Log In
               </Button>
+
               <Grid container>
                 <Grid item>
                   <Link
@@ -151,7 +165,7 @@ const Auth = ({ history }) => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component='h1' variant='h5'>
-              Sign Up
+              Sign up
             </Typography>
             <form className={classes.form} noValidate>
               <TextField

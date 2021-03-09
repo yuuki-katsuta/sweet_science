@@ -26,8 +26,9 @@ const MatchList = ({ history, matchData }) => {
   const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: theme.palette.primary.main,
-      color: theme.palette.common.white,
+      color: '#EEEEEE',
       fontSize: 15.5,
+      fontWeight: 'bold',
     },
     body: {
       fontSize: 14,
@@ -39,6 +40,7 @@ const MatchList = ({ history, matchData }) => {
       width: '100%',
       maxWidth: '1050px',
       margin: '0 auto',
+      padding: '0 3px',
     },
     container: {
       maxHeight: 700,
@@ -65,7 +67,7 @@ const MatchList = ({ history, matchData }) => {
   ];
   const ForResponsiveColums = [
     { id: 'date', label: 'Date', minWidth: 110 },
-    { id: 'title', label: 'Match', minWidth: 300 },
+    { id: 'title', label: 'Fight', minWidth: 300 },
     { id: 'division', label: 'Division', minWidth: 120 },
     { id: 'venue', label: 'Venue', minWidth: 280 },
   ];

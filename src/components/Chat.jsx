@@ -7,7 +7,7 @@ import Score from './Score/Score.jsx';
 
 const Chat = ({ history, location }) => {
   return location.state ? (
-    <div class='container'>
+    <div className='container'>
       <Container maxWidth='md' disableGutters={true}>
         <Video matchData={location.state.matchData} />
         {location.state.matchData.scoreData && (
