@@ -6,58 +6,60 @@ import MessageAddField from './/MessageAddField';
 import MessageList from './MessageList';
 import List from '@material-ui/core/List';
 
+const useStyles = makeStyles({
+  list: {
+    maxHeight: '56vh',
+    overflow: 'auto',
+    gridRow: 1,
+    width: '100%',
+    maxWidth: '1100px',
+    margin: '24px auto 10px',
+    borderTop: 'thin solid #CCCCCC',
+    padding: 0,
+  },
+  ownMessage: {
+    backgroundColor: '#EEEEEE',
+  },
+});
+
 const MessageItem = ({ history, matchData }) => {
   const { currentUser } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
   const ref = useRef();
-
-  const useStyles = makeStyles({
-    list: {
-      maxHeight: '56vh',
-      overflow: 'auto',
-      gridRow: 1,
-      width: '100%',
-      maxWidth: '1100px',
-      margin: '24px auto 10px',
-      borderTop: 'thin solid #CCCCCC',
-      padding: 0,
-    },
-    ownMessage: {
-      backgroundColor: '#EEEEEE',
-    },
-  });
   const classes = useStyles();
 
-  useEffect(() => {
-    getMessages();
-    //eslint-disable-next-line
-  }, []);
-
   //データ取得
-  const getMessages = () => {
-    if (!matchData) return;
-    db.collection('chats')
-      .doc(`${matchData.title}`)
-      .collection('messages')
-      .orderBy('createdAt', 'desc')
-      .limit(35)
-      .onSnapshot((Snapshot) => {
-        let msg = [];
-        Snapshot.forEach((doc) => {
-          if (doc.data()) {
-            msg.push({
-              message: doc.data().message,
-              user: doc.data().user,
-              uid: doc.data().uid,
-              photoURL: doc.data().photoURL,
-            });
-          }
+  useEffect(() => {
+    let isMounted = true;
+    const getMessages = () => {
+      if (!matchData) return;
+      db.collection('chats')
+        .doc(`${matchData.title}`)
+        .collection('messages')
+        .orderBy('createdAt', 'desc')
+        .limit(35)
+        .onSnapshot((Snapshot) => {
+          let msg = [];
+          Snapshot.forEach((doc) => {
+            if (doc.data()) {
+              msg.push({
+                message: doc.data().message,
+                user: doc.data().user,
+                uid: doc.data().uid,
+                photoURL: doc.data().photoURL,
+              });
+            }
+          });
+          //配列の要素を反転
+          isMounted && setMessages(msg.reverse());
         });
-        //配列の要素を反転
-        setMessages(msg.reverse());
-      });
-  };
+    };
+    getMessages();
+    return () => {
+      isMounted = false;
+    };
+  }, [matchData]);
 
   //追加
   const messageAdd = () => {
@@ -72,13 +74,13 @@ const MessageItem = ({ history, matchData }) => {
         createdAt: new Date(),
         photoURL: currentUser.photoURL,
       })
-      .then(async () => {
-        await getMessages();
+      .then(() => {
         setText('');
         //自動スクロール
         ref.current.scrollIntoView({ behavior: 'smooth' });
       });
   };
+
   return (
     <>
       <List className={messages.length === 0 ? null : classes.list}>
@@ -90,7 +92,7 @@ const MessageItem = ({ history, matchData }) => {
               className={uid === currentUser.uid ? classes.ownMessage : null}
             >
               <MessageList
-                name={user}
+                name={user ? user : 'ゲストユーザー'}
                 message={message}
                 uid={uid}
                 photoURL={photoURL}

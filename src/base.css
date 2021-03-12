@@ -49,7 +49,7 @@ div.container {
     padding: 14px 6px 14px 16px;
   }
   th.scoreTable {
-    font-size: 3.3vmin;
+
     padding-bottom: 4px;
     padding-Top: 4px;
     padding-left: 8px;
@@ -65,7 +65,7 @@ div.container {
     padding-left: 6px;
   }
   span.MuiTypography-root {
-    font-size: 3.5vmin;
+    font-size: 3.8vmin;
   }
   span.MuiListItemText-primary {
     font-weight: 600

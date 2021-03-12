@@ -8,12 +8,21 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [adminUser, setAdminUser] = useState(false);
+  const [guestUser, setGuestUser] = useState(false);
 
   //ログイン
   const login = async (email, password, history) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       history.push('/');
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const guestLogin = () => {
+    try {
+      auth.signInAnonymously();
     } catch (error) {
       alert(error.message);
     }
@@ -130,6 +139,9 @@ export const AuthProvider = ({ children }) => {
           if (idTokenResult.claims.admin) {
             setAdminUser(true);
           }
+          if (idTokenResult.claims.provider_id === 'anonymous') {
+            setGuestUser(true);
+          }
         });
       }
       setCurrentUser(user);
@@ -152,6 +164,9 @@ export const AuthProvider = ({ children }) => {
         ChangeCurrentPassword,
         ChangePhtoUrl,
         ResetPhtoUrl,
+        guestLogin,
+        guestUser,
+        setGuestUser,
       }}
     >
       {children}

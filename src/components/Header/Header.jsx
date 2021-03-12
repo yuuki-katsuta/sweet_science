@@ -35,7 +35,7 @@ const theme = createMuiTheme({
 });
 
 const Header = ({ history }) => {
-  const { currentUser, setAdminUser } = useContext(AuthContext);
+  const { currentUser, setAdminUser, setGuestUser } = useContext(AuthContext);
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -112,9 +112,11 @@ const Header = ({ history }) => {
                 <MenuItem onClick={handleClose}>
                   <span
                     onClick={async () => {
-                      await auth.signOut();
+                      await auth.signOut().then(() => {
+                        setAdminUser(false);
+                        setGuestUser(false);
+                      });
                       history.push('/auth');
-                      setAdminUser(false);
                     }}
                   >
                     Log out

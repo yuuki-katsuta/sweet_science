@@ -43,7 +43,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 3),
+  },
+  guestLogin: {
+    margin: theme.spacing(0, 0, 2),
   },
 }));
 
@@ -52,7 +55,9 @@ const Auth = ({ history }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
-  const { login, signup, isLoading, currentUser } = useContext(AuthContext);
+  const { login, signup, isLoading, currentUser, guestLogin } = useContext(
+    AuthContext
+  );
   const [isLogin, setIsLogin] = useState(true);
 
   const handleSubmit = () => {
@@ -142,6 +147,17 @@ const Auth = ({ history }) => {
                 }}
               >
                 Log In
+              </Button>
+              <Button
+                fullWidth
+                variant='contained'
+                color='default'
+                className={classes.guestLogin}
+                onClick={() => {
+                  guestLogin();
+                }}
+              >
+                ゲストログイン
               </Button>
 
               <Grid container>

@@ -7,21 +7,22 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 
+const useStyles = makeStyles((theme) => ({
+  inline: {
+    display: 'inline',
+    wordBreak: 'break-word',
+  },
+  Image: {
+    width: '11.5vmin',
+    height: '11.5vmin',
+    border: '1px solid #AAAAAA',
+    display: 'inline-block',
+    maxWidth: '50px',
+    maxHeight: '50px',
+  },
+}));
+
 const MessageList = ({ name, message, uid, currentUser, photoURL }) => {
-  const useStyles = makeStyles((theme) => ({
-    inline: {
-      display: 'inline',
-      wordBreak: 'break-word',
-    },
-    Image: {
-      width: '11.5vmin',
-      height: '11.5vmin',
-      border: '1px solid #AAAAAA',
-      display: 'inline-block',
-      maxWidth: '50px',
-      maxHeight: '50px',
-    },
-  }));
   const classes = useStyles();
   return uid === currentUser.uid ? (
     <div>

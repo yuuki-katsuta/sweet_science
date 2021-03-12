@@ -9,25 +9,27 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import SendIcon from '@material-ui/icons/Send';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  image: {
+    margin: '0 auto',
+    border: '1px solid #555555',
+    width: theme.spacing(18),
+    height: theme.spacing(18),
+  },
+}));
+
 const UserImage = () => {
-  const { currentUser, ChangePhtoUrl, ResetPhtoUrl } = useContext(AuthContext);
+  const { currentUser, ChangePhtoUrl, ResetPhtoUrl, guestUser } = useContext(
+    AuthContext
+  );
   const [image, setImage] = useState('');
   const [imageUrl, setImageUrl] = useState(currentUser.photoURL);
   const [filename, setFileName] = useState('');
-
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-      },
-    },
-    image: {
-      margin: '0 auto',
-      border: '1px solid #555555',
-      width: theme.spacing(18),
-      height: theme.spacing(18),
-    },
-  }));
   const classes = useStyles();
 
   const handleImage = (event) => {
@@ -109,28 +111,30 @@ const UserImage = () => {
           <Avatar alt='uploaded' className={classes.image} />
         )}
       </div>
-      <div>
-        <label style={{ fontWeight: 'bold', cursor: 'pointer' }}>
-          ファイルを選択
-          <input
-            onChange={handleImage}
-            type='file'
-            style={{ display: 'none' }}
-          />
-        </label>
-        {filename.length > 15 ? (
-          <span>{` (${filename.substr(0, 15) + '...'}) `}</span>
-        ) : (
-          <span>{filename}</span>
-        )}
-        <IconButton
-          onClick={(e) => {
-            onSubmit(e);
-          }}
-        >
-          <SendIcon />
-        </IconButton>
-      </div>
+      {!guestUser && (
+        <div>
+          <label style={{ fontWeight: 'bold', cursor: 'pointer' }}>
+            ファイルを選択
+            <input
+              onChange={handleImage}
+              type='file'
+              style={{ display: 'none' }}
+            />
+          </label>
+          {filename.length > 15 ? (
+            <span>{` (${filename.substr(0, 15) + '...'}) `}</span>
+          ) : (
+            <span>{filename}</span>
+          )}
+          <IconButton
+            onClick={(e) => {
+              onSubmit(e);
+            }}
+          >
+            <SendIcon />
+          </IconButton>
+        </div>
+      )}
     </div>
   );
 };
