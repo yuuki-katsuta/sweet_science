@@ -9,6 +9,15 @@ import AddMatchSummary from './AddMatchSummary';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
+const useStyles = makeStyles((theme) => ({
+  titleFont: {
+    fontFamily: 'Arimo',
+  },
+  fab: {
+    margin: theme.spacing(2),
+  },
+}));
+
 const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
   const [MatchSummary, setMatchSummary] = useState({
     fighter: '',
@@ -35,15 +44,6 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
     opponentScore: '',
   });
   const [checked, setChecked] = useState(false);
-
-  const useStyles = makeStyles((theme) => ({
-    titleFont: {
-      fontFamily: 'Arimo',
-    },
-    fab: {
-      margin: theme.spacing(2),
-    },
-  }));
   const classes = useStyles();
 
   //追加

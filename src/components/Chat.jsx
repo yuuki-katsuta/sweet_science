@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import Video from '../Video/Video';
+import MatchInformation from './MatchInformation';
 import MessageItem from './Message/MessageItem';
 import Container from '@material-ui/core/Container';
 import Score from './Score/Score.jsx';
@@ -9,7 +9,7 @@ const Chat = ({ history, location }) => {
   return location.state ? (
     <div className='container'>
       <Container maxWidth='md' disableGutters={true}>
-        <Video matchData={location.state.matchData} />
+        <MatchInformation matchData={location.state.matchData} />
         {location.state.matchData.scoreData && (
           <Score matchData={location.state.matchData} />
         )}

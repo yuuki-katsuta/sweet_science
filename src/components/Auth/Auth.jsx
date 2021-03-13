@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/featured/?{boxing})',
+    backgroundImage: 'url(https://source.unsplash.com/collection/96198332)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light'
@@ -169,7 +169,7 @@ const Auth = ({ history }) => {
                     }}
                     variant='body2'
                   >
-                    {"Don't have an account? Sign Up"}
+                    {"Don't have an account? Sign up"}
                   </Link>
                 </Grid>
               </Grid>

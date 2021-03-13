@@ -15,37 +15,38 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import MediaQuery from 'react-responsive';
 
-const MatchList = ({ history, matchData }) => {
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: '#424242',
-      },
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#424242',
     },
-  });
-  const StyledTableCell = withStyles((theme) => ({
-    head: {
-      backgroundColor: theme.palette.primary.main,
-      color: '#EEEEEE',
-      fontSize: 15.5,
-      fontWeight: 'bold',
-    },
-    body: {
-      fontSize: 14,
-    },
-  }))(TableCell);
+  },
+});
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.primary.main,
+    color: '#EEEEEE',
+    fontSize: 15.5,
+    fontWeight: 'bold',
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
 
-  const useStyles = makeStyles({
-    root: {
-      width: '100%',
-      maxWidth: '1050px',
-      margin: '0 auto',
-      padding: '0 3px',
-    },
-    container: {
-      maxHeight: 700,
-    },
-  });
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    maxWidth: '1050px',
+    margin: '0 auto',
+    padding: '0 3px',
+  },
+  container: {
+    maxHeight: 700,
+  },
+});
+
+const MatchList = ({ history, matchData }) => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -145,7 +146,7 @@ const MatchList = ({ history, matchData }) => {
       <MediaQuery query='(max-width: 580px)'>
         <MatchListTable size='small' colums={ForResponsiveColums} />
       </MediaQuery>
-      <MediaQuery query='(min-width: 580px)'>
+      <MediaQuery query='(min-width: 581px)'>
         <MatchListTable size='medium' colums={colums} />
       </MediaQuery>
     </>

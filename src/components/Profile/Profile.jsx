@@ -127,9 +127,9 @@ const Profile = () => {
           }}
         >
           <ProfileItem nameSelected />
-          {currentUser.displayName && <ProfileItem emailSelected />}
+          {!guestUser && <ProfileItem emailSelected />}
         </div>
-        {currentUser.displayname && (
+        {!guestUser && (
           <Button
             style={{ margin: '16px auto 42px' }}
             variant='outlined'
