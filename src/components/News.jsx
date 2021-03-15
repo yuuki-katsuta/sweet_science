@@ -39,7 +39,7 @@ const News = ({ matchData }) => {
           <thead>
             <Tr>
               <Th>更新日</Th>
-              <Th>追加内容</Th>
+              <Th>更新内容</Th>
             </Tr>
           </thead>
           <tbody>

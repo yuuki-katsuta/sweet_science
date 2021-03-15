@@ -61,7 +61,7 @@ const Header = ({ history }) => {
                   history.push('/');
                 }}
               >
-                Boxing Labo
+                Boxing Lab
               </span>
             </Typography>
             <div>
