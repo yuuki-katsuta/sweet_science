@@ -36,7 +36,6 @@ const theme = createMuiTheme({
 
 const Header = ({ history }) => {
   const { currentUser, setAdminUser, setGuestUser } = useContext(AuthContext);
-
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -44,7 +43,6 @@ const Header = ({ history }) => {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -63,7 +61,7 @@ const Header = ({ history }) => {
                   history.push('/');
                 }}
               >
-                Sweet Science
+                Boxing Labo
               </span>
             </Typography>
             <div>

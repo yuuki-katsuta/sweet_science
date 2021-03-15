@@ -34,17 +34,19 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     maxWidth: '1050px',
     margin: '0 auto',
-    padding: '0 3px',
+    [theme.breakpoints.down('xs')]: {
+      padding: '0 3px',
+    },
   },
   container: {
     maxHeight: 700,
   },
-});
+}));
 
 const MatchList = ({ history, matchData }) => {
   const classes = useStyles();

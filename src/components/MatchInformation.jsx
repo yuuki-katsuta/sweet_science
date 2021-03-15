@@ -33,7 +33,7 @@ const MatchInformation = ({ matchData }) => {
     return (
       <div
         style={
-          SmallWidth && { textAlign: 'left', width: '90%', margin: '0 auto' }
+          SmallWidth && { textAlign: 'left', width: '95%', margin: '0 auto' }
         }
       >
         <p>
