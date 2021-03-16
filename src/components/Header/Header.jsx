@@ -35,7 +35,9 @@ const theme = createMuiTheme({
 });
 
 const Header = ({ history }) => {
-  const { currentUser, setAdminUser, setGuestUser } = useContext(AuthContext);
+  const { currentUser, setAdminUser, setGuestUser, guestUser } = useContext(
+    AuthContext
+  );
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -98,15 +100,17 @@ const Header = ({ history }) => {
                     About
                   </span>
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <span
-                    onClick={() => {
-                      history.push('/profile');
-                    }}
-                  >
-                    Profile
-                  </span>
-                </MenuItem>
+                {!guestUser && (
+                  <MenuItem onClick={handleClose}>
+                    <span
+                      onClick={() => {
+                        history.push('/profile');
+                      }}
+                    >
+                      Profile
+                    </span>
+                  </MenuItem>
+                )}
                 <MenuItem onClick={handleClose}>
                   <span
                     onClick={async () => {

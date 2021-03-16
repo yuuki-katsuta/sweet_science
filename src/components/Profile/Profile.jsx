@@ -69,21 +69,13 @@ const Profile = () => {
             {nameSelected && (
               <h3>
                 Name:&nbsp;&nbsp;
-                {!name
-                  ? currentUser.displayName
-                  : isNameChanged
-                  ? currentUser.displayName
-                  : name}
+                {!name || isNameChanged ? currentUser.displayName : name}
               </h3>
             )}
             {emailSelected && (
               <h3>
                 Email:&nbsp;&nbsp;
-                {!email
-                  ? currentUser.email.length > 20
-                    ? currentUser.email.substr(0, 20) + '...'
-                    : currentUser.email
-                  : isEmailChanged
+                {!email || isEmailChanged
                   ? currentUser.email.length > 20
                     ? currentUser.email.substr(0, 20) + '...'
                     : currentUser.email
