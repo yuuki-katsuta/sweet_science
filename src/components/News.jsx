@@ -30,6 +30,15 @@ const News = ({ matchData }) => {
       <h2>News</h2>
       <div
         style={{
+          marginBottom: '12px',
+          color: '#666666',
+          fontWeight: 'bold',
+        }}
+      >
+        <p>試合情報などが追加されたことをお知らせします</p>
+      </div>
+      <div
+        style={{
           margin: '10px 0 56px 0',
           textAlign: 'left',
           display: 'inlineBlock',

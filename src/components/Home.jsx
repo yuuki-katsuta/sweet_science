@@ -45,6 +45,19 @@ const Home = ({ history }) => {
   return (
     <div className='container'>
       <h2>Boxing Fights</h2>
+      <div
+        style={{
+          marginBottom: '14px',
+          color: '#666666',
+          fontWeight: 'bold',
+        }}
+      >
+        <p>
+          ボクシングの試合一覧を表示しています
+          <br />
+          クリックすると各チャットページへ遷移します
+        </p>
+      </div>
       <MatchList history={history} matchData={matchData} />
       {adminUser ? (
         <Container maxWidth='md'>

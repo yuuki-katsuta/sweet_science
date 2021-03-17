@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = () => {
-  const { currentUser, guestUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isNameChanged, setIsNameChanged] = useState(false);
@@ -58,44 +58,34 @@ const Profile = () => {
           alignItems: 'center',
         }}
       >
-        {guestUser ? (
-          <div
-            style={{ width: '100%', textAlign: 'center', marginTop: '16px' }}
-          >
-            <h3>Name: ゲストユーザー</h3>
-          </div>
-        ) : (
-          <>
-            {nameSelected && (
-              <h3>
-                Name:&nbsp;&nbsp;
-                {!name || isNameChanged ? currentUser.displayName : name}
-              </h3>
-            )}
-            {emailSelected && (
-              <h3>
-                Email:&nbsp;&nbsp;
-                {!email || isEmailChanged
-                  ? currentUser.email.length > 20
-                    ? currentUser.email.substr(0, 20) + '...'
-                    : currentUser.email
-                  : email.length > 20
-                  ? email.substr(0, 20) + '...'
-                  : email}
-              </h3>
-            )}
-            <IconButton
-              style={{ margin: '0 0 3px auto' }}
-              onClick={() => {
-                nameSelected && setIsNameChanged(true);
-                emailSelected && setIsEmailChanged(true);
-                handleOpen();
-              }}
-            >
-              <CreateIcon />
-            </IconButton>
-          </>
+        {nameSelected && (
+          <h3>
+            Name:&nbsp;&nbsp;
+            {!name || isNameChanged ? currentUser.displayName : name}
+          </h3>
         )}
+        {emailSelected && (
+          <h3>
+            Email:&nbsp;&nbsp;
+            {!email || isEmailChanged
+              ? currentUser.email.length > 20
+                ? currentUser.email.substr(0, 20) + '...'
+                : currentUser.email
+              : email.length > 20
+              ? email.substr(0, 20) + '...'
+              : email}
+          </h3>
+        )}
+        <IconButton
+          style={{ margin: '0 0 3px auto' }}
+          onClick={() => {
+            nameSelected && setIsNameChanged(true);
+            emailSelected && setIsEmailChanged(true);
+            handleOpen();
+          }}
+        >
+          <CreateIcon />
+        </IconButton>
       </div>
     );
   };
@@ -104,11 +94,17 @@ const Profile = () => {
     <div className='container'>
       <Container maxWidth='md'>
         <h2>Your Profile</h2>
-        {guestUser ? (
-          <h3>Guest users cannot edit profile</h3>
-        ) : (
-          <h3>Here you can edit your profile</h3>
-        )}
+
+        <div
+          style={{
+            marginBottom: '16px',
+            color: '#666666',
+            fontWeight: 'bold',
+          }}
+        >
+          <p>プロフィール情報を編集することができます</p>
+        </div>
+
         <UserImage />
         <div
           style={{
@@ -119,20 +115,18 @@ const Profile = () => {
           }}
         >
           <ProfileItem nameSelected />
-          {!guestUser && <ProfileItem emailSelected />}
+          <ProfileItem emailSelected />
         </div>
-        {!guestUser && (
-          <Button
-            style={{ margin: '16px auto 42px' }}
-            variant='outlined'
-            onClick={() => {
-              setIsPasswordChanged(true);
-              setOpen(true);
-            }}
-          >
-            Change Password
-          </Button>
-        )}
+        <Button
+          style={{ margin: '16px auto 42px' }}
+          variant='outlined'
+          onClick={() => {
+            setIsPasswordChanged(true);
+            setOpen(true);
+          }}
+        >
+          Change Password
+        </Button>
         <Modal
           className={classes.modal}
           open={open}
