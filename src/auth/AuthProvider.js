@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
   //サインイン
   const signup = async (email, password, confirmPassword, name, history) => {
     try {
-      if (name === '') throw new Error('Please enter your name');
+      if (name.trim() === '') throw new Error('Please enter your name');
       if (name.length > 10)
         throw new Error('Please use no more than 10 characters');
       if (password !== confirmPassword)
