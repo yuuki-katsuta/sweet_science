@@ -25,7 +25,6 @@ const useStyles = makeStyles({
 const MessageItem = ({ history, matchData }) => {
   const { currentUser } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
-  const [text, setText] = useState('');
   const ref = useRef();
   const classes = useStyles();
 
@@ -59,27 +58,8 @@ const MessageItem = ({ history, matchData }) => {
     return () => {
       isMounted = false;
     };
-  }, [matchData]);
-
-  //追加
-  const messageAdd = () => {
-    if (text === '') return;
-    db.collection('chats')
-      .doc(`${matchData.title}`)
-      .collection('messages')
-      .add({
-        user: currentUser.displayName,
-        message: text,
-        uid: currentUser.uid,
-        createdAt: new Date(),
-        photoURL: currentUser.photoURL,
-      })
-      .then(() => {
-        setText('');
-        //自動スクロール
-        ref.current.scrollIntoView({ behavior: 'smooth' });
-      });
-  };
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
@@ -106,9 +86,9 @@ const MessageItem = ({ history, matchData }) => {
 
       <MessageAddField
         history={history}
-        messageAdd={messageAdd}
-        text={text}
-        setText={setText}
+        currentUser={currentUser}
+        title={matchData.title}
+        refer={ref}
       />
     </>
   );

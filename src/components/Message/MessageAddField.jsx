@@ -1,11 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { db } from '../../base';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 
-const MessageAddField = ({ history, messageAdd, text, setText }) => {
+const MessageAddField = ({ history, currentUser, title, refer }) => {
+  const [text, setText] = useState('');
+
+  const messageAdd = () => {
+    if (text === '') return;
+    db.collection('chats')
+      .doc(`${title}`)
+      .collection('messages')
+      .add({
+        user: currentUser.displayName,
+        message: text,
+        uid: currentUser.uid,
+        createdAt: new Date(),
+        photoURL: currentUser.photoURL,
+      })
+      .then(() => {
+        setText('');
+        //自動スクロール
+        refer.current.scrollIntoView({ behavior: 'smooth' });
+      });
+    // eslint-disable-next-line
+  };
+
   return (
     <div style={{ width: '70%', margin: '0 auto' }}>
       <Grid container>
