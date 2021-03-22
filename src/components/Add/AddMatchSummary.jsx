@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { memo } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
-const AddMatchSummary = ({ MatchSummary, setMatchSummary }) => {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '30ch',
-      },
-      margin: '16px 0 0',
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '30ch',
     },
-  }));
-  const classes = useStyles();
+    margin: '16px 0 0',
+  },
+}));
 
+const AddMatchSummary = memo(({ MatchSummary, setMatchSummary }) => {
+  const classes = useStyles();
   return (
     <form className={classes.root} noValidate autoComplete='off'>
       <TextField
@@ -113,5 +113,5 @@ const AddMatchSummary = ({ MatchSummary, setMatchSummary }) => {
       />
     </form>
   );
-};
+});
 export default AddMatchSummary;

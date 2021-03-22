@@ -34,6 +34,19 @@ function createData(
     twelve,
   };
 }
+const useStyles = makeStyles({
+  judger: {
+    textAlign: 'left',
+    margin: '0 0 0 8px',
+    fontSize: '3.5vmin',
+    '@media screen and (min-width:680px) and ( max-width:1024px)': {
+      fontSize: '12px',
+    },
+    '@media (min-width: 1024px)': {
+      fontSize: '16px',
+    },
+  },
+});
 
 const Score = ({ matchData }) => {
   const [ScoringA, setScoringA] = useState([]);
@@ -43,20 +56,6 @@ const Score = ({ matchData }) => {
     judgeA: '',
     judgeB: '',
     judgeC: '',
-  });
-
-  const useStyles = makeStyles({
-    judger: {
-      textAlign: 'left',
-      margin: '0 0 0 8px',
-      fontSize: '3.5vmin',
-      '@media screen and (min-width:680px) and ( max-width:1024px)': {
-        fontSize: '12px',
-      },
-      '@media (min-width: 1024px)': {
-        fontSize: '16px',
-      },
-    },
   });
   const classes = useStyles();
 

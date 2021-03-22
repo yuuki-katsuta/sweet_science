@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, memo } from 'react';
 import { storage } from '../../base';
 import { AuthContext } from '../../auth/AuthProvider';
 import firebase from 'firebase/app';
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserImage = () => {
+const UserImage = memo(() => {
   const { currentUser, ChangePhtoUrl, ResetPhtoUrl, guestUser } = useContext(
     AuthContext
   );
@@ -137,5 +137,5 @@ const UserImage = () => {
       )}
     </div>
   );
-};
+});
 export default UserImage;

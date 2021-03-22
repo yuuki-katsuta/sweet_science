@@ -12,48 +12,49 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const ScoreTable = ({ Scoring }) => {
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: '#424242',
-      },
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#424242',
     },
-    overrides: {
-      MuiTableCell: {
-        root: {
-          paddingTop: 4,
-          paddingBottom: 4,
+  },
+  overrides: {
+    MuiTableCell: {
+      root: {
+        paddingTop: 4,
+        paddingBottom: 4,
+        paddingRight: 8,
+        '&:last-child': {
           paddingRight: 8,
-          '&:last-child': {
-            paddingRight: 8,
-          },
         },
       },
     },
-  });
+  },
+});
 
-  const StyledTableCell = withStyles((theme) => ({
-    head: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.common.white,
-      fontSize: 15.5,
-    },
-    body: {
-      fontSize: 14,
-    },
-  }))(TableCell);
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+    fontSize: 15.5,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
 
-  const useStyles = makeStyles({
-    root: {
-      width: '100%',
-      marginBottom: '10px',
-      overflowX: 'auto',
-    },
-    table: {
-      minWidth: 650,
-    },
-  });
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    marginBottom: '10px',
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 650,
+  },
+});
+
+const ScoreTable = ({ Scoring }) => {
   const classes = useStyles();
 
   return (
