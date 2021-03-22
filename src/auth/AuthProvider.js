@@ -67,6 +67,7 @@ export const AuthProvider = ({ children }) => {
     try {
       if (newName.length > 10)
         throw new Error('Please use no more than 10 characters');
+      if (newName.trim() === '') throw new Error('Please enter your name');
       await auth.currentUser.updateProfile({
         displayName: newName,
       });
