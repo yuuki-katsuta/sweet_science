@@ -1,36 +1,48 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../auth/AuthProvider.js';
-import TextInputField from '../TextInputField';
-import CreateIcon from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const EditName = ({ name, setName, handleClose }) => {
   const { currentUser, changeCurrentName } = useContext(AuthContext);
 
   return (
-    <>
-      <h3>Please enter a new Name</h3>
-      <TextInputField
-        id={'standard-name-required'}
-        name={'name'}
-        type={'name'}
-        value={name}
-        setName={setName}
-        placeholder={currentUser.displayName}
-      />
-      <IconButton
-        style={{
-          display: 'flex',
-          margin: '0 0 0 auto',
-        }}
-        onClick={async () => {
-          handleClose();
-          await changeCurrentName(name, setName);
-        }}
-      >
-        <CreateIcon />
-      </IconButton>
-    </>
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: 'left' }}>
+        <h3>Please enter a new Name</h3>
+        <br />
+        <TextField
+          fullWidth
+          id={'standard-name-required'}
+          name={'name'}
+          type={'name'}
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+          placeholder={currentUser.displayName}
+        />
+      </div>
+      <div style={{ textAlign: 'right', marginTop: '16px' }}>
+        <Button
+          onClick={() => {
+            handleClose();
+            setName('');
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          color='primary'
+          onClick={async () => {
+            handleClose();
+            await changeCurrentName(name, setName);
+          }}
+        >
+          Save
+        </Button>
+      </div>
+    </div>
   );
 };
 export default EditName;

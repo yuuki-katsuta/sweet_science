@@ -1,46 +1,59 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../auth/AuthProvider.js';
-import TextInputField from '../TextInputField';
-import CreateIcon from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const EditEmail = ({ email, setEmail, handleClose }) => {
-  const { currentUser, changeCurrentEmail } = useContext(AuthContext);
+  const { changeCurrentEmail } = useContext(AuthContext);
   const [currentPassword, setCurrentPassword] = useState('');
 
   return (
-    <>
-      <h3>Please enter a new Email</h3>
-      <div>
-        <TextInputField
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: 'left' }}>
+        <h3>Please enter a new Email</h3>
+        <TextField
+          fullWidth
           type={'password'}
           value={currentPassword}
-          setName={setCurrentPassword}
           label={'Current Password'}
           placeholder={'Current Password'}
+          onChange={(e) => {
+            setCurrentPassword(e.target.value);
+          }}
+          style={{ marginBottom: '16px' }}
         />
-        <TextInputField
+        <TextField
+          fullWidth
           id={'standard-name-required'}
           name={'email'}
           type={'email'}
           value={email}
-          setName={setEmail}
-          placeholder={currentUser.email}
-        />
-        <IconButton
-          style={{
-            display: 'flex',
-            margin: '0 0 0 auto',
+          onChange={(e) => {
+            setEmail(e.target.value);
           }}
+          placeholder={'new Email'}
+        />
+      </div>
+      <div style={{ textAlign: 'right', marginTop: '16px' }}>
+        <Button
+          onClick={() => {
+            handleClose();
+            setEmail('');
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          color='primary'
           onClick={async () => {
             handleClose();
             await changeCurrentEmail(currentPassword, email, setEmail);
           }}
         >
-          <CreateIcon />
-        </IconButton>
+          Save
+        </Button>
       </div>
-    </>
+    </div>
   );
 };
 
