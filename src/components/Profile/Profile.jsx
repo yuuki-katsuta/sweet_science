@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { memo, useCallback, useContext, useState } from 'react';
 import { AuthContext } from '../../auth/AuthProvider.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -28,7 +28,30 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  title: {
+    marginBottom: '16px',
+    color: '#666666',
+    fontWeight: 'bold',
+  },
+  profile: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));
+
+const Icon = memo(({ IsProfileChanged, handleOpen }) => {
+  return (
+    <IconButton
+      style={{ margin: '0 0 3px auto' }}
+      onClick={() => {
+        IsProfileChanged(true);
+        handleOpen();
+      }}
+    >
+      <CreateIcon />
+    </IconButton>
+  );
+});
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);
@@ -40,71 +63,22 @@ const Profile = () => {
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
     setOpen(true);
-  };
+  }, []);
   const handleClose = () => {
     setOpen(false);
     setIsNameChanged(false);
     setIsEmailChanged(false);
     setIsPasswordChanged(false);
   };
-
-  const ProfileItem = ({ nameSelected, emailSelected }) => {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        {nameSelected && (
-          <h3>
-            Name:&nbsp;&nbsp;
-            {!name || isNameChanged ? currentUser.displayName : name}
-          </h3>
-        )}
-        {emailSelected && (
-          <h3>
-            Email:&nbsp;&nbsp;
-            {!email || isEmailChanged
-              ? currentUser.email.length > 20
-                ? currentUser.email.substr(0, 20) + '...'
-                : currentUser.email
-              : email.length > 20
-              ? email.substr(0, 20) + '...'
-              : email}
-          </h3>
-        )}
-        <IconButton
-          style={{ margin: '0 0 3px auto' }}
-          onClick={() => {
-            nameSelected && setIsNameChanged(true);
-            emailSelected && setIsEmailChanged(true);
-            handleOpen();
-          }}
-        >
-          <CreateIcon />
-        </IconButton>
-      </div>
-    );
-  };
-
   return (
     <div className='container'>
       <Container maxWidth='md'>
         <h2>Your Profile</h2>
-
-        <div
-          style={{
-            marginBottom: '16px',
-            color: '#666666',
-            fontWeight: 'bold',
-          }}
-        >
+        <div className={classes.title}>
           <p>プロフィール情報を編集することができます</p>
         </div>
-
         <UserImage />
         <div
           style={{
@@ -114,8 +88,29 @@ const Profile = () => {
             minWidth: '300px',
           }}
         >
-          <ProfileItem nameSelected />
-          <ProfileItem emailSelected />
+          <div className={classes.profile}>
+            <h3>
+              Name:&nbsp;&nbsp;
+              {!name || isNameChanged ? currentUser.displayName : name}
+            </h3>
+            <Icon IsProfileChanged={setIsNameChanged} handleOpen={handleOpen} />
+          </div>
+          <div className={classes.profile}>
+            <h3>
+              Email:&nbsp;&nbsp;
+              {!email || isEmailChanged
+                ? currentUser.email.length > 20
+                  ? currentUser.email.substr(0, 20) + '...'
+                  : currentUser.email
+                : email.length > 20
+                ? email.substr(0, 20) + '...'
+                : email}
+            </h3>
+            <Icon
+              IsProfileChanged={setIsEmailChanged}
+              handleOpen={handleOpen}
+            />
+          </div>
         </div>
         <Button
           style={{ margin: '16px auto 42px' }}
