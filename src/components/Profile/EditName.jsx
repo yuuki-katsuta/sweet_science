@@ -24,10 +24,6 @@ const EditName = ({ name, setName, handleClose }) => {
           margin: '0 0 0 auto',
         }}
         onClick={async () => {
-          if (name === '' || name === currentUser.displayName) {
-            handleClose();
-            return;
-          }
           handleClose();
           await changeCurrentName(name, setName);
         }}

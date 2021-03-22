@@ -33,10 +33,6 @@ const EditEmail = ({ email, setEmail, handleClose }) => {
             margin: '0 0 0 auto',
           }}
           onClick={async () => {
-            if (email === '' || email === currentUser.email) {
-              handleClose();
-              return;
-            }
             handleClose();
             await changeCurrentEmail(currentPassword, email, setEmail);
           }}
