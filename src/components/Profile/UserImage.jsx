@@ -44,7 +44,9 @@ const UserImage = memo(() => {
       return;
     }
     // アップロード処理
-    const uploadTask = storage.ref(`/images/${image.name}`).put(image);
+    const uploadTask = storage
+      .ref(`/images/${currentUser.uid}/${image.name}`)
+      .put(image);
     uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,
       next,
@@ -60,7 +62,7 @@ const UserImage = memo(() => {
     // 完了後の処理
     // 画像表示のため、アップロードした画像のURLを取得
     storage
-      .ref('images')
+      .ref(`images/${currentUser.uid}`)
       .child(image.name)
       .getDownloadURL()
       .then(async (fireBaseUrl) => {
