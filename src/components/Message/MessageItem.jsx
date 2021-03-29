@@ -47,6 +47,7 @@ const MessageItem = ({ history, matchData }) => {
                 user: doc.data().user,
                 uid: doc.data().uid,
                 photoURL: doc.data().photoURL,
+                id: doc.id,
               });
             }
           });
@@ -64,7 +65,7 @@ const MessageItem = ({ history, matchData }) => {
   return (
     <>
       <List className={messages.length === 0 ? null : classes.list}>
-        {messages.map(({ user, uid, message, photoURL }, index) => {
+        {messages.map(({ user, uid, message, photoURL, id }, index) => {
           return (
             <div
               ref={ref}
@@ -72,12 +73,13 @@ const MessageItem = ({ history, matchData }) => {
               className={uid === currentUser.uid ? classes.ownMessage : null}
             >
               <MessageList
+                className='messageItem'
                 name={user ? user : 'ゲストユーザー'}
                 message={message}
                 uid={uid}
                 photoURL={photoURL}
-                currentUser={currentUser}
-                className='messageItem'
+                title={matchData.title}
+                id={id}
               />
             </div>
           );

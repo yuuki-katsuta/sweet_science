@@ -20,6 +20,7 @@ const MessageAddField = ({ history, currentUser, title, refer }) => {
         uid: currentUser.uid,
         createdAt: new Date(),
         photoURL: currentUser.photoURL,
+        liked: 0,
       })
       .then(() => {
         setText('');

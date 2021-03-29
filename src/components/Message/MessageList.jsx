@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, memo } from 'react';
+import { AuthContext } from '../../auth/AuthProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -6,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+import LikedCount from './LikedCount';
 
 const useStyles = makeStyles((theme) => ({
   inline: {
@@ -22,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MessageList = ({ name, message, uid, currentUser, photoURL }) => {
+const MessageList = memo(({ name, message, uid, photoURL, title, id }) => {
+  const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
   return uid === currentUser.uid ? (
     <div>
@@ -50,6 +53,7 @@ const MessageList = ({ name, message, uid, currentUser, photoURL }) => {
             </Typography>
           }
         />
+        <LikedCount title={title} id={id} />
         <ListItemIcon
           style={{
             display: 'inline-block',
@@ -78,6 +82,7 @@ const MessageList = ({ name, message, uid, currentUser, photoURL }) => {
         >
           <Avatar alt='uploaded' src={photoURL} className={classes.Image} />
         </ListItemIcon>
+        <LikedCount title={title} id={id} />
         <ListItemText
           className='listItem'
           primary={name}
@@ -98,5 +103,5 @@ const MessageList = ({ name, message, uid, currentUser, photoURL }) => {
       <Divider variant='middle' />
     </div>
   );
-};
+});
 export default MessageList;
