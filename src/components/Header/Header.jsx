@@ -100,17 +100,15 @@ const Header = ({ history }) => {
                     About
                   </span>
                 </MenuItem>
-                {!guestUser && (
-                  <MenuItem onClick={handleClose}>
-                    <span
-                      onClick={() => {
-                        history.push('/profile');
-                      }}
-                    >
-                      Profile
-                    </span>
-                  </MenuItem>
-                )}
+                <MenuItem onClick={handleClose} disabled={guestUser}>
+                  <span
+                    onClick={() => {
+                      history.push('/profile');
+                    }}
+                  >
+                    Profile
+                  </span>
+                </MenuItem>
                 <MenuItem onClick={handleClose}>
                   <span
                     onClick={async () => {
