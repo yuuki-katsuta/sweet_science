@@ -86,7 +86,7 @@ const MessageList = memo(({ name, message, uid, photoURL, title, id }) => {
         </ListItemIcon>
         <ListItemText
           className='listItem'
-          primary={name}
+          primary={<h4 style={{ margin: '0' }}>{name}</h4>}
           secondary={
             <Typography
               component='span'

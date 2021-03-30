@@ -106,7 +106,7 @@ const LikedCount = memo(({ title, id }) => {
             checked={isLiked}
           />
         }
-        label={count}
+        label={count === 0 ? null : count}
       />
     </span>
   );

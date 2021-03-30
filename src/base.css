@@ -78,11 +78,14 @@ div.container {
     font-size: 3.7vmin;
   }
   svg.likeIcon {
-    font-size: 1.2rem;
+    font-size: 1.17rem;
   }
   div.MuiContainer-root {
     padding-left: 6px;
     padding-right: 6px;
+  }
+  div.MuiListItemText-multiline {
+    margin-bottom: 0;
   }
   label.MuiFormControlLabel-root {
     margin-right: 0;
