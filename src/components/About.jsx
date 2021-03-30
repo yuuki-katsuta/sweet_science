@@ -1,14 +1,18 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 
+const sectionStyle = {
+  textAlign: 'left',
+  marginBottom: '60px',
+};
+const containerStyle = {
+  textAlign: 'center',
+  margin: '120px auto 20px',
+};
+
 const About = () => {
   return (
-    <div
-      style={{
-        textAlign: 'center',
-        margin: '120px auto 20px',
-      }}
-    >
+    <div style={containerStyle}>
       <Container maxWidth='md'>
         <h1>About</h1>
         <h3>本アプリケーションをご利用いただきましてありがとうございます。</h3>
@@ -27,7 +31,7 @@ const About = () => {
         </div>
 
         <h1 style={{ marginTop: '50px' }}>Official boxing scoring criteria</h1>
-        <div style={{ textAlign: 'left', marginBottom: '60px' }}>
+        <div style={sectionStyle}>
           <h3>有効なクリーンヒット</h3>
           <p>
             ボクシングのタイトルマッチで最も重視されるのが有効なクリーンヒットです。有効なクリーンヒットとは、相手にダメージを与える顔面やボディへのパンチで、有効なクリーンヒットの数が多ければ、文句なしにポイントを奪取できます。
@@ -47,7 +51,7 @@ const About = () => {
         </div>
 
         <h1>Basic information</h1>
-        <div style={{ textAlign: 'left', marginBottom: '60px' }}>
+        <div style={sectionStyle}>
           <p>
             ・1ラウンドごとに優勢な方を10点とし、劣勢な方を減点する。（10POINT
             MUSTSYSTEM）
@@ -63,7 +67,7 @@ const About = () => {
         </div>
 
         <h1>Point at issue</h1>
-        <div style={{ textAlign: 'left', marginBottom: '60px' }}>
+        <div style={sectionStyle}>
           <p>
             ・有効なクリーンヒット等で優劣が明かなラウンドと、僅差で微妙なラウンドとが
             共に１０対９と同じポイントとなるため試合全体の印象とは異なる結果がもたら

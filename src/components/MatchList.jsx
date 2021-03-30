@@ -48,6 +48,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//テーブルに表示するデータ
+const colums = [
+  { id: 'date', label: 'Date', minWidth: 140 },
+  { id: 'division', label: 'Division', minWidth: 140 },
+  { id: 'fighter', label: 'Fighter', minWidth: 180 },
+  { id: 'opponent', label: 'Opponent', minWidth: 180 },
+  { id: 'venue', label: 'Venue', minWidth: 280 },
+];
+const ForResponsiveColums = [
+  { id: 'date', label: 'Date', minWidth: 110 },
+  { id: 'title', label: 'Fight', minWidth: 300 },
+  { id: 'division', label: 'Division', minWidth: 120 },
+  { id: 'venue', label: 'Venue', minWidth: 280 },
+];
+
 const MatchList = ({ history, matchData }) => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
@@ -60,20 +75,6 @@ const MatchList = ({ history, matchData }) => {
     setPage(0);
   };
 
-  //テーブルに表示するデータ
-  const colums = [
-    { id: 'date', label: 'Date', minWidth: 140 },
-    { id: 'division', label: 'Division', minWidth: 140 },
-    { id: 'fighter', label: 'Fighter', minWidth: 180 },
-    { id: 'opponent', label: 'Opponent', minWidth: 180 },
-    { id: 'venue', label: 'Venue', minWidth: 280 },
-  ];
-  const ForResponsiveColums = [
-    { id: 'date', label: 'Date', minWidth: 110 },
-    { id: 'title', label: 'Fight', minWidth: 300 },
-    { id: 'division', label: 'Division', minWidth: 120 },
-    { id: 'venue', label: 'Venue', minWidth: 280 },
-  ];
   const MatchListTable = ({ size, colums }) => {
     return (
       <Paper className={classes.root}>
