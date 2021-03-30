@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, memo } from 'react';
+import React, { useEffect, useState, useContext, memo, useRef } from 'react';
 import { AuthContext } from '../../auth/AuthProvider';
 import { db } from '../../base';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -10,6 +10,7 @@ const LikedCount = memo(({ title, id }) => {
   const [count, setCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const { currentUser } = useContext(AuthContext);
+  const processing = useRef(false);
 
   const docRef = db
     .collection('chats')
@@ -44,6 +45,10 @@ const LikedCount = memo(({ title, id }) => {
   }, []);
 
   const handleClick = async () => {
+    //更新中なら処理しない
+    if (processing.current) return;
+    //処理中
+    processing.current = true;
     docRef
       .collection('likedUser')
       .doc(`${currentUser.uid}`)
@@ -60,6 +65,8 @@ const LikedCount = memo(({ title, id }) => {
             .collection('likedUser')
             .doc(`${currentUser.uid}`)
             .delete();
+          //処理完了
+          processing.current = false;
           return;
         }
         //いいねユーザーを登録
@@ -75,6 +82,8 @@ const LikedCount = memo(({ title, id }) => {
               liked: count + 1,
             });
             setIsLiked(true);
+            //処理完了
+            processing.current = false;
           });
       })
       .catch((error) => {
