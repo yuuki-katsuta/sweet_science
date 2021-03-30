@@ -48,12 +48,14 @@ const MessageList = memo(({ name, message, uid, photoURL, title, id }) => {
                   {message.split('\n').map((t, i) => {
                     return <div key={i}>{t}</div>;
                   })}
+                  <span style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <LikedCount title={title} id={id} />
+                  </span>
                 </div>
               </div>
             </Typography>
           }
         />
-        <LikedCount title={title} id={id} />
         <ListItemIcon
           style={{
             display: 'inline-block',
@@ -82,7 +84,6 @@ const MessageList = memo(({ name, message, uid, photoURL, title, id }) => {
         >
           <Avatar alt='uploaded' src={photoURL} className={classes.Image} />
         </ListItemIcon>
-        <LikedCount title={title} id={id} />
         <ListItemText
           className='listItem'
           primary={name}
@@ -96,6 +97,9 @@ const MessageList = memo(({ name, message, uid, photoURL, title, id }) => {
               {message.split('\n').map((t, i) => {
                 return <div key={i}>{t}</div>;
               })}
+              <span>
+                <LikedCount title={title} id={id} />
+              </span>
             </Typography>
           }
         />

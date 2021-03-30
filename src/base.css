@@ -61,6 +61,10 @@ div.container {
     padding-right: 6px;
     padding-left: 6px;
   }
+  li.MuiListItem-alignItemsFlexStart {
+    padding-top: 5px;
+    padding-bottom: 0;
+  }
   span.MuiTypography-root {
     font-size: 3.8vmin;
   }
@@ -71,11 +75,17 @@ div.container {
     font-size: 18px;
   }
   svg.MuiSvgIcon-fontSizeSmall {
-    font-size: 2.9vmin;
+    font-size: 3.7vmin;
+  }
+  svg.likeIcon {
+    font-size: 1.2rem;
   }
   div.MuiContainer-root {
     padding-left: 6px;
     padding-right: 6px;
+  }
+  label.MuiFormControlLabel-root {
+    margin-right: 0;
   }
 }
 @media screen and (min-width:680px) and ( max-width:1024px) {

@@ -83,15 +83,15 @@ const LikedCount = memo(({ title, id }) => {
   };
 
   return (
-    <div>
+    <span>
       <FormControlLabel
         control={
           <Checkbox
             onClick={() => {
               handleClick();
             }}
-            icon={<ThumbUpAltOutlinedIcon />}
-            checkedIcon={<ThumbUpAltRoundedIcon />}
+            icon={<ThumbUpAltOutlinedIcon className={'likeIcon'} />}
+            checkedIcon={<ThumbUpAltRoundedIcon className={'likeIcon'} />}
             name='checked'
             color='default'
             checked={isLiked}
@@ -99,7 +99,7 @@ const LikedCount = memo(({ title, id }) => {
         }
         label={count}
       />
-    </div>
+    </span>
   );
 });
 
