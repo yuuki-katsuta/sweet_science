@@ -106,7 +106,9 @@ const LikedCount = memo(({ title, id }) => {
             checked={isLiked}
           />
         }
-        label={count === 0 ? null : count}
+        label={
+          count === 0 ? null : <span style={{ color: '#666666' }}>{count}</span>
+        }
       />
     </span>
   );

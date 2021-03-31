@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-    fontFamily: 'Arimo',
   },
 }));
 const theme = createMuiTheme({
@@ -56,12 +55,10 @@ const Header = ({ history }) => {
           <Toolbar>
             <Typography variant='h6' className={classes.title}>
               <span
-                style={{
-                  cursor: 'pointer',
-                }}
                 onClick={() => {
                   history.push('/');
                 }}
+                className={'title'}
               >
                 Boxing Lab
               </span>
