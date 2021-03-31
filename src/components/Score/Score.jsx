@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { db } from '../../base';
 import ScoreTable from './ScoreTable';
@@ -48,7 +48,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Score = ({ matchData }) => {
+const Score = memo(({ matchData }) => {
   const [ScoringA, setScoringA] = useState([]);
   const [ScoringB, setScoringB] = useState([]);
   const [ScoringC, setScoringC] = useState([]);
@@ -120,5 +120,5 @@ const Score = ({ matchData }) => {
       <ScoreTable Scoring={ScoringC} />
     </div>
   );
-};
+});
 export default Score;

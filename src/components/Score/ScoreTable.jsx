@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   makeStyles,
   createMuiTheme,
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ScoreTable = ({ Scoring }) => {
+const ScoreTable = memo(({ Scoring }) => {
   const classes = useStyles();
 
   return (
@@ -112,5 +112,5 @@ const ScoreTable = ({ Scoring }) => {
       </Paper>
     </MuiThemeProvider>
   );
-};
+});
 export default ScoreTable;

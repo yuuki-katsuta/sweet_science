@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   withStyles,
   makeStyles,
@@ -63,7 +63,7 @@ const ForResponsiveColums = [
   { id: 'venue', label: 'Venue', minWidth: 280 },
 ];
 
-const MatchList = ({ history, matchData }) => {
+const MatchList = memo(({ history, matchData }) => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -154,5 +154,5 @@ const MatchList = ({ history, matchData }) => {
       </MediaQuery>
     </>
   );
-};
+});
 export default MatchList;

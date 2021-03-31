@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styled from 'styled-components';
 
 const Table = styled.table`
@@ -24,7 +25,7 @@ const FromTimeStampToDate = (date) => {
   return `${month}/${day}`;
 };
 
-const News = ({ matchData }) => {
+const News = memo(({ matchData }) => {
   return (
     <div>
       <h2>News</h2>
@@ -69,5 +70,5 @@ const News = ({ matchData }) => {
       </div>
     </div>
   );
-};
+});
 export default News;

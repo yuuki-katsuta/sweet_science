@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, memo } from 'react';
 import { AuthContext } from '../auth/AuthProvider';
 import { db } from '../base';
 import MatchList from './MatchList';
@@ -7,7 +7,7 @@ import AddMatchInformation from './Add/AddMatchInformation';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 
-const Home = ({ history }) => {
+const Home = memo(({ history }) => {
   const { adminUser } = useContext(AuthContext);
   const [matchData, setMatchData] = useState([]);
 
@@ -88,5 +88,5 @@ const Home = ({ history }) => {
       )}
     </div>
   );
-};
+});
 export default Home;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import RoomIcon from '@material-ui/icons/Room';
 import MediaQuery from 'react-responsive';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,9 +26,8 @@ const useStyles = makeStyles({
   },
 });
 
-const MatchInformation = ({ matchData }) => {
+const MatchInformation = memo(({ matchData }) => {
   const classes = useStyles();
-
   const MatchData = ({ SmallWidth }) => {
     return (
       <div
@@ -51,7 +50,7 @@ const MatchInformation = ({ matchData }) => {
   };
   return (
     <div>
-      <h1>{matchData.title}</h1>
+      <h1 className='title'>{matchData.title}</h1>
       {matchData.videoId ? (
         <div>
           <div className={classes.videoWrapper}>
@@ -83,5 +82,5 @@ const MatchInformation = ({ matchData }) => {
       )}
     </div>
   );
-};
+});
 export default MatchInformation;
