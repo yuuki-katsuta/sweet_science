@@ -1,17 +1,10 @@
-import React, { memo, useCallback, useContext, useState } from 'react';
-import { AuthContext } from '../../auth/AuthProvider.js';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Button from '@material-ui/core/Button';
-import CreateIcon from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
+import Container from '@material-ui/core/Container';
+import UserImage from './UserImage';
 import EditName from './EditName';
 import EditEmail from './EditEmail';
 import EditPassword from './EditPassword';
-import UserImage from './UserImage';
-import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -40,39 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Icon = memo(({ IsProfileChanged, handleOpen }) => {
-  return (
-    <IconButton
-      style={{ margin: '0 0 3px auto' }}
-      onClick={() => {
-        IsProfileChanged(true);
-        handleOpen();
-      }}
-    >
-      <CreateIcon />
-    </IconButton>
-  );
-});
-
 const Profile = () => {
-  const { currentUser } = useContext(AuthContext);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [isNameChanged, setIsNameChanged] = useState(false);
-  const [isEmailChanged, setIsEmailChanged] = useState(false);
-  const [isPasswordChanged, setIsPasswordChanged] = useState(false);
-
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const handleOpen = useCallback(() => {
-    setOpen(true);
-  }, []);
-  const handleClose = () => {
-    setOpen(false);
-    setIsNameChanged(false);
-    setIsEmailChanged(false);
-    setIsPasswordChanged(false);
-  };
   return (
     <div className='container'>
       <Container maxWidth='md'>
@@ -90,68 +52,13 @@ const Profile = () => {
           }}
         >
           <div className={classes.profile}>
-            <h3>
-              Name:&nbsp;&nbsp;
-              {!name || isNameChanged ? currentUser.displayName : name}
-            </h3>
-            <Icon IsProfileChanged={setIsNameChanged} handleOpen={handleOpen} />
+            <EditName modal={classes.modal} paper={classes.paper} />
           </div>
           <div className={classes.profile}>
-            <h3>
-              Email:&nbsp;&nbsp;
-              {!email || isEmailChanged
-                ? currentUser.email.length > 20
-                  ? currentUser.email.substr(0, 20) + '...'
-                  : currentUser.email
-                : email.length > 20
-                ? email.substr(0, 20) + '...'
-                : email}
-            </h3>
-            <Icon
-              IsProfileChanged={setIsEmailChanged}
-              handleOpen={handleOpen}
-            />
+            <EditEmail modal={classes.modal} paper={classes.paper} />
           </div>
         </div>
-        <Button
-          style={{ margin: '16px auto 42px' }}
-          variant='outlined'
-          onClick={() => {
-            setIsPasswordChanged(true);
-            setOpen(true);
-          }}
-        >
-          Change Password
-        </Button>
-        <Modal
-          className={classes.modal}
-          open={open}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={open}>
-            <div className={classes.paper}>
-              {isNameChanged && (
-                <EditName
-                  name={name}
-                  setName={setName}
-                  handleClose={handleClose}
-                />
-              )}
-              {isEmailChanged && (
-                <EditEmail
-                  email={email}
-                  setEmail={setEmail}
-                  handleClose={handleClose}
-                />
-              )}
-              {isPasswordChanged && <EditPassword handleClose={handleClose} />}
-            </div>
-          </Fade>
-        </Modal>
+        <EditPassword modal={classes.modal} paper={classes.paper} />
       </Container>
     </div>
   );
