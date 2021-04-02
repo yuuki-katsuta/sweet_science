@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddMatchSummary = memo(({ MatchSummary, setMatchSummary }) => {
+const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
   const classes = useStyles();
   return (
     <form className={classes.root} noValidate autoComplete='off'>
@@ -21,10 +21,10 @@ const AddMatchSummary = memo(({ MatchSummary, setMatchSummary }) => {
         name='fighter'
         label='fighter'
         color='secondary'
-        value={MatchSummary.fighter}
+        value={matchSummary.fighter}
         onChange={(e) => {
           setMatchSummary({
-            ...MatchSummary,
+            ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
@@ -34,10 +34,10 @@ const AddMatchSummary = memo(({ MatchSummary, setMatchSummary }) => {
         name='opponent'
         label='opponent'
         color='secondary'
-        value={MatchSummary.opponent}
+        value={matchSummary.opponent}
         onChange={(e) => {
           setMatchSummary({
-            ...MatchSummary,
+            ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
@@ -47,10 +47,10 @@ const AddMatchSummary = memo(({ MatchSummary, setMatchSummary }) => {
         name='division'
         label='division'
         color='secondary'
-        value={MatchSummary.division}
+        value={matchSummary.division}
         onChange={(e) => {
           setMatchSummary({
-            ...MatchSummary,
+            ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
@@ -60,10 +60,10 @@ const AddMatchSummary = memo(({ MatchSummary, setMatchSummary }) => {
         name='date'
         label='date'
         color='secondary'
-        value={MatchSummary.date}
+        value={matchSummary.date}
         onChange={(e) => {
           setMatchSummary({
-            ...MatchSummary,
+            ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
@@ -74,10 +74,10 @@ const AddMatchSummary = memo(({ MatchSummary, setMatchSummary }) => {
         name='url'
         label='video url'
         color='secondary'
-        value={MatchSummary.url}
+        value={matchSummary.url}
         onChange={(e) => {
           setMatchSummary({
-            ...MatchSummary,
+            ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
@@ -88,10 +88,10 @@ const AddMatchSummary = memo(({ MatchSummary, setMatchSummary }) => {
         name='venue'
         label='venue'
         color='secondary'
-        value={MatchSummary.venue}
+        value={matchSummary.venue}
         onChange={(e) => {
           setMatchSummary({
-            ...MatchSummary,
+            ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
@@ -103,10 +103,10 @@ const AddMatchSummary = memo(({ MatchSummary, setMatchSummary }) => {
         label='write overview...'
         multiline
         rows={2}
-        value={MatchSummary.overview}
+        value={matchSummary.overview}
         onChange={(e) => {
           setMatchSummary({
-            ...MatchSummary,
+            ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}

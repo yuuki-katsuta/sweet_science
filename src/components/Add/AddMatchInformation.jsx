@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { db } from '../../base';
+import { useState, memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
-import Fab from '@material-ui/core/Fab';
-import Tooltip from '@material-ui/core/Tooltip';
+import { db } from '../../base';
 import AddScore from './AddScore';
 import AddMatchSummary from './AddMatchSummary';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import Fab from '@material-ui/core/Fab';
+import Tooltip from '@material-ui/core/Tooltip';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   titleFont: {
@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
-  const [MatchSummary, setMatchSummary] = useState({
+const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
+  const [matchSummary, setMatchSummary] = useState({
     fighter: '',
     opponent: '',
     division: '',
@@ -28,26 +28,10 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
     venue: '',
     overview: '',
   });
-  const [judgeA, setJudgeA] = useState({
-    name: '',
-    fighterScore: '',
-    opponentScore: '',
-  });
-  const [judgeB, setJudgeB] = useState({
-    name: '',
-    fighterScore: '',
-    opponentScore: '',
-  });
-  const [judgeC, setJudgeC] = useState({
-    name: '',
-    fighterScore: '',
-    opponentScore: '',
-  });
   const [checked, setChecked] = useState(false);
   const classes = useStyles();
 
-  //追加
-  const addChat = () => {
+  const addChat = async () => {
     const {
       fighter,
       opponent,
@@ -56,11 +40,12 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
       venue,
       url,
       overview,
-    } = MatchSummary;
+    } = matchSummary;
     if (fighter && opponent && division && date && venue) {
       //urlから動画のIdを取得
       const videoId = url ? url.split('v=')[1] : null;
-      db.collection('chats')
+      await db
+        .collection('chats')
         .doc(`${fighter} vs ${opponent}`)
         .set({
           title: `${fighter} vs ${opponent}`,
@@ -73,64 +58,47 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
           venue: venue,
           overview: overview,
           scoreData: checked,
-        })
-        .then(async () => {
-          const matchInformation = await getMatcheInformation();
-          setMatchData(matchInformation);
-          setMatchSummary({
-            fighter: '',
-            opponent: '',
-            division: '',
-            date: '',
-            url: '',
-            venue: '',
-            overview: '',
-          });
         });
-      if (checked && judgeA.name && judgeB.name && judgeC.name) {
-        //A
-        const judgeAFighterScore = judgeA.fighterScore.split('/').map(Number);
-        const judgeAOpponentScore = judgeA.opponentScore.split('/').map(Number);
-        //B
-        const judgeBFighterScore = judgeB.fighterScore.split('/').map(Number);
-        const judgeBOpponentScore = judgeB.opponentScore.split('/').map(Number);
-        //C
-        const judgeCFighterScore = judgeC.fighterScore.split('/').map(Number);
-        const judgeCOpponentScore = judgeC.opponentScore.split('/').map(Number);
-
-        const scoreData = db
-          .collection('chats')
-          .doc(`${fighter} vs ${opponent}`)
-          .collection('score');
-
-        scoreData.doc(`${judgeA.name}`).set({
-          judge: judgeA.name,
-          fighter: judgeAFighterScore,
-          opponent: judgeAOpponentScore,
-        });
-        scoreData.doc(`${judgeB.name}`).set({
-          judge: judgeB.name,
-          fighter: judgeBFighterScore,
-          opponent: judgeBOpponentScore,
-        });
-        scoreData.doc(`${judgeC.name}`).set({
-          judge: judgeC.name,
-          fighter: judgeCFighterScore,
-          opponent: judgeCOpponentScore,
-        });
-        setChecked(false);
-      }
+      const matchInformation = await getMatcheInformation();
+      setMatchData(matchInformation);
+      setMatchSummary({
+        fighter: '',
+        opponent: '',
+        division: '',
+        date: '',
+        url: '',
+        venue: '',
+        overview: '',
+      });
     } else {
       alert('item is not entered');
     }
+    // eslint-disable-next-line
   };
+
   return (
     <>
       <h2 className={classes.titleFont}>Add Match</h2>
       <AddMatchSummary
-        MatchSummary={MatchSummary}
+        matchSummary={matchSummary}
         setMatchSummary={setMatchSummary}
       />
+      <div style={{ display: 'flex', justifyContent: 'flex-End' }}>
+        {!checked && (
+          <Tooltip title='Add' aria-label='add'>
+            <Fab
+              color='primary'
+              className={classes.fab}
+              size='small'
+              onClick={() => {
+                addChat();
+              }}
+            >
+              <AddIcon />
+            </Fab>
+          </Tooltip>
+        )}
+      </div>
       <FormControlLabel
         style={{ marginTop: '8px' }}
         control={
@@ -145,32 +113,15 @@ const AddMatchInformation = ({ getMatcheInformation, setMatchData }) => {
         }
         label='Add Score'
       />
-      {checked ? (
+      {checked && (
         <AddScore
-          judgeA={judgeA}
-          judgeB={judgeB}
-          judgeC={judgeC}
-          setJudgeA={setJudgeA}
-          setJudgeB={setJudgeB}
-          setJudgeC={setJudgeC}
+          setChecked={setChecked}
+          addChat={addChat}
+          fighter={matchSummary.fighter}
+          opponent={matchSummary.opponent}
         />
-      ) : null}
-
-      <div style={{ display: 'flex', justifyContent: 'flex-End' }}>
-        <Tooltip title='Add' aria-label='add'>
-          <Fab
-            color='primary'
-            className={classes.fab}
-            size='small'
-            onClick={() => {
-              addChat();
-            }}
-          >
-            <AddIcon />
-          </Fab>
-        </Tooltip>
-      </div>
+      )}
     </>
   );
-};
+});
 export default AddMatchInformation;
