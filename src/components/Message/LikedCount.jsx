@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, memo, useRef } from 'react';
+import { useEffect, useState, useContext, memo, useRef } from 'react';
 import { AuthContext } from '../../auth/AuthProvider';
 import { db } from '../../base';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

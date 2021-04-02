@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, memo } from 'react';
+import { useContext, useEffect, useState, memo } from 'react';
 import { AuthContext } from '../auth/AuthProvider';
 import { db } from '../base';
 import MatchList from './MatchList';

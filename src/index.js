@@ -1,4 +1,3 @@
-import React from 'react';
 import './base.css';
 import ReactDOM from 'react-dom';
 import App from './App';

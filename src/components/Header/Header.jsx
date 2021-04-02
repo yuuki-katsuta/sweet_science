@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { auth } from '../../base';
 import { withRouter } from 'react-router';
 import { AuthContext } from '../../auth/AuthProvider';
@@ -38,7 +38,7 @@ const Header = ({ history }) => {
     AuthContext
   );
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const handleMenu = (event) => {

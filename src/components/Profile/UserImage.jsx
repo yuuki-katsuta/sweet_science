@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { storage } from '../../base';
 import { AuthContext } from '../../auth/AuthProvider';
 import firebase from 'firebase/app';

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import RoomIcon from '@material-ui/icons/Room';
 import MediaQuery from 'react-responsive';
 import { makeStyles } from '@material-ui/core/styles';

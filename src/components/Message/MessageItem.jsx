@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import { AuthContext } from '../../auth/AuthProvider';
 import { db } from '../../base';
 import { makeStyles } from '@material-ui/core/styles';

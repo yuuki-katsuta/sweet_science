@@ -1,4 +1,3 @@
-import React from 'react';
 import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './auth/AuthProvider';
 import { BrowserRouter, Route } from 'react-router-dom';

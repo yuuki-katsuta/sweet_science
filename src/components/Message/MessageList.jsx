@@ -1,4 +1,4 @@
-import React, { useContext, memo } from 'react';
+import { useContext, memo } from 'react';
 import { AuthContext } from '../../auth/AuthProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';

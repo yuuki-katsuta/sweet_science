@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { db } from '../../base';
 import ScoreTable from './ScoreTable';

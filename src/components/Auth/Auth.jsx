@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { withRouter } from 'react-router';
 import { AuthContext } from '../../auth/AuthProvider';
 import { makeStyles } from '@material-ui/core/styles';
