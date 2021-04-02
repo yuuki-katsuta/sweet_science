@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../auth/AuthProvider.js';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -20,6 +20,7 @@ const EditName = ({ modal, paper }) => {
   };
   const handleOpen = () => {
     setOpen(true);
+    setIsNameChanged(true);
   };
 
   return (

@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UserImage = () => {
-  console.log(7);
   const { currentUser, ChangePhtoUrl, ResetPhtoUrl, guestUser } = useContext(
     AuthContext
   );

@@ -21,6 +21,7 @@ const EditEmail = ({ modal, paper }) => {
   };
   const handleOpen = () => {
     setOpen(true);
+    setIsEmailChanged(true);
   };
 
   return (
