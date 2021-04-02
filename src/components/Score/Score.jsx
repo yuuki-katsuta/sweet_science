@@ -60,19 +60,17 @@ const Score = memo(({ matchData }) => {
   const classes = useStyles();
 
   //スコアデータ取得
-  const getScore = () => {
-    return db
+  const getScore = async () => {
+    const data = await db
       .collection('chats')
       .doc(`${matchData.title}`)
       .collection('score')
-      .get()
-      .then((data) => {
-        const ScoreData = [];
-        data.forEach((doc) => {
-          ScoreData.push(doc.data());
-        });
-        return ScoreData;
-      });
+      .get();
+    const ScoreData = [];
+    data.forEach((doc) => {
+      ScoreData.push(doc.data());
+    });
+    return ScoreData;
   };
 
   useEffect(() => {
