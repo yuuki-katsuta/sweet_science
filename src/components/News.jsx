@@ -28,7 +28,7 @@ const FromTimeStampToDate = (date) => {
 const News = memo(({ matchData }) => {
   return (
     <div>
-      <h2>News</h2>
+      <h2 className='section-title'>News</h2>
       <div
         style={{
           marginBottom: '12px',

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Kreon:wght@600&family=Lato&family=Markazi+Text:wght@600&family=Montserrat&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@600&family=Hepta+Slab:wght@500&family=Kreon:wght@600&family=Lato&family=Markazi+Text:wght@600&family=Montserrat&family=Roboto&family=Varta:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Patua+One&family=Tinos:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pridi&display=swap');
 
 html {
   margin: 0;
@@ -33,13 +33,13 @@ div.container {
   text-align: center;
   margin: 120px auto 0
 }
-span.title {
+span.main-title {
   font-family: 'Patua One', cursive;
   font-size: 23px;
   cursor: pointer;
 }
-h1.title {
-  font-family: 'Bree Serif', serif;
+h1.match-title, h2.section-title{
+  font-family: 'Pridi', serif;
 }
 
 @media screen and (min-width:280px) {
@@ -48,7 +48,7 @@ h1.title {
     font-size: 3.8vmin;
   }
   h1 {
-    font-size: 5vmin;
+    font-size: 5.5vmin;
   }
   h2 {
     font-size: 28px

@@ -44,7 +44,7 @@ const Home = memo(({ history }) => {
 
   return (
     <div className='container'>
-      <h2>Boxing Fights</h2>
+      <h2 className='section-title'>Boxing Fights</h2>
       <div
         style={{
           marginBottom: '14px',

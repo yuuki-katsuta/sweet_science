@@ -58,7 +58,7 @@ const Header = ({ history }) => {
                 onClick={() => {
                   history.push('/');
                 }}
-                className={'title'}
+                className='main-title'
               >
                 Boxing Lab
               </span>

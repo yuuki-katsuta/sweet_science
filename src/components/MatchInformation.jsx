@@ -50,7 +50,7 @@ const MatchInformation = memo(({ matchData }) => {
   };
   return (
     <div>
-      <h1 className='title'>{matchData.title}</h1>
+      <h1 className='match-title'>{matchData.title}</h1>
       {matchData.videoId ? (
         <div>
           <div className={classes.videoWrapper}>
