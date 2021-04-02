@@ -12,18 +12,16 @@ const Home = memo(({ history }) => {
   const [matchData, setMatchData] = useState([]);
 
   //試合情報を取得
-  const getMatcheInformation = () => {
-    return db
+  const getMatcheInformation = async () => {
+    const querySnapshot = await db
       .collection('chats')
       .orderBy('createdAt', 'desc')
-      .get()
-      .then((querySnapshot) => {
-        const newMatcheInformation = [];
-        querySnapshot.forEach((doc) => {
-          newMatcheInformation.push(doc.data());
-        });
-        return newMatcheInformation;
-      });
+      .get();
+    const newMatcheInformation = [];
+    querySnapshot.forEach((doc) => {
+      newMatcheInformation.push(doc.data());
+    });
+    return newMatcheInformation;
   };
 
   useEffect(() => {
