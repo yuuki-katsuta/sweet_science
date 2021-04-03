@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# Boxing lab ~ ボクシングファンのためのチャットアプリ ~
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+https://boxing-lab.net/  
+ゲストログインボタンから、メールアドレスとパスワードを入力せずにログインできます
 
-## Available Scripts
+## サービス概要
 
-In the project directory, you can run:
+ボクシングの採点結果について談論・ディスカッションすることができます。<br/>
+ボクシングは通称 「The sweet science」,「The art of hitting and not getting hit」と呼ばれています。<br/>
+その名の通り、科学のように秩序だった思考が要求されるスポーツであることを理解し、多様な視点からボクシングを楽しめるようになれたら嬉しいです。
 
-### `yarn start`
+## 使い方
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### サインアップ画面
+<img src="https://user-images.githubusercontent.com/60274709/113470102-d16fd980-948d-11eb-8771-86a241892977.jpg" width="700px" height="350px">
+フォーム下部の「Already have an account? Log in」をクリックすると、ログインフォームに切り替わります。
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### ホーム画面
+<img src="https://user-images.githubusercontent.com/60274709/113470919-dfc0f400-9493-11eb-9dce-c7ceb2261282.jpg" width="700px">
 
-### `yarn test`
+ボクシングの試合一覧と更新情報を表示しています。<br>
+一覧内の試合情報をクリックすることで、各チャットページへ遷移します。
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### チャット画面
+<img src="https://user-images.githubusercontent.com/60274709/113470475-f6b21700-9490-11eb-84e8-472b0593d75a.jpg" width="700px">
 
-### `yarn build`
+他のユーザーとリアルタイムチャットを楽しむことができます。<br>
+また、各メッセージに対して、いいねを付与することができます。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 試合情報追加フォーム
+<img src="https://i.gyazo.com/6da840f6c6d5799b58ef35ef2c3180e0.png" width="700px">
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+管理者のみ試合情報を追加できます。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### プロフィール画面
+<img src="https://user-images.githubusercontent.com/60274709/113470805-3974ee80-9493-11eb-82d5-7aa2617f99d8.jpg" width="700px">
 
-### `yarn eject`
+ユーザー名・メールアドレス・パスワード・イメージ画像を変更することができます。<br>
+ゲストユーザーの場合、変更することはできません。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### about画面
+<img src="https://user-images.githubusercontent.com/60274709/113470824-590c1700-9493-11eb-9058-cfccd0fd310b.jpg" width="700px">
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+本アプリケーションについての概要と、簡単なボクシングの基本情報を載せています。
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 機能
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- 認証
+  - ユーザー登録/ログイン
+  - 管理者権限でのログイン
+  - 匿名ログイン
+  - メールアドレス・パスワード・ユーザー名変更
+  - 再認証機能
+  - ログアウト
+- メッセージ投稿
+  - いいね付与
+- チャットルーム作成(管理者のみ)
+- プロフィール画像のアップロード/削除
 
-## Learn More
+## 使用技術
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+React × Firebase
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+フロントエンド
 
-### Code Splitting
+- react 17.0.1
+- react-dom 17.0.1
+- react-scripts 4.0.1
+- react-responsive 8.2.0
+- react-router-dom 5.2.0
+- styled-components 5.2.1
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+バックエンド
 
-### Analyzing the Bundle Size
+- Firebase 
+  - Authentication
+  - Hosting
+  - Cloud Storage
+  - Cloud Firestore
+  - Cloud Functions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## セットアップ
 
-### Making a Progressive Web App
+```
+# install dependencies
+$ yarn install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# serve with hot reload at localhost:3000
+$ yarn start
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# build for production and launch server
+$ yarn build
+```
