@@ -37,14 +37,14 @@ const StyledTableCell = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: '1050px',
+    maxWidth: '1100px',
     margin: '0 auto',
     [theme.breakpoints.down('xs')]: {
       padding: '0 3px',
     },
   },
   container: {
-    maxHeight: 700,
+    maxHeight: 900,
   },
 }));
 

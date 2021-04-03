@@ -69,7 +69,7 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: '80px' }}>
       <div style={{ maxWidth: '730px', margin: '16px auto 0' }}>
         <form className={classes.root} noValidate autoComplete='off'>
           <Input
@@ -165,19 +165,21 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
         </form>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'flex-End' }}>
-        <Tooltip title='Add' aria-label='add'>
-          <Fab
-            color='primary'
-            className={classes.fab}
-            size='small'
-            onClick={() => {
-              addChatWithScore();
-            }}
-          >
-            <AddIcon />
-          </Fab>
-        </Tooltip>
+      <div style={{ position: 'relative' }}>
+        <span style={{ position: 'absolute', right: 10 }}>
+          <Tooltip title='Add' aria-label='add'>
+            <Fab
+              color='primary'
+              className={classes.fab}
+              size='small'
+              onClick={() => {
+                addChatWithScore();
+              }}
+            >
+              <AddIcon />
+            </Fab>
+          </Tooltip>
+        </span>
       </div>
     </div>
   );

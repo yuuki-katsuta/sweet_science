@@ -10,9 +10,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
-  titleFont: {
-    fontFamily: 'Arimo',
-  },
   fab: {
     margin: theme.spacing(2),
   },
@@ -78,41 +75,55 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
 
   return (
     <>
-      <h2 className={classes.titleFont}>Add Match</h2>
+      <h2 className='section-title'>Add Match</h2>
       <AddMatchSummary
         matchSummary={matchSummary}
         setMatchSummary={setMatchSummary}
       />
-      <div style={{ display: 'flex', justifyContent: 'flex-End' }}>
-        {!checked && (
-          <Tooltip title='Add' aria-label='add'>
-            <Fab
-              color='primary'
-              className={classes.fab}
-              size='small'
-              onClick={() => {
-                addChat();
+
+      <div
+        style={{
+          position: 'relative',
+        }}
+      >
+        <FormControlLabel
+          style={{ textAlign: 'center', marginTop: '8px' }}
+          control={
+            <Switch
+              checked={checked}
+              onChange={() => {
+                setChecked(!checked);
               }}
-            >
-              <AddIcon />
-            </Fab>
-          </Tooltip>
-        )}
+              name='checked'
+              color='primary'
+            />
+          }
+          label='Add Score'
+        />
+
+        <span
+          style={{
+            position: 'absolute',
+            right: 0,
+          }}
+        >
+          {!checked && (
+            <Tooltip title='Add' aria-label='add'>
+              <Fab
+                color='primary'
+                className={classes.fab}
+                size='small'
+                onClick={() => {
+                  addChat();
+                }}
+              >
+                <AddIcon />
+              </Fab>
+            </Tooltip>
+          )}
+        </span>
       </div>
-      <FormControlLabel
-        style={{ marginTop: '8px' }}
-        control={
-          <Switch
-            checked={checked}
-            onChange={() => {
-              setChecked(!checked);
-            }}
-            name='checked'
-            color='primary'
-          />
-        }
-        label='Add Score'
-      />
+
       {checked && (
         <AddScore
           setChecked={setChecked}
