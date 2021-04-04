@@ -50,20 +50,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Auth = ({ history }) => {
+const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
+  const [isLogin, setIsLogin] = useState(true);
   const { login, signup, isLoading, currentUser, guestLogin } = useContext(
     AuthContext
   );
-  const [isLogin, setIsLogin] = useState(true);
 
   const handleSubmit = () => {
     isLogin
-      ? login(email, password, history)
-      : signup(email, password, confirmPassword, name, history);
+      ? login(email, password)
+      : signup(email, password, confirmPassword, name);
   };
   const classes = useStyles();
   const resetItems = () => {

@@ -11,10 +11,9 @@ export const AuthProvider = ({ children }) => {
   const [guestUser, setGuestUser] = useState(false);
 
   //ログイン
-  const login = async (email, password, history) => {
+  const login = async (email, password) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
-      history.push('/');
     } catch (error) {
       alert(error.message);
     }
@@ -29,7 +28,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   //サインイン
-  const signup = async (email, password, confirmPassword, name, history) => {
+  const signup = async (email, password, confirmPassword, name) => {
     try {
       if (name.trim() === '') throw new Error('Please enter your name');
       if (name.length > 10)
@@ -47,7 +46,6 @@ export const AuthProvider = ({ children }) => {
         password: password,
         photoURL: '',
       });
-      history.push('/');
     } catch (error) {
       alert(error.message);
     }

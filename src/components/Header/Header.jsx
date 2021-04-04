@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { auth } from '../../base';
 import { withRouter } from 'react-router';
 import { AuthContext } from '../../auth/AuthProvider';
@@ -33,13 +34,14 @@ const theme = createMuiTheme({
   },
 });
 
-const Header = ({ history }) => {
+const Header = () => {
   const { currentUser, setAdminUser, setGuestUser, guestUser } = useContext(
     AuthContext
   );
-  const classes = useStyles();
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const classes = useStyles();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);

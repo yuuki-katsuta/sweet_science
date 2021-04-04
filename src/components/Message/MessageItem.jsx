@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-const MessageItem = ({ history, matchData }) => {
+const MessageItem = ({ matchData }) => {
   const { currentUser } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const ref = useRef();
@@ -86,7 +86,6 @@ const MessageItem = ({ history, matchData }) => {
       </List>
 
       <MessageAddField
-        history={history}
         currentUser={currentUser}
         title={matchData.title}
         refer={ref}

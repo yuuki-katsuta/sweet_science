@@ -7,7 +7,7 @@ import AddMatchInformation from './Add/AddMatchInformation';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 
-const Home = memo(({ history }) => {
+const Home = memo(() => {
   const { adminUser } = useContext(AuthContext);
   const [matchData, setMatchData] = useState([]);
 
@@ -56,7 +56,7 @@ const Home = memo(({ history }) => {
           クリックすると各チャットページへ遷移します
         </p>
       </div>
-      <MatchList history={history} matchData={matchData} />
+      <MatchList matchData={matchData} />
       {adminUser ? (
         <Container maxWidth='md'>
           <div style={{ margin: '50px 0 60px' }}>

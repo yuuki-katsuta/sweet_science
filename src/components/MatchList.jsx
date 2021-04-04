@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router-dom';
 import { useState, memo } from 'react';
 import {
   withStyles,
@@ -63,7 +64,8 @@ const ForResponsiveColums = [
   { id: 'venue', label: 'Venue', minWidth: 280 },
 ];
 
-const MatchList = memo(({ history, matchData }) => {
+const MatchList = memo(({ matchData }) => {
+  const history = useHistory();
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
