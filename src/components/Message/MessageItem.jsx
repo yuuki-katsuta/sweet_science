@@ -65,21 +65,20 @@ const MessageItem = ({ history, matchData }) => {
   return (
     <>
       <List className={messages.length === 0 ? null : classes.list}>
-        {messages.map(({ user, uid, message, photoURL, id }, index) => {
+        {messages.map((message, index) => {
           return (
             <div
               ref={ref}
               key={index}
-              className={uid === currentUser.uid ? classes.ownMessage : null}
+              className={
+                message.uid === currentUser.uid ? classes.ownMessage : null
+              }
             >
               <MessageList
                 className='messageItem'
-                name={user ? user : 'ゲストユーザー'}
-                message={message}
-                uid={uid}
-                photoURL={photoURL}
                 title={matchData.title}
-                id={id}
+                message={message}
+                currentUser={currentUser}
               />
             </div>
           );

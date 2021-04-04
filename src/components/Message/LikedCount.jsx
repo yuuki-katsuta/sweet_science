@@ -1,15 +1,13 @@
-import { useEffect, useState, useContext, memo, useRef } from 'react';
-import { AuthContext } from '../../auth/AuthProvider';
+import { useEffect, useState, memo, useRef } from 'react';
 import { db } from '../../base';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ThumbUpAltRoundedIcon from '@material-ui/icons/ThumbUpAltRounded';
 
-const LikedCount = memo(({ title, id }) => {
+const LikedCount = memo(({ title, id, currentUser }) => {
   const [count, setCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
-  const { currentUser } = useContext(AuthContext);
   const processing = useRef(false);
 
   const docRef = db
