@@ -12,7 +12,7 @@ https://boxing-lab.net/
 ## 使い方
 
 ### サインアップ画面
-<img src="https://user-images.githubusercontent.com/60274709/113470102-d16fd980-948d-11eb-8771-86a241892977.jpg" width="700px" height="350px">
+<img src="https://user-images.githubusercontent.com/60274709/113470102-d16fd980-948d-11eb-8771-86a241892977.jpg" width="700px">
 フォーム下部の「Already have an account? Log in」をクリックすると、ログインフォームに切り替わります。
 
 ### ホーム画面
@@ -72,7 +72,7 @@ React × Firebase
 
 バックエンド
 
-- Firebase 
+- Firebase 8.2.4
   - Authentication
   - Hosting
   - Cloud Storage
