@@ -43,7 +43,7 @@ const MessageAddField = ({ currentUser, title, refer }) => {
               right: '10px',
             }}
             onClick={() => {
-              history.push('/');
+              history.goBack();
             }}
           >
             <KeyboardReturnIcon fontSize='large' />
