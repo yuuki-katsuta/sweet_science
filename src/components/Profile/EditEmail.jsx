@@ -8,12 +8,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-const EditEmail = ({ modal, paper }) => {
+const EditEmail = ({ modal, paper, currentUser }) => {
   const [email, setEmail] = useState('');
   const [isEmailChanged, setIsEmailChanged] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [open, setOpen] = useState(false);
-  const { currentUser, changeCurrentEmail } = useContext(AuthContext);
+  const { changeCurrentEmail } = useContext(AuthContext);
 
   const handleClose = () => {
     setOpen(false);

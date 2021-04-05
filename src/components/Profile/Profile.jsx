@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+import { AuthContext } from '../../auth/AuthProvider';
+import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import UserImage from './UserImage';
@@ -33,33 +36,47 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = () => {
+  const { guestUser, currentUser } = useContext(AuthContext);
   const classes = useStyles();
-  return (
-    <div className='container'>
-      <Container maxWidth='md'>
-        <h2>Your Profile</h2>
-        <div className={classes.title}>
-          <p>プロフィール情報を編集することができます</p>
-        </div>
-        <UserImage />
-        <div
-          style={{
-            width: '35%',
-            margin: '0 auto ',
-            textAlign: 'left',
-            minWidth: '300px',
-          }}
-        >
-          <div className={classes.profile}>
-            <EditName modal={classes.modal} paper={classes.paper} />
+
+  return guestUser ? (
+    <Redirect to={'/'} />
+  ) : (
+    currentUser.email && currentUser.displayName && (
+      <div className='container'>
+        <Container maxWidth='md'>
+          <h2>Your Profile</h2>
+          <div className={classes.title}>
+            <p>プロフィール情報を編集することができます</p>
           </div>
-          <div className={classes.profile}>
-            <EditEmail modal={classes.modal} paper={classes.paper} />
+          <UserImage />
+          <div
+            style={{
+              width: '35%',
+              margin: '0 auto ',
+              textAlign: 'left',
+              minWidth: '300px',
+            }}
+          >
+            <div className={classes.profile}>
+              <EditName
+                modal={classes.modal}
+                paper={classes.paper}
+                currentUser={currentUser}
+              />
+            </div>
+            <div className={classes.profile}>
+              <EditEmail
+                modal={classes.modal}
+                paper={classes.paper}
+                currentUser={currentUser}
+              />
+            </div>
           </div>
-        </div>
-        <EditPassword modal={classes.modal} paper={classes.paper} />
-      </Container>
-    </div>
+          <EditPassword modal={classes.modal} paper={classes.paper} />
+        </Container>
+      </div>
+    )
   );
 };
 export default Profile;
