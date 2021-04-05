@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   //displayname変更
-  const changeCurrentName = async (newName, setName) => {
+  const changeCurrentName = async (newName) => {
     try {
       if (newName.length > 10)
         throw new Error('Please use no more than 10 characters');
@@ -71,19 +71,17 @@ export const AuthProvider = ({ children }) => {
       });
       alert('Updated the name');
     } catch (error) {
-      setName('');
       alert(error.message);
     }
   };
 
   //email変更
-  const changeCurrentEmail = async (currentPassword, newEmail, setEmail) => {
+  const changeCurrentEmail = async (currentPassword, newEmail) => {
     try {
       await Reauthentication(currentPassword);
       await auth.currentUser.updateEmail(newEmail);
       alert('Updated the email');
     } catch (error) {
-      setEmail('');
       alert(error.message);
     }
   };

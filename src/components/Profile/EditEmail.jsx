@@ -23,6 +23,11 @@ const EditEmail = ({ modal, paper, currentUser }) => {
     setOpen(true);
     setIsEmailChanged(true);
   };
+  const resetState = () => {
+    handleClose();
+    setEmail('');
+    setCurrentPassword('');
+  };
 
   return (
     <>
@@ -84,8 +89,7 @@ const EditEmail = ({ modal, paper, currentUser }) => {
               <div style={{ textAlign: 'right', marginTop: '16px' }}>
                 <Button
                   onClick={() => {
-                    handleClose();
-                    setEmail('');
+                    resetState();
                   }}
                 >
                   Cancel
@@ -93,8 +97,8 @@ const EditEmail = ({ modal, paper, currentUser }) => {
                 <Button
                   color='primary'
                   onClick={async () => {
-                    handleClose();
-                    await changeCurrentEmail(currentPassword, email, setEmail);
+                    await changeCurrentEmail(currentPassword, email);
+                    resetState();
                   }}
                 >
                   Save

@@ -22,6 +22,10 @@ const EditName = ({ modal, paper, currentUser }) => {
     setOpen(true);
     setIsNameChanged(true);
   };
+  const resetState = () => {
+    handleClose();
+    setName('');
+  };
 
   return (
     <>
@@ -67,8 +71,7 @@ const EditName = ({ modal, paper, currentUser }) => {
               <div style={{ textAlign: 'right', marginTop: '16px' }}>
                 <Button
                   onClick={() => {
-                    handleClose();
-                    setName('');
+                    resetState();
                   }}
                 >
                   Cancel
@@ -76,8 +79,8 @@ const EditName = ({ modal, paper, currentUser }) => {
                 <Button
                   color='primary'
                   onClick={async () => {
-                    handleClose();
-                    await changeCurrentName(name, setName);
+                    await changeCurrentName(name);
+                    resetState();
                   }}
                 >
                   Save
