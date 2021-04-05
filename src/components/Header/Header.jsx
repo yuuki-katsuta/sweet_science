@@ -49,85 +49,87 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  return currentUser ? (
-    <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <FormGroup></FormGroup>
-        <AppBar position='fixed'>
-          <Toolbar>
-            <Typography variant='h6' className={classes.title}>
-              <span
-                onClick={() => {
-                  history.push('/');
-                }}
-                className='main-title'
-              >
-                Boxing Lab
-              </span>
-            </Typography>
-            <div>
-              <IconButton
-                aria-label='account of current user'
-                aria-controls='menu-appbar'
-                aria-haspopup='true'
-                onClick={handleMenu}
-                color='inherit'
-              >
-                <AccountCircle fontSize='large' />
-              </IconButton>
-              <Menu
-                id='menu-appbar'
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>
-                  <span
-                    onClick={() => {
-                      history.push('/about');
-                    }}
-                  >
-                    About
-                  </span>
-                </MenuItem>
-                <MenuItem onClick={handleClose} disabled={guestUser}>
-                  <span
-                    onClick={() => {
-                      history.push('/profile');
-                    }}
-                  >
-                    Profile
-                  </span>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <span
-                    onClick={async () => {
-                      await auth.signOut().then(() => {
-                        setAdminUser(false);
-                        setGuestUser(false);
-                      });
-                      history.push('/auth');
-                    }}
-                  >
-                    Log out
-                  </span>
-                </MenuItem>
-              </Menu>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </div>
-    </ThemeProvider>
-  ) : null;
+  return (
+    currentUser && (
+      <ThemeProvider theme={theme}>
+        <div className={classes.root}>
+          <FormGroup></FormGroup>
+          <AppBar position='fixed'>
+            <Toolbar>
+              <Typography variant='h6' className={classes.title}>
+                <span
+                  onClick={() => {
+                    history.push('/');
+                  }}
+                  className='main-title'
+                >
+                  Boxing Lab
+                </span>
+              </Typography>
+              <div>
+                <IconButton
+                  aria-label='account of current user'
+                  aria-controls='menu-appbar'
+                  aria-haspopup='true'
+                  onClick={handleMenu}
+                  color='inherit'
+                >
+                  <AccountCircle fontSize='large' />
+                </IconButton>
+                <Menu
+                  id='menu-appbar'
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>
+                    <span
+                      onClick={() => {
+                        history.push('/about');
+                      }}
+                    >
+                      About
+                    </span>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose} disabled={guestUser}>
+                    <span
+                      onClick={() => {
+                        history.push('/profile');
+                      }}
+                    >
+                      Profile
+                    </span>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <span
+                      onClick={async () => {
+                        await auth.signOut().then(() => {
+                          setAdminUser(false);
+                          setGuestUser(false);
+                        });
+                        history.push('/auth');
+                      }}
+                    >
+                      Log out
+                    </span>
+                  </MenuItem>
+                </Menu>
+              </div>
+            </Toolbar>
+          </AppBar>
+        </div>
+      </ThemeProvider>
+    )
+  );
 };
 
 export default withRouter(Header);
