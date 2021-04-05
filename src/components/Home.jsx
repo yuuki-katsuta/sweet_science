@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState, memo } from 'react';
 import { AuthContext } from '../auth/AuthProvider';
 import { db } from '../base';
+import MediaQuery from 'react-responsive';
 import MatchList from './MatchList';
 import News from './News';
 import AddMatchInformation from './Add/AddMatchInformation';
@@ -58,15 +59,26 @@ const Home = memo(() => {
       </div>
       <MatchList matchData={matchData} />
       {adminUser ? (
-        <Container maxWidth='md'>
-          <div style={{ margin: '50px 0 60px' }}>
-            <Divider />
-            <AddMatchInformation
-              getMatcheInformation={getMatcheInformation}
-              setMatchData={setMatchData}
+        <>
+          <MediaQuery query='(max-width: 800px)'>
+            <News
+              title={matchData.title}
+              creationTime={matchData.createdAt}
+              matchData={matchData}
             />
-          </div>
-        </Container>
+          </MediaQuery>
+          <MediaQuery query='(min-width: 801px)'>
+            <Container maxWidth='md'>
+              <div style={{ margin: '50px 0 60px' }}>
+                <Divider />
+                <AddMatchInformation
+                  getMatcheInformation={getMatcheInformation}
+                  setMatchData={setMatchData}
+                />
+              </div>
+            </Container>
+          </MediaQuery>
+        </>
       ) : (
         <Container maxWidth='md'>
           <div
