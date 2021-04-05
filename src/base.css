@@ -45,13 +45,16 @@ h1.match-title, h2.section-title{
 @media screen and (min-width:280px) {
   /*画面サイズが280pxからはここを読み込む*/
   p {
-    font-size: 3.8vmin;
+    font-size: 15px
   }
   h1 {
-    font-size: 5.5vmin;
+    font-size: 20px
   }
   h2 {
     font-size: 28px
+  }
+  h4 {
+    font-size: 14px;
   }
   td.MuiTableCell-sizeSmall {
     padding: 14px 6px 14px 16px;
@@ -62,7 +65,7 @@ h1.match-title, h2.section-title{
     padding-left: 8px;
   }
   td.scoreTable {
-    font-size: 3.5vmin;
+    font-size: 15px;
     padding-bottom: 4px;
     padding-Top: 4px;
     padding-left: 8px;
@@ -76,7 +79,7 @@ h1.match-title, h2.section-title{
     padding-bottom: 0;
   }
   span.MuiTypography-root {
-    font-size: 3.8vmin;
+    font-size: 14.5px;
   }
   span.MuiListItemText-primary {
     font-weight: 600
@@ -85,7 +88,7 @@ h1.match-title, h2.section-title{
     font-size: 15px;
   }
   svg.MuiSvgIcon-fontSizeSmall {
-    font-size: 3.7vmin;
+    font-size: 14px;
   }
   svg.likeIcon {
     font-size: 1.17rem;
@@ -101,43 +104,55 @@ h1.match-title, h2.section-title{
     margin-right: 0;
   }
 }
+@media screen and (min-width:415px) {
+  p {
+    font-size: 16px
+  }
+  h1 {
+    font-size: 22px
+  }
+  h4 {
+    font-size: 15px;
+  }
+  svg.MuiSvgIcon-fontSizeSmall {
+    font-size: 18px
+  }
+  svg.likeIcon {
+    font-size: 1rem;
+  }
+  span.MuiTypography-root {
+    font-size: 16px;
+  }
+  td.scoreTable {
+    font-size: 15px;
+  }
+}
 @media screen and (min-width:680px) and ( max-width:1024px) {
-  /*画面サイズが768pxから1024pxまではここを読み込む*/
   div.listItem {
     margin-right: 16px;
     margin-left: 16px;
   }
   span.MuiTypography-root {
-    font-size: 1.8vmin;
+    font-size: 16px
   }
   th.scoreTable {
-    font-size: 2vmin;
     padding-bottom: 3px;
     padding-Top: 3px;
     padding-left: 8px;
   }
   td.scoreTable {
-    font-size: 1.8vmin;
     padding-bottom: 3px;
     padding-Top: 3px;
     padding-left: 8px;
   }
   span.MuiFormControlLabel-label {
-    font-size: 24px;
+    font-size: 16px;
   }
   h1 {
-    font-size: 4.5vmin;
-  }
-  h4 {
-    font-size: 2vmin;
-  }
-  p {
-    font-size: 2.4vmin;
+    font-size: 28px
   }
 }
 @media screen and (min-width:1024px) {
-
-  /*画面サイズが1024pxからはここを読み込む*/
   div.listItem {
     margin-right: 16px;
     margin-left: 16px;

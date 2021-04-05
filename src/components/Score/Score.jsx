@@ -38,9 +38,11 @@ const useStyles = makeStyles({
   judger: {
     textAlign: 'left',
     margin: '0 0 0 8px',
-    fontSize: '3.5vmin',
+    '@media screen and (min-width:415px) and ( max-width:680px)': {
+      fontSize: '13.5px',
+    },
     '@media screen and (min-width:680px) and ( max-width:1024px)': {
-      fontSize: '12px',
+      fontSize: '15px',
     },
     '@media (min-width: 1024px)': {
       fontSize: '16px',
