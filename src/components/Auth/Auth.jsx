@@ -4,15 +4,14 @@ import { AuthContext } from '../../auth/AuthProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,40 +37,12 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 3),
-  },
-  guestLogin: {
-    margin: theme.spacing(0, 0, 2),
-  },
 }));
 
 const Auth = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [name, setName] = useState('');
   const [isLogin, setIsLogin] = useState(true);
-  const { login, signup, isLoading, currentUser, guestLogin } = useContext(
-    AuthContext
-  );
-
-  const handleSubmit = () => {
-    isLogin
-      ? login(email, password)
-      : signup(email, password, confirmPassword, name);
-  };
+  const { isLoading, currentUser } = useContext(AuthContext);
   const classes = useStyles();
-  const resetItems = () => {
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-    setName('');
-  };
 
   return isLoading ? (
     <div style={{ marginTop: '180px', textAlign: 'center' }}>
@@ -92,88 +63,7 @@ const Auth = () => {
             <Typography component='h1' variant='h5'>
               Log in
             </Typography>
-            <div
-              style={{
-                margin: '18px 0 8px',
-                color: '#666666',
-                fontWeight: 'bold',
-              }}
-            >
-              <p>
-                ボクシングファンのためのチャットアプリ
-                <br />
-                試合内容や採点結果についてに談論することができます！
-              </p>
-            </div>
-
-            <form className={classes.form} noValidate>
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='email'
-                label='Email Address'
-                name='email'
-                autoComplete='email'
-                autoFocus
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type='password'
-                id='password'
-                autoComplete='current-password'
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-              <Button
-                fullWidth
-                variant='contained'
-                color='primary'
-                className={classes.submit}
-                onClick={() => {
-                  handleSubmit();
-                }}
-              >
-                Log In
-              </Button>
-              <Button
-                fullWidth
-                variant='contained'
-                color='default'
-                className={classes.guestLogin}
-                onClick={() => {
-                  guestLogin();
-                }}
-              >
-                ゲストログイン
-              </Button>
-
-              <Grid container>
-                <Grid item>
-                  <Link
-                    onClick={() => {
-                      resetItems();
-                      setIsLogin(!isLogin);
-                    }}
-                    variant='body2'
-                  >
-                    {"Don't have an account? Sign up"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
+            <LoginForm setIsLogin={setIsLogin} isLogin={isLogin} />
           </div>
         ) : (
           <div className={classes.paper}>
@@ -183,87 +73,7 @@ const Auth = () => {
             <Typography component='h1' variant='h5'>
               Sign up
             </Typography>
-            <form className={classes.form} noValidate>
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='name'
-                label='Name'
-                name='name'
-                autoFocus
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='email'
-                label='Email Address'
-                name='email'
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type='password'
-                id='password'
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                name='password'
-                label='Confirm Password'
-                type='password'
-                id='confirm Password'
-                value={confirmPassword}
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value);
-                }}
-              />
-              <Button
-                fullWidth
-                variant='contained'
-                color='primary'
-                className={classes.submit}
-                onClick={() => {
-                  handleSubmit();
-                }}
-              >
-                Sign Up
-              </Button>
-              <Grid container>
-                <Grid item>
-                  <Link
-                    onClick={() => {
-                      resetItems();
-                      setIsLogin(!isLogin);
-                    }}
-                    variant='body2'
-                  >
-                    {'Already have an account? Log in'}
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
+            <SignupForm setIsLogin={setIsLogin} isLogin={isLogin} />
           </div>
         )}
       </Grid>
