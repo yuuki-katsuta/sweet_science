@@ -16,7 +16,7 @@ const Page404 = () => {
   const history = useHistory();
   const classes = useStyles();
 
-  return isLoading ? null : (
+  return isLoading ? null : history.location.pathname === '/auth' ? null : (
     <div style={{ marginTop: '200px', textAlign: 'center' }}>
       <h1>404 Not Found</h1>
       <div
