@@ -4,8 +4,6 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
-import CreateIcon from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
 import TextInputField from '../TextInputField';
 
 const Password = ({ modal, paper }) => {
@@ -17,6 +15,12 @@ const Password = ({ modal, paper }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const resetState = () => {
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+    handleClose();
   };
   return (
     <>
@@ -62,29 +66,33 @@ const Password = ({ modal, paper }) => {
               label={'Confirim Password'}
               placeholder={'Confirim Password'}
             />
-            <IconButton
-              style={{
-                display: 'flex',
-                margin: '0 0 0 auto',
-              }}
-              onClick={async () => {
-                if (newPassword === '' || confirmPassword === '') {
-                  handleClose();
-                  return;
-                }
-                await ChangeCurrentPassword(
-                  currentPassword,
-                  confirmPassword,
-                  newPassword
-                );
-                setCurrentPassword('');
-                setNewPassword('');
-                setConfirmPassword('');
-                handleClose();
-              }}
-            >
-              <CreateIcon />
-            </IconButton>
+            <div style={{ textAlign: 'right', marginTop: '16px' }}>
+              <Button
+                onClick={() => {
+                  resetState();
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                color='primary'
+                onClick={async () => {
+                  if (newPassword === '' || confirmPassword === '') {
+                    alert('Please enter in the input field');
+                    resetState();
+                    return;
+                  }
+                  await ChangeCurrentPassword(
+                    currentPassword,
+                    confirmPassword,
+                    newPassword
+                  );
+                  resetState();
+                }}
+              >
+                Save
+              </Button>
+            </div>
           </div>
         </Fade>
       </Modal>
