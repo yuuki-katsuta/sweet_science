@@ -6,7 +6,7 @@ import Fade from '@material-ui/core/Fade';
 import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import TextInputField from '../TextInputField';
 
 const EditEmail = ({ modal, paper, currentUser }) => {
   const [email, setEmail] = useState('');
@@ -63,26 +63,22 @@ const EditEmail = ({ modal, paper, currentUser }) => {
             <div style={{ textAlign: 'center' }}>
               <div style={{ textAlign: 'left' }}>
                 <h3>Please enter a new Email</h3>
-                <TextField
+                <TextInputField
                   fullWidth
                   type={'password'}
-                  value={currentPassword}
                   label={'Current Password'}
                   placeholder={'Current Password'}
-                  onChange={(e) => {
-                    setCurrentPassword(e.target.value);
-                  }}
+                  value={currentPassword}
+                  setState={setCurrentPassword}
                   style={{ marginBottom: '16px' }}
                 />
-                <TextField
+                <TextInputField
                   fullWidth
                   id={'standard-name-required'}
                   name={'email'}
                   type={'email'}
                   value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
+                  setState={setEmail}
                   placeholder={'new Email'}
                 />
               </div>

@@ -7,20 +7,36 @@ const TextInputField = ({
   placeholder,
   name,
   value,
-  setName,
+  setState,
+  style,
+  fullWidth,
+  rows,
+  multiline,
+  variant,
+  margin,
+  required,
+  autoComplete,
+  autoFocus,
 }) => {
   return (
     <TextField
-      size='medium'
-      style={{ margin: '8px 0', width: '85%', maxWidth: '552px' }}
+      multiline={multiline}
+      fullWidth={fullWidth}
+      rows={rows}
+      style={style}
       name={name}
       id={id}
       label={label}
       type={type}
       placeholder={placeholder}
       value={value}
+      variant={variant}
+      margin={margin}
+      required={required}
+      autoComplete={autoComplete}
+      autoFocus={autoFocus}
       onChange={(e) => {
-        setName(e.target.value);
+        setState(e.target.value);
       }}
     />
   );

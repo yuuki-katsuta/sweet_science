@@ -6,6 +6,15 @@ import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import TextInputField from '../TextInputField';
 
+const InputFieldWrapper = {
+  textAlign: 'center',
+};
+
+const PasswordInputField = {
+  margin: '8px 0',
+  maxWidth: '552px',
+};
+
 const Password = ({ modal, paper }) => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -45,27 +54,39 @@ const Password = ({ modal, paper }) => {
         <Fade in={open}>
           <div className={paper}>
             <h3>Please enter a new Password</h3>
-            <TextInputField
-              type={'password'}
-              value={currentPassword}
-              setName={setCurrentPassword}
-              label={'Current Password'}
-              placeholder={'Current Password'}
-            />
-            <TextInputField
-              type={'password'}
-              value={newPassword}
-              setName={setNewPassword}
-              label={'New Password'}
-              placeholder={'New Password'}
-            />
-            <TextInputField
-              type={'password'}
-              value={confirmPassword}
-              setName={setConfirmPassword}
-              label={'Confirim Password'}
-              placeholder={'Confirim Password'}
-            />
+            <div style={InputFieldWrapper}>
+              <TextInputField
+                style={PasswordInputField}
+                type={'password'}
+                value={currentPassword}
+                setState={setCurrentPassword}
+                label={'Current Password'}
+                placeholder={'Current Password'}
+                fullWidth
+              />
+            </div>
+            <div style={InputFieldWrapper}>
+              <TextInputField
+                style={PasswordInputField}
+                type={'password'}
+                value={newPassword}
+                setState={setNewPassword}
+                label={'New Password'}
+                placeholder={'New Password'}
+                fullWidth
+              />
+            </div>
+            <div style={InputFieldWrapper}>
+              <TextInputField
+                style={PasswordInputField}
+                type={'password'}
+                value={confirmPassword}
+                setState={setConfirmPassword}
+                label={'Confirim Password'}
+                placeholder={'Confirim Password'}
+                fullWidth
+              />
+            </div>
             <div style={{ textAlign: 'right', marginTop: '16px' }}>
               <Button
                 onClick={() => {

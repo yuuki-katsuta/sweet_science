@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { db } from '../../base';
 import { useHistory } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
+import TextInputField from '../TextInputField';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
@@ -50,16 +50,14 @@ const MessageAddField = ({ currentUser, title, refer }) => {
           </IconButton>
         </Grid>
         <Grid item xs={10}>
-          <TextField
-            fullWidth={true}
+          <TextInputField
+            fullWidth
             id='standard-multiline-static'
             label='メッセージを送る'
             multiline
             rows={3}
             value={text}
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
+            setState={setText}
           />
         </Grid>
         <Grid item xs={1} style={{ position: 'relative' }}>

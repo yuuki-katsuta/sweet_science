@@ -3,7 +3,7 @@ import { AuthContext } from '../../auth/AuthProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import TextInputField from '../TextInputField';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +32,7 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
 
   return (
     <form className={classes.form} noValidate>
-      <TextField
+      <TextInputField
         variant='outlined'
         margin='normal'
         required
@@ -42,11 +42,9 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
         name='name'
         autoFocus
         value={name}
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
+        setState={setName}
       />
-      <TextField
+      <TextInputField
         variant='outlined'
         margin='normal'
         required
@@ -55,11 +53,9 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
         label='Email Address'
         name='email'
         value={email}
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
+        setState={setEmail}
       />
-      <TextField
+      <TextInputField
         variant='outlined'
         margin='normal'
         required
@@ -69,11 +65,9 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
         type='password'
         id='password'
         value={password}
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
+        setState={setPassword}
       />
-      <TextField
+      <TextInputField
         variant='outlined'
         margin='normal'
         required
@@ -83,9 +77,7 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
         type='password'
         id='confirm Password'
         value={confirmPassword}
-        onChange={(e) => {
-          setConfirmPassword(e.target.value);
-        }}
+        setState={setConfirmPassword}
       />
       <Button
         fullWidth

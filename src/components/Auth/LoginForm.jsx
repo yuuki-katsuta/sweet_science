@@ -3,7 +3,7 @@ import { AuthContext } from '../../auth/AuthProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import TextInputField from '../TextInputField';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +45,7 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
         </p>
       </div>
       <form className={classes.form} noValidate>
-        <TextField
+        <TextInputField
           variant='outlined'
           margin='normal'
           required
@@ -56,11 +56,9 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           autoComplete='email'
           autoFocus
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          setState={setEmail}
         />
-        <TextField
+        <TextInputField
           variant='outlined'
           margin='normal'
           required
@@ -71,9 +69,7 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           id='password'
           autoComplete='current-password'
           value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+          setState={setPassword}
         />
         <Button
           fullWidth

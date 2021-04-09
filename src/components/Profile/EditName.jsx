@@ -6,7 +6,7 @@ import Fade from '@material-ui/core/Fade';
 import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import TextInputField from '../TextInputField';
 
 const EditName = ({ modal, paper, currentUser }) => {
   const [isNameChanged, setIsNameChanged] = useState(false);
@@ -56,15 +56,13 @@ const EditName = ({ modal, paper, currentUser }) => {
               <div style={{ textAlign: 'left' }}>
                 <h3>Please enter a new Name</h3>
                 <br />
-                <TextField
+                <TextInputField
                   fullWidth
                   id={'standard-name-required'}
                   name={'name'}
                   type={'name'}
                   value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
+                  setState={setName}
                   placeholder={currentUser.displayName}
                 />
               </div>
