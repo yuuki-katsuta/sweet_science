@@ -82,7 +82,7 @@ const UserImage = () => {
             {imageUrl !== '' && (
               <BaseIconButton
                 style={buttonStyle}
-                oncClickHandler={() => {
+                onClickHandler={() => {
                   const result = window.confirm(
                     'Are you sure you want to reset your current avatar?'
                   );
