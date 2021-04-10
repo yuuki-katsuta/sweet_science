@@ -12,7 +12,10 @@ const MessageAddField = ({ currentUser, title, refer }) => {
   const [text, setText] = useState('');
 
   const messageAdd = () => {
-    if (text === '') return;
+    if (text.trim() === '') {
+      alert('Please enter a message');
+      return;
+    }
     db.collection('chats')
       .doc(`${title}`)
       .collection('messages')
