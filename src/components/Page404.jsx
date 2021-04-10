@@ -1,20 +1,12 @@
 import { useContext } from 'react';
 import { AuthContext } from '../auth/AuthProvider';
-import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import BaseButton from './Button/BaseButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
-const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-}));
 
 const Page404 = () => {
   const { isLoading } = useContext(AuthContext);
   const history = useHistory();
-  const classes = useStyles();
 
   return isLoading ? null : history.location.pathname === '/auth' ? null : (
     <div style={{ marginTop: '200px', textAlign: 'center' }}>
@@ -32,18 +24,17 @@ const Page404 = () => {
           URLにお間違いがないか再度ご確認ください。
         </p>
       </div>
-      <Button
+      <BaseButton
         style={{ marginTop: '20px' }}
         variant='contained'
         color='default'
-        className={classes.button}
         startIcon={<ArrowBackIcon />}
-        onClick={() => {
+        setState={() => {
           history.push('/');
         }}
       >
         トップページに戻る
-      </Button>
+      </BaseButton>
     </div>
   );
 };

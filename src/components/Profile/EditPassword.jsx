@@ -3,7 +3,7 @@ import { AuthContext } from '../../auth/AuthProvider.js';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import Button from '@material-ui/core/Button';
+import BaseButton from '../Button/BaseButton';
 import TextInputField from '../InputField/TextInputField';
 
 const InputFieldWrapper = {
@@ -33,15 +33,15 @@ const Password = ({ modal, paper }) => {
   };
   return (
     <>
-      <Button
+      <BaseButton
         style={{ margin: '16px auto 42px' }}
         variant='outlined'
-        onClick={() => {
+        setState={() => {
           setOpen(true);
         }}
       >
         Change Password
-      </Button>
+      </BaseButton>
       <Modal
         className={modal}
         open={open}
@@ -88,16 +88,16 @@ const Password = ({ modal, paper }) => {
               />
             </div>
             <div style={{ textAlign: 'right', marginTop: '16px' }}>
-              <Button
-                onClick={() => {
+              <BaseButton
+                setState={() => {
                   resetState();
                 }}
               >
                 Cancel
-              </Button>
-              <Button
+              </BaseButton>
+              <BaseButton
                 color='primary'
-                onClick={async () => {
+                setState={async () => {
                   if (newPassword === '' || confirmPassword === '') {
                     alert('Please enter in the input field');
                     resetState();
@@ -112,7 +112,7 @@ const Password = ({ modal, paper }) => {
                 }}
               >
                 Save
-              </Button>
+              </BaseButton>
             </div>
           </div>
         </Fade>

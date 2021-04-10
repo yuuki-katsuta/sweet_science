@@ -1,29 +1,25 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../auth/AuthProvider';
-import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import TextInputField from '../InputField/TextInputField';
-import Button from '@material-ui/core/Button';
+import BaseButton from '../Button/BaseButton';
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 3),
-  },
-  guestLogin: {
-    margin: theme.spacing(0, 0, 2),
-  },
-}));
+const Form = {
+  width: '100%',
+  marginTop: '8px',
+};
+const Submit = {
+  margin: '24px 0px 24px',
+};
+const GuestLogin = {
+  margin: '0 0 16px',
+};
 
 const LoginForm = ({ setIsLogin, isLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { guestLogin, login } = useContext(AuthContext);
-  const classes = useStyles();
   const resetItems = () => {
     setEmail('');
     setPassword('');
@@ -44,7 +40,7 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           試合内容や採点結果についてに談論することができます！
         </p>
       </div>
-      <form className={classes.form} noValidate>
+      <form className={Form} noValidate>
         <TextInputField
           variant='outlined'
           margin='normal'
@@ -71,28 +67,28 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           value={password}
           setState={setPassword}
         />
-        <Button
+        <BaseButton
           fullWidth
           variant='contained'
           color='primary'
-          className={classes.submit}
-          onClick={() => {
+          style={Submit}
+          setState={() => {
             login(email, password);
           }}
         >
           Log In
-        </Button>
-        <Button
+        </BaseButton>
+        <BaseButton
           fullWidth
           variant='contained'
           color='default'
-          className={classes.guestLogin}
-          onClick={() => {
+          style={GuestLogin}
+          setState={() => {
             guestLogin();
           }}
         >
           ゲストログイン
-        </Button>
+        </BaseButton>
         <Grid container>
           <Grid item>
             <Link

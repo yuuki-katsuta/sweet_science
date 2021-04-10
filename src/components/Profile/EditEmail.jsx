@@ -5,7 +5,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
+import BaseButton from '../Button/BaseButton';
 import TextInputField from '../InputField/TextInputField';
 
 const EditEmail = ({ modal, paper, currentUser }) => {
@@ -83,22 +83,22 @@ const EditEmail = ({ modal, paper, currentUser }) => {
                 />
               </div>
               <div style={{ textAlign: 'right', marginTop: '16px' }}>
-                <Button
-                  onClick={() => {
+                <BaseButton
+                  setState={() => {
                     resetState();
                   }}
                 >
                   Cancel
-                </Button>
-                <Button
+                </BaseButton>
+                <BaseButton
                   color='primary'
-                  onClick={async () => {
+                  setState={async () => {
                     await changeCurrentEmail(currentPassword, email);
                     resetState();
                   }}
                 >
                   Save
-                </Button>
+                </BaseButton>
               </div>
             </div>
           </div>
