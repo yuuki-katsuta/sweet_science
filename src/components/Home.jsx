@@ -8,6 +8,18 @@ import AddMatchInformation from './Add/AddMatchInformation';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 
+const descriptionStyle = {
+  marginBottom: '14px',
+  color: '#666666',
+  fontWeight: 'bold',
+};
+const addMatchSectionStyle = { margin: '50px 0 60px' };
+const newsSectionStyle = {
+  width: '100%',
+  margin: '72px auto 0',
+  textAlign: 'center',
+};
+
 const Home = memo(() => {
   const { adminUser } = useContext(AuthContext);
   const [matchData, setMatchData] = useState([]);
@@ -44,13 +56,7 @@ const Home = memo(() => {
   return (
     <div className='container'>
       <h2 className='section-title'>Boxing Fights</h2>
-      <div
-        style={{
-          marginBottom: '14px',
-          color: '#666666',
-          fontWeight: 'bold',
-        }}
-      >
+      <div style={descriptionStyle}>
         <p>
           ボクシングの試合一覧を表示しています
           <br />
@@ -69,7 +75,7 @@ const Home = memo(() => {
           </MediaQuery>
           <MediaQuery query='(min-width: 801px)'>
             <Container maxWidth='md'>
-              <div style={{ margin: '50px 0 60px' }}>
+              <div style={addMatchSectionStyle}>
                 <Divider />
                 <AddMatchInformation
                   getMatcheInformation={getMatcheInformation}
@@ -81,13 +87,7 @@ const Home = memo(() => {
         </>
       ) : (
         <Container maxWidth='md'>
-          <div
-            style={{
-              width: '100%',
-              margin: '72px auto 0',
-              textAlign: 'center',
-            }}
-          >
+          <div style={newsSectionStyle}>
             <News
               title={matchData.title}
               creationTime={matchData.createdAt}

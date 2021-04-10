@@ -5,11 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import TextInputField from '../InputField/TextInputField';
 import BaseButton from '../Button/BaseButton';
 
-const Form = {
+const formStyle = {
   width: '100%',
   marginTop: '16px',
 };
-const Submit = {
+const submitStyle = {
   margin: '24px 0 16px',
 };
 
@@ -27,7 +27,7 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
   };
 
   return (
-    <form className={Form} noValidate>
+    <form className={formStyle} noValidate>
       <TextInputField
         variant='outlined'
         margin='normal'
@@ -79,7 +79,7 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
         fullWidth
         variant='contained'
         color='primary'
-        style={Submit}
+        style={submitStyle}
         setState={() => {
           signup(email, password, confirmPassword, name);
         }}

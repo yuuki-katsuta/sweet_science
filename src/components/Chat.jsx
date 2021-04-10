@@ -4,6 +4,8 @@ import MessageItem from './Message/MessageItem';
 import Container from '@material-ui/core/Container';
 import Score from './Score/Score.jsx';
 
+const containerStyle = { padding: '0 10px', marginTop: '40px' };
+
 const Chat = () => {
   const location = useLocation();
   return location.state ? (
@@ -14,11 +16,7 @@ const Chat = () => {
           <Score matchData={location.state.matchData} />
         )}
       </Container>
-      <Container
-        maxWidth='lg'
-        disableGutters={true}
-        style={{ padding: '0 10px', marginTop: '40px' }}
-      >
+      <Container maxWidth='lg' disableGutters={true} style={containerStyle}>
         <MessageItem matchData={location.state.matchData} />
       </Container>
     </div>

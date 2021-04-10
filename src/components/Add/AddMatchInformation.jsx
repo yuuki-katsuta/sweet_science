@@ -1,5 +1,4 @@
 import { useState, memo } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { db } from '../../base';
 import AddScore from './AddScore';
 import AddMatchSummary from './AddMatchSummary';
@@ -9,11 +8,9 @@ import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 
-const useStyles = makeStyles((theme) => ({
-  fab: {
-    margin: theme.spacing(2),
-  },
-}));
+const formItemStyle = { position: 'relative' };
+const formControlLabelStyle = { textAlign: 'center', marginTop: '8px' };
+const tooltipStyle = { position: 'absolute', right: 0 };
 
 const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
   const [matchSummary, setMatchSummary] = useState({
@@ -26,7 +23,6 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
     overview: '',
   });
   const [checked, setChecked] = useState(false);
-  const classes = useStyles();
 
   const addChat = async () => {
     const {
@@ -80,14 +76,9 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
         matchSummary={matchSummary}
         setMatchSummary={setMatchSummary}
       />
-
-      <div
-        style={{
-          position: 'relative',
-        }}
-      >
+      <div style={formItemStyle}>
         <FormControlLabel
-          style={{ textAlign: 'center', marginTop: '8px' }}
+          style={formControlLabelStyle}
           control={
             <Switch
               checked={checked}
@@ -100,18 +91,11 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
           }
           label='Add Score'
         />
-
-        <span
-          style={{
-            position: 'absolute',
-            right: 0,
-          }}
-        >
+        <span style={tooltipStyle}>
           {!checked && (
             <Tooltip title='Add' aria-label='add'>
               <Fab
                 color='primary'
-                className={classes.fab}
                 size='small'
                 onClick={() => {
                   addChat();
@@ -123,7 +107,6 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
           )}
         </span>
       </div>
-
       {checked && (
         <AddScore
           setChecked={setChecked}

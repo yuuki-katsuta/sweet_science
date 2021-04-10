@@ -8,6 +8,11 @@ import BaseIconButton from '../Button/BaseIconButton';
 import BaseButton from '../Button/BaseButton';
 import TextInputField from '../InputField/TextInputField';
 
+const inputFieldWrapper = { textAlign: 'left' };
+const buttonStyle = { margin: '0 0 3px auto' };
+const textInputFieldStyle = { textAlign: 'left', marginBottom: '16px' };
+const buttonWrapper = { textAlign: 'right', marginTop: '16px' };
+
 const EditEmail = ({ modal, paper, currentUser }) => {
   const [email, setEmail] = useState('');
   const [isEmailChanged, setIsEmailChanged] = useState(false);
@@ -42,7 +47,7 @@ const EditEmail = ({ modal, paper, currentUser }) => {
           : email}
       </h3>
       <BaseIconButton
-        style={{ margin: '0 0 3px auto' }}
+        style={buttonStyle}
         onClickHandler={() => {
           handleOpen();
         }}
@@ -50,7 +55,7 @@ const EditEmail = ({ modal, paper, currentUser }) => {
         <CreateIcon />
       </BaseIconButton>
       <Modal
-        className={modal}
+        style={modal}
         open={open}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -59,47 +64,45 @@ const EditEmail = ({ modal, paper, currentUser }) => {
         }}
       >
         <Fade in={open}>
-          <div className={paper}>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ textAlign: 'left' }}>
-                <h3>Please enter a new Email</h3>
-                <TextInputField
-                  fullWidth
-                  type={'password'}
-                  label={'Current Password'}
-                  placeholder={'Current Password'}
-                  value={currentPassword}
-                  setState={setCurrentPassword}
-                  style={{ marginBottom: '16px' }}
-                />
-                <TextInputField
-                  fullWidth
-                  id={'standard-name-required'}
-                  name={'email'}
-                  type={'email'}
-                  value={email}
-                  setState={setEmail}
-                  placeholder={'new Email'}
-                />
-              </div>
-              <div style={{ textAlign: 'right', marginTop: '16px' }}>
-                <BaseButton
-                  setState={() => {
-                    resetState();
-                  }}
-                >
-                  Cancel
-                </BaseButton>
-                <BaseButton
-                  color='primary'
-                  setState={async () => {
-                    await changeCurrentEmail(currentPassword, email);
-                    resetState();
-                  }}
-                >
-                  Save
-                </BaseButton>
-              </div>
+          <div style={paper}>
+            <div style={inputFieldWrapper}>
+              <h3>Please enter a new Email</h3>
+              <TextInputField
+                fullWidth
+                type='password'
+                label='Current Password'
+                placeholder='Current Password'
+                value={currentPassword}
+                setState={setCurrentPassword}
+                style={textInputFieldStyle}
+              />
+              <TextInputField
+                fullWidth
+                id='standard-name-required'
+                name='email'
+                type='email'
+                value={email}
+                setState={setEmail}
+                placeholder='new Email'
+              />
+            </div>
+            <div style={buttonWrapper}>
+              <BaseButton
+                setState={() => {
+                  resetState();
+                }}
+              >
+                Cancel
+              </BaseButton>
+              <BaseButton
+                color='primary'
+                setState={async () => {
+                  await changeCurrentEmail(currentPassword, email);
+                  resetState();
+                }}
+              >
+                Save
+              </BaseButton>
             </div>
           </div>
         </Fade>

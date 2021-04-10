@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
@@ -8,27 +7,39 @@ import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import LikedCount from './LikedCount';
 
-const useStyles = makeStyles((theme) => ({
-  inline: {
-    display: 'inline',
-    wordBreak: 'break-word',
-  },
-  Image: {
-    width: '11.5vmin',
-    height: '11.5vmin',
-    border: '1px solid #AAAAAA',
-    display: 'inline-block',
-    maxWidth: '50px',
-    maxHeight: '50px',
-  },
-}));
+const inlineStyle = {
+  display: 'inline',
+  wordBreak: 'break-word',
+};
+const imageStyle = {
+  width: '11.5vmin',
+  height: '11.5vmin',
+  border: '1px solid #AAAAAA',
+  display: 'inline-block',
+  maxWidth: '50px',
+  maxHeight: '50px',
+};
+const ownMessageStyle = {
+  textAlign: 'left',
+  display: 'inline-block',
+  wordBreak: 'break-word',
+};
+const listItemIconStyle = {
+  display: 'inline-block',
+  textAlign: 'center',
+  margin: '4px 0 0 0',
+};
+const likedCountWrapper = { display: 'flex', justifyContent: 'flex-end' };
+const nameStyle = { textAlign: 'right', margin: '0 0px 3px 0px' };
+const ownMessageWrapper = { textAlign: 'right' };
+const otherNamesStyle = { margin: '0' };
+
 const MessageList = memo(
   ({
     message: { message, user: name, uid, photoURL, id },
     currentUser,
     title,
   }) => {
-    const classes = useStyles();
     return uid === currentUser.uid ? (
       <div>
         <ListItem alignItems='flex-start'>
@@ -36,23 +47,13 @@ const MessageList = memo(
             className='listItem'
             secondary={
               <Typography component='span' variant='body2' color='textPrimary'>
-                <div style={{ textAlign: 'right' }}>
-                  <div
-                    style={{
-                      textAlign: 'left',
-                      display: 'inline-block',
-                      wordBreak: 'break-word',
-                    }}
-                  >
-                    <h4 style={{ textAlign: 'right', margin: '0 0px 3px 0px' }}>
-                      {name ? name : 'ゲストユーザー'}
-                    </h4>
+                <div style={ownMessageWrapper}>
+                  <div style={ownMessageStyle}>
+                    <h4 style={nameStyle}>{name ? name : 'ゲストユーザー'}</h4>
                     {message.split('\n').map((t, i) => {
                       return <div key={i}>{t}</div>;
                     })}
-                    <span
-                      style={{ display: 'flex', justifyContent: 'flex-end' }}
-                    >
+                    <span style={likedCountWrapper}>
                       <LikedCount
                         title={title}
                         id={id}
@@ -64,17 +65,11 @@ const MessageList = memo(
               </Typography>
             }
           />
-          <ListItemIcon
-            style={{
-              display: 'inline-block',
-              textAlign: 'center',
-              margin: '4px 0 0 0',
-            }}
-          >
+          <ListItemIcon style={listItemIconStyle}>
             <Avatar
               alt='uploaded'
               src={currentUser.photoURL}
-              className={classes.Image}
+              style={imageStyle}
             />
           </ListItemIcon>
         </ListItem>
@@ -83,25 +78,19 @@ const MessageList = memo(
     ) : (
       <div>
         <ListItem alignItems='flex-start'>
-          <ListItemIcon
-            style={{
-              margin: '4px 0 0 0',
-              textAlign: 'center',
-              display: 'inline-block',
-            }}
-          >
-            <Avatar alt='uploaded' src={photoURL} className={classes.Image} />
+          <ListItemIcon style={listItemIconStyle}>
+            <Avatar alt='uploaded' src={photoURL} style={imageStyle} />
           </ListItemIcon>
           <ListItemText
             className='listItem'
             primary={
-              <h4 style={{ margin: '0' }}>{name ? name : 'ゲストユーザー'}</h4>
+              <h4 style={otherNamesStyle}>{name ? name : 'ゲストユーザー'}</h4>
             }
             secondary={
               <Typography
                 component='span'
                 variant='body2'
-                className={classes.inline}
+                style={inlineStyle}
                 color='textPrimary'
               >
                 {message.split('\n').map((t, i) => {

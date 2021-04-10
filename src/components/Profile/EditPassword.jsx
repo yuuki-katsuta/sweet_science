@@ -6,14 +6,10 @@ import Fade from '@material-ui/core/Fade';
 import BaseButton from '../Button/BaseButton';
 import TextInputField from '../InputField/TextInputField';
 
-const InputFieldWrapper = {
-  textAlign: 'center',
-};
-
-const PasswordInputField = {
-  margin: '8px 0',
-  maxWidth: '552px',
-};
+const InputFieldWrapper = { textAlign: 'center' };
+const PasswordInputField = { margin: '8px 0', maxWidth: '552px' };
+const buttonStyle = { margin: '16px auto 42px' };
+const buttonWrapper = { textAlign: 'right', marginTop: '16px' };
 
 const Password = ({ modal, paper }) => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -34,7 +30,7 @@ const Password = ({ modal, paper }) => {
   return (
     <>
       <BaseButton
-        style={{ margin: '16px auto 42px' }}
+        style={buttonStyle}
         variant='outlined'
         setState={() => {
           setOpen(true);
@@ -43,7 +39,7 @@ const Password = ({ modal, paper }) => {
         Change Password
       </BaseButton>
       <Modal
-        className={modal}
+        style={modal}
         open={open}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -52,42 +48,42 @@ const Password = ({ modal, paper }) => {
         }}
       >
         <Fade in={open}>
-          <div className={paper}>
+          <div style={paper}>
             <h3>Please enter a new Password</h3>
             <div style={InputFieldWrapper}>
               <TextInputField
-                style={PasswordInputField}
-                type={'password'}
-                value={currentPassword}
+                type='password'
+                label='Current Password'
+                placeholder='Current Password'
                 setState={setCurrentPassword}
-                label={'Current Password'}
-                placeholder={'Current Password'}
+                value={currentPassword}
+                style={PasswordInputField}
                 fullWidth
               />
             </div>
             <div style={InputFieldWrapper}>
               <TextInputField
-                style={PasswordInputField}
-                type={'password'}
-                value={newPassword}
+                type='password'
+                label='New Password'
+                placeholder='New Password'
                 setState={setNewPassword}
-                label={'New Password'}
-                placeholder={'New Password'}
+                value={newPassword}
+                style={PasswordInputField}
                 fullWidth
               />
             </div>
             <div style={InputFieldWrapper}>
               <TextInputField
-                style={PasswordInputField}
-                type={'password'}
-                value={confirmPassword}
+                type='password'
+                label='Confirim Password'
+                placeholder='Confirim Password'
                 setState={setConfirmPassword}
-                label={'Confirim Password'}
-                placeholder={'Confirim Password'}
+                value={confirmPassword}
+                style={PasswordInputField}
                 fullWidth
               />
             </div>
-            <div style={{ textAlign: 'right', marginTop: '16px' }}>
+            <div style={buttonWrapper}>
               <BaseButton
                 setState={() => {
                   resetState();

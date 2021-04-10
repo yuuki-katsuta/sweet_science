@@ -1,40 +1,31 @@
 import { memo } from 'react';
 import RoomIcon from '@material-ui/icons/Room';
 import MediaQuery from 'react-responsive';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-  movieInner: {
-    position: 'relative',
-    paddingTop: '56.25%',
-  },
-  videoWrapper: {
-    width: '100%',
-    margin: '0 auto',
-    maxWidth: '830px',
-  },
-  video: {
-    position: 'absolute',
-    top: '0',
-    right: '0',
-    width: '100%',
-    height: '100%',
-    border: '1px solid #111111',
-  },
-  titleFont: {
-    fontFamily: 'Lato',
-  },
-});
+const movieInner = {
+  position: 'relative',
+  paddingTop: '56.25%',
+};
+const videoWrapper = {
+  width: '100%',
+  margin: '0 auto',
+  maxWidth: '830px',
+};
+const video = {
+  position: 'absolute',
+  top: '0',
+  right: '0',
+  width: '100%',
+  height: '100%',
+  border: '1px solid #111111',
+};
+const matchDataForSmall = { textAlign: 'left', width: '95%', margin: '0 auto' };
+const containerStyle = { marginBottom: '24px' };
 
 const MatchInformation = memo(({ matchData }) => {
-  const classes = useStyles();
   const MatchData = ({ SmallWidth }) => {
     return (
-      <div
-        style={
-          SmallWidth && { textAlign: 'left', width: '95%', margin: '0 auto' }
-        }
-      >
+      <div style={SmallWidth && matchDataForSmall}>
         <p>
           <span>{matchData.date} </span>
           <span>
@@ -53,10 +44,10 @@ const MatchInformation = memo(({ matchData }) => {
       <h1 className='match-title'>{matchData.title}</h1>
       {matchData.videoId ? (
         <div>
-          <div className={classes.videoWrapper}>
-            <div className={classes.movieInner}>
+          <div style={videoWrapper}>
+            <div style={movieInner}>
               <iframe
-                className={classes.video}
+                style={video}
                 title={matchData.title}
                 width='560'
                 height='315'
@@ -71,7 +62,7 @@ const MatchInformation = memo(({ matchData }) => {
           </div>
         </div>
       ) : (
-        <div style={{ marginBottom: '24px' }}>
+        <div style={containerStyle}>
           <MediaQuery query='(max-width: 580px)'>
             <MatchData SmallWidth />
           </MediaQuery>

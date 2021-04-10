@@ -7,6 +7,24 @@ import Grid from '@material-ui/core/Grid';
 import SendIcon from '@material-ui/icons/Send';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 
+const containerStyle = {
+  width: '70%',
+  margin: '0 auto',
+};
+const backButtonStyle = {
+  position: 'absolute',
+  bottom: '-10px',
+  right: '10px',
+};
+const gridStyle = {
+  position: 'relative',
+};
+const sendButtonStyle = {
+  position: 'absolute',
+  bottom: '0',
+  left: '8px',
+};
+
 const MessageAddField = ({ currentUser, title, refer }) => {
   const history = useHistory();
   const [text, setText] = useState('');
@@ -36,15 +54,11 @@ const MessageAddField = ({ currentUser, title, refer }) => {
   };
 
   return (
-    <div style={{ width: '70%', margin: '0 auto' }}>
+    <div style={containerStyle}>
       <Grid container>
-        <Grid item xs={1} style={{ position: 'relative' }}>
+        <Grid item xs={1} style={gridStyle}>
           <BaseIconButton
-            style={{
-              position: 'absolute',
-              bottom: '-10px',
-              right: '10px',
-            }}
+            style={backButtonStyle}
             onClickHandler={() => {
               history.goBack();
             }}
@@ -63,9 +77,9 @@ const MessageAddField = ({ currentUser, title, refer }) => {
             setState={setText}
           />
         </Grid>
-        <Grid item xs={1} style={{ position: 'relative' }}>
+        <Grid item xs={1} style={gridStyle}>
           <BaseIconButton
-            style={{ position: 'absolute', bottom: '0', left: '8px' }}
+            style={sendButtonStyle}
             disabled={text === ''}
             onClickHandler={() => {
               messageAdd();

@@ -5,14 +5,19 @@ import Grid from '@material-ui/core/Grid';
 import TextInputField from '../InputField/TextInputField';
 import BaseButton from '../Button/BaseButton';
 
-const Form = {
+const descriptionStyle = {
+  margin: '18px 0 8px',
+  color: '#666666',
+  fontWeight: 'bold',
+};
+const formStyle = {
   width: '100%',
   marginTop: '8px',
 };
-const Submit = {
+const submitStyle = {
   margin: '24px 0px 24px',
 };
-const GuestLogin = {
+const guestLoginStyle = {
   margin: '0 0 16px',
 };
 
@@ -27,20 +32,14 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
 
   return (
     <>
-      <div
-        style={{
-          margin: '18px 0 8px',
-          color: '#666666',
-          fontWeight: 'bold',
-        }}
-      >
+      <div style={descriptionStyle}>
         <p>
           ボクシングファンのためのチャットアプリ
           <br />
           試合内容や採点結果についてに談論することができます！
         </p>
       </div>
-      <form className={Form} noValidate>
+      <form className={formStyle} noValidate>
         <TextInputField
           variant='outlined'
           margin='normal'
@@ -71,7 +70,7 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           fullWidth
           variant='contained'
           color='primary'
-          style={Submit}
+          style={submitStyle}
           setState={() => {
             login(email, password);
           }}
@@ -82,7 +81,7 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           fullWidth
           variant='contained'
           color='default'
-          style={GuestLogin}
+          style={guestLoginStyle}
           setState={() => {
             guestLogin();
           }}

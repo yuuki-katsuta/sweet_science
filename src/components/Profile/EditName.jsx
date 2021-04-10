@@ -8,6 +8,10 @@ import BaseIconButton from '../Button/BaseIconButton';
 import BaseButton from '../Button/BaseButton';
 import TextInputField from '../InputField/TextInputField';
 
+const buttonStyle = { margin: '0 0 3px auto' };
+const inputFieldWrapper = { textAlign: 'left' };
+const buttonWrapper = { textAlign: 'right', marginTop: '16px' };
+
 const EditName = ({ modal, paper, currentUser }) => {
   const [isNameChanged, setIsNameChanged] = useState(false);
   const [name, setName] = useState('');
@@ -34,7 +38,7 @@ const EditName = ({ modal, paper, currentUser }) => {
         {!name || isNameChanged ? currentUser.displayName : name}
       </h3>
       <BaseIconButton
-        style={{ margin: '0 0 3px auto' }}
+        style={buttonStyle}
         onClickHandler={() => {
           handleOpen();
         }}
@@ -42,7 +46,7 @@ const EditName = ({ modal, paper, currentUser }) => {
         <CreateIcon />
       </BaseIconButton>
       <Modal
-        className={modal}
+        style={modal}
         open={open}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -51,39 +55,37 @@ const EditName = ({ modal, paper, currentUser }) => {
         }}
       >
         <Fade in={open}>
-          <div className={paper}>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ textAlign: 'left' }}>
-                <h3>Please enter a new Name</h3>
-                <br />
-                <TextInputField
-                  fullWidth
-                  id={'standard-name-required'}
-                  name={'name'}
-                  type={'name'}
-                  value={name}
-                  setState={setName}
-                  placeholder={currentUser.displayName}
-                />
-              </div>
-              <div style={{ textAlign: 'right', marginTop: '16px' }}>
-                <BaseButton
-                  setState={() => {
-                    resetState();
-                  }}
-                >
-                  Cancel
-                </BaseButton>
-                <BaseButton
-                  color='primary'
-                  setState={async () => {
-                    await changeCurrentName(name);
-                    resetState();
-                  }}
-                >
-                  Save
-                </BaseButton>
-              </div>
+          <div style={paper}>
+            <div style={inputFieldWrapper}>
+              <h3>Please enter a new Name</h3>
+              <br />
+              <TextInputField
+                fullWidth
+                id='standard-name-required'
+                name='name'
+                type='name'
+                value={name}
+                setState={setName}
+                placeholder={currentUser.displayName}
+              />
+            </div>
+            <div style={buttonWrapper}>
+              <BaseButton
+                setState={() => {
+                  resetState();
+                }}
+              >
+                Cancel
+              </BaseButton>
+              <BaseButton
+                color='primary'
+                setState={async () => {
+                  await changeCurrentName(name);
+                  resetState();
+                }}
+              >
+                Save
+              </BaseButton>
             </div>
           </div>
         </Fade>

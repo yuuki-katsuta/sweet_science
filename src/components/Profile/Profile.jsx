@@ -1,43 +1,44 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../auth/AuthProvider';
 import { Redirect } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import UserImage from './UserImage';
 import EditName from './EditName';
 import EditEmail from './EditEmail';
 import EditPassword from './EditPassword';
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    height: 'auto',
-    width: '40%',
-    minWidth: '270px',
-    maxWidth: '650px',
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  title: {
-    marginBottom: '16px',
-    color: '#666666',
-    fontWeight: 'bold',
-  },
-  profile: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-}));
+const modal = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+const paper = {
+  height: 'auto',
+  width: '40%',
+  minWidth: '270px',
+  maxWidth: '650px',
+  backgroundColor: 'white',
+  border: '2px solid #000',
+  padding: '16px 32px 24px',
+};
+const title = {
+  marginBottom: '16px',
+  color: '#666666',
+  fontWeight: 'bold',
+};
+const profileItemStyle = {
+  display: 'flex',
+  alignItems: 'center',
+};
+const profileItemWrapper = {
+  width: '35%',
+  margin: '0 auto ',
+  textAlign: 'left',
+  minWidth: '300px',
+};
 
 const Profile = () => {
   const { guestUser, currentUser } = useContext(AuthContext);
-  const classes = useStyles();
 
   return guestUser ? (
     <Redirect to={'/'} />
@@ -46,34 +47,23 @@ const Profile = () => {
       <div className='container'>
         <Container maxWidth='md'>
           <h2>Your Profile</h2>
-          <div className={classes.title}>
+          <div style={title}>
             <p>プロフィール情報を編集することができます</p>
           </div>
           <UserImage />
-          <div
-            style={{
-              width: '35%',
-              margin: '0 auto ',
-              textAlign: 'left',
-              minWidth: '300px',
-            }}
-          >
-            <div className={classes.profile}>
-              <EditName
-                modal={classes.modal}
-                paper={classes.paper}
-                currentUser={currentUser}
-              />
+          <div style={profileItemWrapper}>
+            <div style={profileItemStyle}>
+              <EditName modal={modal} paper={paper} currentUser={currentUser} />
             </div>
-            <div className={classes.profile}>
+            <div style={profileItemStyle}>
               <EditEmail
-                modal={classes.modal}
-                paper={classes.paper}
+                modal={modal}
+                paper={paper}
                 currentUser={currentUser}
               />
             </div>
           </div>
-          <EditPassword modal={classes.modal} paper={classes.paper} />
+          <EditPassword modal={modal} paper={paper} />
         </Container>
       </div>
     )

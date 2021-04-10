@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '30ch',
+      width: '50ch',
     },
     margin: '16px 0 0',
   },

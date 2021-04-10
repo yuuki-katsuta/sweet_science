@@ -1,13 +1,8 @@
 import Container from '@material-ui/core/Container';
 
-const sectionStyle = {
-  textAlign: 'left',
-  marginBottom: '60px',
-};
-const containerStyle = {
-  textAlign: 'center',
-  margin: '120px auto 20px',
-};
+const sectionStyle = { textAlign: 'left', marginBottom: '60px' };
+const containerStyle = { textAlign: 'center', margin: '120px auto 20px' };
+const descriptionStyle = { textAlign: 'left', marginBottom: '48px' };
 
 const About = () => {
   return (
@@ -15,7 +10,7 @@ const About = () => {
       <Container maxWidth='md'>
         <h1>About</h1>
         <h3>本アプリケーションをご利用いただきましてありがとうございます。</h3>
-        <div style={{ textAlign: 'left' }}>
+        <div style={descriptionStyle}>
           <p>
             本アプリでは、ボクシングの採点結果について談論・ディスカッションすることができます。
             <br />
@@ -29,7 +24,7 @@ const About = () => {
           </p>
         </div>
 
-        <h1 style={{ marginTop: '50px' }}>Official boxing scoring criteria</h1>
+        <h1>Official boxing scoring criteria</h1>
         <div style={sectionStyle}>
           <h3>有効なクリーンヒット</h3>
           <p>

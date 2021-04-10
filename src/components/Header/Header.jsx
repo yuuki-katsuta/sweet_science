@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { auth } from '../../base';
 import { withRouter } from 'react-router';
 import { AuthContext } from '../../auth/AuthProvider';
-import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -15,17 +14,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -33,6 +21,12 @@ const theme = createMuiTheme({
     },
   },
 });
+const headerStyle = {
+  flexGrow: 1,
+};
+const titleStyle = {
+  flexGrow: 1,
+};
 
 const Header = () => {
   const { currentUser, setAdminUser, setGuestUser, guestUser } = useContext(
@@ -41,7 +35,6 @@ const Header = () => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const classes = useStyles();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -52,11 +45,11 @@ const Header = () => {
   return (
     currentUser && (
       <ThemeProvider theme={theme}>
-        <div className={classes.root}>
+        <div style={headerStyle}>
           <FormGroup></FormGroup>
           <AppBar position='fixed'>
             <Toolbar>
-              <Typography variant='h6' className={classes.title}>
+              <Typography variant='h6' style={titleStyle}>
                 <span
                   onClick={() => {
                     history.push('/');

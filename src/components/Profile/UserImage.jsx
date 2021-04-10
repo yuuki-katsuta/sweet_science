@@ -2,26 +2,27 @@ import { useContext, useState } from 'react';
 import { storage } from '../../base';
 import { AuthContext } from '../../auth/AuthProvider';
 import firebase from 'firebase/app';
-import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import BaseIconButton from '../Button/BaseIconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import SendIcon from '@material-ui/icons/Send';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-  image: {
-    margin: '0 auto',
-    border: '1px solid #555555',
-    width: theme.spacing(18),
-    height: theme.spacing(18),
-  },
-}));
+const avatarWrapper = {
+  position: 'relative',
+};
+const imageStyle = {
+  margin: '0 auto',
+  border: '1px solid #555555',
+  width: '144px',
+  height: '144px',
+};
+const buttonStyle = {
+  position: 'absolute',
+  left: '52px',
+  top: '100px',
+};
+const labelStyle = { fontWeight: 'bold', cursor: 'pointer' };
 
 const UserImage = () => {
   const { currentUser, ChangePhtoUrl, ResetPhtoUrl, guestUser } = useContext(
@@ -30,7 +31,6 @@ const UserImage = () => {
   const [image, setImage] = useState('');
   const [imageUrl, setImageUrl] = useState(currentUser.photoURL);
   const [filename, setFileName] = useState('');
-  const classes = useStyles();
 
   const handleImage = (event) => {
     const image = event.target.files[0];
@@ -74,22 +74,14 @@ const UserImage = () => {
   };
 
   return (
-    <div className='App'>
-      <div className={classes.root}>
+    <>
+      <div>
         {currentUser.photoURL ? (
-          <span
-            style={{
-              position: 'relative',
-            }}
-          >
-            <Avatar alt='uploaded' src={imageUrl} className={classes.image} />
+          <span style={avatarWrapper}>
+            <Avatar alt='uploaded' src={imageUrl} style={imageStyle} />
             {imageUrl !== '' && (
               <BaseIconButton
-                style={{
-                  position: 'absolute',
-                  left: '52px',
-                  bottom: '10px',
-                }}
+                style={buttonStyle}
                 oncClickHandler={() => {
                   const result = window.confirm(
                     'Are you sure you want to reset your current avatar?'
@@ -109,12 +101,12 @@ const UserImage = () => {
             )}
           </span>
         ) : (
-          <Avatar alt='uploaded' className={classes.image} />
+          <Avatar alt='uploaded' style={imageStyle} />
         )}
       </div>
       {!guestUser && (
         <div>
-          <label style={{ fontWeight: 'bold', cursor: 'pointer' }}>
+          <label style={labelStyle}>
             ファイルを選択
             <input
               onChange={handleImage}
@@ -136,7 +128,7 @@ const UserImage = () => {
           </BaseIconButton>
         </div>
       )}
-    </div>
+    </>
   );
 };
 export default UserImage;

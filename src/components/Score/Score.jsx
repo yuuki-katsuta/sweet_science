@@ -1,5 +1,4 @@
 import { useEffect, useState, memo } from 'react';
-import { makeStyles } from '@material-ui/core';
 import { db } from '../../base';
 import ScoreTable from './ScoreTable';
 
@@ -34,21 +33,7 @@ function createData(
     twelve,
   };
 }
-const useStyles = makeStyles({
-  judger: {
-    textAlign: 'left',
-    margin: '0 0 0 8px',
-    '@media screen and (min-width:415px) and ( max-width:680px)': {
-      fontSize: '13.5px',
-    },
-    '@media screen and (min-width:680px) and ( max-width:1024px)': {
-      fontSize: '15px',
-    },
-    '@media (min-width: 1024px)': {
-      fontSize: '16px',
-    },
-  },
-});
+const judgerNameStyle = { textAlign: 'left', margin: '0 0 0 8px' };
 
 const Score = memo(({ matchData }) => {
   const [ScoringA, setScoringA] = useState([]);
@@ -59,7 +44,6 @@ const Score = memo(({ matchData }) => {
     judgeB: '',
     judgeC: '',
   });
-  const classes = useStyles();
 
   //スコアデータ取得
   const getScore = async () => {
@@ -110,13 +94,13 @@ const Score = memo(({ matchData }) => {
 
   return (
     <div>
-      <h4 className={classes.judger}>{judgeName.judgeA}</h4>
+      <h4 style={judgerNameStyle}>{judgeName.judgeA}</h4>
       <ScoreTable Scoring={ScoringA} />
 
-      <h4 className={classes.judger}>{judgeName.judgeB}</h4>
+      <h4 style={judgerNameStyle}>{judgeName.judgeB}</h4>
       <ScoreTable Scoring={ScoringB} />
 
-      <h4 className={classes.judger}>{judgeName.judgeC}</h4>
+      <h4 style={judgerNameStyle}>{judgeName.judgeC}</h4>
       <ScoreTable Scoring={ScoringC} />
     </div>
   );

@@ -4,20 +4,22 @@ import { useHistory } from 'react-router-dom';
 import BaseButton from './Button/BaseButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+const buttonStyle = { marginTop: '20px' };
+const containerStyle = { marginTop: '200px', textAlign: 'center' };
+const textStyle = {
+  marginBottom: '14px',
+  color: '#666666',
+  fontWeight: 'bold',
+};
+
 const Page404 = () => {
   const { isLoading } = useContext(AuthContext);
   const history = useHistory();
 
   return isLoading ? null : history.location.pathname === '/auth' ? null : (
-    <div style={{ marginTop: '200px', textAlign: 'center' }}>
+    <div style={containerStyle}>
       <h1>404 Not Found</h1>
-      <div
-        style={{
-          marginBottom: '14px',
-          color: '#666666',
-          fontWeight: 'bold',
-        }}
-      >
+      <div style={textStyle}>
         <p>
           お探しのページが見つかりませんでした。
           <br />
@@ -25,7 +27,7 @@ const Page404 = () => {
         </p>
       </div>
       <BaseButton
-        style={{ marginTop: '20px' }}
+        style={buttonStyle}
         variant='contained'
         color='default'
         startIcon={<ArrowBackIcon />}

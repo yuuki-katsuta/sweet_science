@@ -1,32 +1,28 @@
 import { useEffect, useState, useContext, useRef } from 'react';
 import { AuthContext } from '../../auth/AuthProvider';
 import { db } from '../../base';
-import { makeStyles } from '@material-ui/core/styles';
 import MessageAddField from './/MessageAddField';
 import MessageList from './MessageList';
 import List from '@material-ui/core/List';
 
-const useStyles = makeStyles({
-  list: {
-    maxHeight: '56vh',
-    overflow: 'auto',
-    gridRow: 1,
-    width: '100%',
-    maxWidth: '1100px',
-    margin: '24px auto 10px',
-    borderTop: 'thin solid #CCCCCC',
-    padding: 0,
-  },
-  ownMessage: {
-    backgroundColor: '#EEEEEE',
-  },
-});
+const listStyle = {
+  maxHeight: '56vh',
+  overflow: 'auto',
+  gridRow: 1,
+  width: '100%',
+  maxWidth: '1100px',
+  margin: '24px auto 10px',
+  borderTop: 'thin solid #CCCCCC',
+  padding: 0,
+};
+const ownMessageStyle = {
+  backgroundColor: '#EEEEEE',
+};
 
 const MessageItem = ({ matchData }) => {
   const { currentUser } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const ref = useRef();
-  const classes = useStyles();
 
   //データ取得
   useEffect(() => {
@@ -64,15 +60,13 @@ const MessageItem = ({ matchData }) => {
 
   return (
     <>
-      <List className={messages.length === 0 ? null : classes.list}>
+      <List style={messages.length === 0 ? null : listStyle}>
         {messages.map((message, index) => {
           return (
             <div
               ref={ref}
               key={index}
-              className={
-                message.uid === currentUser.uid ? classes.ownMessage : null
-              }
+              style={message.uid === currentUser.uid ? ownMessageStyle : null}
             >
               <MessageList
                 className='messageItem'
@@ -84,7 +78,6 @@ const MessageItem = ({ matchData }) => {
           );
         })}
       </List>
-
       <MessageAddField
         currentUser={currentUser}
         title={matchData.title}

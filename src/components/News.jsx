@@ -1,6 +1,16 @@
 import { memo } from 'react';
 import styled from 'styled-components';
 
+const Section = styled.div`
+  marginbottom: 12px;
+  color: #666666;
+  fontweight: bold;
+`;
+const TableWrapper = styled.div`
+  margin: 10px 0 56px 0;
+  textalign: left;
+  display: inlineBlock;
+`;
 const Table = styled.table`
   border-collapse: collapse;
   border-spacing: 0;
@@ -29,22 +39,10 @@ const News = memo(({ matchData }) => {
   return (
     <div>
       <h2 className='section-title'>News</h2>
-      <div
-        style={{
-          marginBottom: '12px',
-          color: '#666666',
-          fontWeight: 'bold',
-        }}
-      >
+      <Section>
         <p>試合情報などが追加されたことをお知らせします</p>
-      </div>
-      <div
-        style={{
-          margin: '10px 0 56px 0',
-          textAlign: 'left',
-          display: 'inlineBlock',
-        }}
-      >
+      </Section>
+      <TableWrapper>
         <Table>
           <thead>
             <Tr>
@@ -67,7 +65,7 @@ const News = memo(({ matchData }) => {
             })}
           </tbody>
         </Table>
-      </div>
+      </TableWrapper>
     </div>
   );
 });
