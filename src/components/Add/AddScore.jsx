@@ -4,7 +4,7 @@ import { db } from '../../base';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
-import Input from '@material-ui/core/Input';
+import InputField from '../InputField/InputField';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,90 +72,90 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
     <div style={{ marginBottom: '80px' }}>
       <div style={{ maxWidth: '730px', margin: '16px auto 0' }}>
         <form className={classes.root} noValidate autoComplete='off'>
-          <Input
+          <InputField
             placeholder='Judge'
             inputProps={{ 'aria-label': 'description' }}
             value={judgeA.name}
-            onChange={(e) => {
+            setState={(e) => {
               setJudgeA({ ...judgeA, name: e.target.value });
             }}
           />
-          <Input
+          <InputField
             placeholder='fighter score'
             inputProps={{ 'aria-label': 'description' }}
             value={judgeA.fighterScore}
-            onChange={(e) => {
+            setState={(e) => {
               setJudgeA({
                 ...judgeA,
                 fighterScore: e.target.value,
               });
             }}
           />
-          <Input
+          <InputField
             placeholder='opponent score'
             inputProps={{ 'aria-label': 'description' }}
             value={judgeA.opponentScore}
-            onChange={(e) => {
+            setState={(e) => {
               setJudgeA({
                 ...judgeA,
                 opponentScore: e.target.value,
               });
             }}
           />
-          <Input
+          <InputField
             placeholder='Judge'
             inputProps={{ 'aria-label': 'description' }}
             value={judgeB.name}
-            onChange={(e) => {
+            setState={(e) => {
               setJudgeB({ ...judgeB, name: e.target.value });
             }}
           />
-          <Input
+          <InputField
             placeholder='fighter score'
             inputProps={{ 'aria-label': 'description' }}
             value={judgeB.fighterScore}
-            onChange={(e) => {
+            setState={(e) => {
               setJudgeB({
                 ...judgeB,
                 fighterScore: e.target.value,
               });
             }}
           />
-          <Input
+          <InputField
             placeholder='opponent score'
             inputProps={{ 'aria-label': 'description' }}
             value={judgeB.opponentScore}
-            onChange={(e) => {
+            setState={(e) => {
               setJudgeB({
                 ...judgeB,
                 opponentScore: e.target.value,
               });
             }}
           />
-          <Input
+          <InputField
             placeholder='Judge'
             inputProps={{ 'aria-label': 'description' }}
             value={judgeC.name}
-            onChange={(e) => {
+            setState={(e) => {
               setJudgeC({ ...judgeC, name: e.target.value });
             }}
           />
-          <Input
+          <InputField
             placeholder='fighter score'
             inputProps={{ 'aria-label': 'description' }}
             value={judgeC.fighterScore}
-            onChange={(e) => {
+            setState={(e) => {
               setJudgeC({
                 ...judgeC,
                 fighterScore: e.target.value,
               });
             }}
           />
-          <Input
+          <InputField
             placeholder='opponent score'
             inputProps={{ 'aria-label': 'description' }}
             value={judgeC.opponentScore}
-            onChange={(e) => {
+            setState={(e) => {
               setJudgeC({
                 ...judgeC,
                 opponentScore: e.target.value,
