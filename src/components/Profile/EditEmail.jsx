@@ -6,7 +6,7 @@ import Fade from '@material-ui/core/Fade';
 import CreateIcon from '@material-ui/icons/Create';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import TextInputField from '../TextInputField';
+import TextInputField from '../InputField/TextInputField';
 
 const EditEmail = ({ modal, paper, currentUser }) => {
   const [email, setEmail] = useState('');

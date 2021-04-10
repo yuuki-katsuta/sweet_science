@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import MatchSummaryInputField from '../InputField/MatchSummaryInputField';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,95 +16,87 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
   const classes = useStyles();
   return (
     <form className={classes.root} noValidate autoComplete='off'>
-      <TextField
-        id='fighter'
-        name='fighter'
-        label='fighter'
-        color='secondary'
+      <MatchSummaryInputField
+        id={'fighter'}
+        name={'fighter'}
+        label={'fighter'}
         value={matchSummary.fighter}
-        onChange={(e) => {
+        setState={(e) => {
           setMatchSummary({
             ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
       />
-      <TextField
-        id='opponent'
-        name='opponent'
-        label='opponent'
-        color='secondary'
+
+      <MatchSummaryInputField
+        id={'opponent'}
+        name={'opponent'}
+        label={'opponent'}
         value={matchSummary.opponent}
-        onChange={(e) => {
+        setState={(e) => {
           setMatchSummary({
             ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
       />
-      <TextField
-        id='division'
-        name='division'
-        label='division'
-        color='secondary'
+      <MatchSummaryInputField
+        id={'division'}
+        name={'division'}
+        label={'division'}
         value={matchSummary.division}
-        onChange={(e) => {
+        setState={(e) => {
           setMatchSummary({
             ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
       />
-      <TextField
-        id='date'
-        name='date'
-        label='date'
-        color='secondary'
+      <MatchSummaryInputField
+        id={'date'}
+        name={'date'}
+        label={'date'}
         value={matchSummary.date}
-        onChange={(e) => {
+        setState={(e) => {
           setMatchSummary({
             ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
       />
-      <TextField
-        fullWidth={true}
-        id='url'
-        name='url'
+      <MatchSummaryInputField
+        id={'url'}
+        name={'url'}
         label='video url'
-        color='secondary'
         value={matchSummary.url}
-        onChange={(e) => {
+        setState={(e) => {
           setMatchSummary({
             ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
       />
-      <TextField
-        fullWidth={true}
-        id='venue'
-        name='venue'
-        label='venue'
-        color='secondary'
+      <MatchSummaryInputField
+        id={'venue'}
+        name={'venue'}
+        label={'venue'}
         value={matchSummary.venue}
-        onChange={(e) => {
+        setState={(e) => {
           setMatchSummary({
             ...matchSummary,
             [e.target.name]: e.target.value,
           });
         }}
       />
-      <TextField
-        fullWidth={true}
-        id='standard-multiline-static'
-        name='overview'
-        label='write overview...'
+      <MatchSummaryInputField
+        id={'standard-multiline-static'}
+        name={'overview'}
+        label={'write overview...'}
         multiline
         rows={2}
         value={matchSummary.overview}
-        onChange={(e) => {
+        setState={(e) => {
           setMatchSummary({
             ...matchSummary,
             [e.target.name]: e.target.value,

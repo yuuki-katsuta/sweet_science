@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { db } from '../../base';
 import { useHistory } from 'react-router-dom';
-import TextInputField from '../TextInputField';
+import TextInputField from '../InputField/TextInputField';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
