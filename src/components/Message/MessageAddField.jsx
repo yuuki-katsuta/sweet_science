@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { db } from '../../base';
 import { useHistory } from 'react-router-dom';
+import BaseIconButton from '../Button/BaseIconButton';
 import TextInputField from '../InputField/TextInputField';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 
@@ -36,18 +36,18 @@ const MessageAddField = ({ currentUser, title, refer }) => {
     <div style={{ width: '70%', margin: '0 auto' }}>
       <Grid container>
         <Grid item xs={1} style={{ position: 'relative' }}>
-          <IconButton
+          <BaseIconButton
             style={{
               position: 'absolute',
               bottom: '-10px',
               right: '10px',
             }}
-            onClick={() => {
+            onClickHandler={() => {
               history.goBack();
             }}
           >
             <KeyboardReturnIcon fontSize='large' />
-          </IconButton>
+          </BaseIconButton>
         </Grid>
         <Grid item xs={10}>
           <TextInputField
@@ -61,15 +61,15 @@ const MessageAddField = ({ currentUser, title, refer }) => {
           />
         </Grid>
         <Grid item xs={1} style={{ position: 'relative' }}>
-          <IconButton
+          <BaseIconButton
             style={{ position: 'absolute', bottom: '0', left: '8px' }}
             disabled={text === ''}
-            onClick={() => {
+            onClickHandler={() => {
               messageAdd();
             }}
           >
             <SendIcon />
-          </IconButton>
+          </BaseIconButton>
         </Grid>
       </Grid>
     </div>

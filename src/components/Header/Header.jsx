@@ -9,7 +9,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+import BaseIconButton from '../Button/BaseIconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -67,15 +67,9 @@ const Header = () => {
                 </span>
               </Typography>
               <div>
-                <IconButton
-                  aria-label='account of current user'
-                  aria-controls='menu-appbar'
-                  aria-haspopup='true'
-                  onClick={handleMenu}
-                  color='inherit'
-                >
+                <BaseIconButton onClickHandler={handleMenu} color='inherit'>
                   <AccountCircle fontSize='large' />
-                </IconButton>
+                </BaseIconButton>
                 <Menu
                   id='menu-appbar'
                   anchorEl={anchorEl}

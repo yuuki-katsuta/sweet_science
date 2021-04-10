@@ -4,7 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import CreateIcon from '@material-ui/icons/Create';
-import IconButton from '@material-ui/core/IconButton';
+import BaseIconButton from '../Button/BaseIconButton';
 import BaseButton from '../Button/BaseButton';
 import TextInputField from '../InputField/TextInputField';
 
@@ -33,14 +33,14 @@ const EditName = ({ modal, paper, currentUser }) => {
         Name:&nbsp;&nbsp;
         {!name || isNameChanged ? currentUser.displayName : name}
       </h3>
-      <IconButton
+      <BaseIconButton
         style={{ margin: '0 0 3px auto' }}
-        onClick={() => {
+        onClickHandler={() => {
           handleOpen();
         }}
       >
         <CreateIcon />
-      </IconButton>
+      </BaseIconButton>
       <Modal
         className={modal}
         open={open}

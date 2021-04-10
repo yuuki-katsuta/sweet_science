@@ -17,9 +17,9 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
   return (
     <form className={classes.root} noValidate autoComplete='off'>
       <MatchSummaryInputField
-        id={'fighter'}
-        name={'fighter'}
-        label={'fighter'}
+        id='fighter'
+        name='fighter'
+        label='fighter'
         value={matchSummary.fighter}
         setState={(e) => {
           setMatchSummary({
@@ -28,11 +28,10 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
           });
         }}
       />
-
       <MatchSummaryInputField
-        id={'opponent'}
-        name={'opponent'}
-        label={'opponent'}
+        id='opponent'
+        name='opponent'
+        label='opponent'
         value={matchSummary.opponent}
         setState={(e) => {
           setMatchSummary({
@@ -42,9 +41,9 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
         }}
       />
       <MatchSummaryInputField
-        id={'division'}
-        name={'division'}
-        label={'division'}
+        id='division'
+        name='division'
+        label='division'
         value={matchSummary.division}
         setState={(e) => {
           setMatchSummary({
@@ -54,9 +53,9 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
         }}
       />
       <MatchSummaryInputField
-        id={'date'}
-        name={'date'}
-        label={'date'}
+        id='date'
+        name='date'
+        label='date'
         value={matchSummary.date}
         setState={(e) => {
           setMatchSummary({
@@ -66,8 +65,8 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
         }}
       />
       <MatchSummaryInputField
-        id={'url'}
-        name={'url'}
+        id='url'
+        name='url'
         label='video url'
         value={matchSummary.url}
         setState={(e) => {
@@ -78,9 +77,9 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
         }}
       />
       <MatchSummaryInputField
-        id={'venue'}
-        name={'venue'}
-        label={'venue'}
+        id='venue'
+        name='venue'
+        label='venue'
         value={matchSummary.venue}
         setState={(e) => {
           setMatchSummary({
@@ -90,9 +89,9 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
         }}
       />
       <MatchSummaryInputField
-        id={'standard-multiline-static'}
-        name={'overview'}
-        label={'write overview...'}
+        id='standard-multiline-static'
+        name='overview'
+        label='write overview...'
         multiline
         rows={2}
         value={matchSummary.overview}

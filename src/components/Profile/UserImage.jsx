@@ -5,7 +5,7 @@ import firebase from 'firebase/app';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
+import BaseIconButton from '../Button/BaseIconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import SendIcon from '@material-ui/icons/Send';
 
@@ -84,29 +84,28 @@ const UserImage = () => {
           >
             <Avatar alt='uploaded' src={imageUrl} className={classes.image} />
             {imageUrl !== '' && (
-              <Tooltip title='Remove photo' arrow placement='right-start'>
-                <IconButton
-                  aria-label='delete'
-                  style={{
-                    position: 'absolute',
-                    left: '52px',
-                    bottom: '25px',
-                  }}
-                  onClick={() => {
-                    const result = window.confirm(
-                      'Are you sure you want to reset your current avatar?'
-                    );
-                    if (result) {
-                      ResetPhtoUrl();
-                      setImageUrl('');
-                    } else {
-                      return;
-                    }
-                  }}
-                >
+              <BaseIconButton
+                style={{
+                  position: 'absolute',
+                  left: '52px',
+                  bottom: '10px',
+                }}
+                oncClickHandler={() => {
+                  const result = window.confirm(
+                    'Are you sure you want to reset your current avatar?'
+                  );
+                  if (result) {
+                    ResetPhtoUrl();
+                    setImageUrl('');
+                  } else {
+                    return;
+                  }
+                }}
+              >
+                <Tooltip title='Remove photo' arrow placement='right-start'>
                   <DeleteIcon />
-                </IconButton>
-              </Tooltip>
+                </Tooltip>
+              </BaseIconButton>
             )}
           </span>
         ) : (
@@ -128,13 +127,13 @@ const UserImage = () => {
           ) : (
             <span>{filename}</span>
           )}
-          <IconButton
-            onClick={(e) => {
+          <BaseIconButton
+            onClickHandler={(e) => {
               onSubmit(e);
             }}
           >
             <SendIcon />
-          </IconButton>
+          </BaseIconButton>
         </div>
       )}
     </div>
