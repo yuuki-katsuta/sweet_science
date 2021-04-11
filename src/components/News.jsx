@@ -3,8 +3,10 @@ import styled from 'styled-components';
 
 const Section = styled.div`
   marginbottom: 12px;
+`;
+const Heading = styled.p`
   color: #666666;
-  fontweight: bold;
+  font-weight: bold;
 `;
 const TableWrapper = styled.div`
   margin: 10px 0 56px 0;
@@ -40,7 +42,7 @@ const News = memo(({ matchData }) => {
     <div>
       <h2 className='section-title'>News</h2>
       <Section>
-        <p>試合情報などが追加されたことをお知らせします</p>
+        <Heading>試合情報などが追加されたことをお知らせします。</Heading>
       </Section>
       <TableWrapper>
         <Table>

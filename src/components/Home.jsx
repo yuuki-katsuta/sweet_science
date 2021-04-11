@@ -58,9 +58,9 @@ const Home = memo(() => {
       <h2 className='section-title'>Boxing Fights</h2>
       <div style={descriptionStyle}>
         <p>
-          ボクシングの試合一覧を表示しています
+          ボクシングの試合一覧を表示しています。
           <br />
-          クリックすると各チャットページへ遷移します
+          クリックすると各チャットページへ遷移します。
         </p>
       </div>
       <MatchList matchData={matchData} />
