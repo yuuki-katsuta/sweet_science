@@ -1,5 +1,9 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const nodemailer = require('nodemailer');
+const gmailEmail = functions.config().gmail.email;
+const gmailPassword = functions.config().gmail.password;
+const adminEmail = functions.config().admin.email;
 
 const serviceAccount = require('./sweet-science-5582e-firebase-adminsdk-xtvd1-0492848891.json');
 
@@ -37,3 +41,34 @@ exports.removeAdminClaim = functions.firestore
 const modifyAdmin = (uid, isAdmin) => {
   admin.auth().setCustomUserClaims(uid, { admin: isAdmin }).then();
 };
+
+const mailTransport = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  secure: true,
+  auth: {
+    user: gmailEmail,
+    pass: gmailPassword,
+  },
+});
+//メールテンプレート
+const mailContents = (data) => {
+  return `以下内容でホームページよりお問い合わせを受けました。
+  お名前${data.name}
+  内容:${data.message}
+`;
+};
+//メール送信
+exports.sendMail = functions.https.onCall((data, context) => {
+  const email = {
+    from: gmailEmail,
+    to: adminEmail,
+    subject: 'boxing-labフィードバック',
+    text: mailContents(data),
+  };
+  mailTransport.sendMail(email, (err, info) => {
+    if (err) {
+      return console.log(err);
+    }
+    return console.log('success!!');
+  });
+});
