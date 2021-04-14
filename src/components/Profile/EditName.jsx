@@ -65,7 +65,9 @@ const EditName = ({ modal, paper, currentUser }) => {
                 name='name'
                 type='name'
                 value={name}
-                setState={setName}
+                setState={(e) => {
+                  setName(e.target.value);
+                }}
                 placeholder={currentUser.displayName}
               />
             </div>

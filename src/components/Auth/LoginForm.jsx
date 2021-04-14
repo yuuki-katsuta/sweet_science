@@ -51,7 +51,9 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           autoComplete='email'
           autoFocus
           value={email}
-          setState={setEmail}
+          setState={(e) => {
+            setEmail(e.target.value);
+          }}
         />
         <TextInputField
           variant='outlined'
@@ -64,7 +66,9 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           id='password'
           autoComplete='current-password'
           value={password}
-          setState={setPassword}
+          setState={(e) => {
+            setPassword(e.target.value);
+          }}
         />
         <BaseButton
           fullWidth

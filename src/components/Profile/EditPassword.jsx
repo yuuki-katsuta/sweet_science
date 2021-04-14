@@ -55,7 +55,9 @@ const Password = ({ modal, paper }) => {
                 type='password'
                 label='Current Password'
                 placeholder='Current Password'
-                setState={setCurrentPassword}
+                setState={(e) => {
+                  setCurrentPassword(e.target.value);
+                }}
                 value={currentPassword}
                 style={PasswordInputField}
                 fullWidth
@@ -66,7 +68,9 @@ const Password = ({ modal, paper }) => {
                 type='password'
                 label='New Password'
                 placeholder='New Password'
-                setState={setNewPassword}
+                setState={(e) => {
+                  setNewPassword(e.target.value);
+                }}
                 value={newPassword}
                 style={PasswordInputField}
                 fullWidth
@@ -77,7 +81,9 @@ const Password = ({ modal, paper }) => {
                 type='password'
                 label='Confirim Password'
                 placeholder='Confirim Password'
-                setState={setConfirmPassword}
+                setState={(e) => {
+                  setConfirmPassword(e.target.value);
+                }}
                 value={confirmPassword}
                 style={PasswordInputField}
                 fullWidth

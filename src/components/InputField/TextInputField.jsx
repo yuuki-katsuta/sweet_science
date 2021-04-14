@@ -17,6 +17,7 @@ const TextInputField = ({
   required,
   autoComplete,
   autoFocus,
+  defaultValue,
 }) => {
   return (
     <TextField
@@ -35,8 +36,9 @@ const TextInputField = ({
       required={required}
       autoComplete={autoComplete}
       autoFocus={autoFocus}
+      defaultValue={defaultValue}
       onChange={(e) => {
-        setState(e.target.value);
+        setState(e);
       }}
     />
   );

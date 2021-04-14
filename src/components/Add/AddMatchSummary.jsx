@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import MatchSummaryInputField from '../InputField/MatchSummaryInputField';
+import TextInputField from '../InputField/TextInputField';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +16,7 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
   const classes = useStyles();
   return (
     <form className={classes.root} noValidate autoComplete='off'>
-      <MatchSummaryInputField
+      <TextInputField
         id='fighter'
         name='fighter'
         label='fighter'
@@ -28,7 +28,7 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
           });
         }}
       />
-      <MatchSummaryInputField
+      <TextInputField
         id='opponent'
         name='opponent'
         label='opponent'
@@ -40,7 +40,7 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
           });
         }}
       />
-      <MatchSummaryInputField
+      <TextInputField
         id='division'
         name='division'
         label='division'
@@ -52,7 +52,7 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
           });
         }}
       />
-      <MatchSummaryInputField
+      <TextInputField
         id='date'
         name='date'
         label='date'
@@ -64,7 +64,7 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
           });
         }}
       />
-      <MatchSummaryInputField
+      <TextInputField
         id='url'
         name='url'
         label='video url'
@@ -76,7 +76,7 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
           });
         }}
       />
-      <MatchSummaryInputField
+      <TextInputField
         id='venue'
         name='venue'
         label='venue'
@@ -88,7 +88,7 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
           });
         }}
       />
-      <MatchSummaryInputField
+      <TextInputField
         id='standard-multiline-static'
         name='overview'
         label='write overview...'

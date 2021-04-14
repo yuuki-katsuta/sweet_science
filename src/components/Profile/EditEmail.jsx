@@ -73,7 +73,9 @@ const EditEmail = ({ modal, paper, currentUser }) => {
                 label='Current Password'
                 placeholder='Current Password'
                 value={currentPassword}
-                setState={setCurrentPassword}
+                setState={(e) => {
+                  setCurrentPassword(e.target.value);
+                }}
                 style={textInputFieldStyle}
               />
               <TextInputField
@@ -82,7 +84,9 @@ const EditEmail = ({ modal, paper, currentUser }) => {
                 name='email'
                 type='email'
                 value={email}
-                setState={setEmail}
+                setState={(e) => {
+                  setEmail(e.target.value);
+                }}
                 placeholder='new Email'
               />
             </div>

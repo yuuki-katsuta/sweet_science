@@ -74,7 +74,9 @@ const MessageAddField = ({ currentUser, title, refer }) => {
             multiline
             rows={3}
             value={text}
-            setState={setText}
+            setState={(e) => {
+              setText(e.target.value);
+            }}
           />
         </Grid>
         <Grid item xs={1} style={gridStyle}>

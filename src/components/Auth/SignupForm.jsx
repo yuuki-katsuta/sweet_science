@@ -38,7 +38,9 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
         name='name'
         autoFocus
         value={name}
-        setState={setName}
+        setState={(e) => {
+          setName(e.target.value);
+        }}
       />
       <TextInputField
         variant='outlined'
@@ -49,7 +51,9 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
         label='Email Address'
         name='email'
         value={email}
-        setState={setEmail}
+        setState={(e) => {
+          setEmail(e.target.value);
+        }}
       />
       <TextInputField
         variant='outlined'
@@ -61,7 +65,9 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
         type='password'
         id='password'
         value={password}
-        setState={setPassword}
+        setState={(e) => {
+          setPassword(e.target.value);
+        }}
       />
       <TextInputField
         variant='outlined'
@@ -73,7 +79,9 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
         type='password'
         id='confirm Password'
         value={confirmPassword}
-        setState={setConfirmPassword}
+        setState={(e) => {
+          setConfirmPassword(e.target.value);
+        }}
       />
       <BaseButton
         fullWidth
