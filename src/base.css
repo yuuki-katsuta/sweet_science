@@ -50,7 +50,7 @@ h1.match-title, h2.section-title{
   h1 {
     font-size: 20px
   }
-  h2 {
+  h2.section-title {
     font-size: 28px
   }
   h4 {

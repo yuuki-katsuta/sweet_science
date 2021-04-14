@@ -8,7 +8,7 @@ const About = () => {
   return (
     <div style={containerStyle}>
       <Container maxWidth='md'>
-        <h1>About</h1>
+        <h2>About</h2>
         <h3>本アプリケーションをご利用いただきましてありがとうございます。</h3>
         <div style={descriptionStyle}>
           <p>
