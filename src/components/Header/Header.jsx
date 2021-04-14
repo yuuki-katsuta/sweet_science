@@ -98,6 +98,15 @@ const Header = () => {
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
                     <span
+                      onClick={() => {
+                        history.push('/feedback');
+                      }}
+                    >
+                      Feedback
+                    </span>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <span
                       onClick={async () => {
                         await auth.signOut().then(() => {
                           setAdminUser(false);
