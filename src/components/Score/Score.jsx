@@ -1,8 +1,8 @@
-import { useEffect, useState, memo } from 'react';
+import { useEffect, useState, memo, useRef } from 'react';
 import { db } from '../../base';
 import ScoreTable from './ScoreTable';
 
-function createData(
+const createData = (
   name,
   one,
   two,
@@ -16,7 +16,7 @@ function createData(
   ten,
   eleven,
   twelve
-) {
+) => {
   return {
     name,
     one,
@@ -32,14 +32,15 @@ function createData(
     eleven,
     twelve,
   };
-}
+};
 const judgerNameStyle = { textAlign: 'left', margin: '0 0 0 8px' };
 
 const Score = memo(({ matchData }) => {
-  const [ScoringA, setScoringA] = useState([]);
-  const [ScoringB, setScoringB] = useState([]);
-  const [ScoringC, setScoringC] = useState([]);
-  const [judgeName, setJudgeName] = useState({
+  const [update, setUpdata] = useState(false);
+  const ScoringA = useRef([]);
+  const ScoringB = useRef([]);
+  const ScoringC = useRef([]);
+  const judgeName = useRef({
     judgeA: '',
     judgeB: '',
     judgeC: '',
@@ -66,23 +67,24 @@ const Score = memo(({ matchData }) => {
         const scores = await getScore();
         const [judgeA, judgeB, judgeC] = scores;
         if (!unmounted) {
-          setScoringA([
+          ScoringA.current = [
             createData(`${matchData.fighter}`, ...judgeA.fighter),
             createData(`${matchData.opponent}`, ...judgeA.opponent),
-          ]);
-          setScoringB([
+          ];
+          ScoringB.current = [
             createData(`${matchData.fighter}`, ...judgeB.fighter),
             createData(`${matchData.opponent}`, ...judgeB.opponent),
-          ]);
-          setScoringC([
+          ];
+          ScoringC.current = [
             createData(`${matchData.fighter}`, ...judgeC.fighter),
             createData(`${matchData.opponent}`, ...judgeC.opponent),
-          ]);
-          setJudgeName({
+          ];
+          judgeName.current = {
             judgeA: judgeA.judge,
             judgeB: judgeB.judge,
             judgeC: judgeC.judge,
-          });
+          };
+          setUpdata(!update);
         }
       })();
       return () => {
@@ -94,14 +96,14 @@ const Score = memo(({ matchData }) => {
 
   return (
     <div>
-      <h4 style={judgerNameStyle}>{judgeName.judgeA}</h4>
-      <ScoreTable Scoring={ScoringA} />
+      <h4 style={judgerNameStyle}>{judgeName.current.judgeA}</h4>
+      <ScoreTable Scoring={ScoringA.current} />
 
-      <h4 style={judgerNameStyle}>{judgeName.judgeB}</h4>
-      <ScoreTable Scoring={ScoringB} />
+      <h4 style={judgerNameStyle}>{judgeName.current.judgeB}</h4>
+      <ScoreTable Scoring={ScoringB.current} />
 
-      <h4 style={judgerNameStyle}>{judgeName.judgeC}</h4>
-      <ScoreTable Scoring={ScoringC} />
+      <h4 style={judgerNameStyle}>{judgeName.current.judgeC}</h4>
+      <ScoreTable Scoring={ScoringC.current} />
     </div>
   );
 });
