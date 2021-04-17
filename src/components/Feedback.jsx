@@ -50,7 +50,6 @@ const Feedback = () => {
       <br />
       <BaseButton
         style={buttonStyle}
-        color='primary'
         variant='contained'
         setState={() => {
           if (data.message.trim() === '') {

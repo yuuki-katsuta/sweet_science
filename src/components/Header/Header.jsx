@@ -17,7 +17,7 @@ import Menu from '@material-ui/core/Menu';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#424242',
+      main: '#2f384c',
     },
   },
 });

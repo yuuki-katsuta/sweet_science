@@ -19,7 +19,7 @@ import MediaQuery from 'react-responsive';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#424242',
+      main: '#2f384c',
     },
   },
 });

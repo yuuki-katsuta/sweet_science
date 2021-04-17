@@ -15,7 +15,7 @@ import Paper from '@material-ui/core/Paper';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#424242',
+      main: '#213045',
     },
   },
   overrides: {
