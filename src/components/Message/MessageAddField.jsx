@@ -29,27 +29,23 @@ const MessageAddField = ({ currentUser, title, refer }) => {
   const history = useHistory();
   const [text, setText] = useState('');
 
-  const messageAdd = () => {
+  const messageAdd = async () => {
     if (text.trim() === '') {
       alert('Please enter a message');
       return;
     }
-    db.collection('chats')
-      .doc(`${title}`)
-      .collection('messages')
-      .add({
-        user: currentUser.displayName,
-        message: text,
-        uid: currentUser.uid,
-        createdAt: new Date(),
-        photoURL: currentUser.photoURL,
-        liked: 0,
-      })
-      .then(() => {
-        setText('');
-        //自動スクロール
-        refer.current.scrollIntoView({ behavior: 'smooth' });
-      });
+    await db.collection('chats').doc(`${title}`).collection('messages').add({
+      user: currentUser.displayName,
+      message: text,
+      uid: currentUser.uid,
+      createdAt: new Date(),
+      photoURL: currentUser.photoURL,
+      liked: 0,
+    });
+    setText('');
+    //自動スクロール
+    refer.current.scrollIntoView({ behavior: 'smooth' });
+
     // eslint-disable-next-line
   };
 

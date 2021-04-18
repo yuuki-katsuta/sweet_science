@@ -58,17 +58,16 @@ const mailContents = (data) => {
 `;
 };
 //メール送信
-exports.sendMail = functions.https.onCall((data, context) => {
+exports.sendMail = functions.https.onCall((data) => {
   const email = {
     from: gmailEmail,
     to: adminEmail,
     subject: 'boxing-labフィードバック',
     text: mailContents(data),
   };
-  mailTransport.sendMail(email, (err, info) => {
+  mailTransport.sendMail(email, (err) => {
     if (err) {
-      return console.log(err);
+      return alert(err.message);
     }
-    return console.log('success!!');
   });
 });

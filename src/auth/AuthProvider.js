@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
   //再認証
   const Reauthentication = async (currentPassword) => {
-    const credential = await firebase.auth.EmailAuthProvider.credential(
+    const credential = firebase.auth.EmailAuthProvider.credential(
       currentUser.email,
       currentPassword
     );

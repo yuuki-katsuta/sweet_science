@@ -16,7 +16,7 @@ const Page404 = () => {
   const { isLoading } = useContext(AuthContext);
   const history = useHistory();
 
-  return isLoading ? null : history.location.pathname === '/auth' ? null : (
+  return isLoading ? null : (
     <div style={containerStyle}>
       <h1>404 Not Found</h1>
       <div style={textStyle}>

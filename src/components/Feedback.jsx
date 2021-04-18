@@ -51,16 +51,17 @@ const Feedback = () => {
       <BaseButton
         style={buttonStyle}
         variant='contained'
-        setState={() => {
-          if (data.message.trim() === '') {
-            alert('Please enter a message');
-            return;
-          }
-          const sendMail = firebase.functions().httpsCallable('sendMail');
-          sendMail(data).then(() => {
+        setState={async () => {
+          try {
+            if (data.message.trim() === '')
+              throw new Error('Please enter a message');
+            const sendMail = firebase.functions().httpsCallable('sendMail');
+            await sendMail(data);
             alert('フィードバックを送信しました！');
             setData({ ...data, message: '' });
-          });
+          } catch (e) {
+            alert(e.message);
+          }
         }}
       >
         フィードバックを送信
