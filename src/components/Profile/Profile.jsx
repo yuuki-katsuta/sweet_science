@@ -7,20 +7,6 @@ import EditName from './EditName';
 import EditEmail from './EditEmail';
 import EditPassword from './EditPassword';
 
-const modal = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-const paper = {
-  height: 'auto',
-  width: '40%',
-  minWidth: '270px',
-  maxWidth: '650px',
-  backgroundColor: 'white',
-  border: '2px solid #000',
-  padding: '16px 32px 24px',
-};
 const title = {
   marginBottom: '16px',
   color: '#666666',
@@ -53,17 +39,13 @@ const Profile = () => {
           <UserImage />
           <div style={profileItemWrapper}>
             <div style={profileItemStyle}>
-              <EditName modal={modal} paper={paper} currentUser={currentUser} />
+              <EditName currentUser={currentUser} />
             </div>
             <div style={profileItemStyle}>
-              <EditEmail
-                modal={modal}
-                paper={paper}
-                currentUser={currentUser}
-              />
+              <EditEmail currentUser={currentUser} />
             </div>
           </div>
-          <EditPassword modal={modal} paper={paper} />
+          <EditPassword />
         </Container>
       </div>
     )
