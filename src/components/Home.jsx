@@ -16,7 +16,7 @@ const descriptionStyle = {
 const addMatchSectionStyle = { margin: '50px 0 60px' };
 const newsSectionStyle = {
   width: '100%',
-  margin: '72px auto 0',
+  margin: '56px auto 0',
   textAlign: 'center',
 };
 
@@ -67,6 +67,7 @@ const Home = memo(() => {
       {adminUser ? (
         <>
           <MediaQuery query='(max-width: 800px)'>
+            <Divider />
             <News
               title={matchData.title}
               creationTime={matchData.createdAt}
@@ -88,6 +89,7 @@ const Home = memo(() => {
       ) : (
         <Container maxWidth='md'>
           <div style={newsSectionStyle}>
+            <Divider />
             <News
               title={matchData.title}
               creationTime={matchData.createdAt}
