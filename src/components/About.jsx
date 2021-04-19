@@ -1,8 +1,8 @@
 import Container from '@material-ui/core/Container';
 
-const sectionStyle = { textAlign: 'left', marginBottom: '60px' };
-const containerStyle = { textAlign: 'center', margin: '120px auto 20px' };
-const descriptionStyle = { textAlign: 'left', marginBottom: '48px' };
+const sectionStyle = { textAlign: 'left', marginBottom: '40px' };
+const containerStyle = { textAlign: 'center', margin: '120px auto 40px' };
+const descriptionStyle = { textAlign: 'left', marginBottom: '40px' };
 
 const About = () => {
   return (

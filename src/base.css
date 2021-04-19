@@ -26,6 +26,9 @@ body {
 p {
   margin: 2px;
 }
+h3 {
+  margin-bottom: 8px;
+}
 svg.MuiAvatar-fallback {
   height: 90%;
 }
