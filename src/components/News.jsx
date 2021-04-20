@@ -17,19 +17,20 @@ const Table = styled.table`
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
+  tr {
+    border-bottom: solid 1px #aaaaaa;
+  }
+  th {
+    text-align: left;
+    width: 2vmin;
+    padding: 15px 20px 15px 10px;
+  }
+  td {
+    text-align: left;
+    padding: 15px 20px 15px 10px;
+  }
 `;
-const Tr = styled.tr`
-  border-bottom: solid 1px #aaaaaa;
-`;
-const Th = styled.th`
-  text-align: left;
-  width: 2vmin;
-  padding: 15px 20px 15px 10px;
-`;
-const Td = styled.td`
-  text-align: left;
-  padding: 15px 20px 15px 10px;
-`;
+
 const FromTimeStampToDate = (date) => {
   const d = new Date(date.seconds * 1000);
   const month = `0${d.getMonth() + 1}`.slice(-2);
@@ -47,22 +48,22 @@ const News = memo(({ matchData }) => {
       <TableWrapper>
         <Table>
           <thead>
-            <Tr>
-              <Th>更新日</Th>
-              <Th>更新内容</Th>
-            </Tr>
+            <tr>
+              <th>更新日</th>
+              <th>更新内容</th>
+            </tr>
           </thead>
           <tbody>
             {matchData.slice(0, 5).map((data, index) => {
               return (
-                <Tr key={index}>
+                <tr key={index}>
                   {
                     <>
-                      <Td> {FromTimeStampToDate(data.createdAt)}</Td>
-                      <Td>Added {data.title}</Td>
+                      <td> {FromTimeStampToDate(data.createdAt)}</td>
+                      <td>Added {data.title}</td>
                     </>
                   }
-                </Tr>
+                </tr>
               );
             })}
           </tbody>

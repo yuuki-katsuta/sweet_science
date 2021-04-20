@@ -4,21 +4,25 @@ import firebase from 'firebase/app';
 import 'firebase/functions';
 import TextInputField from './InputField/TextInputField';
 import BaseButton from './Button/BaseButton';
+import styled from 'styled-components';
 
-const containerStyle = { textAlign: 'center', margin: '120px auto 20px' };
-const textStyle = {
-  marginBottom: '14px',
-  color: '#666666',
-  fontWeight: 'bold',
-};
-const TextFieldStyle = {
-  width: '95%',
-  maxWidth: '580px',
-  marginTop: '24px',
-};
-const buttonStyle = {
-  marginTop: '16px',
-};
+const SContainer = styled.div`
+  text-align: center;
+  margin: 120px auto 20px;
+`;
+const STextWrapper = styled.div`
+  margin-bottom: 14px;
+  color: #666666;
+  font-weight: bold;
+`;
+const STextInputField = styled(TextInputField)`
+  width: 95%;
+  max-width: 580px;
+  margin-top: 24px;
+`;
+const SSendButton = styled(BaseButton)`
+  margin-top: 24px;
+`;
 
 const Feedback = () => {
   const { currentUser } = useContext(AuthContext);
@@ -27,15 +31,15 @@ const Feedback = () => {
     message: '',
   });
   return (
-    <div style={containerStyle}>
+    <SContainer>
       <h2>フィードバック送信</h2>
-      <div style={textStyle}>
+      <STextWrapper>
         <p>
           機能追加の要望やバグ報告にご協力ください。 <br />
           送信された内容はアプリ運営者のみ確認可能です。
         </p>
-      </div>
-      <TextInputField
+      </STextWrapper>
+      <STextInputField
         id='outlined-multiline-static'
         label='バグ報告・要望・感想など'
         multiline
@@ -44,29 +48,28 @@ const Feedback = () => {
           setData({ ...data, message: e.target.value });
         }}
         value={data.message}
-        style={TextFieldStyle}
         rows={8}
       />
-      <br />
-      <BaseButton
-        style={buttonStyle}
-        variant='contained'
-        setState={async () => {
-          try {
-            if (data.message.trim() === '')
-              throw new Error('Please enter a message');
-            const sendMail = firebase.functions().httpsCallable('sendMail');
-            await sendMail(data);
-            alert('フィードバックを送信しました！');
-            setData({ ...data, message: '' });
-          } catch (e) {
-            alert(e.message);
-          }
-        }}
-      >
-        フィードバックを送信
-      </BaseButton>
-    </div>
+      <div>
+        <SSendButton
+          variant='contained'
+          setState={async () => {
+            try {
+              if (data.message.trim() === '')
+                throw new Error('Please enter a message');
+              const sendMail = firebase.functions().httpsCallable('sendMail');
+              await sendMail(data);
+              alert('フィードバックを送信しました！');
+              setData({ ...data, message: '' });
+            } catch (e) {
+              alert(e.message);
+            }
+          }}
+        >
+          フィードバックを送信
+        </SSendButton>
+      </div>
+    </SContainer>
   );
 };
 export default Feedback;

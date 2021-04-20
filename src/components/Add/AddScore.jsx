@@ -5,6 +5,7 @@ import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import InputField from '../InputField/InputField';
+import styled from 'styled-components';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,11 +15,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const containerStyle = { marginBottom: '80px' };
-const formWrapper = { margin: '16px auto 0' };
-const wrapper = { position: 'relative' };
-const iconWrapper = { position: 'absolute', right: 10 };
-const inputFieldStyle = { width: '280px', margin: '16px' };
+const SContainer = styled.div`
+  margin-bottom: 80px;
+`;
+const SFormWrapper = styled.div`
+  margin: 16px auto 0;
+`;
+const SSubmitWrapper = styled.div`
+  position: relative;
+`;
+const STooltip = styled(Tooltip)`
+  position: absolute;
+  right: 0;
+`;
+const SInputField = styled(InputField)`
+  width: 280px;
+  margin: 16px;
+`;
 
 const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
   const classes = useStyles();
@@ -75,8 +88,8 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
   };
 
   return (
-    <div style={containerStyle}>
-      <div style={formWrapper}>
+    <SContainer>
+      <SFormWrapper>
         <form className={classes.root} noValidate autoComplete='off'>
           <div>
             <InputField
@@ -87,7 +100,7 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
                 setJudgeA({ ...judgeA, name: e.target.value });
               }}
             />
-            <InputField
+            <SInputField
               placeholder='fighter score'
               inputProps={{ 'aria-label': 'description' }}
               value={judgeA.fighterScore}
@@ -97,9 +110,8 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
                   fighterScore: e.target.value,
                 });
               }}
-              style={inputFieldStyle}
             />
-            <InputField
+            <SInputField
               placeholder='opponent score'
               inputProps={{ 'aria-label': 'description' }}
               value={judgeA.opponentScore}
@@ -109,7 +121,6 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
                   opponentScore: e.target.value,
                 });
               }}
-              style={inputFieldStyle}
             />
           </div>
           <div>
@@ -121,7 +132,7 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
                 setJudgeB({ ...judgeB, name: e.target.value });
               }}
             />
-            <InputField
+            <SInputField
               placeholder='fighter score'
               inputProps={{ 'aria-label': 'description' }}
               value={judgeB.fighterScore}
@@ -131,9 +142,8 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
                   fighterScore: e.target.value,
                 });
               }}
-              style={inputFieldStyle}
             />
-            <InputField
+            <SInputField
               placeholder='opponent score'
               inputProps={{ 'aria-label': 'description' }}
               value={judgeB.opponentScore}
@@ -143,7 +153,6 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
                   opponentScore: e.target.value,
                 });
               }}
-              style={inputFieldStyle}
             />
           </div>
           <div>
@@ -155,7 +164,7 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
                 setJudgeC({ ...judgeC, name: e.target.value });
               }}
             />
-            <InputField
+            <SInputField
               placeholder='fighter score'
               inputProps={{ 'aria-label': 'description' }}
               value={judgeC.fighterScore}
@@ -165,10 +174,8 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
                   fighterScore: e.target.value,
                 });
               }}
-              style={inputFieldStyle}
             />
-
-            <InputField
+            <SInputField
               placeholder='opponent score'
               inputProps={{ 'aria-label': 'description' }}
               value={judgeC.opponentScore}
@@ -178,28 +185,25 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
                   opponentScore: e.target.value,
                 });
               }}
-              style={inputFieldStyle}
             />
           </div>
         </form>
-      </div>
-      <div style={wrapper}>
-        <span style={iconWrapper}>
-          <Tooltip title='Add' aria-label='add'>
-            <Fab
-              color='primary'
-              className={classes.fab}
-              size='small'
-              onClick={() => {
-                addChatWithScore();
-              }}
-            >
-              <AddIcon />
-            </Fab>
-          </Tooltip>
-        </span>
-      </div>
-    </div>
+      </SFormWrapper>
+      <SSubmitWrapper>
+        <STooltip title='Add' aria-label='add'>
+          <Fab
+            color='primary'
+            className={classes.fab}
+            size='small'
+            onClick={() => {
+              addChatWithScore();
+            }}
+          >
+            <AddIcon />
+          </Fab>
+        </STooltip>
+      </SSubmitWrapper>
+    </SContainer>
   );
 });
 export default AddScore;

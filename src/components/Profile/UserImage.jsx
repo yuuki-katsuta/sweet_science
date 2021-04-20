@@ -7,22 +7,26 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import BaseIconButton from '../Button/BaseIconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import SendIcon from '@material-ui/icons/Send';
+import styled from 'styled-components';
 
-const avatarWrapper = {
-  position: 'relative',
-};
-const imageStyle = {
-  margin: '0 auto',
-  border: '1px solid #555555',
-  width: '144px',
-  height: '144px',
-};
-const buttonStyle = {
-  position: 'absolute',
-  left: '52px',
-  top: '100px',
-};
-const labelStyle = { fontWeight: 'bold', cursor: 'pointer' };
+const SAvatarWrapper = styled.span`
+  position: relative;
+`;
+const SAvatar = styled(Avatar)`
+  margin: 0 auto;
+  border: 1px solid #555555;
+  width: 144px;
+  height: 144px;
+`;
+const SResetButton = styled(BaseIconButton)`
+  position: absolute;
+  left: 52px;
+  top: 100px;
+`;
+const SLabel = styled.label`
+  font-weight: bold;
+  cursor: pointer;
+`;
 
 const UserImage = () => {
   const { currentUser, ChangePhtoUrl, ResetPhtoUrl, guestUser } = useContext(
@@ -77,11 +81,10 @@ const UserImage = () => {
     <>
       <div>
         {currentUser.photoURL ? (
-          <span style={avatarWrapper}>
-            <Avatar alt='uploaded' src={imageUrl} style={imageStyle} />
+          <SAvatarWrapper>
+            <SAvatar alt='uploaded' src={imageUrl} />
             {imageUrl !== '' && (
-              <BaseIconButton
-                style={buttonStyle}
+              <SResetButton
                 onClickHandler={() => {
                   const result = window.confirm(
                     'Are you sure you want to reset your current avatar?'
@@ -97,23 +100,23 @@ const UserImage = () => {
                 <Tooltip title='Remove photo' arrow placement='right-start'>
                   <DeleteIcon />
                 </Tooltip>
-              </BaseIconButton>
+              </SResetButton>
             )}
-          </span>
+          </SAvatarWrapper>
         ) : (
-          <Avatar alt='uploaded' style={imageStyle} />
+          <SAvatar alt='uploaded' />
         )}
       </div>
       {!guestUser && (
         <div>
-          <label style={labelStyle}>
+          <SLabel>
             ファイルを選択
             <input
               onChange={handleImage}
               type='file'
               style={{ display: 'none' }}
             />
-          </label>
+          </SLabel>
           {filename.length > 15 ? (
             <span>{` (${filename.substr(0, 15) + '...'}) `}</span>
           ) : (

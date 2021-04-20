@@ -4,20 +4,25 @@ import { db } from '../../base';
 import MessageAddField from './/MessageAddField';
 import MessageList from './MessageList';
 import List from '@material-ui/core/List';
+import styled from 'styled-components';
 
-const listStyle = {
-  maxHeight: '56vh',
-  overflow: 'auto',
-  gridRow: 1,
-  width: '100%',
-  maxWidth: '1100px',
-  margin: '24px auto 10px',
-  borderTop: 'thin solid #CCCCCC',
-  padding: 0,
-};
-const ownMessageStyle = {
-  backgroundColor: '#EEEEEE',
-};
+const SList = styled(List)`
+  &.MessageExists {
+    max-height: 56vh;
+    overflow: auto;
+    gridrow: 1;
+    width: 100%;
+    max-width: 1100px;
+    margin: 24px auto 10px;
+    border-top: thin solid #cccccc;
+    padding: 0;
+  }
+`;
+const SOwnMessageStyle = styled.div`
+  &.own {
+    background-color: #eeeeee;
+  }
+`;
 
 const MessageItem = ({ matchData }) => {
   const { currentUser } = useContext(AuthContext);
@@ -60,13 +65,13 @@ const MessageItem = ({ matchData }) => {
 
   return (
     <>
-      <List style={messages.length === 0 ? null : listStyle}>
+      <SList className={messages.length !== 0 && 'MessageExists'}>
         {messages.map((message, index) => {
           return (
-            <div
+            <SOwnMessageStyle
               ref={ref}
               key={index}
-              style={message.uid === currentUser.uid ? ownMessageStyle : null}
+              className={message.uid === currentUser.uid ? 'own' : ''}
             >
               <MessageList
                 className='messageItem'
@@ -74,10 +79,10 @@ const MessageItem = ({ matchData }) => {
                 message={message}
                 currentUser={currentUser}
               />
-            </div>
+            </SOwnMessageStyle>
           );
         })}
-      </List>
+      </SList>
       <MessageAddField
         currentUser={currentUser}
         title={matchData.title}

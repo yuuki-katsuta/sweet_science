@@ -7,10 +7,19 @@ import Switch from '@material-ui/core/Switch';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
+import styled from 'styled-components';
 
-const formItemStyle = { position: 'relative' };
-const formControlLabelStyle = { textAlign: 'center', marginTop: '8px' };
-const tooltipStyle = { position: 'absolute', right: 0 };
+const SFormItemWrapper = styled.div`
+  position: relative;
+`;
+const STooltip = styled(Tooltip)`
+  position: absolute;
+  right: 0;
+`;
+const SFormControlLabel = styled(FormControlLabel)`
+  textalign: center;
+  margin-top: 8px;
+`;
 
 const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
   const [matchSummary, setMatchSummary] = useState({
@@ -76,9 +85,8 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
         matchSummary={matchSummary}
         setMatchSummary={setMatchSummary}
       />
-      <div style={formItemStyle}>
-        <FormControlLabel
-          style={formControlLabelStyle}
+      <SFormItemWrapper>
+        <SFormControlLabel
           control={
             <Switch
               checked={checked}
@@ -91,22 +99,20 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
           }
           label='Add Score'
         />
-        <span style={tooltipStyle}>
-          {!checked && (
-            <Tooltip title='Add' aria-label='add'>
-              <Fab
-                color='primary'
-                size='small'
-                onClick={() => {
-                  addChat();
-                }}
-              >
-                <AddIcon />
-              </Fab>
-            </Tooltip>
-          )}
-        </span>
-      </div>
+        {!checked && (
+          <STooltip title='Add' aria-label='add'>
+            <Fab
+              color='primary'
+              size='small'
+              onClick={() => {
+                addChat();
+              }}
+            >
+              <AddIcon />
+            </Fab>
+          </STooltip>
+        )}
+      </SFormItemWrapper>
       {checked && (
         <AddScore
           setChecked={setChecked}

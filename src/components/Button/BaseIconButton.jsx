@@ -2,16 +2,16 @@ import IconButton from '@material-ui/core/IconButton';
 
 const BaseIconButton = ({
   children,
-  style,
   color,
   disabled,
   onClickHandler,
+  className,
 }) => {
   return (
     <IconButton
+      className={className}
       disabled={disabled}
       color={color}
-      style={style}
       onClick={(e) => {
         onClickHandler(e);
       }}

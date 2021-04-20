@@ -4,6 +4,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ThumbUpAltRoundedIcon from '@material-ui/icons/ThumbUpAltRounded';
+import styled from 'styled-components';
+
+const SCount = styled.span`
+  color: '#666666';
+`;
 
 const LikedCount = memo(({ title, id, currentUser }) => {
   const [count, setCount] = useState(0);
@@ -18,7 +23,6 @@ const LikedCount = memo(({ title, id, currentUser }) => {
 
   useEffect(() => {
     let isMounted = true;
-
     const GetNumberOfLikes = async () => {
       docRef.onSnapshot((doc) => {
         isMounted && setCount(doc.data().liked);
@@ -27,14 +31,12 @@ const LikedCount = memo(({ title, id, currentUser }) => {
         .collection('likedUser')
         .doc(`${currentUser.uid}`)
         .get();
-
       //いいね済み
       if (likedUser.exists && likedUser.data().user === currentUser.uid) {
         isMounted && setIsLiked(true);
       }
     };
     GetNumberOfLikes();
-
     return () => {
       isMounted = false;
     };
@@ -50,7 +52,6 @@ const LikedCount = memo(({ title, id, currentUser }) => {
         .collection('likedUser')
         .doc(`${currentUser.uid}`)
         .get();
-
       //いいね済み
       if (likedUser.exists && likedUser.data().user === currentUser.uid) {
         setIsLiked(false);
@@ -61,7 +62,6 @@ const LikedCount = memo(({ title, id, currentUser }) => {
         processing.current = false;
         return;
       }
-
       //いいねユーザーを登録
       await docRef.collection('likedUser').doc(`${currentUser.uid}`).set({
         user: currentUser.uid,
@@ -90,9 +90,7 @@ const LikedCount = memo(({ title, id, currentUser }) => {
             checked={isLiked}
           />
         }
-        label={
-          count === 0 ? null : <span style={{ color: '#666666' }}>{count}</span>
-        }
+        label={count === 0 ? null : <SCount>{count}</SCount>}
       />
     </span>
   );

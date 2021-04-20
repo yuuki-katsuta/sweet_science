@@ -4,22 +4,23 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import TextInputField from '../InputField/TextInputField';
 import BaseButton from '../Button/BaseButton';
+import styled from 'styled-components';
 
-const descriptionStyle = {
-  margin: '18px 0 8px',
-  color: '#666666',
-  fontWeight: 'bold',
-};
-const formStyle = {
-  width: '100%',
-  marginTop: '8px',
-};
-const submitStyle = {
-  margin: '24px 0px 24px',
-};
-const guestLoginStyle = {
-  margin: '0 0 16px',
-};
+const SDescription = styled.div`
+  margin-top: 18px;
+  color: #666666;
+  font-weight: bold;
+`;
+const SForm = styled.form`
+  width: 100%;
+  margin-top: 8px;
+`;
+const SLoginButton = styled(BaseButton)`
+  margin: 24px 0px 16px;
+`;
+const SGuestLoginButton = styled(BaseButton)`
+  margin: 0 0 16px;
+`;
 
 const LoginForm = ({ setIsLogin, isLogin }) => {
   const [email, setEmail] = useState('');
@@ -32,14 +33,14 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
 
   return (
     <>
-      <div style={descriptionStyle}>
+      <SDescription>
         <p>
           ボクシングファンのためのチャットアプリ
           <br />
           試合内容や採点結果についてに談論することができます！
         </p>
-      </div>
-      <form className={formStyle} noValidate>
+      </SDescription>
+      <SForm noValidate>
         <TextInputField
           variant='outlined'
           margin='normal'
@@ -70,28 +71,26 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
             setPassword(e.target.value);
           }}
         />
-        <BaseButton
+        <SLoginButton
           fullWidth
           variant='contained'
           color='primary'
-          style={submitStyle}
           setState={() => {
             login(email, password);
           }}
         >
           Log In
-        </BaseButton>
-        <BaseButton
+        </SLoginButton>
+        <SGuestLoginButton
           fullWidth
           variant='contained'
           color='default'
-          style={guestLoginStyle}
           setState={() => {
             guestLogin();
           }}
         >
           ゲストログイン
-        </BaseButton>
+        </SGuestLoginButton>
         <Grid container>
           <Grid item>
             <Link
@@ -101,11 +100,11 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
               }}
               variant='body2'
             >
-              {"Don't have an account? Sign up"}
+              "Don't have an account? Sign up"
             </Link>
           </Grid>
         </Grid>
-      </form>
+      </SForm>
     </>
   );
 };

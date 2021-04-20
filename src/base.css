@@ -48,7 +48,7 @@ h1.match-title, h2.section-title{
 @media screen and (min-width:280px) {
   /*画面サイズが280pxからはここを読み込む*/
   p {
-    font-size: 3.8vmin;
+    font-size: 4vmin;
   }
   h1 {
     font-size: 20px

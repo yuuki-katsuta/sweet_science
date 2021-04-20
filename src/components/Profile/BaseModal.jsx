@@ -1,26 +1,26 @@
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import styled from 'styled-components';
 
-const modal = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-const paper = {
-  height: 'auto',
-  width: '40%',
-  minWidth: '270px',
-  maxWidth: '650px',
-  backgroundColor: 'white',
-  border: '2px solid #000',
-  padding: '16px 32px 24px',
-};
+const SModal = styled(Modal)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const SPaper = styled.div`
+  height: auto;
+  width: 40%;
+  min-width: 270px;
+  max-width: 650px;
+  background-color: white;
+  border: 2px solid #000;
+  padding: 16px 32px 24px;
+`;
 
 const BaseModal = ({ children, open }) => {
   return (
-    <Modal
-      style={modal}
+    <SModal
       open={open}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -29,9 +29,9 @@ const BaseModal = ({ children, open }) => {
       }}
     >
       <Fade in={open}>
-        <div style={paper}>{children}</div>
+        <SPaper>{children}</SPaper>
       </Fade>
-    </Modal>
+    </SModal>
   );
 };
 

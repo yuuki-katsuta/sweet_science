@@ -3,41 +3,46 @@ import { AuthContext } from '../auth/AuthProvider';
 import { useHistory } from 'react-router-dom';
 import BaseButton from './Button/BaseButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import styled from 'styled-components';
 
-const buttonStyle = { marginTop: '20px' };
-const containerStyle = { marginTop: '200px', textAlign: 'center' };
-const textStyle = {
-  marginBottom: '14px',
-  color: '#666666',
-  fontWeight: 'bold',
-};
+const SBackButton = styled(BaseButton)`
+  margin-top: 20px;
+`;
+const SContainer = styled.div`
+  margin-top: 200px;
+  text-align: center;
+`;
+const STextWrapper = styled.div`
+  margin-bottom: 32px;
+  color: #666666;
+  font-weight: bold;
+`;
 
 const Page404 = () => {
   const { isLoading } = useContext(AuthContext);
   const history = useHistory();
 
   return isLoading ? null : (
-    <div style={containerStyle}>
+    <SContainer>
       <h1>404 Not Found</h1>
-      <div style={textStyle}>
+      <STextWrapper>
         <p>
           お探しのページが見つかりませんでした。
           <br />
           URLにお間違いがないか再度ご確認ください。
         </p>
-      </div>
-      <BaseButton
-        style={buttonStyle}
+      </STextWrapper>
+      <SBackButton
         variant='contained'
         color='default'
         startIcon={<ArrowBackIcon />}
         setState={() => {
-          history.push('/');
+          history.goBack();
         }}
       >
-        トップページに戻る
-      </BaseButton>
-    </div>
+        直前のページに戻る
+      </SBackButton>
+    </SContainer>
   );
 };
 export default Page404;

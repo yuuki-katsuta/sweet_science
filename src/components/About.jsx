@@ -1,16 +1,26 @@
 import Container from '@material-ui/core/Container';
+import styled from 'styled-components';
 
-const sectionStyle = { textAlign: 'left', marginBottom: '40px' };
-const containerStyle = { textAlign: 'center', margin: '120px auto 40px' };
-const descriptionStyle = { textAlign: 'left', marginBottom: '40px' };
+const SSection = styled.div`
+  text-align: left;
+  margin-bottom: 40px;
+`;
+const SContainer = styled.div`
+  text-align: center;
+  margin: 120px auto 40px;
+`;
+const SDescription = styled.div`
+  text-align: left;
+  margin-bottom: 40px;
+`;
 
 const About = () => {
   return (
-    <div style={containerStyle}>
+    <SContainer>
       <Container maxWidth='md'>
         <h2>About</h2>
         <h3>本アプリケーションをご利用いただきましてありがとうございます。</h3>
-        <div style={descriptionStyle}>
+        <SDescription>
           <p>
             本アプリでは、ボクシングの採点結果について談論・ディスカッションすることができます。
             <br />
@@ -22,10 +32,10 @@ const About = () => {
             ボクシングのスコアリングシステムは、時に多くの論争を引き起こすかもしれませんが、健全なチャットにご協力お願いします！
             <br />
           </p>
-        </div>
+        </SDescription>
 
         <h1>Official boxing scoring criteria</h1>
-        <div style={sectionStyle}>
+        <SSection>
           <h3>有効なクリーンヒット</h3>
           <p>
             ボクシングのタイトルマッチで最も重視されるのが有効なクリーンヒットです。有効なクリーンヒットとは、相手にダメージを与える顔面やボディへのパンチで、有効なクリーンヒットの数が多ければ、文句なしにポイントを奪取できます。
@@ -42,10 +52,10 @@ const About = () => {
           <p>
             有効なクリーンヒット、積極的な攻撃姿勢、ディフェンス技術でも優劣を付けることができない場合は、どちらが試合の主導権を支配しているのか、つまり、どちらのペースで試合が進んでいるのかで優劣を付けます。
           </p>
-        </div>
+        </SSection>
 
         <h1>Basic information</h1>
-        <div style={sectionStyle}>
+        <SSection>
           <p>
             ・1ラウンドごとに優勢な方を10点とし、劣勢な方を減点する。（10POINT
             MUSTSYSTEM）
@@ -58,10 +68,10 @@ const About = () => {
           <p>
             ・また地域コミッションやジャッジの出身地域により採点傾向の違いなどが見られます
           </p>
-        </div>
+        </SSection>
 
         <h1>Point at issue</h1>
-        <div style={sectionStyle}>
+        <SSection>
           <p>
             ・有効なクリーンヒット等で優劣が明かなラウンドと、僅差で微妙なラウンドとが
             共に１０対９と同じポイントとなるため試合全体の印象とは異なる結果がもたら
@@ -95,9 +105,9 @@ const About = () => {
           <p>
             ・ジャッジはリングサイドから試合を見ているが、有効なパンチが死角に入りチェックできないことも起こりうる。
           </p>
-        </div>
+        </SSection>
       </Container>
-    </div>
+    </SContainer>
   );
 };
 export default About;

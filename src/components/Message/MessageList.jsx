@@ -6,33 +6,40 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import LikedCount from './LikedCount';
+import styled from 'styled-components';
 
-const inlineStyle = {
-  display: 'inline',
-  wordBreak: 'break-word',
-};
-const imageStyle = {
-  width: '11.5vmin',
-  height: '11.5vmin',
-  border: '1px solid #AAAAAA',
-  display: 'inline-block',
-  maxWidth: '50px',
-  maxHeight: '50px',
-};
-const ownMessageStyle = {
-  textAlign: 'left',
-  display: 'inline-block',
-  wordBreak: 'break-word',
-};
-const listItemIconStyle = {
-  display: 'inline-block',
-  textAlign: 'center',
-  margin: '4px 0 0 0',
-};
-const likedCountWrapper = { display: 'flex', justifyContent: 'flex-end' };
-const nameStyle = { textAlign: 'right', margin: '0 0px 3px 0px' };
-const ownMessageWrapper = { textAlign: 'right' };
-const otherNamesStyle = { margin: '0' };
+const SAvatar = styled(Avatar)`
+  width: 11.5vmin;
+  height: 11.5vmin;
+  border: 1px solid #aaaaaa;
+  display: inline-block;
+  max-width: 50px;
+  max-height: 50px;
+`;
+const SOwnMessage = styled.div`
+  text-align: left;
+  display: inline-block;
+  word-break: break-word;
+`;
+const SListItemIcon = styled(ListItemIcon)`
+  display: inline-block;
+  text-align: center;
+  margin: 4px 0 0 0;
+`;
+const SlikedCountWrapper = styled.span`
+  display: flex;
+  justify-content: flex-end;
+`;
+const SMyName = styled.h4`
+  text-align: right;
+  margin: 0 0px 3px 0px;
+`;
+const SOwnMessageWrapper = styled.div`
+  text-align: right;
+`;
+const SOtherName = styled.h4`
+  margin: 0;
+`;
 
 const MessageList = memo(
   ({
@@ -47,52 +54,41 @@ const MessageList = memo(
             className='listItem'
             secondary={
               <Typography component='span' variant='body2' color='textPrimary'>
-                <div style={ownMessageWrapper}>
-                  <div style={ownMessageStyle}>
-                    <h4 style={nameStyle}>{name ? name : 'ゲストユーザー'}</h4>
+                <SOwnMessageWrapper>
+                  <SOwnMessage>
+                    <SMyName>{name ? name : 'ゲストユーザー'}</SMyName>
                     {message.split('\n').map((t, i) => {
                       return <div key={i}>{t}</div>;
                     })}
-                    <span style={likedCountWrapper}>
+                    <SlikedCountWrapper>
                       <LikedCount
                         title={title}
                         id={id}
                         currentUser={currentUser}
                       />
-                    </span>
-                  </div>
-                </div>
+                    </SlikedCountWrapper>
+                  </SOwnMessage>
+                </SOwnMessageWrapper>
               </Typography>
             }
           />
-          <ListItemIcon style={listItemIconStyle}>
-            <Avatar
-              alt='uploaded'
-              src={currentUser.photoURL}
-              style={imageStyle}
-            />
-          </ListItemIcon>
+          <SListItemIcon>
+            <SAvatar alt='uploaded' src={currentUser.photoURL} />
+          </SListItemIcon>
         </ListItem>
         <Divider variant='middle' />
       </div>
     ) : (
       <div>
         <ListItem alignItems='flex-start'>
-          <ListItemIcon style={listItemIconStyle}>
-            <Avatar alt='uploaded' src={photoURL} style={imageStyle} />
-          </ListItemIcon>
+          <SListItemIcon>
+            <SAvatar alt='uploaded' src={photoURL} />
+          </SListItemIcon>
           <ListItemText
             className='listItem'
-            primary={
-              <h4 style={otherNamesStyle}>{name ? name : 'ゲストユーザー'}</h4>
-            }
+            primary={<SOtherName>{name ? name : 'ゲストユーザー'}</SOtherName>}
             secondary={
-              <Typography
-                component='span'
-                variant='body2'
-                style={inlineStyle}
-                color='textPrimary'
-              >
+              <Typography component='span' variant='body2' color='textPrimary'>
                 {message.split('\n').map((t, i) => {
                   return <div key={i}>{t}</div>;
                 })}

@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import styled from 'styled-components';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
 }));
+const SWrapper = styled.div`
+  margin-top: 180px;
+  text-align: center;
+`;
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -45,9 +50,9 @@ const Auth = () => {
   const classes = useStyles();
 
   return isLoading ? (
-    <div style={{ marginTop: '180px', textAlign: 'center' }}>
+    <SWrapper>
       <CircularProgress />
-    </div>
+    </SWrapper>
   ) : currentUser ? (
     <Redirect to={'/'} />
   ) : (

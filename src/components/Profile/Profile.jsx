@@ -6,22 +6,25 @@ import UserImage from './UserImage';
 import EditName from './EditName';
 import EditEmail from './EditEmail';
 import EditPassword from './EditPassword';
+import styled from 'styled-components';
 
-const title = {
-  marginBottom: '16px',
-  color: '#666666',
-  fontWeight: 'bold',
-};
-const profileItemStyle = {
-  display: 'flex',
-  alignItems: 'center',
-};
-const profileItemWrapper = {
-  width: '35%',
-  margin: '0 auto ',
-  textAlign: 'left',
-  minWidth: '300px',
-};
+const STitle = styled.div`
+  margin-bottom: 16px;
+  color: #666666;
+  font-weight: bold;
+`;
+const SProfileItem = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const SProfileItemWrapper = styled.div`
+  margin: 0 auto;
+  text-align: left;
+  overflow-x: scroll;
+  white-space: nowrap;
+  width: 100%;
+  max-width: 300px;
+`;
 
 const Profile = () => {
   const { guestUser, currentUser } = useContext(AuthContext);
@@ -33,18 +36,18 @@ const Profile = () => {
       <div className='container'>
         <Container maxWidth='md'>
           <h2>Your Profile</h2>
-          <div style={title}>
+          <STitle>
             <p>プロフィール情報を編集することができます</p>
-          </div>
+          </STitle>
           <UserImage />
-          <div style={profileItemWrapper}>
-            <div style={profileItemStyle}>
+          <SProfileItemWrapper>
+            <SProfileItem>
               <EditName currentUser={currentUser} />
-            </div>
-            <div style={profileItemStyle}>
+            </SProfileItem>
+            <SProfileItem>
               <EditEmail currentUser={currentUser} />
-            </div>
-          </div>
+            </SProfileItem>
+          </SProfileItemWrapper>
           <EditPassword />
         </Container>
       </div>

@@ -3,8 +3,12 @@ import MatchInformation from './MatchInformation';
 import MessageItem from './Message/MessageItem';
 import Container from '@material-ui/core/Container';
 import Score from './Score/Score.jsx';
+import styled from 'styled-components';
 
-const containerStyle = { padding: '0 10px', marginTop: '40px' };
+const SContainer = styled(Container)`
+  padding: 0 10px;
+  margin-top: 40px;
+`;
 
 const Chat = () => {
   const location = useLocation();
@@ -16,9 +20,9 @@ const Chat = () => {
           <Score matchData={location.state.matchData} />
         )}
       </Container>
-      <Container maxWidth='lg' disableGutters={true} style={containerStyle}>
+      <SContainer maxWidth='lg' disableGutters={true}>
         <MessageItem matchData={location.state.matchData} />
-      </Container>
+      </SContainer>
     </div>
   ) : (
     <Redirect to={'/'} />

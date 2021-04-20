@@ -5,15 +5,15 @@ const BaseButton = ({
   fullWidth,
   variant,
   color,
-  style,
   setState,
+  className,
 }) => {
   return (
     <Button
+      className={className}
       fullWidth={fullWidth}
       variant={variant}
       color={color}
-      style={style}
       onClick={setState}
     >
       {children}

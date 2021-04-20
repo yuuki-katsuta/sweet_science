@@ -1,6 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 
 const TextInputField = ({
+  className,
   id,
   label,
   type,
@@ -21,6 +22,7 @@ const TextInputField = ({
 }) => {
   return (
     <TextField
+      className={className}
       multiline={multiline}
       fullWidth={fullWidth}
       rows={rows}

@@ -5,10 +5,18 @@ import BaseIconButton from '../Button/BaseIconButton';
 import BaseButton from '../Button/BaseButton';
 import TextInputField from '../InputField/TextInputField';
 import BaseModal from './BaseModal.jsx';
+import styled from 'styled-components';
 
-const buttonStyle = { margin: '0 0 3px auto' };
-const inputFieldWrapper = { textAlign: 'left' };
-const buttonWrapper = { textAlign: 'right', marginTop: '16px' };
+const SIconButton = styled(BaseIconButton)`
+  margin: 0 0 3px auto;
+`;
+const SButtonWrapper = styled.div`
+  text-align: right;
+  margin-top: 16px;
+`;
+const SInputField = styled.div`
+  text-align: left;
+`;
 
 const EditName = ({ currentUser }) => {
   const [isNameChanged, setIsNameChanged] = useState(false);
@@ -35,16 +43,15 @@ const EditName = ({ currentUser }) => {
         Name:&nbsp;&nbsp;
         {!name || isNameChanged ? currentUser.displayName : name}
       </h3>
-      <BaseIconButton
-        style={buttonStyle}
+      <SIconButton
         onClickHandler={() => {
           handleOpen();
         }}
       >
         <CreateIcon />
-      </BaseIconButton>
+      </SIconButton>
       <BaseModal open={open}>
-        <div style={inputFieldWrapper}>
+        <SInputField>
           <h3>Please enter a new Name</h3>
           <br />
           <TextInputField
@@ -58,8 +65,8 @@ const EditName = ({ currentUser }) => {
             }}
             placeholder={currentUser.displayName}
           />
-        </div>
-        <div style={buttonWrapper}>
+        </SInputField>
+        <SButtonWrapper>
           <BaseButton
             setState={() => {
               resetState();
@@ -76,7 +83,7 @@ const EditName = ({ currentUser }) => {
           >
             Save
           </BaseButton>
-        </div>
+        </SButtonWrapper>
       </BaseModal>
     </>
   );

@@ -5,11 +5,22 @@ import BaseIconButton from '../Button/BaseIconButton';
 import BaseButton from '../Button/BaseButton';
 import TextInputField from '../InputField/TextInputField';
 import BaseModal from './BaseModal.jsx';
+import styled from 'styled-components';
 
-const inputFieldWrapper = { textAlign: 'left' };
-const buttonStyle = { margin: '0 0 3px auto' };
-const textInputFieldStyle = { textAlign: 'left', marginBottom: '16px' };
-const buttonWrapper = { textAlign: 'right', marginTop: '16px' };
+const SInputFieldWrapper = styled.div`
+  text-align: left;
+`;
+const SIconButton = styled(BaseIconButton)`
+  margin: 0 0 3px auto;
+`;
+const SButtonWrapper = styled.div`
+  text-align: right;
+  margin-top: 16px;
+`;
+const STextInputField = styled(TextInputField)`
+  text-align: left;
+  margin-bottom: 16px;
+`;
 
 const EditEmail = ({ currentUser }) => {
   const [email, setEmail] = useState('');
@@ -44,18 +55,17 @@ const EditEmail = ({ currentUser }) => {
           ? email.substr(0, 20) + '...'
           : email}
       </h3>
-      <BaseIconButton
-        style={buttonStyle}
+      <SIconButton
         onClickHandler={() => {
           handleOpen();
         }}
       >
         <CreateIcon />
-      </BaseIconButton>
+      </SIconButton>
       <BaseModal open={open}>
-        <div style={inputFieldWrapper}>
+        <SInputFieldWrapper>
           <h3>Please enter a new Email</h3>
-          <TextInputField
+          <STextInputField
             fullWidth
             type='password'
             label='Current Password'
@@ -64,21 +74,20 @@ const EditEmail = ({ currentUser }) => {
             setState={(e) => {
               setCurrentPassword(e.target.value);
             }}
-            style={textInputFieldStyle}
           />
           <TextInputField
             fullWidth
             id='standard-name-required'
             name='email'
             type='email'
+            placeholder='new Email'
             value={email}
             setState={(e) => {
               setEmail(e.target.value);
             }}
-            placeholder='new Email'
           />
-        </div>
-        <div style={buttonWrapper}>
+        </SInputFieldWrapper>
+        <SButtonWrapper>
           <BaseButton
             setState={() => {
               resetState();
@@ -95,7 +104,7 @@ const EditEmail = ({ currentUser }) => {
           >
             Save
           </BaseButton>
-        </div>
+        </SButtonWrapper>
       </BaseModal>
     </>
   );

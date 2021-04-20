@@ -6,11 +6,11 @@ const InputField = ({
   value,
   setState,
   fullWidth,
-  style,
+  className,
 }) => {
   return (
     <Input
-      style={style}
+      className={className}
       fullWidth={fullWidth}
       placeholder={placeholder}
       value={value}

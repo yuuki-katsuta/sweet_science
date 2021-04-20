@@ -4,14 +4,15 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import TextInputField from '../InputField/TextInputField';
 import BaseButton from '../Button/BaseButton';
+import styled from 'styled-components';
 
-const formStyle = {
-  width: '100%',
-  marginTop: '16px',
-};
-const submitStyle = {
-  margin: '24px 0 16px',
-};
+const SForm = styled.form`
+  width: 100%;
+  margintop: 16px;
+`;
+const SSignupButton = styled(BaseButton)`
+  margin: 24px 0 16px;
+`;
 
 const SignupForm = ({ setIsLogin, isLogin }) => {
   const [email, setEmail] = useState('');
@@ -27,7 +28,7 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
   };
 
   return (
-    <form className={formStyle} noValidate>
+    <SForm noValidate>
       <TextInputField
         variant='outlined'
         margin='normal'
@@ -83,17 +84,16 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
           setConfirmPassword(e.target.value);
         }}
       />
-      <BaseButton
+      <SSignupButton
         fullWidth
         variant='contained'
         color='primary'
-        style={submitStyle}
         setState={() => {
           signup(email, password, confirmPassword, name);
         }}
       >
         Sign Up
-      </BaseButton>
+      </SSignupButton>
       <Grid container>
         <Grid item>
           <Link
@@ -107,7 +107,7 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
           </Link>
         </Grid>
       </Grid>
-    </form>
+    </SForm>
   );
 };
 

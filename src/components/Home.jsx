@@ -7,18 +7,21 @@ import News from './News';
 import AddMatchInformation from './Add/AddMatchInformation';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
+import styled from 'styled-components';
 
-const descriptionStyle = {
-  marginBottom: '14px',
-  color: '#666666',
-  fontWeight: 'bold',
-};
-const addMatchSectionStyle = { margin: '50px 0 60px' };
-const newsSectionStyle = {
-  width: '100%',
-  margin: '56px auto 0',
-  textAlign: 'center',
-};
+const SDescription = styled.div`
+  margin-bottom: 14px;
+  color: #666666;
+  font-weight: bold;
+`;
+const SAddMatchSectionStyle = styled.div`
+  margin: 50px 0 60px;
+`;
+const SNewsSection = styled.div`
+  width: 100%;
+  margin: 56px auto 0;
+  text-align: center;
+`;
 
 const Home = memo(() => {
   const { adminUser } = useContext(AuthContext);
@@ -56,17 +59,17 @@ const Home = memo(() => {
   return (
     <div className='container'>
       <h2 className='section-title'>Boxing Fights</h2>
-      <div style={descriptionStyle}>
+      <SDescription>
         <p>
           ボクシングの試合一覧を表示しています。
           <br />
           クリックすると各チャットページへ遷移します。
         </p>
-      </div>
+      </SDescription>
       <MatchList matchData={matchData} />
       {adminUser ? (
         <>
-          <MediaQuery query='(max-width: 800px)'>
+          <MediaQuery query='(max-width: 840px)'>
             <Divider />
             <News
               title={matchData.title}
@@ -74,28 +77,28 @@ const Home = memo(() => {
               matchData={matchData}
             />
           </MediaQuery>
-          <MediaQuery query='(min-width: 801px)'>
+          <MediaQuery query='(min-width: 841px)'>
             <Container maxWidth='md'>
-              <div style={addMatchSectionStyle}>
+              <SAddMatchSectionStyle>
                 <Divider />
                 <AddMatchInformation
                   getMatcheInformation={getMatcheInformation}
                   setMatchData={setMatchData}
                 />
-              </div>
+              </SAddMatchSectionStyle>
             </Container>
           </MediaQuery>
         </>
       ) : (
         <Container maxWidth='md'>
-          <div style={newsSectionStyle}>
+          <SNewsSection>
             <Divider />
             <News
               title={matchData.title}
               creationTime={matchData.createdAt}
               matchData={matchData}
             />
-          </div>
+          </SNewsSection>
         </Container>
       )}
     </div>

@@ -3,11 +3,22 @@ import { AuthContext } from '../../auth/AuthProvider.js';
 import BaseButton from '../Button/BaseButton';
 import TextInputField from '../InputField/TextInputField';
 import BaseModal from './BaseModal.jsx';
+import styled from 'styled-components';
 
-const InputFieldWrapper = { textAlign: 'center' };
-const PasswordInputField = { margin: '8px 0', maxWidth: '552px' };
-const buttonStyle = { margin: '16px auto 42px' };
-const buttonWrapper = { textAlign: 'right', marginTop: '16px' };
+const SInputFieldWrapper = styled.div`
+  text-align: 'center';
+`;
+const SPasswordInputField = styled(TextInputField)`
+  margin: 8px 0;
+  ma-width: 552px;
+`;
+const SChangePasswordButton = styled(BaseButton)`
+  margin: 16px auto 42px;
+`;
+const SButtonWrapper = styled.div`
+  text-align: right;
+  margin-top: 16px;
+`;
 
 const Password = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -27,19 +38,18 @@ const Password = () => {
   };
   return (
     <>
-      <BaseButton
-        style={buttonStyle}
+      <SChangePasswordButton
         variant='outlined'
         setState={() => {
           setOpen(true);
         }}
       >
         Change Password
-      </BaseButton>
+      </SChangePasswordButton>
       <BaseModal open={open}>
         <h3>Please enter a new Password</h3>
-        <div style={InputFieldWrapper}>
-          <TextInputField
+        <SInputFieldWrapper>
+          <SPasswordInputField
             type='password'
             label='Current Password'
             placeholder='Current Password'
@@ -47,12 +57,9 @@ const Password = () => {
               setCurrentPassword(e.target.value);
             }}
             value={currentPassword}
-            style={PasswordInputField}
             fullWidth
           />
-        </div>
-        <div style={InputFieldWrapper}>
-          <TextInputField
+          <SPasswordInputField
             type='password'
             label='New Password'
             placeholder='New Password'
@@ -60,12 +67,9 @@ const Password = () => {
               setNewPassword(e.target.value);
             }}
             value={newPassword}
-            style={PasswordInputField}
             fullWidth
           />
-        </div>
-        <div style={InputFieldWrapper}>
-          <TextInputField
+          <SPasswordInputField
             type='password'
             label='Confirim Password'
             placeholder='Confirim Password'
@@ -73,11 +77,10 @@ const Password = () => {
               setConfirmPassword(e.target.value);
             }}
             value={confirmPassword}
-            style={PasswordInputField}
             fullWidth
           />
-        </div>
-        <div style={buttonWrapper}>
+        </SInputFieldWrapper>
+        <SButtonWrapper>
           <BaseButton
             setState={() => {
               resetState();
@@ -103,7 +106,7 @@ const Password = () => {
           >
             Save
           </BaseButton>
-        </div>
+        </SButtonWrapper>
       </BaseModal>
     </>
   );

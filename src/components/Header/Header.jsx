@@ -13,6 +13,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import styled from 'styled-components';
 
 const theme = createMuiTheme({
   palette: {
@@ -21,12 +22,12 @@ const theme = createMuiTheme({
     },
   },
 });
-const headerStyle = {
-  flexGrow: 1,
-};
-const titleStyle = {
-  flexGrow: 1,
-};
+const SHeader = styled.div`
+  flex-grow: 1;
+`;
+const STitle = styled(Typography)`
+  flex-grow: 1;
+`;
 
 const Header = () => {
   const { currentUser, setAdminUser, setGuestUser, guestUser } = useContext(
@@ -45,11 +46,11 @@ const Header = () => {
   return (
     currentUser && (
       <ThemeProvider theme={theme}>
-        <div style={headerStyle}>
+        <SHeader>
           <FormGroup></FormGroup>
           <AppBar position='fixed'>
             <Toolbar>
-              <Typography variant='h6' style={titleStyle}>
+              <STitle variant='h6'>
                 <span
                   onClick={() => {
                     history.push('/');
@@ -58,7 +59,7 @@ const Header = () => {
                 >
                   Boxing Lab
                 </span>
-              </Typography>
+              </STitle>
               <div>
                 <BaseIconButton onClickHandler={handleMenu} color='inherit'>
                   <AccountCircle fontSize='large' />
@@ -122,7 +123,7 @@ const Header = () => {
               </div>
             </Toolbar>
           </AppBar>
-        </div>
+        </SHeader>
       </ThemeProvider>
     )
   );

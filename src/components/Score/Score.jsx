@@ -1,6 +1,7 @@
 import { useEffect, useState, memo, useRef } from 'react';
 import { db } from '../../base';
 import ScoreTable from './ScoreTable';
+import styled from 'styled-components';
 
 const createData = (
   name,
@@ -33,7 +34,10 @@ const createData = (
     twelve,
   };
 };
-const judgerNameStyle = { textAlign: 'left', margin: '0 0 0 8px' };
+const SJudgeName = styled.h4`
+  text-align: left;
+  margin: 0 0 0 8px;
+`;
 
 const Score = memo(({ matchData }) => {
   const [update, setUpdata] = useState(false);
@@ -96,13 +100,13 @@ const Score = memo(({ matchData }) => {
 
   return (
     <div>
-      <h4 style={judgerNameStyle}>{judgeName.current.judgeA}</h4>
+      <SJudgeName>{judgeName.current.judgeA}</SJudgeName>
       <ScoreTable Scoring={ScoringA.current} />
 
-      <h4 style={judgerNameStyle}>{judgeName.current.judgeB}</h4>
+      <SJudgeName>{judgeName.current.judgeB}</SJudgeName>
       <ScoreTable Scoring={ScoringB.current} />
 
-      <h4 style={judgerNameStyle}>{judgeName.current.judgeC}</h4>
+      <SJudgeName>{judgeName.current.judgeC}</SJudgeName>
       <ScoreTable Scoring={ScoringC.current} />
     </div>
   );
