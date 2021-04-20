@@ -10,7 +10,7 @@ import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
 
 const SDescription = styled.div`
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   color: #666666;
   font-weight: bold;
 `;

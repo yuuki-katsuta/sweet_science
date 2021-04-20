@@ -76,10 +76,10 @@ const MatchInformation = memo(({ matchData }) => {
         </div>
       ) : (
         <SContainer>
-          <MediaQuery query='(max-width: 580px)'>
+          <MediaQuery query='(max-width: 460px)'>
             <MatchData SmallWidth />
           </MediaQuery>
-          <MediaQuery query='(min-width: 581px)'>
+          <MediaQuery query='(min-width: 461px)'>
             <MatchData />
           </MediaQuery>
         </SContainer>

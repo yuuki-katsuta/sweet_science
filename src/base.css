@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Kreon:wght@600&family=Lato&family=Markazi+Text:wght@600&family=Montserrat&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@600&family=Hepta+Slab:wght@500&family=Kreon:wght@600&family=Lato&family=Markazi+Text:wght@600&family=Montserrat&family=Roboto&family=Varta:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pridi&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Neuton&display=swap');
 
 html {
   margin: 0;
@@ -42,7 +42,8 @@ span.main-title {
   cursor: pointer;
 }
 h1.match-title, h2.section-title{
-  font-family: 'Pridi', serif;
+  font-family: 'Neuton', serif;
+  margin-bottom: 16px;
 }
 
 @media screen and (min-width:280px) {
@@ -51,10 +52,10 @@ h1.match-title, h2.section-title{
     font-size: 4vmin;
   }
   h1 {
-    font-size: 20px
+    font-size :6.6vmin;
   }
   h2.section-title {
-    font-size: 28px
+    font-size: 32px
   }
   h4 {
     font-size: 14px;
@@ -108,11 +109,18 @@ h1.match-title, h2.section-title{
   }
 }
 @media screen and (min-width:415px) {
+  div.listItem {
+    margin-right: 16px;
+    margin-left: 16px;
+  }
   p {
     font-size: 16px
   }
   h1 {
-    font-size: 22px
+    font-size: 24px
+  }
+  h1.match-title{
+    font-size: 28px
   }
   h4 {
     font-size: 15px;
@@ -131,10 +139,6 @@ h1.match-title, h2.section-title{
   }
 }
 @media screen and (min-width:680px) and ( max-width:1024px) {
-  div.listItem {
-    margin-right: 16px;
-    margin-left: 16px;
-  }
   span.MuiTypography-root {
     font-size: 16px
   }
@@ -152,7 +156,7 @@ h1.match-title, h2.section-title{
     font-size: 16px;
   }
   h1 {
-    font-size: 28px
+    font-size: 32px
   }
 }
 @media screen and (min-width:1024px) {
@@ -160,14 +164,11 @@ h1.match-title, h2.section-title{
     margin-right: 16px;
     margin-left: 16px;
   }
-  h1 {
-    font-size: 32px;
-  }
   h2 {
     font-size: 27px;
   }
   p{
-    font-size: 16px;
+    font-size: 18px;
     margin: 2px;
   }
   h4 {
@@ -191,4 +192,14 @@ h1.match-title, h2.section-title{
   svg.MuiSvgIcon-fontSizeSmall {
     font-size: 20px;
   }
+  h1 {
+    font-size: 28px
+  }
+  h1.match-title {
+    font-size: 38px;
+  }
+  h2.section-title {
+    font-size: 36px;
+  }
+
 }

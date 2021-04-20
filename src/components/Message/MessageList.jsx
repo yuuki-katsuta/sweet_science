@@ -40,6 +40,9 @@ const SOwnMessageWrapper = styled.div`
 const SOtherName = styled.h4`
   margin: 0;
 `;
+const STypography = styled(Typography)`
+  word-break: break-word;
+`;
 
 const MessageList = memo(
   ({
@@ -88,14 +91,14 @@ const MessageList = memo(
             className='listItem'
             primary={<SOtherName>{name ? name : 'ゲストユーザー'}</SOtherName>}
             secondary={
-              <Typography component='span' variant='body2' color='textPrimary'>
+              <STypography component='span' variant='body2' color='textPrimary'>
                 {message.split('\n').map((t, i) => {
                   return <div key={i}>{t}</div>;
                 })}
                 <span>
                   <LikedCount title={title} id={id} currentUser={currentUser} />
                 </span>
-              </Typography>
+              </STypography>
             }
           />
         </ListItem>
