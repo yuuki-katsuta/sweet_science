@@ -26,9 +26,16 @@ const SListItemIcon = styled(ListItemIcon)`
   text-align: center;
   margin: 4px 0 0 0;
 `;
-const SlikedCountWrapper = styled.span`
+const SOwnlikedCountWrapper = styled.span`
   display: flex;
   justify-content: flex-end;
+`;
+const SlikedCountWrapper = styled.span`
+  display: flex;
+  justify-content: flex-start;
+`;
+const SMessage = styled.span`
+  display: block;
 `;
 const SMyName = styled.h4`
   text-align: right;
@@ -61,15 +68,15 @@ const MessageList = memo(
                   <SOwnMessage>
                     <SMyName>{name ? name : 'ゲストユーザー'}</SMyName>
                     {message.split('\n').map((t, i) => {
-                      return <div key={i}>{t}</div>;
+                      return <SMessage key={i}>{t}</SMessage>;
                     })}
-                    <SlikedCountWrapper>
+                    <SOwnlikedCountWrapper>
                       <LikedCount
                         title={title}
                         id={id}
                         currentUser={currentUser}
                       />
-                    </SlikedCountWrapper>
+                    </SOwnlikedCountWrapper>
                   </SOwnMessage>
                 </SOwnMessageWrapper>
               </Typography>
@@ -91,14 +98,20 @@ const MessageList = memo(
             className='listItem'
             primary={<SOtherName>{name ? name : 'ゲストユーザー'}</SOtherName>}
             secondary={
-              <STypography component='span' variant='body2' color='textPrimary'>
-                {message.split('\n').map((t, i) => {
-                  return <div key={i}>{t}</div>;
-                })}
-                <span>
+              <>
+                <STypography
+                  component='span'
+                  variant='body2'
+                  color='textPrimary'
+                >
+                  {message.split('\n').map((t, i) => {
+                    return <SMessage key={i}>{t}</SMessage>;
+                  })}
+                </STypography>
+                <SlikedCountWrapper>
                   <LikedCount title={title} id={id} currentUser={currentUser} />
-                </span>
-              </STypography>
+                </SlikedCountWrapper>
+              </>
             }
           />
         </ListItem>
