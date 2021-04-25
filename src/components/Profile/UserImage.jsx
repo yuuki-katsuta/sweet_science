@@ -52,37 +52,36 @@ const UserImage = () => {
   };
 
   const onSubmit = async (event) => {
-    event.preventDefault();
-    if (image === '' || image === undefined) {
-      alert('ファイルが選択されていません');
-      return;
+    try {
+      if (image === '' || image === undefined)
+        throw new Error('Passwords do not match');
+      await imageCollection
+        .where('image', '==', `${filename}`)
+        .get()
+        .then(async (snapShot) => {
+          const data = snapShot.docs[0];
+          isDataExist.current = data?.exists;
+        });
+      //同名のファイルが存在しない場合
+      if (!isDataExist.current) {
+        // アップロード処理
+        const uploadTask = storageRef.put(image);
+        uploadTask.on(
+          firebase.storage.TaskEvent.STATE_CHANGED,
+          next,
+          error,
+          complete
+        );
+        await imageCollection.add({
+          image: `${filename}`,
+          createdAt: new Date(),
+        });
+        return;
+      }
+      complete();
+    } catch (error) {
+      alert(error.message);
     }
-    await imageCollection
-      .where('image', '==', `${filename}`)
-      .get()
-      .then(async (snapShot) => {
-        const data = snapShot.docs[0];
-        isDataExist.current = data?.exists;
-      });
-    //同名のファイルが存在しない場合
-    if (!isDataExist.current) {
-      // アップロード処理
-      const uploadTask = storageRef.put(image);
-      uploadTask.on(
-        firebase.storage.TaskEvent.STATE_CHANGED,
-        next,
-        error,
-        complete
-      );
-      await imageCollection.add({
-        image: `${filename}`,
-        createdAt: new Date(),
-      });
-      setImage('');
-      setFileName('');
-      return;
-    }
-    complete();
   };
   const next = (snapshot) => {};
   const error = (error) => {
