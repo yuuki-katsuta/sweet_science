@@ -44,7 +44,7 @@ const Score = memo(({ matchData }) => {
   const ScoringA = useRef([]);
   const ScoringB = useRef([]);
   const ScoringC = useRef([]);
-  const judgeName = useRef({
+  const totalScore = useRef({
     judgeA: '',
     judgeB: '',
     judgeC: '',
@@ -70,24 +70,33 @@ const Score = memo(({ matchData }) => {
       (async () => {
         const scores = await getScore();
         const [judgeA, judgeB, judgeC] = scores;
-        if (!unmounted) {
-          ScoringA.current = [
-            createData(`${matchData.fighter}`, ...judgeA.fighter),
-            createData(`${matchData.opponent}`, ...judgeA.opponent),
-          ];
-          ScoringB.current = [
-            createData(`${matchData.fighter}`, ...judgeB.fighter),
-            createData(`${matchData.opponent}`, ...judgeB.opponent),
-          ];
-          ScoringC.current = [
-            createData(`${matchData.fighter}`, ...judgeC.fighter),
-            createData(`${matchData.opponent}`, ...judgeC.opponent),
-          ];
-          judgeName.current = {
-            judgeA: judgeA.judge,
-            judgeB: judgeB.judge,
-            judgeC: judgeC.judge,
+
+        //totalを算出
+        // eslint-disable-next-line
+        [judgeA, judgeB, judgeC].map((judge, index) => {
+          const fighterTotal = judge.fighter.reduce((sum, num) => {
+            return sum + num;
+          });
+          const opponentTotal = judge.opponent.reduce((sum, num) => {
+            return sum + num;
+          });
+          totalScore.current = {
+            ...totalScore.current,
+            [['judgeA', 'judgeB', 'judgeC'][index]]: {
+              name: judge.judge,
+              total: `${fighterTotal}-${opponentTotal}`,
+            },
           };
+        });
+        //スコア算出
+        // eslint-disable-next-line
+        [ScoringA, ScoringB, ScoringC].map((Scoring, index) => {
+          Scoring.current = [
+            createData(`${matchData.fighter}`, ...scores[index].fighter),
+            createData(`${matchData.opponent}`, ...scores[index].opponent),
+          ];
+        });
+        if (!unmounted) {
           setUpdata(!update);
         }
       })();
@@ -100,13 +109,17 @@ const Score = memo(({ matchData }) => {
 
   return (
     <div>
-      <SJudgeName>{judgeName.current.judgeA}</SJudgeName>
+      <SJudgeName>
+        {totalScore.current.judgeA.name} {totalScore.current.judgeA.total}
+      </SJudgeName>
       <ScoreTable Scoring={ScoringA.current} />
-
-      <SJudgeName>{judgeName.current.judgeB}</SJudgeName>
+      <SJudgeName>
+        {totalScore.current.judgeB.name} {totalScore.current.judgeB.total}
+      </SJudgeName>
       <ScoreTable Scoring={ScoringB.current} />
-
-      <SJudgeName>{judgeName.current.judgeC}</SJudgeName>
+      <SJudgeName>
+        {totalScore.current.judgeC.name} {totalScore.current.judgeC.total}
+      </SJudgeName>
       <ScoreTable Scoring={ScoringC.current} />
     </div>
   );
