@@ -51,6 +51,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const signOut = async () => {
+    try {
+      await auth.signOut();
+      setAdminUser(false);
+      setGuestUser(false);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   //再認証
   const Reauthentication = async (currentPassword) => {
     const credential = firebase.auth.EmailAuthProvider.credential(
@@ -155,7 +165,6 @@ export const AuthProvider = ({ children }) => {
         currentUser,
         isLoading,
         adminUser,
-        setAdminUser,
         changeCurrentName,
         changeCurrentEmail,
         ChangeCurrentPassword,
@@ -163,7 +172,7 @@ export const AuthProvider = ({ children }) => {
         ResetPhtoUrl,
         guestLogin,
         guestUser,
-        setGuestUser,
+        signOut,
       }}
     >
       {children}
