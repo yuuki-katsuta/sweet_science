@@ -72,8 +72,7 @@ const Score = memo(({ matchData }) => {
         const [judgeA, judgeB, judgeC] = scores;
 
         //totalを算出
-        // eslint-disable-next-line
-        [judgeA, judgeB, judgeC].map((judge, index) => {
+        [judgeA, judgeB, judgeC].forEach((judge, index) => {
           const fighterTotal = judge.fighter.reduce((sum, num) => {
             return sum + num;
           });
@@ -89,8 +88,7 @@ const Score = memo(({ matchData }) => {
           };
         });
         //スコア算出
-        // eslint-disable-next-line
-        [ScoringA, ScoringB, ScoringC].map((Scoring, index) => {
+        [ScoringA, ScoringB, ScoringC].forEach((Scoring, index) => {
           Scoring.current = [
             createData(`${matchData.fighter}`, ...scores[index].fighter),
             createData(`${matchData.opponent}`, ...scores[index].opponent),

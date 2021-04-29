@@ -36,54 +36,51 @@ const SInputField = styled(InputField)`
 const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
   const classes = useStyles();
 
-  const [judgeA, setJudgeA] = useState({
-    name: '',
+  const [scoreA, setScoreA] = useState({
+    judgerName: '',
     fighterScore: '',
     opponentScore: '',
   });
-  const [judgeB, setJudgeB] = useState({
-    name: '',
+  const [scoreB, setScoreB] = useState({
+    judgerName: '',
     fighterScore: '',
     opponentScore: '',
   });
-  const [judgeC, setJudgeC] = useState({
-    name: '',
+  const [scoreC, setScoreC] = useState({
+    judgerName: '',
     fighterScore: '',
     opponentScore: '',
   });
 
   const addChatWithScore = async () => {
     await addChat();
-    //A
-    const judgeAFighterScore = judgeA.fighterScore.split('/').map(Number);
-    const judgeAOpponentScore = judgeA.opponentScore.split('/').map(Number);
-    //B
-    const judgeBFighterScore = judgeB.fighterScore.split('/').map(Number);
-    const judgeBOpponentScore = judgeB.opponentScore.split('/').map(Number);
-    //C
-    const judgeCFighterScore = judgeC.fighterScore.split('/').map(Number);
-    const judgeCOpponentScore = judgeC.opponentScore.split('/').map(Number);
+    let scores = {};
+    [scoreA, scoreB, scoreC].forEach((score, index) => {
+      const FighterScore = score.fighterScore.split('/').map(Number);
+      const OpponentScore = score.opponentScore.split('/').map(Number);
+      scores = {
+        ...scores,
+        [['judgeA', 'judgeB', 'judgeC'][index]]: {
+          name: score.judgerName,
+          fighterScore: FighterScore,
+          opponentScore: OpponentScore,
+        },
+      };
+    });
 
     const scoreData = db
       .collection('chats')
       .doc(`${fighter} vs ${opponent}`)
       .collection('score');
 
-    scoreData.doc(`${judgeA.name}`).set({
-      judge: judgeA.name,
-      fighter: judgeAFighterScore,
-      opponent: judgeAOpponentScore,
-    });
-    scoreData.doc(`${judgeB.name}`).set({
-      judge: judgeB.name,
-      fighter: judgeBFighterScore,
-      opponent: judgeBOpponentScore,
-    });
-    scoreData.doc(`${judgeC.name}`).set({
-      judge: judgeC.name,
-      fighter: judgeCFighterScore,
-      opponent: judgeCOpponentScore,
-    });
+    const { judgeA, judgeB, judgeC } = scores;
+    for (const judge of [judgeA, judgeB, judgeC]) {
+      scoreData.doc(`${judge.name}`).set({
+        judge: judge.name,
+        fighter: judge.fighterScore,
+        opponent: judge.opponentScore,
+      });
+    }
     setChecked(false);
   };
 
@@ -95,18 +92,18 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
             <InputField
               placeholder='Judge'
               inputProps={{ 'aria-label': 'description' }}
-              value={judgeA.name}
+              value={scoreA.judgerName}
               setState={(e) => {
-                setJudgeA({ ...judgeA, name: e.target.value });
+                setScoreA({ ...scoreA, judgerName: e.target.value });
               }}
             />
             <SInputField
               placeholder='fighter score'
               inputProps={{ 'aria-label': 'description' }}
-              value={judgeA.fighterScore}
+              value={scoreA.fighterScore}
               setState={(e) => {
-                setJudgeA({
-                  ...judgeA,
+                setScoreA({
+                  ...scoreA,
                   fighterScore: e.target.value,
                 });
               }}
@@ -114,10 +111,10 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
             <SInputField
               placeholder='opponent score'
               inputProps={{ 'aria-label': 'description' }}
-              value={judgeA.opponentScore}
+              value={scoreA.opponentScore}
               setState={(e) => {
-                setJudgeA({
-                  ...judgeA,
+                setScoreA({
+                  ...scoreA,
                   opponentScore: e.target.value,
                 });
               }}
@@ -127,18 +124,18 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
             <InputField
               placeholder='Judge'
               inputProps={{ 'aria-label': 'description' }}
-              value={judgeB.name}
+              value={scoreB.judgerName}
               setState={(e) => {
-                setJudgeB({ ...judgeB, name: e.target.value });
+                setScoreB({ ...scoreB, judgerName: e.target.value });
               }}
             />
             <SInputField
               placeholder='fighter score'
               inputProps={{ 'aria-label': 'description' }}
-              value={judgeB.fighterScore}
+              value={scoreB.fighterScore}
               setState={(e) => {
-                setJudgeB({
-                  ...judgeB,
+                setScoreB({
+                  ...scoreB,
                   fighterScore: e.target.value,
                 });
               }}
@@ -146,10 +143,10 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
             <SInputField
               placeholder='opponent score'
               inputProps={{ 'aria-label': 'description' }}
-              value={judgeB.opponentScore}
+              value={scoreB.opponentScore}
               setState={(e) => {
-                setJudgeB({
-                  ...judgeB,
+                setScoreB({
+                  ...scoreB,
                   opponentScore: e.target.value,
                 });
               }}
@@ -159,18 +156,18 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
             <InputField
               placeholder='Judge'
               inputProps={{ 'aria-label': 'description' }}
-              value={judgeC.name}
+              value={scoreC.judgerName}
               setState={(e) => {
-                setJudgeC({ ...judgeC, name: e.target.value });
+                setScoreC({ ...scoreC, judgerName: e.target.value });
               }}
             />
             <SInputField
               placeholder='fighter score'
               inputProps={{ 'aria-label': 'description' }}
-              value={judgeC.fighterScore}
+              value={scoreC.fighterScore}
               setState={(e) => {
-                setJudgeC({
-                  ...judgeC,
+                setScoreC({
+                  ...scoreC,
                   fighterScore: e.target.value,
                 });
               }}
@@ -178,10 +175,10 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
             <SInputField
               placeholder='opponent score'
               inputProps={{ 'aria-label': 'description' }}
-              value={judgeC.opponentScore}
+              value={scoreC.opponentScore}
               setState={(e) => {
-                setJudgeC({
-                  ...judgeC,
+                setScoreC({
+                  ...scoreC,
                   opponentScore: e.target.value,
                 });
               }}
