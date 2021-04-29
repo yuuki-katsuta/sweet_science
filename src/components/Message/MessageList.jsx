@@ -86,7 +86,7 @@ const MessageList = memo(
             <SAvatar alt='uploaded' src={currentUser.photoURL} />
           </SListItemIcon>
         </ListItem>
-        <Divider variant='middle' />
+        <Divider variant='fullwidth' />
       </div>
     ) : (
       <div>
@@ -115,7 +115,7 @@ const MessageList = memo(
             }
           />
         </ListItem>
-        <Divider variant='middle' />
+        <Divider variant='fullwidth' />
       </div>
     );
   }

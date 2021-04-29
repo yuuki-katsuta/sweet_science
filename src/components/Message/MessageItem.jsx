@@ -18,9 +18,10 @@ const SList = styled(List)`
     padding: 0;
   }
 `;
-const SOwnMessageStyle = styled.div`
-  &.own {
-    background-color: #eeeeee;
+const SMessageStyle = styled.div`
+  background-color: #fcfcfc;
+  &.ownMessage {
+    background-color: #f7f7f7;
   }
 `;
 
@@ -68,10 +69,10 @@ const MessageItem = ({ matchData }) => {
       <SList className={messages.length !== 0 && 'MessageExists'}>
         {messages.map((message, index) => {
           return (
-            <SOwnMessageStyle
+            <SMessageStyle
               ref={ref}
               key={index}
-              className={message.uid === currentUser.uid ? 'own' : ''}
+              className={message.uid === currentUser.uid ? 'ownMessage' : ''}
             >
               <MessageList
                 className='messageItem'
@@ -79,7 +80,7 @@ const MessageItem = ({ matchData }) => {
                 message={message}
                 currentUser={currentUser}
               />
-            </SOwnMessageStyle>
+            </SMessageStyle>
           );
         })}
       </SList>
