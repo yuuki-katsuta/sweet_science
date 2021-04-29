@@ -12,7 +12,7 @@ const SList = styled(List)`
     overflow: auto;
     gridrow: 1;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1150px;
     margin: 24px auto 10px;
     border-top: thin solid #cccccc;
     padding: 0;
