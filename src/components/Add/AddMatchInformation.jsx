@@ -2,6 +2,7 @@ import { useState, memo } from 'react';
 import { db } from '../../base';
 import AddScore from './AddScore';
 import AddMatchSummary from './AddMatchSummary';
+import AddAvgScore from './AddAvgScore';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Fab from '@material-ui/core/Fab';
@@ -19,6 +20,7 @@ const STooltip = styled(Tooltip)`
 const SFormControlLabel = styled(FormControlLabel)`
   textalign: center;
   margin-top: 8px;
+  padding: 0 16px;
 `;
 
 const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
@@ -31,8 +33,8 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
     venue: '',
     overview: '',
   });
-  const [checked, setChecked] = useState(false);
-
+  const [isAddScore, setIsAddScore] = useState(false);
+  const [isAddAvg, setIsAddAvg] = useState(false);
   const addChat = async () => {
     const {
       fighter,
@@ -59,7 +61,8 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
           createdAt: new Date(),
           venue: venue,
           overview: overview,
-          scoreData: checked,
+          scoreData: isAddScore,
+          AvgScore: isAddAvg,
         });
       const matchInformation = await getMatcheInformation();
       setMatchData(matchInformation);
@@ -89,17 +92,32 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
         <SFormControlLabel
           control={
             <Switch
-              checked={checked}
+              disabled={isAddAvg}
+              checked={isAddScore}
               onChange={() => {
-                setChecked(!checked);
+                setIsAddScore(!isAddScore);
               }}
-              name='checked'
+              name='isAddScore'
               color='primary'
             />
           }
           label='Add Score'
         />
-        {!checked && (
+        <SFormControlLabel
+          control={
+            <Switch
+              disabled={isAddScore}
+              checked={isAddAvg}
+              onChange={() => {
+                setIsAddAvg(!isAddAvg);
+              }}
+              name='isAddScore'
+              color='primary'
+            />
+          }
+          label='Add AVG'
+        />
+        {!isAddScore && !isAddAvg && (
           <STooltip title='Add' aria-label='add'>
             <Fab
               color='primary'
@@ -113,9 +131,17 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
           </STooltip>
         )}
       </SFormItemWrapper>
-      {checked && (
+      {isAddScore && (
         <AddScore
-          setChecked={setChecked}
+          setIsAddScore={setIsAddScore}
+          addChat={addChat}
+          fighter={matchSummary.fighter}
+          opponent={matchSummary.opponent}
+        />
+      )}
+      {isAddAvg && (
+        <AddAvgScore
+          setIsAddAvg={setIsAddAvg}
           addChat={addChat}
           fighter={matchSummary.fighter}
           opponent={matchSummary.opponent}

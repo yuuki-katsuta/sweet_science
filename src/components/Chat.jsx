@@ -1,8 +1,9 @@
 import { Redirect, useLocation } from 'react-router-dom';
 import MatchInformation from './MatchInformation';
 import MessageItem from './Message/MessageItem';
-import Container from '@material-ui/core/Container';
+import AvgScore from './Score/AvgScore';
 import Score from './Score/Score.jsx';
+import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
 
 const SContainer = styled(Container)`
@@ -18,6 +19,9 @@ const Chat = () => {
         <MatchInformation matchData={location.state.matchData} />
         {location.state.matchData.scoreData && (
           <Score matchData={location.state.matchData} />
+        )}
+        {location.state.matchData.AvgScore && (
+          <AvgScore matchData={location.state.matchData} />
         )}
       </Container>
       <SContainer maxWidth='lg' disableGutters={true}>

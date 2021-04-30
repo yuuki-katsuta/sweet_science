@@ -2,38 +2,8 @@ import { useEffect, useState, memo, useRef } from 'react';
 import { db } from '../../base';
 import ScoreTable from './ScoreTable';
 import styled from 'styled-components';
+import { createData } from './Utils/common-method';
 
-const createData = (
-  name,
-  one,
-  two,
-  three,
-  four,
-  five,
-  six,
-  seven,
-  eight,
-  nine,
-  ten,
-  eleven,
-  twelve
-) => {
-  return {
-    name,
-    one,
-    two,
-    three,
-    four,
-    five,
-    six,
-    seven,
-    eight,
-    nine,
-    ten,
-    eleven,
-    twelve,
-  };
-};
 const SContainer = styled.div`
   max-width: 1050px;
   margin: 0 auto;
@@ -74,7 +44,6 @@ const Score = memo(({ matchData }) => {
       (async () => {
         const scores = await getScore();
         const [judgeA, judgeB, judgeC] = scores;
-
         //totalを算出
         [judgeA, judgeB, judgeC].forEach((judge, index) => {
           const fighterTotal = judge.fighter.reduce((sum, num) => {

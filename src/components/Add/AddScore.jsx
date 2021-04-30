@@ -1,11 +1,16 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { db } from '../../base';
 import Fab from '@material-ui/core/Fab';
-import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
 import InputField from '../InputField/InputField';
-import styled from 'styled-components';
+import {
+  SContainer,
+  SFormWrapper,
+  SSubmitWrapper,
+  STooltip,
+  SInputField,
+} from './BaseStyles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,25 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SContainer = styled.div`
-  margin-bottom: 80px;
-`;
-const SFormWrapper = styled.div`
-  margin: 16px auto 0;
-`;
-const SSubmitWrapper = styled.div`
-  position: relative;
-`;
-const STooltip = styled(Tooltip)`
-  position: absolute;
-  right: 0;
-`;
-const SInputField = styled(InputField)`
-  width: 280px;
-  margin: 16px;
-`;
-
-const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
+const AddScore = ({ setIsAddScore, addChat, fighter, opponent }) => {
   const classes = useStyles();
 
   const [scoreA, setScoreA] = useState({
@@ -81,7 +68,7 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
         opponent: judge.opponentScore,
       });
     }
-    setChecked(false);
+    setIsAddScore(false);
   };
 
   return (
@@ -202,5 +189,5 @@ const AddScore = memo(({ setChecked, addChat, fighter, opponent }) => {
       </SSubmitWrapper>
     </SContainer>
   );
-});
+};
 export default AddScore;
