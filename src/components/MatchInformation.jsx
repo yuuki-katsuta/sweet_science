@@ -10,7 +10,7 @@ const SMovieInner = styled.div`
 const SVideoWrapper = styled.div`
   width: 100%;
   margin: 0 auto;
-  max-width: 830px;
+  max-width: 880px;
 `;
 const SVideo = styled.iframe`
   position: absolute;

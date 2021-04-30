@@ -14,7 +14,7 @@ const Chat = () => {
   const location = useLocation();
   return location.state ? (
     <div className='container'>
-      <Container maxWidth='md' disableGutters={true}>
+      <Container maxWidth='lg' disableGutters={true}>
         <MatchInformation matchData={location.state.matchData} />
         {location.state.matchData.scoreData && (
           <Score matchData={location.state.matchData} />

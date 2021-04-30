@@ -34,6 +34,10 @@ const createData = (
     twelve,
   };
 };
+const SContainer = styled.div`
+  max-width: 1050px;
+  margin: 0 auto;
+`;
 const SJudgeName = styled.h4`
   text-align: left;
   margin: 0 0 0 8px;
@@ -106,7 +110,7 @@ const Score = memo(({ matchData }) => {
   }, []);
 
   return (
-    <div>
+    <SContainer>
       <SJudgeName>
         {totalScore.current.judgeA.name} {totalScore.current.judgeA.total}
       </SJudgeName>
@@ -119,7 +123,7 @@ const Score = memo(({ matchData }) => {
         {totalScore.current.judgeC.name} {totalScore.current.judgeC.total}
       </SJudgeName>
       <ScoreTable Scoring={ScoringC.current} />
-    </div>
+    </SContainer>
   );
 });
 export default Score;

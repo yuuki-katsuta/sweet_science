@@ -13,7 +13,7 @@ const TableWrapper = styled.div`
   textalign: left;
   display: inlineBlock;
 `;
-const Table = styled.table`
+const STable = styled.table`
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
@@ -28,6 +28,11 @@ const Table = styled.table`
   td {
     text-align: left;
     padding: 15px 20px 15px 10px;
+  }
+  tbody tr {
+    &:hover {
+      background-color: #f7f7f7;
+    }
   }
 `;
 
@@ -46,7 +51,7 @@ const News = memo(({ matchData }) => {
         <Heading>試合情報などが追加されたことをお知らせします。</Heading>
       </Section>
       <TableWrapper>
-        <Table>
+        <STable>
           <thead>
             <tr>
               <th>更新日</th>
@@ -67,7 +72,7 @@ const News = memo(({ matchData }) => {
               );
             })}
           </tbody>
-        </Table>
+        </STable>
       </TableWrapper>
     </div>
   );
