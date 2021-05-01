@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from 'react';
 import firebase from 'firebase/app';
 import { auth } from '../base.js';
 import { useAlert } from 'react-alert';
-
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -13,26 +12,30 @@ export const AuthProvider = ({ children }) => {
   const Alert = useAlert();
 
   //ログイン
-  const login = async (email, password) => {
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      Alert.success('ログインしました！');
-    } catch (error) {
-      alert(error.message);
-    }
+  const login = (email, password) => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        Alert.success('ログインしました！');
+      })
+      .catch((e) => {
+        alert(e.message);
+      });
   };
 
   const guestLogin = async () => {
-    try {
-      await auth.signInAnonymously();
-      Alert.success('ゲストユーザーとしてログインしました！');
-    } catch (error) {
-      alert(error.message);
-    }
+    await auth
+      .signInAnonymously()
+      .then(() => {
+        Alert.success('ゲストユーザーとしてログインしました！');
+      })
+      .catch((e) => {
+        alert(e.message);
+      });
   };
 
   //サインイン
-  const signup = async (email, password, confirmPassword, name) => {
+  const signup = (email, password, confirmPassword, name) => {
     try {
       if (name.trim() === '') throw new Error('Please enter your name');
       if (name.length > 10)
@@ -40,31 +43,37 @@ export const AuthProvider = ({ children }) => {
       if (password !== confirmPassword)
         throw new Error('Passwords do not match');
       //新しいアカウントが作成されると、そのユーザーは自動的にログイン
-      await auth.createUserWithEmailAndPassword(email, password);
-      //現在ログインしているユーザーを取得するには、currentUser プロパティを使用
-      const user = auth.currentUser;
-      //プロフィール設定
-      await user.updateProfile({
-        displayName: name,
-        email: email,
-        password: password,
-        photoURL: '',
-      });
-      Alert.success('ログインしました！');
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(async () => {
+          const user = auth.currentUser;
+          await user.updateProfile({
+            displayName: name,
+            email: email,
+            password: password,
+            photoURL: '',
+          });
+          Alert.success('ログインしました！');
+        })
+        .catch((e) => {
+          alert(e.message);
+        });
     } catch (error) {
       alert(error.message);
     }
   };
 
-  const signOut = async () => {
-    try {
-      await auth.signOut();
-      setAdminUser(false);
-      setGuestUser(false);
-      Alert.show('ログアウトしました。');
-    } catch (error) {
-      alert(error.message);
-    }
+  const signOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        setAdminUser(false);
+        setGuestUser(false);
+        Alert.show('ログアウトしました。');
+      })
+      .catch((e) => {
+        alert(e.message);
+      });
   };
 
   //再認証
@@ -73,7 +82,11 @@ export const AuthProvider = ({ children }) => {
       currentUser.email,
       currentPassword
     );
-    await auth.currentUser.reauthenticateWithCredential(credential);
+    await auth.currentUser
+      .reauthenticateWithCredential(credential)
+      .catch((e) => {
+        alert(e.message);
+      });
   };
 
   //displayname変更
