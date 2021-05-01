@@ -18,10 +18,10 @@ const SInputField = styled.div`
   text-align: left;
 `;
 
-const EditName = ({ currentUser }) => {
+const EditName = () => {
   const [isNameChanged, setIsNameChanged] = useState(false);
   const [name, setName] = useState('');
-  const { changeCurrentName } = useContext(AuthContext);
+  const { changeCurrentName, currentUser } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {

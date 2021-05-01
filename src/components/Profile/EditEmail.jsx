@@ -22,12 +22,12 @@ const STextInputField = styled(TextInputField)`
   margin-bottom: 16px;
 `;
 
-const EditEmail = ({ currentUser }) => {
+const EditEmail = () => {
   const [email, setEmail] = useState('');
   const [isEmailChanged, setIsEmailChanged] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [open, setOpen] = useState(false);
-  const { changeCurrentEmail } = useContext(AuthContext);
+  const { changeCurrentEmail, currentUser } = useContext(AuthContext);
 
   const handleClose = () => {
     setOpen(false);

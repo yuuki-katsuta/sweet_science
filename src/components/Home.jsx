@@ -71,11 +71,7 @@ const Home = memo(() => {
         <>
           <MediaQuery query='(max-width: 840px)'>
             <Divider />
-            <News
-              title={matchData.title}
-              creationTime={matchData.createdAt}
-              matchData={matchData}
-            />
+            <News matchData={matchData} />
           </MediaQuery>
           <MediaQuery query='(min-width: 841px)'>
             <Container maxWidth='md'>
@@ -93,11 +89,7 @@ const Home = memo(() => {
         <Container maxWidth='md'>
           <SNewsSection>
             <Divider />
-            <News
-              title={matchData.title}
-              creationTime={matchData.createdAt}
-              matchData={matchData}
-            />
+            <News matchData={matchData} />
           </SNewsSection>
         </Container>
       )}

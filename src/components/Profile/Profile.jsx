@@ -32,7 +32,7 @@ const Profile = () => {
   return guestUser ? (
     <Redirect to={'/'} />
   ) : (
-    currentUser.email && currentUser.displayName && (
+    !currentUser.isAnonymous && (
       <div className='container'>
         <Container maxWidth='md'>
           <h2>Your Profile</h2>
@@ -42,10 +42,10 @@ const Profile = () => {
           <UserImage />
           <SProfileItemWrapper>
             <SProfileItem>
-              <EditName currentUser={currentUser} />
+              <EditName />
             </SProfileItem>
             <SProfileItem>
-              <EditEmail currentUser={currentUser} />
+              <EditEmail />
             </SProfileItem>
           </SProfileItemWrapper>
           <EditPassword />
