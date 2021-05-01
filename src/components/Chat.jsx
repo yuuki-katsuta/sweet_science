@@ -13,19 +13,17 @@ const SContainer = styled(Container)`
 
 const Chat = () => {
   const location = useLocation();
+  const matchData = location.state?.matchData;
+
   return location.state ? (
     <div className='container'>
       <Container maxWidth='lg' disableGutters={true}>
-        <MatchInformation matchData={location.state.matchData} />
-        {location.state.matchData.scoreData && (
-          <Score matchData={location.state.matchData} />
-        )}
-        {location.state.matchData.AvgScore && (
-          <AvgScore matchData={location.state.matchData} />
-        )}
+        <MatchInformation matchData={matchData} />
+        {matchData.scoreData && <Score matchData={matchData} />}
+        {matchData.AvgScore && <AvgScore matchData={matchData} />}
       </Container>
       <SContainer maxWidth='lg' disableGutters={true}>
-        <MessageItem matchData={location.state.matchData} />
+        <MessageItem title={matchData.title} />
       </SContainer>
     </div>
   ) : (

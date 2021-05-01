@@ -25,7 +25,7 @@ const SMessageStyle = styled.div`
   }
 `;
 
-const MessageItem = ({ matchData }) => {
+const MessageItem = ({ title }) => {
   const { currentUser } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const ref = useRef();
@@ -34,9 +34,8 @@ const MessageItem = ({ matchData }) => {
   useEffect(() => {
     let isMounted = true;
     const getMessages = () => {
-      if (!matchData) return;
       db.collection('chats')
-        .doc(`${matchData.title}`)
+        .doc(`${title}`)
         .collection('messages')
         .orderBy('createdAt', 'desc')
         .limit(35)
@@ -76,7 +75,7 @@ const MessageItem = ({ matchData }) => {
             >
               <MessageList
                 className='messageItem'
-                title={matchData.title}
+                title={title}
                 message={message}
                 currentUser={currentUser}
               />
@@ -84,11 +83,7 @@ const MessageItem = ({ matchData }) => {
           );
         })}
       </SList>
-      <MessageAddField
-        currentUser={currentUser}
-        title={matchData.title}
-        refer={ref}
-      />
+      <MessageAddField currentUser={currentUser} title={title} refer={ref} />
     </>
   );
 };
