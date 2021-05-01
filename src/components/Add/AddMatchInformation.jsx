@@ -58,17 +58,19 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
           opponent: opponent,
           division: division,
           date: date,
-          fileName: file.name,
+          fileName: file ? file.name : null,
           createdAt: new Date(),
           venue: venue,
           overview: overview,
           scoreData: isAddScore,
           AvgScore: isAddAvg,
         });
-      const storageRef = storage.ref(
-        `/videos/${fighter} vs ${opponent}/${file.name}`
-      );
-      await storageRef.put(file);
+      if (file) {
+        const storageRef = storage.ref(
+          `/videos/${fighter} vs ${opponent}/${file.name}`
+        );
+        await storageRef.put(file);
+      }
       const matchInformation = await getMatcheInformation();
       setMatchData(matchInformation);
       setMatchSummary({
