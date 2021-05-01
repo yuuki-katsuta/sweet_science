@@ -4,7 +4,7 @@ import { db } from '../base';
 import MediaQuery from 'react-responsive';
 import MatchList from './MatchList';
 import News from './News';
-import AddMatchInformation from './Add/AddMatchInformation';
+import MatchInformationAddField from './Add/MatchInformationAddField';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
@@ -43,10 +43,10 @@ const Home = memo(() => {
   useEffect(() => {
     let unmounted = false;
     (async () => {
-      const matchInformation = await getMatcheInformation();
+      const matchData = await getMatcheInformation();
       //アンマウントされていなければステートを更新
       if (!unmounted) {
-        setMatchData(matchInformation);
+        setMatchData(matchData);
       }
     })();
     //クリーンアップ関数を返す
@@ -77,7 +77,7 @@ const Home = memo(() => {
             <Container maxWidth='md'>
               <SAddMatchSectionStyle>
                 <Divider />
-                <AddMatchInformation
+                <MatchInformationAddField
                   getMatcheInformation={getMatcheInformation}
                   setMatchData={setMatchData}
                 />

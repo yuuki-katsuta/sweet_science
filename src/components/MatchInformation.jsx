@@ -36,12 +36,12 @@ const SMatchDataWithVideoId = styled.div`
   text-align: right;
 `;
 
-const MatchInformation = memo(({ matchData }) => {
+const MatchInformation = memo(({ matchInfo }) => {
   const [url, setUrl] = useState('');
   useEffect(() => {
-    if (matchData.fileName) {
+    if (matchInfo.fileName) {
       const storageRef = storage.ref(
-        `/videos/${matchData.title}/${matchData.fileName}`
+        `/videos/${matchInfo.title}/${matchInfo.fileName}`
       );
       storageRef
         .getDownloadURL()
@@ -59,13 +59,13 @@ const MatchInformation = memo(({ matchData }) => {
     return (
       <SMatchDataWrapper className={SmallWidth && 'small'}>
         <p>
-          <span>{matchData.date} </span>
+          <span>{matchInfo.date} </span>
           <span>
             <RoomIcon fontSize='small' />
           </span>
-          {matchData.venue}
+          {matchInfo.venue}
         </p>
-        {matchData.overview.split('\n').map((t, i) => {
+        {matchInfo.overview.split('\n').map((t, i) => {
           return <p key={i}>{t}</p>;
         })}
       </SMatchDataWrapper>
@@ -73,8 +73,8 @@ const MatchInformation = memo(({ matchData }) => {
   };
   return (
     <div>
-      <h1 className='match-title'>{matchData.title}</h1>
-      {matchData.fileName ? (
+      <h1 className='match-title'>{matchInfo.title}</h1>
+      {matchInfo.fileName ? (
         <div>
           <SVideoWrapper>
             <SMovieInner>

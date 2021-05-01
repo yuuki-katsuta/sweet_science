@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddScore = ({ setIsAddScore, addChat, fighter, opponent }) => {
+const AddScoreForm = ({ setIsAddScore, addChat, fighter, opponent }) => {
   const classes = useStyles();
 
   const [scoreA, setScoreA] = useState({
@@ -190,4 +190,4 @@ const AddScore = ({ setIsAddScore, addChat, fighter, opponent }) => {
     </SContainer>
   );
 };
-export default AddScore;
+export default AddScoreForm;

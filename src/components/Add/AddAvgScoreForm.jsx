@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddAvgScore = ({ addChat, fighter, opponent, setIsAddAvg }) => {
+const AddAvgScoreForm = ({ addChat, fighter, opponent, setIsAddAvg }) => {
   const classes = useStyles();
   const [avgScore, setAvgScore] = useState({
     fighterScore: '',
@@ -88,4 +88,4 @@ const AddAvgScore = ({ addChat, fighter, opponent, setIsAddAvg }) => {
     </SContainer>
   );
 };
-export default AddAvgScore;
+export default AddAvgScoreForm;

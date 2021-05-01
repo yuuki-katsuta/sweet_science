@@ -11,23 +11,23 @@ const SContainer = styled(Container)`
   margin-top: 40px;
 `;
 
-const Chat = () => {
+const ChatPage = () => {
   const location = useLocation();
-  const matchData = location.state?.matchData;
+  const matchInfo = location.state?.matchInformation;
 
   return location.state ? (
     <div className='container'>
       <Container maxWidth='lg' disableGutters={true}>
-        <MatchInformation matchData={matchData} />
-        {matchData.scoreData && <Score matchData={matchData} />}
-        {matchData.AvgScore && <AvgScore matchData={matchData} />}
+        <MatchInformation matchInfo={matchInfo} />
+        {matchInfo.scoreData && <Score matchInfo={matchInfo} />}
+        {matchInfo.AvgScore && <AvgScore matchInfo={matchInfo} />}
       </Container>
       <SContainer maxWidth='lg' disableGutters={true}>
-        <MessageItem title={matchData.title} />
+        <MessageItem title={matchInfo.title} />
       </SContainer>
     </div>
   ) : (
     <Redirect to={'/'} />
   );
 };
-export default Chat;
+export default ChatPage;

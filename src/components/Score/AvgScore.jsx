@@ -13,7 +13,7 @@ const STotalScore = styled.h4`
   margin: 0 0 0 8px;
 `;
 
-const AvgScore = memo(({ matchData }) => {
+const AvgScore = memo(({ matchInfo }) => {
   const [update, setUpdata] = useState(false);
   const Scoring = useRef([]);
   const totalScore = useRef({});
@@ -22,7 +22,7 @@ const AvgScore = memo(({ matchData }) => {
   const getScore = async () => {
     const scoreData = await db
       .collection('chats')
-      .doc(`${matchData.title}`)
+      .doc(`${matchInfo.title}`)
       .collection('score')
       .doc('AverageScore')
       .get();
@@ -38,7 +38,7 @@ const AvgScore = memo(({ matchData }) => {
 
   useEffect(() => {
     let unmounted = false;
-    if (matchData) {
+    if (matchInfo) {
       (async () => {
         const avgScore = await getScore();
         //totalを算出
@@ -53,8 +53,8 @@ const AvgScore = memo(({ matchData }) => {
         };
         //スコア算出
         Scoring.current = [
-          createData(`${matchData.fighter}`, ...avgScore.fighterScore),
-          createData(`${matchData.opponent}`, ...avgScore.opponentScore),
+          createData(`${matchInfo.fighter}`, ...avgScore.fighterScore),
+          createData(`${matchInfo.opponent}`, ...avgScore.opponentScore),
         ];
         if (!unmounted) {
           setUpdata(!update);

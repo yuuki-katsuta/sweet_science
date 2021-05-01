@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
+const AddMatchSummaryForm = memo(({ matchSummary, setMatchSummary }) => {
   const handleVideoFile = (e) => {
     const videoFile = e.target.files[0];
     if (videoFile) {
@@ -105,4 +105,4 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
     </form>
   );
 });
-export default AddMatchSummary;
+export default AddMatchSummaryForm;

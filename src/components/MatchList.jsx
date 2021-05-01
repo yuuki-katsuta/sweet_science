@@ -100,7 +100,7 @@ const MatchList = memo(({ matchData }) => {
             <TableBody>
               {matchData
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((match, index) => {
+                .map((data, index) => {
                   return (
                     <TableRow
                       hover
@@ -110,12 +110,12 @@ const MatchList = memo(({ matchData }) => {
                       onClick={() => {
                         history.push({
                           pathname: `/chat/${index}`,
-                          state: { matchData: match },
+                          state: { matchInformation: data },
                         });
                       }}
                     >
                       {colums.map((colum, index) => {
-                        const value = match[colum.id];
+                        const value = data[colum.id];
                         return (
                           <TableCell
                             key={index}

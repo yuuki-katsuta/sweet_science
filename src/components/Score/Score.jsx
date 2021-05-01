@@ -13,7 +13,7 @@ const SJudgeName = styled.h4`
   margin: 0 0 0 8px;
 `;
 
-const Score = memo(({ matchData }) => {
+const Score = memo(({ matchInfo }) => {
   const [update, setUpdata] = useState(false);
   const ScoringA = useRef([]);
   const ScoringB = useRef([]);
@@ -28,7 +28,7 @@ const Score = memo(({ matchData }) => {
   const getScore = async () => {
     const data = await db
       .collection('chats')
-      .doc(`${matchData.title}`)
+      .doc(`${matchInfo.title}`)
       .collection('score')
       .get();
     const ScoreData = [];
@@ -40,7 +40,7 @@ const Score = memo(({ matchData }) => {
 
   useEffect(() => {
     let unmounted = false;
-    if (matchData) {
+    if (matchInfo) {
       (async () => {
         const scores = await getScore();
         const [judgeA, judgeB, judgeC] = scores;
@@ -63,8 +63,8 @@ const Score = memo(({ matchData }) => {
         //スコア算出
         [ScoringA, ScoringB, ScoringC].forEach((Scoring, index) => {
           Scoring.current = [
-            createData(`${matchData.fighter}`, ...scores[index].fighter),
-            createData(`${matchData.opponent}`, ...scores[index].opponent),
+            createData(`${matchInfo.fighter}`, ...scores[index].fighter),
+            createData(`${matchInfo.opponent}`, ...scores[index].opponent),
           ];
         });
         if (!unmounted) {
