@@ -2,10 +2,20 @@ import './base.css';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { positions, Provider as AlertProvider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
+
+const options = {
+  timeout: 2500,
+  position: positions.BOTTOM_CENTER,
+  offset: '30px',
+};
 
 ReactDOM.render(
   <>
-    <App />
+    <AlertProvider template={AlertTemplate} {...options}>
+      <App />
+    </AlertProvider>
   </>,
   document.getElementById('root')
 );

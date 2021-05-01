@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import firebase from 'firebase/app';
 import { auth } from '../base.js';
+import { useAlert } from 'react-alert';
 
 export const AuthContext = createContext();
 
@@ -9,19 +10,22 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [adminUser, setAdminUser] = useState(false);
   const [guestUser, setGuestUser] = useState(false);
+  const Alert = useAlert();
 
   //ログイン
   const login = async (email, password) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
+      Alert.success('ログインしました！');
     } catch (error) {
       alert(error.message);
     }
   };
 
-  const guestLogin = () => {
+  const guestLogin = async () => {
     try {
-      auth.signInAnonymously();
+      await auth.signInAnonymously();
+      Alert.success('ゲストユーザーとしてログインしました！');
     } catch (error) {
       alert(error.message);
     }
@@ -46,6 +50,7 @@ export const AuthProvider = ({ children }) => {
         password: password,
         photoURL: '',
       });
+      Alert.success('ログインしました！');
     } catch (error) {
       alert(error.message);
     }
@@ -56,6 +61,7 @@ export const AuthProvider = ({ children }) => {
       await auth.signOut();
       setAdminUser(false);
       setGuestUser(false);
+      Alert.show('ログアウトしました。');
     } catch (error) {
       alert(error.message);
     }
@@ -119,6 +125,7 @@ export const AuthProvider = ({ children }) => {
       await user.updateProfile({
         photoURL: imageURL,
       });
+      Alert.success('プロフィール画像を変更しました！');
     } catch (error) {
       alert(error.message);
     }
