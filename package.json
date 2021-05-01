@@ -10,6 +10,8 @@
     "@testing-library/user-event": "^12.1.10",
     "firebase": "^8.2.4",
     "react": "^17.0.1",
+    "react-alert": "^7.0.2",
+    "react-alert-template-basic": "^1.0.0",
     "react-dom": "^17.0.1",
     "react-responsive": "^8.2.0",
     "react-router-dom": "^5.2.0",
