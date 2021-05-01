@@ -28,6 +28,9 @@ const SLabel = styled.label`
   font-weight: bold;
   cursor: pointer;
 `;
+const SInput = styled.input`
+  display: none;
+`;
 
 const UserImage = () => {
   const { currentUser, ChangePhtoUrl, ResetPhtoUrl, guestUser } = useContext(
@@ -132,11 +135,7 @@ const UserImage = () => {
         <div>
           <SLabel>
             ファイルを選択
-            <input
-              onChange={handleImage}
-              type='file'
-              style={{ display: 'none' }}
-            />
+            <SInput onChange={handleImage} type='file' />
           </SLabel>
           {filename && filename.length > 15 ? (
             <span>{` (${filename.substr(0, 15) + '...'}) `}</span>

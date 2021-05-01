@@ -1,5 +1,6 @@
 import { useState, memo } from 'react';
 import { db } from '../../base';
+import { storage } from '../../base';
 import AddScore from './AddScore';
 import AddMatchSummary from './AddMatchSummary';
 import AddAvgScore from './AddAvgScore';
@@ -29,9 +30,9 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
     opponent: '',
     division: '',
     date: '',
-    url: '',
     venue: '',
     overview: '',
+    file: '',
   });
   const [isAddScore, setIsAddScore] = useState(false);
   const [isAddAvg, setIsAddAvg] = useState(false);
@@ -42,12 +43,12 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
       division,
       date,
       venue,
-      url,
       overview,
+      file,
     } = matchSummary;
-    if (fighter && opponent && division && date && venue) {
-      //urlから動画のIdを取得
-      const videoId = url ? url.split('v=')[1] : null;
+    try {
+      if (!fighter || !opponent || !division || !date || !venue)
+        throw new Error('item is not entered');
       await db
         .collection('chats')
         .doc(`${fighter} vs ${opponent}`)
@@ -57,13 +58,17 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
           opponent: opponent,
           division: division,
           date: date,
-          videoId: videoId,
+          fileName: file.name,
           createdAt: new Date(),
           venue: venue,
           overview: overview,
           scoreData: isAddScore,
           AvgScore: isAddAvg,
         });
+      const storageRef = storage.ref(
+        `/videos/${fighter} vs ${opponent}/${file.name}`
+      );
+      await storageRef.put(file);
       const matchInformation = await getMatcheInformation();
       setMatchData(matchInformation);
       setMatchSummary({
@@ -71,14 +76,13 @@ const AddMatchInformation = memo(({ getMatcheInformation, setMatchData }) => {
         opponent: '',
         division: '',
         date: '',
-        url: '',
+        file: '',
         venue: '',
         overview: '',
       });
-    } else {
-      alert('item is not entered');
+    } catch (error) {
+      alert(error.message);
     }
-    // eslint-disable-next-line
   };
 
   return (

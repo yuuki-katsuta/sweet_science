@@ -13,6 +13,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
+  const handleVideoFile = (e) => {
+    const videoFile = e.target.files[0];
+    if (videoFile) {
+      setMatchSummary({
+        ...matchSummary,
+        file: videoFile,
+      });
+    }
+  };
   const classes = useStyles();
   return (
     <form className={classes.root} noValidate autoComplete='off'>
@@ -65,18 +74,6 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
         }}
       />
       <TextInputField
-        id='url'
-        name='url'
-        label='video url'
-        value={matchSummary.url}
-        setState={(e) => {
-          setMatchSummary({
-            ...matchSummary,
-            [e.target.name]: e.target.value,
-          });
-        }}
-      />
-      <TextInputField
         id='venue'
         name='venue'
         label='venue'
@@ -102,6 +99,9 @@ const AddMatchSummary = memo(({ matchSummary, setMatchSummary }) => {
           });
         }}
       />
+      <div>
+        <input onChange={handleVideoFile} type='file' />
+      </div>
     </form>
   );
 });

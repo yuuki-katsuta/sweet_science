@@ -1,4 +1,5 @@
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
+import { storage } from '../base';
 import RoomIcon from '@material-ui/icons/Room';
 import MediaQuery from 'react-responsive';
 import styled from 'styled-components';
@@ -12,13 +13,12 @@ const SVideoWrapper = styled.div`
   margin: 0 auto;
   max-width: 880px;
 `;
-const SVideo = styled.iframe`
+const SVideo = styled.video`
   position: absolute;
   top: 0;
   right: 0;
   width: 100%;
   height: 100%;
-  border: 1px solid #111111;
 `;
 const SMatchDataWrapper = styled.div`
   &.small {
@@ -37,6 +37,24 @@ const SMatchDataWithVideoId = styled.div`
 `;
 
 const MatchInformation = memo(({ matchData }) => {
+  const [url, setUrl] = useState('');
+  useEffect(() => {
+    if (matchData.fileName) {
+      const storageRef = storage.ref(
+        `/videos/${matchData.title}/${matchData.fileName}`
+      );
+      storageRef
+        .getDownloadURL()
+        .then((url) => {
+          setUrl(url);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+    // eslint-disable-next-line
+  }, []);
+
   const MatchData = ({ SmallWidth }) => {
     return (
       <SMatchDataWrapper className={SmallWidth && 'small'}>
@@ -56,18 +74,11 @@ const MatchInformation = memo(({ matchData }) => {
   return (
     <div>
       <h1 className='match-title'>{matchData.title}</h1>
-      {matchData.videoId ? (
+      {matchData.fileName ? (
         <div>
           <SVideoWrapper>
             <SMovieInner>
-              <SVideo
-                title={matchData.title}
-                width='560'
-                height='315'
-                src={`https://www.youtube.com/embed/${matchData.videoId}`}
-                frameBorder='1'
-                allowFullScreen
-              ></SVideo>
+              <SVideo src={url} controls playsinline></SVideo>
             </SMovieInner>
             <SMatchDataWithVideoId>
               <MatchData />
