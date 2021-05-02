@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 const SContainer = styled(Container)`
   padding: 0 10px;
-  margin-top: 40px;
+  margin-top: 24px;
 `;
 
 const ChatPage = () => {

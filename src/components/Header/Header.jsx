@@ -21,7 +21,7 @@ import InfoIcon from '@material-ui/icons/InfoOutlined';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { media } from './Utils/style-utils';
+import { media } from '../../style-utils';
 
 const theme = createMuiTheme({
   palette: {

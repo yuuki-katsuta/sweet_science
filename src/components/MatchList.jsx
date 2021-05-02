@@ -30,15 +30,12 @@ const StyledTableCell = withStyles((theme) => ({
     fontSize: 15.5,
     fontWeight: 'bold',
   },
-  body: {
-    fontSize: 14,
-  },
 }))(TableCell);
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: '1100px',
+    maxWidth: '1150px',
     margin: '0 auto',
     [theme.breakpoints.down('xs')]: {
       padding: '0 3px',
@@ -46,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     maxHeight: 900,
+  },
+  tableCell: {
+    cursor: 'pointer',
+    fontWeight: '600',
+    color: '#555555',
   },
 }));
 
@@ -120,7 +122,7 @@ const MatchList = memo(({ matchData }) => {
                           <TableCell
                             key={index}
                             align={colum.align}
-                            style={{ cursor: 'pointer' }}
+                            className={classes.tableCell}
                           >
                             {colum.format && typeof value === 'number'
                               ? colum.format(value)

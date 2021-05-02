@@ -44,6 +44,8 @@ span.main-title {
 h1.match-title, h2.section-title{
   font-family: 'Neuton', serif;
   margin-bottom: 16px;
+  overflow-x: scroll;
+  white-space: nowrap;
 }
 
 @media screen and (min-width:280px) {
@@ -52,7 +54,7 @@ h1.match-title, h2.section-title{
     font-size: 4vmin;
   }
   h1 {
-    font-size :6.6vmin;
+    font-size :6.8vmin;
   }
   h2.section-title {
     font-size: 32px
@@ -64,14 +66,14 @@ h1.match-title, h2.section-title{
     padding: 14px 6px 14px 16px;
   }
   th.scoreTable {
-    padding-bottom: 4px;
-    padding-Top: 4px;
+    padding-bottom: 1px;
+    padding-Top: 1px;
     padding-left: 8px;
   }
   td.scoreTable {
     font-size: 15px;
-    padding-bottom: 4px;
-    padding-Top: 4px;
+    padding-bottom: 1px;
+    padding-Top: 1px;
     padding-left: 8px;
   }
   li.MuiListItem-gutters {
@@ -143,13 +145,13 @@ h1.match-title, h2.section-title{
     font-size: 16px
   }
   th.scoreTable {
-    padding-bottom: 3px;
-    padding-Top: 3px;
+    padding-bottom: 2px;
+    padding-Top: 2px;
     padding-left: 8px;
   }
   td.scoreTable {
-    padding-bottom: 3px;
-    padding-Top: 3px;
+    padding-bottom: 2px;
+    padding-Top: 2px;
     padding-left: 8px;
   }
   span.MuiFormControlLabel-label {
@@ -183,8 +185,6 @@ h1.match-title, h2.section-title{
   }
   td.scoreTable {
     font-size: 16px;
-    padding-bottom: 0;
-    padding-Top: 0;
     padding-left: 8px;
   }
   svg.MuiSvgIcon-fontSizeSmall {
@@ -199,5 +199,4 @@ h1.match-title, h2.section-title{
   h2.section-title {
     font-size: 36px;
   }
-
 }

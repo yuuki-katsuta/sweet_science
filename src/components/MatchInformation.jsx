@@ -21,6 +21,9 @@ const SVideo = styled.video`
   height: 100%;
 `;
 const SMatchDataWrapper = styled.div`
+  p {
+    font-weight: 600;
+  }
   &.small {
     text-align: left;
     width: 95%;
@@ -30,10 +33,11 @@ const SMatchDataWrapper = styled.div`
   }
 `;
 const SContainer = styled.div`
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 `;
 const SMatchDataWithVideoId = styled.div`
   text-align: right;
+  margin-bottom: 8px;
 `;
 
 const MatchInformation = memo(({ matchInfo }) => {

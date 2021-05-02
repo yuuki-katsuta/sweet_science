@@ -6,4 +6,9 @@ export const media = {
       ${css(...args)};
     }
   `,
+  handheld1024: (...args) => css`
+    @media (min-width: 1024px) {
+      ${css(...args)};
+    }
+  `,
 };

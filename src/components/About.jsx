@@ -1,5 +1,6 @@
 import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
+import { media } from '../style-utils';
 
 const SSection = styled.div`
   text-align: left;
@@ -8,6 +9,11 @@ const SSection = styled.div`
 const SContainer = styled.div`
   text-align: center;
   margin: 120px auto 40px;
+  p {
+    ${media.handheld1024`
+    font-size: 16px;
+  `}
+  }
 `;
 const SDescription = styled.div`
   text-align: left;
@@ -34,7 +40,7 @@ const About = () => {
           </p>
         </SDescription>
 
-        <h1>Official boxing scoring criteria</h1>
+        <h1>Official scoring criteria</h1>
         <SSection>
           <h3>有効なクリーンヒット</h3>
           <p>

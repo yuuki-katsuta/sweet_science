@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { createData } from './Utils/common-method';
 
 const SContainer = styled.div`
-  max-width: 1050px;
+  max-width: 950px;
   margin: 0 auto;
 `;
 const SJudgeName = styled.h4`
