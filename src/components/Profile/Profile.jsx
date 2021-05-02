@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from '../../auth/AuthProvider';
+import { RootContext } from '../../Provider';
 import { Redirect } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import UserImage from './UserImage';
@@ -27,7 +27,7 @@ const SProfileItemWrapper = styled.div`
 `;
 
 const Profile = () => {
-  const { guestUser, currentUser } = useContext(AuthContext);
+  const { guestUser, currentUser } = useContext(RootContext);
 
   return guestUser ? (
     <Redirect to={'/'} />

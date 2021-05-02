@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from '../auth/AuthProvider';
+import { RootContext } from '../Provider';
 import { useHistory } from 'react-router-dom';
 import BaseButton from './Button/BaseButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -19,7 +19,7 @@ const STextWrapper = styled.div`
 `;
 
 const Page404 = () => {
-  const { isLoading } = useContext(AuthContext);
+  const { isLoading } = useContext(RootContext);
   const history = useHistory();
 
   return isLoading ? null : (

@@ -1,5 +1,5 @@
 import PrivateRoute from './PrivateRoute';
-import { AuthProvider } from './auth/AuthProvider';
+import { Provider } from './Provider';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Auth from './components/Auth/Auth';
 import routes from './router/routes';
@@ -8,7 +8,7 @@ import Page404 from './components/Page404';
 
 function App() {
   return (
-    <AuthProvider>
+    <Provider>
       <BrowserRouter>
         <Layout>
           <Switch>
@@ -25,7 +25,7 @@ function App() {
           </Switch>
         </Layout>
       </BrowserRouter>
-    </AuthProvider>
+    </Provider>
   );
 }
 

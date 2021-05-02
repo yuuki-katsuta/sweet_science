@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { AuthContext } from '../../auth/AuthProvider';
+import { RootContext } from '../../Provider';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import TextInputField from '../InputField/TextInputField';
@@ -25,7 +25,7 @@ const SGuestLoginButton = styled(BaseButton)`
 const LoginForm = ({ setIsLogin, isLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { guestLogin, login } = useContext(AuthContext);
+  const { guestLogin, login } = useContext(RootContext);
   const resetItems = () => {
     setEmail('');
     setPassword('');

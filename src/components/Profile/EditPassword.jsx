@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { AuthContext } from '../../auth/AuthProvider.js';
+import { RootContext } from '../../Provider.js';
 import BaseButton from '../Button/BaseButton';
 import TextInputField from '../InputField/TextInputField';
 import BaseModal from './BaseModal.jsx';
@@ -25,7 +25,7 @@ const Password = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [open, setOpen] = useState(false);
-  const { ChangeCurrentPassword } = useContext(AuthContext);
+  const { ChangeCurrentPassword } = useContext(RootContext);
 
   const handleClose = () => {
     setOpen(false);

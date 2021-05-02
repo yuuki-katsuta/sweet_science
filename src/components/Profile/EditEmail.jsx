@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { AuthContext } from '../../auth/AuthProvider.js';
+import { RootContext } from '../../Provider.js';
 import CreateIcon from '@material-ui/icons/Create';
 import BaseIconButton from '../Button/BaseIconButton';
 import BaseButton from '../Button/BaseButton';
@@ -27,7 +27,7 @@ const EditEmail = () => {
   const [isEmailChanged, setIsEmailChanged] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [open, setOpen] = useState(false);
-  const { changeCurrentEmail, currentUser } = useContext(AuthContext);
+  const { changeCurrentEmail, currentUser } = useContext(RootContext);
 
   const handleClose = () => {
     setOpen(false);

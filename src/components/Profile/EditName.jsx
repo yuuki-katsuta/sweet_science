@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { AuthContext } from '../../auth/AuthProvider.js';
+import { RootContext } from '../../Provider.js';
 import CreateIcon from '@material-ui/icons/Create';
 import BaseIconButton from '../Button/BaseIconButton';
 import BaseButton from '../Button/BaseButton';
@@ -21,7 +21,7 @@ const SInputField = styled.div`
 const EditName = () => {
   const [isNameChanged, setIsNameChanged] = useState(false);
   const [name, setName] = useState('');
-  const { changeCurrentName, currentUser } = useContext(AuthContext);
+  const { changeCurrentName, currentUser } = useContext(RootContext);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {

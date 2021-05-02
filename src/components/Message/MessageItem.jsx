@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useRef } from 'react';
-import { AuthContext } from '../../auth/AuthProvider';
+import { RootContext } from '../../Provider';
 import { db } from '../../base';
 import MessageAddField from './/MessageAddField';
 import MessageList from './MessageList';
@@ -26,7 +26,7 @@ const SMessageStyle = styled.div`
 `;
 
 const MessageItem = ({ title }) => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(RootContext);
   const [messages, setMessages] = useState([]);
   const ref = useRef();
 

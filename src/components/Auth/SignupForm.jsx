@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { AuthContext } from '../../auth/AuthProvider';
+import { RootContext } from '../../Provider';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import TextInputField from '../InputField/TextInputField';
@@ -19,7 +19,7 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
-  const { signup } = useContext(AuthContext);
+  const { signup } = useContext(RootContext);
   const resetItems = () => {
     setEmail('');
     setPassword('');

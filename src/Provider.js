@@ -1,10 +1,10 @@
 import { createContext, useEffect, useState } from 'react';
 import firebase from 'firebase/app';
-import { auth } from '../base.js';
+import { auth } from './base.js';
 import { useAlert } from 'react-alert';
-export const AuthContext = createContext();
+export const RootContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export const Provider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [adminUser, setAdminUser] = useState(false);
@@ -178,7 +178,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     //AuthProviderのchildren内で認証ロジックが使える
-    <AuthContext.Provider
+    <RootContext.Provider
       value={{
         login: login,
         signup: signup,
@@ -196,6 +196,6 @@ export const AuthProvider = ({ children }) => {
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </RootContext.Provider>
   );
 };

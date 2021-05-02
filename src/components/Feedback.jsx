@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { AuthContext } from './../auth/AuthProvider';
+import { RootContext } from '../Provider';
 import firebase from 'firebase/app';
 import 'firebase/functions';
 import TextInputField from './InputField/TextInputField';
@@ -25,7 +25,7 @@ const SSendButton = styled(BaseButton)`
 `;
 
 const Feedback = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(RootContext);
   const [data, setData] = useState({
     name: currentUser.displayName ? currentUser.displayName : 'ゲストユーザー',
     message: '',
