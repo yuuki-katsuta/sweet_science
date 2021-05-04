@@ -31,7 +31,7 @@ const Home = memo(() => {
   const getMatcheInformation = async () => {
     const querySnapshot = await db
       .collection('chats')
-      .orderBy('createdAt', 'desc')
+      .orderBy('date', 'desc')
       .get();
     const newMatcheInformation = [];
     querySnapshot.forEach((doc) => {

@@ -59,18 +59,21 @@ const News = memo(({ matchData }) => {
             </tr>
           </thead>
           <tbody>
-            {matchData.slice(0, 5).map((data, index) => {
-              return (
-                <tr key={index}>
-                  {
-                    <>
-                      <td> {FromTimeStampToDate(data.createdAt)}</td>
-                      <td>Added {data.title}</td>
-                    </>
-                  }
-                </tr>
-              );
-            })}
+            {matchData
+              .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
+              .slice(0, 5)
+              .map((data, index) => {
+                return (
+                  <tr key={index}>
+                    {
+                      <>
+                        <td>{FromTimeStampToDate(data.createdAt)}</td>
+                        <td>Added {data.title}</td>
+                      </>
+                    }
+                  </tr>
+                );
+              })}
           </tbody>
         </STable>
       </TableWrapper>
