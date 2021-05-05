@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState, memo } from 'react';
 import { db } from '../../base';
 import { useHistory } from 'react-router-dom';
+import { RootContext } from '../../Provider';
 import BaseIconButton from '../Button/BaseIconButton';
 import TextInputField from '../InputField/TextInputField';
 import Grid from '@material-ui/core/Grid';
@@ -26,7 +27,8 @@ const SSendButtonWrapper = styled.span`
   left: 8px;
 `;
 
-const MessageAddField = ({ currentUser, title, refer }) => {
+const MessageAddField = memo(({ title, refer }) => {
+  const { currentUser } = useContext(RootContext);
   const history = useHistory();
   const [text, setText] = useState('');
 
@@ -91,5 +93,5 @@ const MessageAddField = ({ currentUser, title, refer }) => {
       </Grid>
     </SContainer>
   );
-};
+});
 export default MessageAddField;
