@@ -20,7 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddScoreForm = ({ setIsAddScore, addChat, fighter, opponent }) => {
+const AddScoreForm = ({
+  setIsAddScore,
+  addChat,
+  matchSummary: { fighter, opponent },
+}) => {
   const classes = useStyles();
 
   const [scoreA, setScoreA] = useState({

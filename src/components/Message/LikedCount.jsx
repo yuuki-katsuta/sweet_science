@@ -10,7 +10,7 @@ const SCount = styled.span`
   color: '#666666';
 `;
 
-const LikedCount = memo(({ title, id, currentUser }) => {
+const LikedCount = memo(({ title, id, userUid }) => {
   const [count, setCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const processing = useRef(false);
@@ -29,10 +29,10 @@ const LikedCount = memo(({ title, id, currentUser }) => {
       });
       const likedUser = await docRef
         .collection('likedUser')
-        .doc(`${currentUser.uid}`)
+        .doc(`${userUid}`)
         .get();
       //いいね済み
-      if (likedUser.exists && likedUser.data().user === currentUser.uid) {
+      if (likedUser.exists && likedUser.data().user === userUid) {
         isMounted && setIsLiked(true);
       }
     };
@@ -50,21 +50,21 @@ const LikedCount = memo(({ title, id, currentUser }) => {
     try {
       const likedUser = await docRef
         .collection('likedUser')
-        .doc(`${currentUser.uid}`)
+        .doc(`${userUid}`)
         .get();
       //いいね済み
-      if (likedUser.exists && likedUser.data().user === currentUser.uid) {
+      if (likedUser.exists && likedUser.data().user === userUid) {
         setIsLiked(false);
         await docRef.update({ liked: count - 1 });
         //いいねユーザーを削除
-        await docRef.collection('likedUser').doc(`${currentUser.uid}`).delete();
+        await docRef.collection('likedUser').doc(`${userUid}`).delete();
         //処理完了
         processing.current = false;
         return;
       }
       //いいねユーザーを登録
-      await docRef.collection('likedUser').doc(`${currentUser.uid}`).set({
-        user: currentUser.uid,
+      await docRef.collection('likedUser').doc(`${userUid}`).set({
+        user: userUid,
         createdAt: new Date(),
       });
       await docRef.update({ liked: count + 1 });

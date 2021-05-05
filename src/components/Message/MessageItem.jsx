@@ -1,5 +1,4 @@
-import { useEffect, useState, useContext, useRef } from 'react';
-import { RootContext } from '../../Provider';
+import { useEffect, useState, useRef } from 'react';
 import { db } from '../../base';
 import MessageAddField from './/MessageAddField';
 import MessageList from './MessageList';
@@ -18,15 +17,8 @@ const SList = styled(List)`
     padding: 0;
   }
 `;
-const SMessageStyle = styled.div`
-  background-color: #fcfcfc;
-  &.ownMessage {
-    background-color: #f7f7f7;
-  }
-`;
 
 const MessageItem = ({ title }) => {
-  const { currentUser } = useContext(RootContext);
   const [messages, setMessages] = useState([]);
   const ref = useRef();
 
@@ -68,22 +60,13 @@ const MessageItem = ({ title }) => {
       <SList className={messages.length !== 0 && 'MessageExists'}>
         {messages.map((message, index) => {
           return (
-            <SMessageStyle
-              ref={ref}
-              key={index}
-              className={message.uid === currentUser.uid ? 'ownMessage' : ''}
-            >
-              <MessageList
-                className='messageItem'
-                title={title}
-                message={message}
-                currentUser={currentUser}
-              />
-            </SMessageStyle>
+            <div ref={ref} key={index}>
+              <MessageList title={title} message={message} />
+            </div>
           );
         })}
       </SList>
-      <MessageAddField currentUser={currentUser} title={title} refer={ref} />
+      <MessageAddField title={title} refer={ref} />
     </>
   );
 };

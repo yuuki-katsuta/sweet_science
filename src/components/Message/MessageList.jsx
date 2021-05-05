@@ -1,4 +1,5 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
+import { RootContext } from '../../Provider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
@@ -8,6 +9,12 @@ import Avatar from '@material-ui/core/Avatar';
 import LikedCount from './LikedCount';
 import styled from 'styled-components';
 
+const SContainer = styled.div`
+  background-color: #fcfcfc;
+  &.ownMessage {
+    background-color: #f7f7f7;
+  }
+`;
 const SAvatar = styled(Avatar)`
   width: 11.5vmin;
   height: 11.5vmin;
@@ -52,71 +59,74 @@ const STypography = styled(Typography)`
 `;
 
 const MessageList = memo(
-  ({
-    message: { message, user: name, uid, photoURL, id },
-    currentUser,
-    title,
-  }) => {
-    return uid === currentUser.uid ? (
-      <div>
-        <ListItem alignItems='flex-start'>
-          <ListItemText
-            className='listItem'
-            secondary={
-              <Typography component='span' variant='body2' color='textPrimary'>
-                <SOwnMessageWrapper>
-                  <SOwnMessage>
-                    <SMyName>{name ? name : 'ゲストユーザー'}</SMyName>
-                    {message.split('\n').map((t, i) => {
-                      return <SMessage key={i}>{t}</SMessage>;
-                    })}
-                    <SOwnlikedCountWrapper>
-                      <LikedCount
-                        title={title}
-                        id={id}
-                        currentUser={currentUser}
-                      />
-                    </SOwnlikedCountWrapper>
-                  </SOwnMessage>
-                </SOwnMessageWrapper>
-              </Typography>
-            }
-          />
-          <SListItemIcon>
-            <SAvatar alt='uploaded' src={currentUser.photoURL} />
-          </SListItemIcon>
-        </ListItem>
-        <Divider variant='fullWidth' />
-      </div>
-    ) : (
-      <div>
-        <ListItem alignItems='flex-start'>
-          <SListItemIcon>
-            <SAvatar alt='uploaded' src={photoURL} />
-          </SListItemIcon>
-          <ListItemText
-            className='listItem'
-            primary={<SOtherName>{name ? name : 'ゲストユーザー'}</SOtherName>}
-            secondary={
-              <>
-                <STypography
-                  component='span'
-                  variant='body2'
-                  color='textPrimary'
-                >
-                  {message.split('\n').map((t, i) => {
-                    return <SMessage key={i}>{t}</SMessage>;
-                  })}
-                </STypography>
-                <SlikedCountWrapper>
-                  <LikedCount title={title} id={id} currentUser={currentUser} />
-                </SlikedCountWrapper>
-              </>
-            }
-          />
-        </ListItem>
-        <Divider variant='fullWidth' />
-      </div>
+  ({ message: { message, user: name, uid, photoURL, id }, title }) => {
+    const { currentUser } = useContext(RootContext);
+    return (
+      <SContainer className={uid === currentUser.uid ? 'ownMessage' : ''}>
+        {uid === currentUser.uid ? (
+          <>
+            <ListItem alignItems='flex-start'>
+              <ListItemText
+                className='listItem'
+                secondary={
+                  <Typography
+                    component='span'
+                    variant='body2'
+                    color='textPrimary'
+                  >
+                    <SOwnMessageWrapper>
+                      <SOwnMessage>
+                        <SMyName>{name ? name : 'ゲストユーザー'}</SMyName>
+                        {message.split('\n').map((t, i) => {
+                          return <SMessage key={i}>{t}</SMessage>;
+                        })}
+                        <SOwnlikedCountWrapper>
+                          <LikedCount title={title} id={id} userUid={uid} />
+                        </SOwnlikedCountWrapper>
+                      </SOwnMessage>
+                    </SOwnMessageWrapper>
+                  </Typography>
+                }
+              />
+              <SListItemIcon>
+                <SAvatar alt='uploaded' src={currentUser.photoURL} />
+              </SListItemIcon>
+            </ListItem>
+            <Divider variant='fullWidth' />
+          </>
+        ) : (
+          <>
+            <ListItem alignItems='flex-start'>
+              <SListItemIcon>
+                <SAvatar alt='uploaded' src={photoURL} />
+              </SListItemIcon>
+              <ListItemText
+                className='listItem'
+                primary={
+                  <SOtherName>{name ? name : 'ゲストユーザー'}</SOtherName>
+                }
+                secondary={
+                  <>
+                    <STypography
+                      component='span'
+                      variant='body2'
+                      color='textPrimary'
+                    >
+                      {message.split('\n').map((t, i) => {
+                        return <SMessage key={i}>{t}</SMessage>;
+                      })}
+                    </STypography>
+                    <SlikedCountWrapper>
+                      <LikedCount title={title} id={id} userUid={uid} />
+                    </SlikedCountWrapper>
+                  </>
+                }
+              />
+            </ListItem>
+            <Divider variant='fullWidth' />
+          </>
+        )}
+      </SContainer>
     );
   }
 );

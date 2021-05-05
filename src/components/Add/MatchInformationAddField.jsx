@@ -142,16 +142,14 @@ const MatchInformationAddField = memo(
           <AddScoreForm
             setIsAddScore={setIsAddScore}
             addChat={addChat}
-            fighter={matchSummary.fighter}
-            opponent={matchSummary.opponent}
+            matchSummary={matchSummary}
           />
         )}
         {isAddAvg && (
           <AddAvgScoreForm
             setIsAddAvg={setIsAddAvg}
             addChat={addChat}
-            fighter={matchSummary.fighter}
-            opponent={matchSummary.opponent}
+            matchSummary={matchSummary}
           />
         )}
       </>
