@@ -101,6 +101,7 @@ const MatchList = memo(({ matchData }) => {
             </ThemeProvider>
             <TableBody>
               {matchData
+                .sort((a, b) => (a.date > b.date ? -1 : 1))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((data, index) => {
                   return (
