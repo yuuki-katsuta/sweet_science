@@ -29,10 +29,7 @@ const Home = memo(() => {
 
   //試合情報を取得
   const getMatcheInformation = async () => {
-    const querySnapshot = await db
-      .collection('chats')
-      .orderBy('date', 'desc')
-      .get();
+    const querySnapshot = await db.collection('chats').get();
     const newMatcheInformation = [];
     querySnapshot.forEach((doc) => {
       newMatcheInformation.push(doc.data());
