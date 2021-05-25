@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, memo } from 'react';
+import { useContext, useEffect, useState, memo, useCallback } from 'react';
 import { RootContext } from '../Provider';
 import { db } from '../base';
 import MediaQuery from 'react-responsive';
@@ -28,14 +28,14 @@ const Home = memo(() => {
   const [matchData, setMatchData] = useState([]);
 
   //試合情報を取得
-  const getMatcheInformation = async () => {
+  const getMatcheInformation = useCallback(async () => {
     const querySnapshot = await db.collection('chats').get();
     const newMatcheInformation = [];
     querySnapshot.forEach((doc) => {
       newMatcheInformation.push(doc.data());
     });
     return newMatcheInformation;
-  };
+  }, []);
 
   useEffect(() => {
     let unmounted = false;
@@ -50,8 +50,7 @@ const Home = memo(() => {
     return () => {
       unmounted = true;
     };
-    // eslint-disable-next-line
-  }, []);
+  }, [getMatcheInformation]);
 
   return (
     <div className='container'>
