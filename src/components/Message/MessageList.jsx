@@ -59,7 +59,7 @@ const STypography = styled(Typography)`
 `;
 
 const MessageList = memo(
-  ({ message: { message, name, uid, photoURL, id }, title }) => {
+  ({ message: { message, user: name, uid, photoURL, id }, title }) => {
     const { currentUser } = useContext(RootContext);
     return (
       <SContainer className={uid === currentUser.uid ? 'ownMessage' : ''}>
