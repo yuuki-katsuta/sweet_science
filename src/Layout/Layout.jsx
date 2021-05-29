@@ -1,6 +1,6 @@
-import Header from '../Header/Header';
+import Header from '../components/Header/Header';
 import { useContext } from 'react';
-import { RootContext } from '../../Provider';
+import { RootContext } from '../Provider';
 
 const Layout = ({ children }) => {
   const { currentUser } = useContext(RootContext);

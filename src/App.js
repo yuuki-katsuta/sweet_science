@@ -3,7 +3,7 @@ import { Provider } from './Provider';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Auth from './components/Auth/Auth';
 import routes from './router/routes';
-import Layout from './components/Layout/Layout';
+import Layout from './Layout/Layout';
 import Page404 from './components/Page404';
 
 function App() {
