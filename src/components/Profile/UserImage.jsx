@@ -9,6 +9,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import SendIcon from '@material-ui/icons/Send';
 import styled from 'styled-components';
 import { db } from '../../base';
+import { useAlert } from 'react-alert';
 
 const SAvatarWrapper = styled.span`
   position: relative;
@@ -33,13 +34,27 @@ const SInput = styled.input`
 `;
 
 const UserImage = () => {
-  const { currentUser, ChangePhtoUrl, ResetPhtoUrl, guestUser } = useContext(
-    RootContext
-  );
+  const { currentUser } = useContext(RootContext);
   const [image, setImage] = useState('');
   const [imageUrl, setImageUrl] = useState(currentUser.photoURL);
   const [filename, setFileName] = useState('');
   const isDataExist = useRef(false);
+  const Alert = useAlert();
+
+  const ChangePhtoUrl = async (imageURL) => {
+    await currentUser
+      .updateProfile({ photoURL: imageURL })
+      .then(() => {
+        Alert.success('プロフィール画像を変更しました！');
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
+  const ResetPhtoUrl = () => {
+    currentUser.updateProfile({ photoURL: '' });
+  };
 
   const imageCollection = db
     .collection('images')
@@ -54,7 +69,7 @@ const UserImage = () => {
     setImage(image);
   };
 
-  const onSubmit = async (event) => {
+  const uploadImage = async (event) => {
     try {
       if (image === '' || image === undefined)
         throw new Error('Passwords do not match');
@@ -131,26 +146,24 @@ const UserImage = () => {
           <SAvatar alt='uploaded' />
         )}
       </div>
-      {!guestUser && (
-        <div>
-          <SLabel>
-            ファイルを選択
-            <SInput onChange={handleImage} type='file' />
-          </SLabel>
-          {filename && filename.length > 15 ? (
-            <span>{` (${filename.substr(0, 15) + '...'}) `}</span>
-          ) : (
-            <span>{filename}</span>
-          )}
-          <BaseIconButton
-            onClickHandler={(e) => {
-              onSubmit(e);
-            }}
-          >
-            <SendIcon />
-          </BaseIconButton>
-        </div>
-      )}
+      <div>
+        <SLabel>
+          ファイルを選択
+          <SInput onChange={handleImage} type='file' />
+        </SLabel>
+        {filename && filename.length > 15 ? (
+          <span>{` (${filename.substr(0, 15) + '...'}) `}</span>
+        ) : (
+          <span>{filename}</span>
+        )}
+        <BaseIconButton
+          onClickHandler={(e) => {
+            uploadImage(e);
+          }}
+        >
+          <SendIcon />
+        </BaseIconButton>
+      </div>
     </>
   );
 };

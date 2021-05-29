@@ -21,7 +21,7 @@ const SInputField = styled.div`
 const EditName = () => {
   const [isNameChanged, setIsNameChanged] = useState(false);
   const [name, setName] = useState('');
-  const { changeCurrentName, currentUser } = useContext(RootContext);
+  const { currentUser } = useContext(RootContext);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
@@ -35,6 +35,20 @@ const EditName = () => {
   const resetState = () => {
     handleClose();
     setName('');
+  };
+
+  const changeCurrentName = async (newName) => {
+    try {
+      if (newName.length > 10)
+        throw new Error('Please use no more than 10 characters');
+      if (newName.trim() === '') throw new Error('Please enter your name');
+      await currentUser.updateProfile({
+        displayName: newName,
+      });
+      alert('Updated the name');
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (

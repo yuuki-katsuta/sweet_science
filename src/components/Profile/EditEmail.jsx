@@ -27,7 +27,7 @@ const EditEmail = () => {
   const [isEmailChanged, setIsEmailChanged] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [open, setOpen] = useState(false);
-  const { changeCurrentEmail, currentUser } = useContext(RootContext);
+  const { Reauthentication, currentUser } = useContext(RootContext);
 
   const handleClose = () => {
     setOpen(false);
@@ -41,6 +41,16 @@ const EditEmail = () => {
     handleClose();
     setEmail('');
     setCurrentPassword('');
+  };
+
+  const changeCurrentEmail = async (currentPassword, newEmail) => {
+    try {
+      await Reauthentication(currentPassword);
+      await currentUser.updateEmail(newEmail);
+      alert('Updated the email');
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (

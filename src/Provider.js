@@ -23,8 +23,8 @@ export const Provider = ({ children }) => {
       });
   };
 
-  const guestLogin = async () => {
-    await auth
+  const guestLogin = () => {
+    auth
       .signInAnonymously()
       .then(() => {
         Alert.success('ゲストユーザーとしてログインしました！');
@@ -82,77 +82,7 @@ export const Provider = ({ children }) => {
       currentUser.email,
       currentPassword
     );
-    await auth.currentUser
-      .reauthenticateWithCredential(credential)
-      .catch((e) => {
-        alert(e.message);
-      });
-  };
-
-  //displayname変更
-  const changeCurrentName = async (newName) => {
-    try {
-      if (newName.length > 10)
-        throw new Error('Please use no more than 10 characters');
-      if (newName.trim() === '') throw new Error('Please enter your name');
-      await auth.currentUser.updateProfile({
-        displayName: newName,
-      });
-      alert('Updated the name');
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  //email変更
-  const changeCurrentEmail = async (currentPassword, newEmail) => {
-    try {
-      await Reauthentication(currentPassword);
-      await auth.currentUser.updateEmail(newEmail);
-      alert('Updated the email');
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  //password変更
-  const ChangeCurrentPassword = async (
-    currentPassword,
-    newPassword,
-    confirmPassword
-  ) => {
-    try {
-      if (newPassword !== confirmPassword)
-        throw new Error('Passwords do not match');
-      await Reauthentication(currentPassword);
-      await auth.currentUser.updatePassword(newPassword);
-      alert('Updated the password');
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  const ChangePhtoUrl = async (imageURL) => {
-    try {
-      const user = auth.currentUser;
-      await user.updateProfile({
-        photoURL: imageURL,
-      });
-      Alert.success('プロフィール画像を変更しました！');
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  const ResetPhtoUrl = () => {
-    try {
-      const user = auth.currentUser;
-      user.updateProfile({
-        photoURL: '',
-      });
-    } catch (error) {
-      alert(error.message);
-    }
+    await auth.currentUser.reauthenticateWithCredential(credential);
   };
 
   //認証状態の変化を監視
@@ -185,13 +115,9 @@ export const Provider = ({ children }) => {
         currentUser,
         isLoading,
         adminUser,
-        changeCurrentName,
-        changeCurrentEmail,
-        ChangeCurrentPassword,
-        ChangePhtoUrl,
-        ResetPhtoUrl,
-        guestLogin,
         guestUser,
+        Reauthentication,
+        guestLogin,
         signOut,
       }}
     >

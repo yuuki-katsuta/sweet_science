@@ -25,7 +25,7 @@ const Password = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [open, setOpen] = useState(false);
-  const { ChangeCurrentPassword } = useContext(RootContext);
+  const { currentUser, Reauthentication } = useContext(RootContext);
 
   const handleClose = () => {
     setOpen(false);
@@ -35,6 +35,22 @@ const Password = () => {
     setNewPassword('');
     setConfirmPassword('');
     handleClose();
+  };
+
+  const ChangeCurrentPassword = async (
+    currentPassword,
+    newPassword,
+    confirmPassword
+  ) => {
+    try {
+      if (newPassword !== confirmPassword)
+        throw new Error('Passwords do not match');
+      await Reauthentication(currentPassword);
+      await currentUser.updatePassword(newPassword);
+      alert('Updated the password');
+    } catch (error) {
+      alert(error.message);
+    }
   };
   return (
     <>
