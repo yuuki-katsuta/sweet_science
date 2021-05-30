@@ -22,12 +22,13 @@ const STable = styled.table`
   }
   th {
     text-align: left;
-    width: 2vmin;
-    padding: 15px 20px 15px 10px;
+    padding: 15px 5vmin 15px 18px;
   }
   td {
     text-align: left;
-    padding: 15px 20px 15px 10px;
+    padding: 15px 5vmin 15px 18px;
+    color: #666666;
+    font-weight: bold;
   }
   tbody tr {
     &:hover {
@@ -54,7 +55,7 @@ const News = memo(({ matchData }) => {
         <STable>
           <thead>
             <tr>
-              <th>更新日</th>
+              <th>日付</th>
               <th>更新内容</th>
             </tr>
           </thead>
