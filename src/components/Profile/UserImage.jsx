@@ -72,7 +72,7 @@ const UserImage = () => {
   const uploadImage = async (event) => {
     try {
       if (image === '' || image === undefined)
-        throw new Error('Passwords do not match');
+        throw new Error('ファイルが選択されていません');
       await imageCollection
         .where('image', '==', `${filename}`)
         .get()
