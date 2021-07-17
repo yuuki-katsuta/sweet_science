@@ -32,10 +32,9 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
       <TextInputField
         variant='outlined'
         margin='normal'
-        required
         fullWidth
         id='name'
-        label='Name'
+        label='ニックネーム(10文字以内)'
         name='name'
         autoFocus
         value={name}
@@ -46,10 +45,9 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
       <TextInputField
         variant='outlined'
         margin='normal'
-        required
         fullWidth
         id='email'
-        label='Email Address'
+        label='メールアドレス'
         name='email'
         value={email}
         setState={(e) => {
@@ -59,10 +57,9 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
       <TextInputField
         variant='outlined'
         margin='normal'
-        required
         fullWidth
         name='password'
-        label='Password'
+        label='パスワード'
         type='password'
         id='password'
         value={password}
@@ -73,10 +70,9 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
       <TextInputField
         variant='outlined'
         margin='normal'
-        required
         fullWidth
         name='password'
-        label='Confirm Password'
+        label='パスワード確認'
         type='password'
         id='confirm Password'
         value={confirmPassword}
@@ -92,7 +88,7 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
           signup(email, password, confirmPassword, name);
         }}
       >
-        Sign Up
+        サインアップ
       </SSignupButton>
       <Grid container>
         <Grid item>
@@ -103,7 +99,7 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
             }}
             variant='body2'
           >
-            {'Already have an account? Log in'}
+            すでにアカウントを作られた方はこちら
           </Link>
         </Grid>
       </Grid>

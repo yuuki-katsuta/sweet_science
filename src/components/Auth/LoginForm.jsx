@@ -47,7 +47,7 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           required
           fullWidth
           id='email'
-          label='Email Address'
+          label='メールアドレス'
           name='email'
           autoComplete='email'
           autoFocus
@@ -62,7 +62,7 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           required
           fullWidth
           name='password'
-          label='Password'
+          label='パスワード'
           type='password'
           id='password'
           autoComplete='current-password'
@@ -79,7 +79,7 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
             login(email, password);
           }}
         >
-          Log In
+          ログイン
         </SLoginButton>
         <SGuestLoginButton
           fullWidth
@@ -100,7 +100,7 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
               }}
               variant='body2'
             >
-              "Don't have an account? Sign up"
+              アカウントをお持ちでない方はこちら
             </Link>
           </Grid>
         </Grid>
