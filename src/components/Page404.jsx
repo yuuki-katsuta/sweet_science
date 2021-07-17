@@ -22,27 +22,29 @@ const Page404 = () => {
   const { isLoading } = useContext(RootContext);
   const history = useHistory();
 
-  return isLoading ? null : (
-    <SContainer>
-      <h1>404 Not Found</h1>
-      <STextWrapper>
-        <p>
-          お探しのページが見つかりませんでした。
-          <br />
-          URLにお間違いがないか再度ご確認ください。
-        </p>
-      </STextWrapper>
-      <SBackButton
-        variant='contained'
-        color='default'
-        startIcon={<ArrowBackIcon />}
-        setState={() => {
-          history.goBack();
-        }}
-      >
-        直前のページに戻る
-      </SBackButton>
-    </SContainer>
+  return (
+    isLoading || (
+      <SContainer>
+        <h1>404 Not Found</h1>
+        <STextWrapper>
+          <p>
+            お探しのページが見つかりませんでした。
+            <br />
+            URLにお間違いがないか再度ご確認ください。
+          </p>
+        </STextWrapper>
+        <SBackButton
+          variant='contained'
+          color='default'
+          startIcon={<ArrowBackIcon />}
+          setState={() => {
+            history.goBack();
+          }}
+        >
+          直前のページに戻る
+        </SBackButton>
+      </SContainer>
+    )
   );
 };
 export default Page404;

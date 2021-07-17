@@ -27,7 +27,7 @@ const SSendButton = styled(BaseButton)`
 const Feedback = () => {
   const { currentUser } = useContext(RootContext);
   const [data, setData] = useState({
-    name: currentUser.displayName ? currentUser.displayName : 'ゲストユーザー',
+    name: currentUser.displayName || 'ゲストユーザー',
     message: '',
   });
   return (

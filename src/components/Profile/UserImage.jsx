@@ -71,8 +71,7 @@ const UserImage = () => {
 
   const uploadImage = async (event) => {
     try {
-      if (image === '' || image === undefined)
-        throw new Error('ファイルが選択されていません');
+      if (!image) throw new Error('ファイルが選択されていません');
       await imageCollection
         .where('image', '==', `${filename}`)
         .get()

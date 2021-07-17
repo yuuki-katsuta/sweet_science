@@ -62,7 +62,7 @@ const MessageList = memo(
   ({ message: { message, user: name, uid, photoURL, id }, title }) => {
     const { currentUser } = useContext(RootContext);
     return (
-      <SContainer className={uid === currentUser.uid ? 'ownMessage' : ''}>
+      <SContainer className={uid === currentUser.uid && 'ownMessage'}>
         {uid === currentUser.uid ? (
           <>
             <ListItem alignItems='flex-start'>
@@ -76,7 +76,7 @@ const MessageList = memo(
                   >
                     <SOwnMessageWrapper>
                       <SOwnMessage>
-                        <SMyName>{name ? name : 'ゲストユーザー'}</SMyName>
+                        <SMyName>{name || 'ゲストユーザー'}</SMyName>
                         {message.split('\n').map((t, i) => {
                           return <SMessage key={i}>{t}</SMessage>;
                         })}
@@ -102,9 +102,7 @@ const MessageList = memo(
               </SListItemIcon>
               <ListItemText
                 className='listItem'
-                primary={
-                  <SOtherName>{name ? name : 'ゲストユーザー'}</SOtherName>
-                }
+                primary={<SOtherName>{name || 'ゲストユーザー'}</SOtherName>}
                 secondary={
                   <>
                     <STypography

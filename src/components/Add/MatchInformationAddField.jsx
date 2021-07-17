@@ -38,15 +38,8 @@ const MatchInformationAddField = memo(
     const [isAddScore, setIsAddScore] = useState(false);
     const [isAddAvg, setIsAddAvg] = useState(false);
     const addChat = async () => {
-      const {
-        fighter,
-        opponent,
-        division,
-        date,
-        venue,
-        overview,
-        file,
-      } = matchSummary;
+      const { fighter, opponent, division, date, venue, overview, file } =
+        matchSummary;
       try {
         if (!fighter || !opponent || !division || !date || !venue)
           throw new Error('item is not entered');
@@ -59,7 +52,7 @@ const MatchInformationAddField = memo(
             opponent: opponent,
             division: division,
             date: date,
-            fileName: file ? file.name : null,
+            fileName: file.name || null,
             createdAt: new Date(),
             venue: venue,
             overview: overview,
