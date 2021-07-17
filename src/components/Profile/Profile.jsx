@@ -27,31 +27,29 @@ const SProfileItemWrapper = styled.div`
 `;
 
 const Profile = () => {
-  const { guestUser, currentUser } = useContext(RootContext);
+  const { currentUser } = useContext(RootContext);
 
-  return guestUser ? (
+  return currentUser.isAnonymous ? (
     <Redirect to={'/'} />
   ) : (
-    !currentUser.isAnonymous && (
-      <div className='container'>
-        <Container maxWidth='md'>
-          <h2>Your Profile</h2>
-          <STitle>
-            <p>プロフィール情報を編集することができます</p>
-          </STitle>
-          <UserImage />
-          <SProfileItemWrapper>
-            <SProfileItem>
-              <EditName />
-            </SProfileItem>
-            <SProfileItem>
-              <EditEmail />
-            </SProfileItem>
-          </SProfileItemWrapper>
-          <EditPassword />
-        </Container>
-      </div>
-    )
+    <div className='container'>
+      <Container maxWidth='md'>
+        <h2>Your Profile</h2>
+        <STitle>
+          <p>プロフィール情報を編集することができます</p>
+        </STitle>
+        <UserImage />
+        <SProfileItemWrapper>
+          <SProfileItem>
+            <EditName />
+          </SProfileItem>
+          <SProfileItem>
+            <EditEmail />
+          </SProfileItem>
+        </SProfileItemWrapper>
+        <EditPassword />
+      </Container>
+    </div>
   );
 };
 export default Profile;
