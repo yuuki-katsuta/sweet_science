@@ -30,7 +30,7 @@ const MessageItem = ({ title }) => {
         .doc(`${title}`)
         .collection('messages')
         .orderBy('createdAt', 'desc')
-        .limit(35)
+        .limit(50)
         .onSnapshot((Snapshot) => {
           let msg = [];
           Snapshot.forEach((doc) => {
