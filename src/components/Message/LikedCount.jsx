@@ -55,21 +55,35 @@ const LikedCount = memo(({ title, id, userUid }) => {
       //いいね済み
       if (likedUser.exists && likedUser.data().user === userUid) {
         setIsLiked(false);
-        await docRef.update({ liked: count - 1 });
-        //いいねユーザーを削除
-        await docRef.collection('likedUser').doc(`${userUid}`).delete();
-        //処理完了
-        processing.current = false;
-        return;
+        return await db
+          .runTransaction(async (transaction) => {
+            const latestgetData = await transaction.get(docRef);
+            const latestData = latestgetData.data().liked;
+            const newCount = latestData - 1;
+            transaction.update(docRef, { liked: newCount });
+          })
+          .then(async () => {
+            processing.current = false;
+            //いいねユーザーを削除
+            await docRef.collection('likedUser').doc(`${userUid}`).delete();
+          });
       }
       //いいねユーザーを登録
       await docRef.collection('likedUser').doc(`${userUid}`).set({
         user: userUid,
         createdAt: new Date(),
       });
-      await docRef.update({ liked: count + 1 });
-      setIsLiked(true);
-      processing.current = false;
+      return await db
+        .runTransaction(async (transaction) => {
+          const latestgetData = await transaction.get(docRef);
+          const latestData = latestgetData.data().liked;
+          const newCount = latestData + 1;
+          transaction.update(docRef, { liked: newCount });
+        })
+        .then(() => {
+          processing.current = false;
+          setIsLiked(true);
+        });
     } catch (error) {
       alert(error.message);
     }
