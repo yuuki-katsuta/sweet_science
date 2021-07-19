@@ -1,25 +1,18 @@
 import { useContext, useState, memo } from 'react';
 import { db } from '../../base';
-import { useHistory } from 'react-router-dom';
 import { RootContext } from '../../Provider';
 import BaseIconButton from '../Button/BaseIconButton';
 import TextInputField from '../InputField/TextInputField';
 import Grid from '@material-ui/core/Grid';
 import SendIcon from '@material-ui/icons/Send';
-import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import styled from 'styled-components';
 
 const SContainer = styled.div`
-  width: 70%;
-  margin: 0 auto;
+  width: 75%;
+  margin: 0 auto 16px;
 `;
 const SGrid = styled(Grid)`
   position: relative;
-`;
-const SBackButtonWrapper = styled.span`
-  position: absolute;
-  bottom: -10px;
-  right: 10px;
 `;
 const SSendButtonWrapper = styled.span`
   position: absolute;
@@ -29,7 +22,6 @@ const SSendButtonWrapper = styled.span`
 
 const MessageAddField = memo(({ title, refer }) => {
   const { currentUser } = useContext(RootContext);
-  const history = useHistory();
   const [text, setText] = useState('');
 
   const messageAdd = async () => {
@@ -54,18 +46,7 @@ const MessageAddField = memo(({ title, refer }) => {
   return (
     <SContainer>
       <Grid container>
-        <SGrid item xs={1}>
-          <SBackButtonWrapper>
-            <BaseIconButton
-              onClickHandler={() => {
-                history.goBack();
-              }}
-            >
-              <KeyboardReturnIcon fontSize='large' />
-            </BaseIconButton>
-          </SBackButtonWrapper>
-        </SGrid>
-        <Grid item xs={10}>
+        <Grid item xs={11}>
           <TextInputField
             fullWidth
             id='standard-multiline-static'
