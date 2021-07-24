@@ -43,19 +43,15 @@ exports.fetchCalendar = functions
     const url = 'https://www.boxingscene.com/schedule';
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     const items = await page.$$('.container-fluid .schedule .schedule-fight');
-
     const matchInformation = [];
 
     //取得要素
     for await (const item of items) {
-      //日付
       const date = await item.$eval(
         'div > div > div.fight-date',
         (e) => e.textContent
       );
-
       const dateObj = new Date(date);
-
       const dt = new Date();
       let year = '';
       if (dateObj.getMonth() + 1 < dt.getMonth() + 1) {
@@ -63,29 +59,25 @@ exports.fetchCalendar = functions
       } else {
         year = dt.getFullYear();
       }
+      const newDate =
+        year +
+        '/' +
+        ('0' + (dateObj.getMonth() + 1)).slice(-2) +
+        '/' +
+        ('0' + dateObj.getDate()).slice(-2);
 
-      const newDate = new Date(`${year} ${date}`);
-      console.log(newDate);
-
-      //タイトル
       const title = await item.$eval(
         'a > div.row > div > div > div.fight-title',
         (e) => e.textContent
       );
-
-      //開催地
       const venue = await item.$eval(
         ' a > div.row > div > div > div.schedule-details > div:nth-child(3)',
         (e) => e.textContent
       );
-
-      //放送
       const broadcast = await item.$eval(
         ' a > div.row > div > div > div.schedule-details > div:nth-child(2)',
         (e) => e.textContent
       );
-
-      //時間
       const time = await item.$eval(
         ' a > div.row > div > div > div.schedule-details > div:nth-child(1)',
         (e) => e.textContent
@@ -108,7 +100,6 @@ exports.fetchCalendar = functions
 
     for await (const matchData of matchInformation) {
       if (existingSchedule.some((m) => m.title === matchData.title)) {
-        console.log('発火');
         continue;
       } else {
         await ref.doc().set({
