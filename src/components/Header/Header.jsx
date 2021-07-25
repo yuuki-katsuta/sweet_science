@@ -21,6 +21,7 @@ import InfoIcon from '@material-ui/icons/InfoOutlined';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import EventNoteIcon from '@material-ui/icons/EventNote';
 import { media } from '../../style-utils';
 
 const theme = createMuiTheme({
@@ -62,6 +63,7 @@ const SInfoIcon = SHomeIcon.withComponent(InfoIcon);
 const SAccountCircleIcon = SHomeIcon.withComponent(AccountCircleIcon);
 const SFeedbackIcon = SHomeIcon.withComponent(FeedbackIcon);
 const SExitToAppIcon = SHomeIcon.withComponent(ExitToAppIcon);
+const SEventNoteIcon = SHomeIcon.withComponent(EventNoteIcon);
 
 const Header = () => {
   const { guestUser, signOut } = useContext(RootContext);
@@ -123,6 +125,17 @@ const Header = () => {
             <SAccountCircleIcon />
           </ListItemIcon>
           <ListItemText primary={'Profile'} />
+        </SListItem>
+        <SListItem
+          button
+          onClick={() => {
+            history.push('/schedule');
+          }}
+        >
+          <ListItemIcon>
+            <SEventNoteIcon />
+          </ListItemIcon>
+          <ListItemText primary={'Schedule'} />
         </SListItem>
         <SListItem
           button
