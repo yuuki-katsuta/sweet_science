@@ -26,7 +26,7 @@ const PUPPETEER_OPTIONS = {
   headless: true,
 };
 
-exports.fetchCalendar = functions
+exports.fetchSchedule = functions
   .region('asia-northeast1')
   .runWith({
     timeoutSeconds: 300,
@@ -54,6 +54,7 @@ exports.fetchCalendar = functions
       const dateObj = new Date(date);
       const dt = new Date();
       let year = '';
+      //試合の月が現在の月より過去なら来年
       if (dateObj.getMonth() + 1 < dt.getMonth() + 1) {
         year = dt.getFullYear() + 1;
       } else {
@@ -70,10 +71,12 @@ exports.fetchCalendar = functions
         'a > div.row > div > div > div.fight-title',
         (e) => e.textContent
       );
-      const venue = await item.$eval(
-        ' a > div.row > div > div > div.schedule-details > div:nth-child(3)',
-        (e) => e.textContent
-      );
+      const venue = await item
+        .$eval(
+          ' a > div.row > div > div > div.schedule-details > div:nth-child(3)',
+          (e) => e.textContent
+        )
+        .catch((error) => '???');
       const broadcast = await item.$eval(
         ' a > div.row > div > div > div.schedule-details > div:nth-child(2)',
         (e) => e.textContent
