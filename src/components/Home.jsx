@@ -32,6 +32,7 @@ const Home = memo(() => {
     const querySnapshot = await db.collection('chats').get();
     const newMatcheInformation = [];
     querySnapshot.forEach((doc) => {
+      if (doc.data()?.isCanceled === true) return;
       newMatcheInformation.push(doc.data());
     });
     return newMatcheInformation;
