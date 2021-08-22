@@ -44,7 +44,6 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
         <TextInputField
           variant='outlined'
           margin='normal'
-          required
           fullWidth
           id='email'
           label='メールアドレス'
@@ -59,7 +58,6 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
         <TextInputField
           variant='outlined'
           margin='normal'
-          required
           fullWidth
           name='password'
           label='パスワード'

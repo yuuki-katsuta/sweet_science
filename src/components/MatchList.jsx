@@ -29,6 +29,9 @@ const StyledTableCell = withStyles((theme) => ({
     color: '#EEEEEE',
     fontSize: 15.5,
     fontWeight: 'bold',
+    [theme.breakpoints.down('581')]: {
+      paddingLeft: '8px',
+    },
   },
 }))(TableCell);
 
@@ -57,13 +60,13 @@ const colums = [
   { id: 'division', label: 'Division', minWidth: 140 },
   { id: 'fighter', label: 'Fighter', minWidth: 180 },
   { id: 'opponent', label: 'Opponent', minWidth: 180 },
-  { id: 'venue', label: 'Venue', minWidth: 280 },
+  { id: 'venue', label: 'Venue', minWidth: 300 },
 ];
 const ForResponsiveColums = [
   { id: 'date', label: 'Date', minWidth: 110 },
-  { id: 'title', label: 'Fight', minWidth: 300 },
+  { id: 'title', label: 'Fight', minWidth: 330 },
   { id: 'division', label: 'Division', minWidth: 120 },
-  { id: 'venue', label: 'Venue', minWidth: 280 },
+  { id: 'venue', label: 'Venue', minWidth: 300 },
 ];
 
 const MatchList = memo(({ matchData }) => {

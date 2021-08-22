@@ -63,7 +63,7 @@ h1.match-title, h2.section-title{
     font-size: 14px;
   }
   td.MuiTableCell-sizeSmall {
-    padding: 14px 6px 14px 16px;
+    padding: 14px 6px 14px 8px;
   }
   th.scoreTable {
     padding-bottom: 1px;
