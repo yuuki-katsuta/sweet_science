@@ -43,22 +43,25 @@ const MatchInformationAddField = memo(
       try {
         if (!fighter || !opponent || !division || !date || !venue)
           throw new Error('item is not entered');
-        await db
-          .collection('chats')
-          .doc(`${fighter} vs ${opponent}`)
-          .set({
-            title: `${fighter} vs ${opponent}`,
-            fighter: fighter,
-            opponent: opponent,
-            division: division,
-            date: date,
-            fileName: file.name || null,
-            createdAt: new Date(),
-            venue: venue,
-            overview: overview,
-            scoreData: isAddScore,
-            AvgScore: isAddAvg,
-          });
+        const docRef = db.collection('chats').doc(`${fighter} vs ${opponent}`);
+        const lastData = await docRef.get();
+        let lastCreatedTime = '';
+        if (lastData.exists) {
+          lastCreatedTime = lastData.data().createdAt;
+        }
+        await docRef.set({
+          title: `${fighter} vs ${opponent}`,
+          fighter: fighter,
+          opponent: opponent,
+          division: division,
+          date: date,
+          fileName: file.name || null,
+          createdAt: lastCreatedTime || new Date(),
+          venue: venue,
+          overview: overview,
+          scoreData: isAddScore,
+          AvgScore: isAddAvg,
+        });
         if (file) {
           const storageRef = storage.ref(
             `/videos/${fighter} vs ${opponent}/${file.name}`
