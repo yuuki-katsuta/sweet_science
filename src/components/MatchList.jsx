@@ -15,6 +15,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import MediaQuery from 'react-responsive';
+import { removeEmoji } from './Utils/util';
 
 const theme = createMuiTheme({
   palette: {
@@ -111,6 +112,7 @@ const MatchList = memo(({ matchData }) => {
                 .sort((a, b) => (a.date > b.date ? -1 : 1))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((data, index) => {
+                  data.removeEmojivenue = removeEmoji(data.venue);
                   return (
                     <TableRow
                       hover
