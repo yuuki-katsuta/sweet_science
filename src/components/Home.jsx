@@ -61,6 +61,10 @@ const Home = memo(() => {
           ボクシングの試合一覧を表示しています。
           <br />
           クリックすると各チャットページへ遷移します。
+          <br />
+          <MediaQuery query='(max-width: 580px)'>
+            (横にスクロールできます。)
+          </MediaQuery>
         </p>
       </SDescription>
       <MatchList matchData={matchData} />
