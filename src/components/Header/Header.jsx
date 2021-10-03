@@ -152,7 +152,6 @@ const Header = () => {
           button
           onClick={async () => {
             await signOut();
-            history.push('/auth');
           }}
         >
           <ListItemIcon>
