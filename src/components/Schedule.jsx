@@ -67,29 +67,31 @@ const SListItem = styled(ListItem)`
 const Schedule = () => {
   const [schedule, setSchedule] = useState([]);
 
-  useEffect(() => {
-    let unmounted = false;
-    (async () => {
-      const date = new Date();
-      const today =
-        date.getFullYear() +
-        '/' +
-        ('0' + (date.getMonth() + 1)).slice(-2) +
-        '/' +
-        ('0' + date.getDate()).slice(-2);
+  const fetchSchedule = async (isMounted) => {
+    const date = new Date();
+    const today =
+      date.getFullYear() +
+      '/' +
+      ('0' + (date.getMonth() + 1)).slice(-2) +
+      '/' +
+      ('0' + date.getDate()).slice(-2);
 
-      const ｍatchSchedule = await db
-        .collection('schedule')
-        .where('date', '>=', `${today}`)
-        .get();
-      const scheduleData = [];
-      ｍatchSchedule.forEach((doc) => {
-        scheduleData.push(doc.data());
-      });
-      !unmounted && setSchedule(scheduleData);
-    })();
+    const ｍatchSchedule = await db
+      .collection('schedule')
+      .where('date', '>=', `${today}`)
+      .get();
+    const scheduleData = [];
+    ｍatchSchedule.forEach((doc) => {
+      scheduleData.push(doc.data());
+    });
+    isMounted && setSchedule(scheduleData);
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+    fetchSchedule(isMounted);
     return () => {
-      unmounted = true;
+      isMounted = false;
     };
   }, []);
 
