@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "dotenv-cli": "^4.0.0"
+    "dotenv-cli": "^4.0.0",
+    "graphemesplit": "^2.4.4"
   }
 }
