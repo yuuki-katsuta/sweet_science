@@ -29,6 +29,8 @@ const MatchInformationAddField = memo(
     const [matchSummary, setMatchSummary] = useState({
       fighter: '',
       opponent: '',
+      japaneseNotationFighter: '',
+      japaneseNotationOpponent: '',
       division: '',
       date: '',
       venue: '',
@@ -38,8 +40,17 @@ const MatchInformationAddField = memo(
     const [isAddScore, setIsAddScore] = useState(false);
     const [isAddAvg, setIsAddAvg] = useState(false);
     const addChat = async () => {
-      const { fighter, opponent, division, date, venue, overview, file } =
-        matchSummary;
+      const {
+        fighter,
+        opponent,
+        japaneseNotationFighter,
+        japaneseNotationOpponent,
+        division,
+        date,
+        venue,
+        overview,
+        file,
+      } = matchSummary;
       try {
         if (!fighter || !opponent || !division || !date || !venue)
           throw new Error('item is not entered');
@@ -51,6 +62,8 @@ const MatchInformationAddField = memo(
         }
         await docRef.set({
           title: `${fighter} vs ${opponent}`,
+          japaneseNotationFighter: japaneseNotationFighter,
+          japaneseNotationOpponent: japaneseNotationOpponent,
           fighter: fighter,
           opponent: opponent,
           division: division,
@@ -73,6 +86,8 @@ const MatchInformationAddField = memo(
         setMatchSummary({
           fighter: '',
           opponent: '',
+          japaneseNotationFighter: '',
+          japaneseNotationOpponent: '',
           division: '',
           date: '',
           file: '',

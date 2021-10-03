@@ -50,6 +50,30 @@ const AddMatchSummaryForm = memo(({ matchSummary, setMatchSummary }) => {
         }}
       />
       <TextInputField
+        id='japaneseNotationFighter'
+        name='japaneseNotationFighter'
+        label='japaneseNotationFighter'
+        value={matchSummary.japaneseNotationFighter}
+        setState={(e) => {
+          setMatchSummary({
+            ...matchSummary,
+            [e.target.name]: e.target.value,
+          });
+        }}
+      />
+      <TextInputField
+        id='japaneseNotationOpponent'
+        name='japaneseNotationOpponent'
+        label='japaneseNotationOpponent'
+        value={matchSummary.japaneseNotationOpponent}
+        setState={(e) => {
+          setMatchSummary({
+            ...matchSummary,
+            [e.target.name]: e.target.value,
+          });
+        }}
+      />
+      <TextInputField
         id='division'
         name='division'
         label='division'
