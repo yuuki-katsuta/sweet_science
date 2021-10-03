@@ -49,8 +49,12 @@ const useStyles = makeStyles((theme) => ({
   },
   tableCell: {
     cursor: 'pointer',
-    fontWeight: '600',
-    color: '#555555',
+    color: '#444444',
+    borderBlockColor: 'inherit',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '13.3px',
+    },
+    fontWeight: 'bold',
   },
 }));
 
