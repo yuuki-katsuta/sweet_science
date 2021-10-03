@@ -28,7 +28,7 @@ const Score = memo(({ matchInfo }) => {
   const getScore = async () => {
     const data = await db
       .collection('chats')
-      .doc(`${matchInfo.title}`)
+      .doc(matchInfo.room)
       .collection('score')
       .get();
     const ScoreData = [];

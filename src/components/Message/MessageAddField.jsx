@@ -20,7 +20,7 @@ const SSendButtonWrapper = styled.span`
   left: 8px;
 `;
 
-const MessageAddField = memo(({ title, refer }) => {
+const MessageAddField = memo(({ room, refer }) => {
   const { currentUser } = useContext(RootContext);
   const [text, setText] = useState('');
 
@@ -29,7 +29,7 @@ const MessageAddField = memo(({ title, refer }) => {
       alert('Please enter a message');
       return;
     }
-    await db.collection('chats').doc(`${title}`).collection('messages').add({
+    await db.collection('chats').doc(room).collection('messages').add({
       user: currentUser.displayName,
       message: text,
       uid: currentUser.uid,
@@ -40,7 +40,6 @@ const MessageAddField = memo(({ title, refer }) => {
     setText('');
     //自動スクロール
     refer.current.scrollIntoView({ behavior: 'smooth' });
-    // eslint-disable-next-line
   };
 
   return (

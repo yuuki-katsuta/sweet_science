@@ -59,7 +59,7 @@ const STypography = styled(Typography)`
 `;
 
 const MessageList = memo(
-  ({ message: { message, user: name, uid, photoURL, id }, title }) => {
+  ({ message: { message, user: name, uid, photoURL, id }, room }) => {
     const { currentUser } = useContext(RootContext);
     return (
       <SContainer className={uid === currentUser.uid && 'ownMessage'}>
@@ -81,7 +81,7 @@ const MessageList = memo(
                           return <SMessage key={i}>{t}</SMessage>;
                         })}
                         <SOwnlikedCountWrapper>
-                          <LikedCount title={title} id={id} userUid={uid} />
+                          <LikedCount room={room} id={id} userUid={uid} />
                         </SOwnlikedCountWrapper>
                       </SOwnMessage>
                     </SOwnMessageWrapper>
@@ -116,7 +116,7 @@ const MessageList = memo(
                     </STypography>
                     <SlikedCountWrapper>
                       <LikedCount
-                        title={title}
+                        room={room}
                         id={id}
                         userUid={currentUser.uid}
                       />

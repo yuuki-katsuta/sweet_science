@@ -1,6 +1,7 @@
 import { useState, memo } from 'react';
 import { db } from '../../base';
 import { storage } from '../../base';
+import { removeEmoji } from '../Utils/util';
 import AddScoreForm from './AddScoreForm';
 import AddMatchSummary from './AddMatchSummaryForm';
 import AddAvgScoreForm from './AddAvgScoreForm';
@@ -52,15 +53,25 @@ const MatchInformationAddField = memo(
         file,
       } = matchSummary;
       try {
-        if (!fighter || !opponent || !division || !date || !venue)
+        if (
+          !fighter ||
+          !opponent ||
+          !division ||
+          !japaneseNotationFighter ||
+          !japaneseNotationOpponent ||
+          !date ||
+          !venue
+        )
           throw new Error('item is not entered');
-        const docRef = db.collection('chats').doc(`${fighter} vs ${opponent}`);
+        const removeEmojiTitle = removeEmoji(`${fighter} vs ${opponent}`);
+        const docRef = db.collection('chats').doc(removeEmojiTitle);
         const lastData = await docRef.get();
         let lastCreatedTime = '';
         if (lastData.exists) {
           lastCreatedTime = lastData.data().createdAt;
         }
         await docRef.set({
+          room: removeEmojiTitle,
           title: `${fighter} vs ${opponent}`,
           japaneseNotationFighter: japaneseNotationFighter,
           japaneseNotationOpponent: japaneseNotationOpponent,
@@ -68,6 +79,7 @@ const MatchInformationAddField = memo(
           opponent: opponent,
           division: division,
           date: date,
+          omittedDate: date.slice(5),
           fileName: file.name || null,
           createdAt: lastCreatedTime || new Date(),
           venue: venue,

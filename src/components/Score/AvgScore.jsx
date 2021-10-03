@@ -22,7 +22,7 @@ const AvgScore = memo(({ matchInfo }) => {
   const getScore = async () => {
     const scoreData = await db
       .collection('chats')
-      .doc(`${matchInfo.title}`)
+      .doc(matchInfo.room)
       .collection('score')
       .doc('AverageScore')
       .get();

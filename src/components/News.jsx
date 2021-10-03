@@ -69,7 +69,7 @@ const News = memo(({ matchData }) => {
                     {
                       <>
                         <td>{FromTimeStampToDate(data.createdAt)}</td>
-                        <td>Added {data.title}</td>
+                        <td>追加 : {data.room}</td>
                       </>
                     }
                   </tr>

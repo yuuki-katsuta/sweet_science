@@ -19,16 +19,16 @@ const SList = styled(List)`
   }
 `;
 
-const MessageItem = memo(({ title }) => {
+const MessageItem = memo(({ room }) => {
   const [messages, setMessages] = useState([]);
   const ref = useRef();
 
   //データ取得
   useEffect(() => {
     let isMounted = true;
-    const getMessages = () => {
+    const getMessages = (isMounted) => {
       db.collection('chats')
-        .doc(`${title}`)
+        .doc(room)
         .collection('messages')
         .orderBy('createdAt', 'desc')
         .limit(50)
@@ -49,12 +49,11 @@ const MessageItem = memo(({ title }) => {
           isMounted && setMessages(msg.reverse());
         });
     };
-    getMessages();
+    getMessages(isMounted);
     return () => {
       isMounted = false;
     };
-    // eslint-disable-next-line
-  }, []);
+  }, [room]);
 
   return (
     <>
@@ -62,12 +61,12 @@ const MessageItem = memo(({ title }) => {
         {messages.map((message, index) => {
           return (
             <div ref={ref} key={index}>
-              <MessageList title={title} message={message} />
+              <MessageList room={room} message={message} />
             </div>
           );
         })}
       </SList>
-      <MessageAddField title={title} refer={ref} />
+      <MessageAddField room={room} refer={ref} />
     </>
   );
 });

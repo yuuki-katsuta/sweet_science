@@ -10,14 +10,14 @@ const SCount = styled.span`
   color: '#666666';
 `;
 
-const LikedCount = memo(({ title, id, userUid }) => {
+const LikedCount = memo(({ room, id, userUid }) => {
   const [count, setCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const processing = useRef(false);
 
   const docRef = db
     .collection('chats')
-    .doc(`${title}`)
+    .doc(room)
     .collection('messages')
     .doc(`${id}`);
 
@@ -48,6 +48,11 @@ const LikedCount = memo(({ title, id, userUid }) => {
     if (processing.current) return;
     processing.current = true;
     try {
+      const docRef = db
+        .collection('chats')
+        .doc(room)
+        .collection('messages')
+        .doc(`${id}`);
       const likedUser = await docRef
         .collection('likedUser')
         .doc(`${userUid}`)

@@ -23,7 +23,7 @@ const ChatPage = () => {
         {matchInfo.AvgScore && <AvgScore matchInfo={matchInfo} />}
       </Container>
       <SContainer maxWidth='lg' disableGutters={true}>
-        <MessageItem title={matchInfo.title} />
+        <MessageItem room={matchInfo.room} />
       </SContainer>
     </div>
   ) : (

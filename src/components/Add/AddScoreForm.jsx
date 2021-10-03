@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { db } from '../../base';
+import { removeEmoji } from '../Utils/util';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import InputField from '../InputField/InputField';
@@ -58,12 +59,8 @@ const AddScoreForm = ({
         },
       };
     });
-
-    const scoreData = db
-      .collection('chats')
-      .doc(`${fighter} vs ${opponent}`)
-      .collection('score');
-
+    const room = removeEmoji(`${fighter} vs ${opponent}`);
+    const scoreData = db.collection('chats').doc(room).collection('score');
     const { judgeA, judgeB, judgeC } = scores;
     for (const judge of [judgeA, judgeB, judgeC]) {
       scoreData.doc(`${judge.name}`).set({

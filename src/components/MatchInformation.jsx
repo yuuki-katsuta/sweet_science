@@ -45,7 +45,7 @@ const MatchInformation = memo(({ matchInfo }) => {
   useEffect(() => {
     if (matchInfo.fileName) {
       const storageRef = storage.ref(
-        `/videos/${matchInfo.title}/${matchInfo.fileName}`
+        `/videos/${matchInfo.room}/${matchInfo.fileName}`
       );
       storageRef
         .getDownloadURL()
@@ -56,8 +56,7 @@ const MatchInformation = memo(({ matchInfo }) => {
           alert(error.message);
         });
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [matchInfo]);
 
   const MatchData = ({ SmallWidth }) => {
     return (
