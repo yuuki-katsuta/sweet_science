@@ -61,17 +61,18 @@ const useStyles = makeStyles((theme) => ({
 
 //テーブルに表示するデータ
 const colums = [
-  { id: 'date', label: 'Date', minWidth: 140 },
-  { id: 'division', label: 'Division', minWidth: 140 },
-  { id: 'fighter', label: 'Fighter', minWidth: 180 },
-  { id: 'opponent', label: 'Opponent', minWidth: 180 },
-  { id: 'venue', label: 'Venue', minWidth: 300 },
+  { id: 'date', label: '日付', minWidth: 120 },
+  { id: 'division', label: '階級', minWidth: 130 },
+  { id: 'japaneseNotationFighter', label: '試合', minWidth: 260 },
+  { id: 'japaneseNotationOpponent', label: '', minWidth: 260 },
+  { id: 'removeEmojivenue', label: '開催地', minWidth: 300 },
 ];
 const ForResponsiveColums = [
-  { id: 'date', label: 'Date', minWidth: 110 },
-  { id: 'title', label: 'Fight', minWidth: 330 },
-  { id: 'division', label: 'Division', minWidth: 120 },
-  { id: 'venue', label: 'Venue', minWidth: 300 },
+  { id: 'omittedDate', label: '日付', minWidth: 68 },
+  { id: 'japaneseNotationFighter', label: '試合', minWidth: 230 },
+  { id: 'japaneseNotationOpponent', label: '', minWidth: 230 },
+  { id: 'division', label: '階級', minWidth: 130 },
+  { id: 'removeEmojivenue', label: '開催地', minWidth: 300 },
 ];
 
 const MatchList = memo(({ matchData }) => {
