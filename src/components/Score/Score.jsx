@@ -1,8 +1,9 @@
 import { useEffect, useState, memo, useRef } from 'react';
 import { db } from '../../base';
+import { createData } from './Utils/common-method';
 import ScoreTable from './ScoreTable';
 import styled from 'styled-components';
-import { createData } from './Utils/common-method';
+import split from 'graphemesplit';
 
 const SContainer = styled.div`
   max-width: 950px;
@@ -24,59 +25,64 @@ const Score = memo(({ matchInfo }) => {
     judgeC: '',
   });
 
-  //スコアデータ取得
-  const getScore = async () => {
-    const data = await db
-      .collection('chats')
-      .doc(matchInfo.room)
-      .collection('score')
-      .get();
-    const ScoreData = [];
-    data.forEach((doc) => {
-      ScoreData.push(doc.data());
-    });
-    return ScoreData;
-  };
-
   useEffect(() => {
     let unmounted = false;
     if (matchInfo) {
       (async () => {
-        const scores = await getScore();
-        const [judgeA, judgeB, judgeC] = scores;
-        //totalを算出
-        [judgeA, judgeB, judgeC].forEach((judge, index) => {
-          const fighterTotal = judge.fighter.reduce((sum, num) => {
-            return sum + num;
-          });
-          const opponentTotal = judge.opponent.reduce((sum, num) => {
-            return sum + num;
-          });
-          totalScore.current = {
-            ...totalScore.current,
-            [['judgeA', 'judgeB', 'judgeC'][index]]: {
-              name: judge.judge,
-              total: `${fighterTotal}-${opponentTotal}`,
-            },
-          };
+        const querySnapshot = await db
+          .collection('chats')
+          .doc(matchInfo.room)
+          .collection('score')
+          .get();
+        const scores = [];
+        querySnapshot.forEach((doc) => {
+          scores.push(doc.data());
         });
-        //スコア算出
-        [ScoringA, ScoringB, ScoringC].forEach((Scoring, index) => {
-          Scoring.current = [
-            createData(`${matchInfo.fighter}`, ...scores[index].fighter),
-            createData(`${matchInfo.opponent}`, ...scores[index].opponent),
-          ];
-        });
-        if (!unmounted) {
-          setUpdata(!update);
-        }
+        const calculateTotalScore = (scores) => {
+          const [judgeA, judgeB, judgeC] = scores;
+          //totalを算出
+          [judgeA, judgeB, judgeC].forEach((judge, index) => {
+            const fighterTotal = judge.fighter.reduce((sum, num) => {
+              return sum + num;
+            });
+            const opponentTotal = judge.opponent.reduce((sum, num) => {
+              return sum + num;
+            });
+            totalScore.current = {
+              ...totalScore.current,
+              [['judgeA', 'judgeB', 'judgeC'][index]]: {
+                name: judge.judge,
+                total: `${fighterTotal}-${opponentTotal}`,
+              },
+            };
+          });
+        };
+        const calculateEachScore = (scores) => {
+          const fighterLength = split(matchInfo.fighter).length;
+          const opponentLength = split(matchInfo.opponent).length;
+          [ScoringA, ScoringB, ScoringC].forEach((Scoring, index) => {
+            Scoring.current = [
+              createData(
+                `${matchInfo.fighter.slice(0, fighterLength - 1)}`,
+                ...scores[index].fighter
+              ),
+              createData(
+                `${matchInfo.opponent.slice(0, opponentLength - 1)}`,
+                ...scores[index].opponent
+              ),
+            ];
+          });
+        };
+        calculateTotalScore(scores);
+        calculateEachScore(scores);
+        if (!unmounted) setUpdata(!update);
       })();
-      return () => {
-        unmounted = true;
-      };
     }
-    //eslint-disable-next-line
-  }, []);
+    return () => {
+      unmounted = true;
+    };
+    // eslint-disable-next-line
+  }, [matchInfo]);
 
   return (
     <SContainer>
