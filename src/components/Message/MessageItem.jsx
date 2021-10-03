@@ -26,30 +26,27 @@ const MessageItem = memo(({ room }) => {
   //データ取得
   useEffect(() => {
     let isMounted = true;
-    const getMessages = (isMounted) => {
-      db.collection('chats')
-        .doc(room)
-        .collection('messages')
-        .orderBy('createdAt', 'desc')
-        .limit(50)
-        .onSnapshot((Snapshot) => {
-          let msg = [];
-          Snapshot.forEach((doc) => {
-            if (doc.data()) {
-              msg.push({
-                message: doc.data().message,
-                user: doc.data().user,
-                uid: doc.data().uid,
-                photoURL: doc.data().photoURL,
-                id: doc.id,
-              });
-            }
-          });
-          //配列の要素を反転
-          isMounted && setMessages(msg.reverse());
+    db.collection('chats')
+      .doc(room)
+      .collection('messages')
+      .orderBy('createdAt', 'desc')
+      .limit(50)
+      .onSnapshot((Snapshot) => {
+        let msg = [];
+        Snapshot.forEach((doc) => {
+          if (doc.data()) {
+            msg.push({
+              message: doc.data().message,
+              user: doc.data().user,
+              uid: doc.data().uid,
+              photoURL: doc.data().photoURL,
+              id: doc.id,
+            });
+          }
         });
-    };
-    getMessages(isMounted);
+        //配列の要素を反転
+        isMounted && setMessages(msg.reverse());
+      });
     return () => {
       isMounted = false;
     };

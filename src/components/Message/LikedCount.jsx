@@ -14,16 +14,14 @@ const LikedCount = memo(({ room, id, userUid }) => {
   const [count, setCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const processing = useRef(false);
-
-  const docRef = db
-    .collection('chats')
-    .doc(room)
-    .collection('messages')
-    .doc(`${id}`);
-
   useEffect(() => {
     let isMounted = true;
-    const GetNumberOfLikes = async () => {
+    const docRef = db
+      .collection('chats')
+      .doc(room)
+      .collection('messages')
+      .doc(`${id}`);
+    (async () => {
       docRef.onSnapshot((doc) => {
         isMounted && setCount(doc.data().liked);
       });
@@ -32,16 +30,13 @@ const LikedCount = memo(({ room, id, userUid }) => {
         .doc(`${userUid}`)
         .get();
       //いいね済み
-      if (likedUser.exists && likedUser.data().user === userUid) {
-        isMounted && setIsLiked(true);
-      }
-    };
-    GetNumberOfLikes();
+      if (likedUser.exists && likedUser.data().user === userUid && isMounted)
+        setIsLiked(true);
+    })();
     return () => {
       isMounted = false;
     };
-    // eslint-disable-next-line
-  }, []);
+  }, [id, room, userUid]);
 
   const handleClick = async () => {
     //更新中なら処理しない
