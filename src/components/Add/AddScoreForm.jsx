@@ -21,29 +21,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const basicScoreData = {
+  judgerName: '',
+  fighterScore: '',
+  opponentScore: '',
+};
+
 const AddScoreForm = ({
   setIsAddScore,
   addChat,
   matchSummary: { fighter, opponent },
 }) => {
   const classes = useStyles();
-
-  const [scoreA, setScoreA] = useState({
-    judgerName: '',
-    fighterScore: '',
-    opponentScore: '',
-  });
-  const [scoreB, setScoreB] = useState({
-    judgerName: '',
-    fighterScore: '',
-    opponentScore: '',
-  });
-  const [scoreC, setScoreC] = useState({
-    judgerName: '',
-    fighterScore: '',
-    opponentScore: '',
-  });
-
+  const [scoreA, setScoreA] = useState(basicScoreData);
+  const [scoreB, setScoreB] = useState(basicScoreData);
+  const [scoreC, setScoreC] = useState(basicScoreData);
   const addChatWithScore = async () => {
     await addChat();
     let scores = {};
