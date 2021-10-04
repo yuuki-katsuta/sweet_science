@@ -12,6 +12,10 @@ const STitle = styled.div`
   margin-bottom: 16px;
   color: #666666;
   font-weight: bold;
+  _:lang(x) + _:-webkit-full-screen-document,
+  p {
+    letter-spacing: -0.8px;
+  }
 `;
 const SProfileItem = styled.div`
   display: flex;
@@ -24,6 +28,10 @@ const SProfileItemWrapper = styled.div`
   white-space: nowrap;
   width: 100%;
   max-width: 300px;
+  _:lang(x) + _:-webkit-full-screen-document,
+  h3 {
+    letter-spacing: -0.8px;
+  }
 `;
 
 const Profile = () => {
@@ -34,7 +42,7 @@ const Profile = () => {
   ) : (
     <div className='container'>
       <Container maxWidth='md'>
-        <h2>Your Profile</h2>
+        <h2 className='section-title'>Your Profile</h2>
         <STitle>
           <p>プロフィール情報を編集することができます</p>
         </STitle>

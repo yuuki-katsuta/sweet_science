@@ -15,8 +15,11 @@ const SDescription = styled.div`
   margin-bottom: 16px;
   color: #666666;
   font-weight: bold;
+  _:lang(x) + _:-webkit-full-screen-document,
+  p {
+    letter-spacing: -0.9px;
+  }
 `;
-
 const SList = styled(List)`
   width: 100%;
   max-width: 1050px;
@@ -61,6 +64,11 @@ const SListItem = styled(ListItem)`
   margin: 0 auto;
   SVG {
     margin-right: 7px;
+  }
+  _:lang(x) + _:-webkit-full-screen-document,
+  h2,
+  span {
+    letter-spacing: -1px;
   }
 `;
 

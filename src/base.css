@@ -47,6 +47,19 @@ h1.match-title, h2.section-title{
   overflow-x: scroll;
   white-space: nowrap;
 }
+_:lang(x)+_:-webkit-full-screen-document, h2.section-title, h4 {
+  letter-spacing: -0.9px;
+}
+_:lang(x)+_:-webkit-full-screen-document, h1.match-title {
+  letter-spacing: -1.5px;
+}
+_:lang(x) + _:-webkit-full-screen-document, td.MuiTableCell-body {
+  letter-spacing: -0.8px;
+}
+_:lang(x) + _:-webkit-full-screen-document, div.edit-name-section > h3 {
+  letter-spacing: -0.8px;
+}
+
 
 @media screen and (min-width:280px) {
   /*画面サイズが280pxからはここを読み込む*/

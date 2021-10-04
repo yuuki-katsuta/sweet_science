@@ -11,6 +11,11 @@ const SBackButton = styled(BaseButton)`
 const SContainer = styled.div`
   margin-top: 200px;
   text-align: center;
+  _:lang(x) + _:-webkit-full-screen-document,
+  h1,
+  p {
+    letter-spacing: -1px;
+  }
 `;
 const STextWrapper = styled.div`
   margin-bottom: 32px;

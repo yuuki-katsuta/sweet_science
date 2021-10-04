@@ -31,6 +31,10 @@ const SMatchDataWrapper = styled.div`
     overflow-x: scroll;
     white-space: nowrap;
   }
+  _:lang(x) + _:-webkit-full-screen-document,
+  p {
+    letter-spacing: -0.9px;
+  }
 `;
 const SContainer = styled.div`
   margin-bottom: 16px;

@@ -14,6 +14,11 @@ const SContainer = styled.div`
     font-size: 16px;
   `}
   }
+  _:lang(x) + _:-webkit-full-screen-document,
+  h3,
+  h1 {
+    letter-spacing: -0.9px;
+  }
 `;
 const SDescription = styled.div`
   text-align: left;
@@ -24,7 +29,7 @@ const About = () => {
   return (
     <SContainer>
       <Container maxWidth='md'>
-        <h2>About</h2>
+        <h2 className='section-title'>About</h2>
         <h3>本アプリケーションをご利用いただきましてありがとうございます。</h3>
         <SDescription>
           <p>
