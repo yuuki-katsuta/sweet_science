@@ -66,9 +66,12 @@ const SListItem = styled(ListItem)`
     margin-right: 7px;
   }
   _:lang(x) + _:-webkit-full-screen-document,
-  h2,
-  span {
+  h2 {
     letter-spacing: -1px;
+  }
+  _:lang(x) + _:-webkit-full-screen-document,
+  span {
+    letter-spacing: -0.2px;
   }
 `;
 
