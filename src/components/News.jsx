@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Section = styled.div`
   marginbottom: 12px;
 `;
-const Heading = styled.p`
+const Heading = styled.div`
   color: #666666;
   font-weight: bold;
   _:lang(x) + _:-webkit-full-screen-document,
