@@ -1,9 +1,8 @@
 import PrivateRoute from './PrivateRoute';
 import { Provider } from './Provider';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import routes from './router/routes';
 import Layout from './Layout/Layout';
-import Page404 from './components/Page404';
 
 function App() {
   return (
@@ -19,7 +18,7 @@ function App() {
                 component={route.component}
               />
             ))}
-            <Route path='*' component={Page404} />
+            <Route path='*' render={() => <Redirect to='/' />} />
           </Switch>
         </Layout>
       </BrowserRouter>
