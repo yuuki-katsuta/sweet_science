@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
+const firebase_tools = require('firebase-tools');
+const projectName = functions.config().project.name;
 const gmailEmail = functions.config().gmail.email;
 const gmailPassword = functions.config().gmail.password;
 const adminEmail = functions.config().admin.email;
@@ -94,22 +96,17 @@ exports.fetchSchedule = functions
         time,
       });
     }
-
-    //dbへ保存
+    await firebase_tools.firestore.delete('schedule', {
+      project: projectName,
+      recursive: true,
+      yes: true,
+    });
     const ref = db.collection('schedule');
-    const query = await ref.get();
-    //既存のデータ
-    const existingSchedule = query.docs.map((doc) => doc.data());
-
     for await (const matchData of matchInformation) {
-      if (existingSchedule.some((m) => m.title === matchData.title)) {
-        continue;
-      } else {
-        await ref.doc().set({
-          ...matchData,
-          fetchedAt: new Date(),
-        });
-      }
+      await ref.doc().set({
+        ...matchData,
+        fetchedAt: new Date(),
+      });
     }
     await browser.close();
   });
