@@ -89,7 +89,7 @@ const MatchInformationAddField = memo(
         });
         if (file) {
           const storageRef = storage.ref(
-            `/videos/${fighter} vs ${opponent}/${file.name}`
+            `/videos/${removeEmojiTitle}/${file.name}`
           );
           await storageRef.put(file);
         }
