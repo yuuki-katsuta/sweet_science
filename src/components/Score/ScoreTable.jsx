@@ -11,6 +11,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { RoundData } from './Utils/util';
 
 const theme = createMuiTheme({
   palette: {
@@ -64,7 +65,8 @@ const ScoreTable = memo(({ Scoring }) => {
           <TableHead>
             <TableRow>
               <StyledTableCell className='scoreTable'>Round</StyledTableCell>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((round, key) => {
+              {[...Array(12).keys()].map((round, key) => {
+                round++;
                 return (
                   <StyledTableCell
                     align='right'
@@ -84,20 +86,7 @@ const ScoreTable = memo(({ Scoring }) => {
                   <TableCell component='th' scope='row' className='scoreTable'>
                     {row.name}
                   </TableCell>
-                  {[
-                    'one',
-                    'two',
-                    'three',
-                    'four',
-                    'five',
-                    'six',
-                    'seven',
-                    'eight',
-                    'nine',
-                    'ten',
-                    'eleven',
-                    'twelve',
-                  ].map((number, key) => {
+                  {RoundData.map((number, key) => {
                     return (
                       <TableCell align='right' key={key} className='scoreTable'>
                         {row[number]}

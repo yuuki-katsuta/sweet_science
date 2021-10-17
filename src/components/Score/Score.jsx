@@ -1,6 +1,6 @@
 import { useEffect, useState, memo, useRef } from 'react';
 import { db } from '../../base';
-import { createData } from './Utils/common-method';
+import { createData } from './Utils/util';
 import ScoreTable from './ScoreTable';
 import styled from 'styled-components';
 import split from 'graphemesplit';

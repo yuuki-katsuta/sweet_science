@@ -29,3 +29,17 @@ export const createData = (
     twelve,
   };
 };
+export const RoundData = [
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+  'ten',
+  'eleven',
+  'twelve',
+];

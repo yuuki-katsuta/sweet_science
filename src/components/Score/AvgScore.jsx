@@ -2,7 +2,7 @@ import { useEffect, useState, memo, useRef } from 'react';
 import { db } from '../../base';
 import ScoreTable from './ScoreTable';
 import styled from 'styled-components';
-import { createData } from './Utils/common-method';
+import { createData } from './Utils/util';
 import split from 'graphemesplit';
 
 const SContainer = styled.div`
