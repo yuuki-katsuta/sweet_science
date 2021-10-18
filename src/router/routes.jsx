@@ -4,10 +4,12 @@ import Profile from '../components/Profile/Profile';
 import About from '../components/About';
 import Feedback from '../components/Feedback';
 import Schedule from '../components/Schedule';
+import UserScores from '../components/Score/UserScores';
 
 const routes = [
   { path: '/', component: Home },
   { path: '/chat/:id', component: ChatPage },
+  { path: '/chat/:id/scores', component: UserScores },
   { path: '/profile', component: Profile },
   { path: '/about', component: About },
   { path: '/schedule', component: Schedule },

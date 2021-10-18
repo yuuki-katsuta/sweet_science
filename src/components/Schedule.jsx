@@ -74,19 +74,17 @@ const SListItem = styled(ListItem)`
     letter-spacing: -0.2px;
   }
 `;
-
+const date = new Date();
+const today =
+  date.getFullYear() +
+  '/' +
+  ('0' + (date.getMonth() + 1)).slice(-2) +
+  '/' +
+  ('0' + date.getDate()).slice(-2);
 const Schedule = () => {
   const [schedule, setSchedule] = useState([]);
 
   const fetchSchedule = async (isMounted) => {
-    const date = new Date();
-    const today =
-      date.getFullYear() +
-      '/' +
-      ('0' + (date.getMonth() + 1)).slice(-2) +
-      '/' +
-      ('0' + date.getDate()).slice(-2);
-
     const ｍatchSchedule = await db
       .collection('schedule')
       .where('date', '>=', `${today}`)

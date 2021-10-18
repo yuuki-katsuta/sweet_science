@@ -29,7 +29,7 @@ export const createData = (
     twelve,
   };
 };
-export const RoundData = [
+export const NumberOfRounds = [
   'one',
   'two',
   'three',
@@ -43,3 +43,17 @@ export const RoundData = [
   'eleven',
   'twelve',
 ];
+export const RoundData = {
+  round1: 10,
+  round2: 10,
+  round3: 10,
+  round4: 10,
+  round5: 10,
+  round6: 10,
+  round7: 10,
+  round8: 10,
+  round9: 10,
+  round10: 10,
+  round11: 10,
+  round12: 10,
+};
