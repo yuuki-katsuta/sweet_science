@@ -10,7 +10,7 @@ const UserScores = memo(() => {
   return location.state ? (
     <div className='container'>
       <h1 className='match-title'>{matchInfo.title}</h1>
-      <UserScoresList matchInfo={matchInfo} />
+      <UserScoresList room={matchInfo.room} />
       <AddUserScoreField matchInfo={matchInfo} />
     </div>
   ) : (

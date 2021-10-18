@@ -71,7 +71,7 @@ const Home = memo(() => {
           </MediaQuery>
         </p>
       </SDescription>
-      <MatchList matchData={matchData} />
+      {matchData.length > 0 && <MatchList matchData={matchData} />}
       {adminUser ? (
         <>
           <MediaQuery query='(max-width: 840px)'>
@@ -91,12 +91,14 @@ const Home = memo(() => {
           </MediaQuery>
         </>
       ) : (
-        <Container maxWidth='md'>
-          <SNewsSection>
-            <Divider />
-            <News matchData={matchData} />
-          </SNewsSection>
-        </Container>
+        matchData.length > 0 && (
+          <Container maxWidth='md'>
+            <SNewsSection>
+              <Divider />
+              <News matchData={matchData} />
+            </SNewsSection>
+          </Container>
+        )
       )}
     </div>
   );

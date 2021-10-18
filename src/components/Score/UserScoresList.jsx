@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { db } from '../../base';
 import Container from '@material-ui/core/Container';
@@ -21,7 +21,7 @@ const SDescription = styled.div`
     letter-spacing: -1.5px;
   }
 `;
-
+const displayNum = 5; //1ページあたりの項目数
 const useStyles = makeStyles((theme) => ({
   list: {
     width: '100%',
@@ -35,13 +35,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const UserScoresList = memo(({ matchInfo }) => {
+const UserScoresList = memo(({ room }) => {
   const [scorecardList, setScorecardList] = useState([]);
-
-  const [page, setPage] = useState(1); //ページ番号
-  const [pageCount, setPageCount] = useState(); //ページ数
-  const [allItems, setAllItems] = useState([]); //全データ
-  const displayNum = 5; //1ページあたりの項目数
+  const [update, setUpdate] = useState(false);
+  const page = useRef(1); //ページ番号
+  const pageCount = useRef(); //ページ数
+  const allItems = useRef([]); //全データ
   const classes = useStyles();
 
   useEffect(() => {
@@ -49,36 +48,42 @@ const UserScoresList = memo(({ matchInfo }) => {
     (async () => {
       const querySnapshot = await db
         .collection('scorecard')
-        .doc(matchInfo.room)
+        .doc(room)
         .collection('score')
         .get();
       const scoreData = [];
       querySnapshot.forEach((doc) => {
         scoreData.push(doc.data());
       });
-
       if (!unmounted) {
-        setAllItems(
-          scoreData.sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
+        allItems.current = scoreData.sort((a, b) =>
+          a.createdAt > b.createdAt ? -1 : 1
         );
         //ページカウントの計算
-        setPageCount(Math.ceil(scoreData.length / displayNum));
+        pageCount.current = Math.ceil(scoreData.length / displayNum);
         //表示データを抽出
         setScorecardList(
-          scoreData.slice((page - 1) * displayNum, page * displayNum)
+          scoreData.slice(
+            (page.current - 1) * displayNum,
+            page.current * displayNum
+          )
         );
       }
     })();
-    return () => (unmounted = true);
-  }, [matchInfo, page]);
+    return () => {
+      setUpdate(!update);
+      unmounted = true;
+    };
+  }, [room, update]);
 
   const handleChange = (event, index) => {
     //ページ移動時にページ番号を更新
-    setPage(index);
+    page.current = index;
     //ページ移動時に表示データを書き換える
     setScorecardList(
-      allItems.slice((index - 1) * displayNum, index * displayNum)
+      allItems.current.slice((index - 1) * displayNum, index * displayNum)
     );
+    setUpdate(true);
   };
 
   return (
@@ -90,15 +95,15 @@ const UserScoresList = memo(({ matchInfo }) => {
           投稿されたスコアカードを表示します。
         </p>
       </SDescription>
-      {allItems.length > 0 && (
+      {scorecardList.length > 0 && (
         <>
           {scorecardList.map((scorecard, index) => (
             <ScoreListItem scoreData={scorecard} key={index} />
           ))}
           <div className={classes.pagenation}>
             <Pagination
-              count={pageCount}
-              page={page}
+              count={pageCount.current}
+              page={page.current}
               variant='outlined'
               color='primary'
               size='small'
