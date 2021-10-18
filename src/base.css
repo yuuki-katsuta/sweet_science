@@ -59,7 +59,26 @@ _:lang(x) + _:-webkit-full-screen-document, td.MuiTableCell-body {
 _:lang(x) + _:-webkit-full-screen-document, div.edit-name-section > h3 {
   letter-spacing: -0.8px;
 }
-
+div.MuiSelect-select {
+  padding: 5px 12px;
+  background: white;
+}
+td.scoreTable-Select {
+  padding: 0 0 0 8px;
+}
+svg.MuiSelect-iconFilled {
+  color: rgb(216, 215, 215);
+  font-size: 1.2rem;
+}
+thead.MuiTableHead-root {
+  background: #213045;
+}
+th.MuiTableCell-sizeMedium {
+  color: white;
+}
+button.MuiFab-sizeSmall {
+  background: white;
+}
 
 @media screen and (min-width:280px) {
   /*画面サイズが280pxからはここを読み込む*/
