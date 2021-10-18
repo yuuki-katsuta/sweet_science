@@ -1,10 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useState, memo } from 'react';
-import {
-  withStyles,
-  makeStyles,
-  createMuiTheme,
-} from '@material-ui/core/styles';
+import { withStyles, makeStyles, createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -17,7 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import MediaQuery from 'react-responsive';
 import { removeEmoji } from './Utils/util';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: '#2f384c',
@@ -153,8 +149,8 @@ const MatchList = memo(({ matchData }) => {
           count={matchData.length}
           rowsPerPage={rowsPerPage}
           page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
     );

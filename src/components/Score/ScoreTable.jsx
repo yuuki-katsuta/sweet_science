@@ -1,19 +1,19 @@
 import { memo } from 'react';
 import {
   makeStyles,
-  createMuiTheme,
+  createTheme,
   MuiThemeProvider,
   withStyles,
 } from '@material-ui/core/styles';
+import { NumberOfRounds } from './Utils/util';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { RoundData } from './Utils/util';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: '#213045',
@@ -62,9 +62,9 @@ const ScoreTable = memo(({ Scoring }) => {
     <MuiThemeProvider theme={theme}>
       <Paper className={classes.root}>
         <Table className={classes.table}>
-          <TableHead>
+          <TableHead className='tableHead'>
             <TableRow>
-              <StyledTableCell className='scoreTable'>Round</StyledTableCell>
+              <StyledTableCell>Round</StyledTableCell>
               {[...Array(12).keys()].map((round, key) => {
                 round++;
                 return (
@@ -86,7 +86,7 @@ const ScoreTable = memo(({ Scoring }) => {
                   <TableCell component='th' scope='row' className='scoreTable'>
                     {row.name}
                   </TableCell>
-                  {RoundData.map((number, key) => {
+                  {NumberOfRounds.map((number, key) => {
                     return (
                       <TableCell align='right' key={key} className='scoreTable'>
                         {row[number]}

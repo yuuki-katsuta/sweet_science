@@ -1,8 +1,8 @@
 import { useEffect, useState, memo, useRef } from 'react';
 import { db } from '../../base';
+import { createData } from './Utils/util';
 import ScoreTable from './ScoreTable';
 import styled from 'styled-components';
-import { createData } from './Utils/util';
 import split from 'graphemesplit';
 
 const SContainer = styled.div`
