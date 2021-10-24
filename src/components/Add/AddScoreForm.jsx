@@ -1,7 +1,5 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { db } from '../../base';
-import { removeEmoji } from '../Utils/util';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import InputField from '../InputField/InputField';
@@ -27,17 +25,12 @@ const basicScoreData = {
   opponentScore: '',
 };
 
-const AddScoreForm = ({
-  setIsAddScore,
-  addChat,
-  matchSummary: { fighter, opponent },
-}) => {
+const AddScoreForm = memo(({ addRoom }) => {
   const classes = useStyles();
   const [scoreA, setScoreA] = useState(basicScoreData);
   const [scoreB, setScoreB] = useState(basicScoreData);
   const [scoreC, setScoreC] = useState(basicScoreData);
-  const addChatWithScore = async () => {
-    await addChat();
+  const addChatRoomWithScore = async () => {
     let scores = {};
     [scoreA, scoreB, scoreC].forEach((score, index) => {
       const FighterScore = score.fighterScore.split('/').map(Number);
@@ -51,17 +44,7 @@ const AddScoreForm = ({
         },
       };
     });
-    const room = removeEmoji(`${fighter} vs ${opponent}`);
-    const scoreData = db.collection('chats').doc(room).collection('score');
-    const { judgeA, judgeB, judgeC } = scores;
-    for (const judge of [judgeA, judgeB, judgeC]) {
-      scoreData.doc(`${judge.name}`).set({
-        judge: judge.name,
-        fighter: judge.fighterScore,
-        opponent: judge.opponentScore,
-      });
-    }
-    setIsAddScore(false);
+    await addRoom(scores, false);
   };
 
   return (
@@ -173,7 +156,7 @@ const AddScoreForm = ({
             className={classes.fab}
             size='small'
             onClick={() => {
-              addChatWithScore();
+              addChatRoomWithScore();
             }}
           >
             <AddIcon />
@@ -182,5 +165,5 @@ const AddScoreForm = ({
       </SSubmitWrapper>
     </SContainer>
   );
-};
+});
 export default AddScoreForm;

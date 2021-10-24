@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { db } from '../../base';
-import { removeEmoji } from '../Utils/util';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import {
@@ -20,28 +18,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddAvgScoreForm = ({
-  addChat,
-  setIsAddAvg,
-  matchSummary: { fighter, opponent },
-}) => {
+const AddAvgScoreForm = ({ addRoom }) => {
   const classes = useStyles();
   const [avgScore, setAvgScore] = useState({
     fighterScore: '',
     opponentScore: '',
   });
 
-  const addChatWithAvgScore = async () => {
-    await addChat();
+  const addChatRoomWithAvgScore = async () => {
     const FighterScore = avgScore.fighterScore.split('/').map(Number);
     const OpponentScore = avgScore.opponentScore.split('/').map(Number);
-    const room = removeEmoji(`${fighter} vs ${opponent}`);
-    const scoreData = db.collection('chats').doc(room).collection('score');
-    scoreData.doc('AverageScore').set({
-      fighter: FighterScore,
-      opponent: OpponentScore,
-    });
-    setIsAddAvg(false);
+    const avgScores = { FighterScore, OpponentScore };
+    await addRoom(false, avgScores);
   };
 
   return (
@@ -81,7 +69,7 @@ const AddAvgScoreForm = ({
             className={classes.fab}
             size='small'
             onClick={() => {
-              addChatWithAvgScore();
+              addChatRoomWithAvgScore();
             }}
           >
             <AddIcon />

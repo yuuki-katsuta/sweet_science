@@ -2,28 +2,8 @@ import { useState, memo } from 'react';
 import { db } from '../../base';
 import { storage } from '../../base';
 import { removeEmoji } from '../Utils/util';
-import AddScoreForm from './AddScoreForm';
 import AddMatchSummary from './AddMatchSummaryForm';
-import AddAvgScoreForm from './AddAvgScoreForm';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import Fab from '@material-ui/core/Fab';
-import Tooltip from '@material-ui/core/Tooltip';
-import AddIcon from '@material-ui/icons/Add';
-import styled from 'styled-components';
-
-const SFormItemWrapper = styled.div`
-  position: relative;
-`;
-const STooltip = styled(Tooltip)`
-  position: absolute;
-  right: 0;
-`;
-const SFormControlLabel = styled(FormControlLabel)`
-  textalign: center;
-  margin-top: 8px;
-  padding: 0 16px;
-`;
+import FormItem from './FormItem';
 
 const MatchInformationAddField = memo(
   ({ getMatcheInformation, setMatchData }) => {
@@ -38,9 +18,7 @@ const MatchInformationAddField = memo(
       overview: '',
       file: '',
     });
-    const [isAddScore, setIsAddScore] = useState(false);
-    const [isAddAvg, setIsAddAvg] = useState(false);
-    const addChat = async () => {
+    const addRoom = async (scores, avgScores) => {
       const {
         fighter,
         opponent,
@@ -63,15 +41,19 @@ const MatchInformationAddField = memo(
           !venue
         )
           throw new Error('item is not entered');
-        const removeEmojiTitle = removeEmoji(`${fighter} vs ${opponent}`);
-        const docRef = db.collection('chats').doc(removeEmojiTitle);
+        const room = removeEmoji(`${fighter} vs ${opponent}`);
+        const docRef = db.collection('chats').doc(room);
         const lastData = await docRef.get();
-        let lastCreatedTime = '';
+        let lastCreatedTime;
+        let lastScoreData;
+        let lastAvgScore;
         if (lastData.exists) {
           lastCreatedTime = lastData.data().createdAt;
+          lastScoreData = lastData.data().scoreData;
+          lastAvgScore = lastData.data().AvgScore;
         }
         await docRef.set({
-          room: removeEmojiTitle,
+          room: room,
           title: `${fighter} vs ${opponent}`,
           japaneseNotationFighter: japaneseNotationFighter,
           japaneseNotationOpponent: japaneseNotationOpponent,
@@ -84,13 +66,29 @@ const MatchInformationAddField = memo(
           createdAt: lastCreatedTime || new Date(),
           venue: venue,
           overview: overview,
-          scoreData: isAddScore,
-          AvgScore: isAddAvg,
+          scoreData: lastScoreData || scores ? true : false,
+          AvgScore: lastAvgScore || avgScores ? true : false,
         });
+        if (scores) {
+          const { judgeA, judgeB, judgeC } = scores;
+          const scoreData = docRef.collection('score');
+          for (const judge of [judgeA, judgeB, judgeC]) {
+            scoreData.doc(`${judge.name}`).set({
+              judge: judge.name,
+              fighter: judge.fighterScore,
+              opponent: judge.opponentScore,
+            });
+          }
+        }
+        if (avgScores) {
+          const { FighterScore, OpponentScore } = avgScores;
+          docRef.collection('score').doc('AverageScore').set({
+            fighter: FighterScore,
+            opponent: OpponentScore,
+          });
+        }
         if (file) {
-          const storageRef = storage.ref(
-            `/videos/${removeEmojiTitle}/${file.name}`
-          );
+          const storageRef = storage.ref(`/videos/${room}/${file.name}`);
           await storageRef.put(file);
         }
         const matchInformation = await getMatcheInformation();
@@ -118,63 +116,7 @@ const MatchInformationAddField = memo(
           matchSummary={matchSummary}
           setMatchSummary={setMatchSummary}
         />
-        <SFormItemWrapper>
-          <SFormControlLabel
-            control={
-              <Switch
-                disabled={isAddAvg}
-                checked={isAddScore}
-                onChange={() => {
-                  setIsAddScore(!isAddScore);
-                }}
-                name='isAddScore'
-                color='primary'
-              />
-            }
-            label='Add Score'
-          />
-          <SFormControlLabel
-            control={
-              <Switch
-                disabled={isAddScore}
-                checked={isAddAvg}
-                onChange={() => {
-                  setIsAddAvg(!isAddAvg);
-                }}
-                name='isAddScore'
-                color='primary'
-              />
-            }
-            label='Add AVG'
-          />
-          {!isAddScore && !isAddAvg && (
-            <STooltip title='Add' aria-label='add'>
-              <Fab
-                color='primary'
-                size='small'
-                onClick={() => {
-                  addChat();
-                }}
-              >
-                <AddIcon />
-              </Fab>
-            </STooltip>
-          )}
-        </SFormItemWrapper>
-        {isAddScore && (
-          <AddScoreForm
-            setIsAddScore={setIsAddScore}
-            addChat={addChat}
-            matchSummary={matchSummary}
-          />
-        )}
-        {isAddAvg && (
-          <AddAvgScoreForm
-            setIsAddAvg={setIsAddAvg}
-            addChat={addChat}
-            matchSummary={matchSummary}
-          />
-        )}
+        <FormItem addRoom={addRoom} />
       </>
     );
   }
