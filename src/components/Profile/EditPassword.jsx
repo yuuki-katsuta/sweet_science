@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
-import { RootContext } from '../../Provider.js';
+import { AuthStateContext } from '../../providers/AuthStateProvider';
+import { AuthContext } from '../../providers/AuthProvider';
 import BaseButton from '../Button/BaseButton';
 import TextInputField from '../InputField/TextInputField';
 import BaseModal from './BaseModal.jsx';
@@ -25,8 +26,8 @@ const Password = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [open, setOpen] = useState(false);
-  const { currentUser, Reauthentication } = useContext(RootContext);
-
+  const { currentUser } = useContext(AuthStateContext);
+  const { Reauthentication } = useContext(AuthContext);
   const handleClose = () => {
     setOpen(false);
   };
@@ -64,65 +65,70 @@ const Password = () => {
       </SChangePasswordButton>
       <BaseModal open={open}>
         <h3>Please enter a new Password</h3>
-        <SInputFieldWrapper>
-          <SPasswordInputField
-            type='password'
-            label='Current Password'
-            placeholder='Current Password'
-            setState={(e) => {
-              setCurrentPassword(e.target.value);
-            }}
-            value={currentPassword}
-            fullWidth
-          />
-          <SPasswordInputField
-            type='password'
-            label='New Password'
-            placeholder='New Password'
-            setState={(e) => {
-              setNewPassword(e.target.value);
-            }}
-            value={newPassword}
-            fullWidth
-          />
-          <SPasswordInputField
-            type='password'
-            label='Confirim Password'
-            placeholder='Confirim Password'
-            setState={(e) => {
-              setConfirmPassword(e.target.value);
-            }}
-            value={confirmPassword}
-            fullWidth
-          />
-        </SInputFieldWrapper>
-        <SButtonWrapper>
-          <BaseButton
-            setState={() => {
-              resetState();
-            }}
-          >
-            Cancel
-          </BaseButton>
-          <BaseButton
-            color='primary'
-            setState={async () => {
-              if (newPassword === '' || confirmPassword === '') {
-                alert('Please enter in the input field');
+        <form>
+          <SInputFieldWrapper>
+            <SPasswordInputField
+              autoComplete='true'
+              type='password'
+              label='Current Password'
+              placeholder='Current Password'
+              setState={(e) => {
+                setCurrentPassword(e.target.value);
+              }}
+              value={currentPassword}
+              fullWidth
+            />
+            <SPasswordInputField
+              autoComplete='true'
+              type='password'
+              label='New Password'
+              placeholder='New Password'
+              setState={(e) => {
+                setNewPassword(e.target.value);
+              }}
+              value={newPassword}
+              fullWidth
+            />
+            <SPasswordInputField
+              autoComplete='true'
+              type='password'
+              label='Confirim Password'
+              placeholder='Confirim Password'
+              setState={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
+              value={confirmPassword}
+              fullWidth
+            />
+          </SInputFieldWrapper>
+          <SButtonWrapper>
+            <BaseButton
+              setState={() => {
                 resetState();
-                return;
-              }
-              await ChangeCurrentPassword(
-                currentPassword,
-                confirmPassword,
-                newPassword
-              );
-              resetState();
-            }}
-          >
-            Save
-          </BaseButton>
-        </SButtonWrapper>
+              }}
+            >
+              Cancel
+            </BaseButton>
+            <BaseButton
+              color='primary'
+              setState={async () => {
+                if (newPassword === '' || confirmPassword === '') {
+                  alert('Please enter in the input field');
+                  resetState();
+                  return;
+                }
+                await ChangeCurrentPassword(
+                  currentPassword,
+                  confirmPassword,
+                  newPassword
+                );
+                resetState();
+              }}
+            >
+              Save
+            </BaseButton>
+          </SButtonWrapper>
+        </form>
       </BaseModal>
     </>
   );

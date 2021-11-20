@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, memo, useCallback } from 'react';
-import { RootContext } from '../Provider';
+import { AuthStateContext } from '../providers/AuthStateProvider';
 import { db } from '../base';
 import MediaQuery from 'react-responsive';
 import MatchList from './MatchList';
@@ -28,7 +28,7 @@ const SNewsSection = styled.div`
 `;
 
 const Home = memo(() => {
-  const { adminUser } = useContext(RootContext);
+  const { adminUser } = useContext(AuthStateContext);
   const [matchData, setMatchData] = useState([]);
 
   //試合情報を取得

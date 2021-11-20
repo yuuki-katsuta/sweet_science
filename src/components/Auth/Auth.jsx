@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { withRouter } from 'react-router';
-import { RootContext } from '../../Provider';
+import { AuthStateContext } from '../../providers/AuthStateProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -46,7 +46,7 @@ const SWrapper = styled.div`
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const { isLoading, currentUser } = useContext(RootContext);
+  const { isLoading, currentUser } = useContext(AuthStateContext);
   const classes = useStyles();
 
   return isLoading ? (

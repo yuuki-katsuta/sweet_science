@@ -1,6 +1,6 @@
 import { useContext, useState, useRef } from 'react';
 import { storage } from '../../base';
-import { RootContext } from '../../Provider';
+import { AuthStateContext } from '../../providers/AuthStateProvider';
 import firebase from 'firebase/app';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -34,7 +34,7 @@ const SInput = styled.input`
 `;
 
 const UserImage = () => {
-  const { currentUser } = useContext(RootContext);
+  const { currentUser } = useContext(AuthStateContext);
   const [image, setImage] = useState('');
   const [imageUrl, setImageUrl] = useState(currentUser.photoURL);
   const [filename, setFileName] = useState('');

@@ -1,5 +1,5 @@
 import { memo, useContext } from 'react';
-import { RootContext } from '../../Provider';
+import { AuthStateContext } from '../../providers/AuthStateProvider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
@@ -60,7 +60,7 @@ const STypography = styled(Typography)`
 
 const MessageList = memo(
   ({ message: { message, user: name, uid, photoURL, id }, room }) => {
-    const { currentUser } = useContext(RootContext);
+    const { currentUser } = useContext(AuthStateContext);
     return (
       <SContainer className={uid === currentUser.uid && 'ownMessage'}>
         {uid === currentUser.uid ? (

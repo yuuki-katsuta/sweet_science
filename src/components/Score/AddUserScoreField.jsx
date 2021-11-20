@@ -1,7 +1,7 @@
 import { useState, useContext, memo } from 'react';
 import { RoundData } from './Utils/util';
 import { db } from '../../base';
-import { RootContext } from '../../Provider';
+import { AuthStateContext } from '../../providers/AuthStateProvider';
 import { createData } from './Utils/util';
 import Container from '@material-ui/core/Container';
 import Table from '@mui/material/Table';
@@ -30,7 +30,7 @@ const SDescription = styled.div`
 `;
 
 const AddUserScoreField = memo(({ matchInfo }) => {
-  const { currentUser } = useContext(RootContext);
+  const { currentUser } = useContext(AuthStateContext);
   const [fscore, setFScore] = useState(RoundData);
   const [oscore, setOScore] = useState(RoundData);
 

@@ -1,7 +1,8 @@
 import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { RootContext } from '../../Provider';
+import { AuthContext } from '../../providers/AuthProvider';
+import { AuthStateContext } from '../../providers/AuthStateProvider';
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -70,7 +71,8 @@ const SExitToAppIcon = SHomeIcon.withComponent(ExitToAppIcon);
 const SEventNoteIcon = SHomeIcon.withComponent(EventNoteIcon);
 
 const Header = () => {
-  const { guestUser, signOut } = useContext(RootContext);
+  const { signOut } = useContext(AuthContext);
+  const { guestUser } = useContext(AuthStateContext);
   const history = useHistory();
   const [state, setState] = useState({
     top: false,

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { RootContext } from '../../Provider';
+import { AuthStateContext } from '../../providers/AuthStateProvider';
 import { Redirect } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import UserImage from './UserImage';
@@ -35,7 +35,7 @@ const SProfileItemWrapper = styled.div`
 `;
 
 const Profile = () => {
-  const { currentUser } = useContext(RootContext);
+  const { currentUser } = useContext(AuthStateContext);
 
   return currentUser.isAnonymous ? (
     <Redirect to={'/'} />

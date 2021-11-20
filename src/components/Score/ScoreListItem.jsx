@@ -1,5 +1,5 @@
 import { memo, useContext } from 'react';
-import { RootContext } from '../../Provider';
+import { AuthStateContext } from '../../providers/AuthStateProvider';
 import {
   makeStyles,
   createTheme,
@@ -73,7 +73,7 @@ const useStyles = makeStyles({
 });
 
 const ScoreListItem = memo(({ scoreData }) => {
-  const { currentUser } = useContext(RootContext);
+  const { currentUser } = useContext(AuthStateContext);
   const classes = useStyles();
   return (
     <div className={classes.wrapper}>

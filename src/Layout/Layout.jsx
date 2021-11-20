@@ -1,9 +1,9 @@
 import Header from '../components/Header/Header';
 import { useContext } from 'react';
-import { RootContext } from '../Provider';
+import { AuthStateContext } from '../providers/AuthStateProvider';
 
 const Layout = ({ children }) => {
-  const { currentUser } = useContext(RootContext);
+  const { currentUser } = useContext(AuthStateContext);
 
   return currentUser ? (
     <>

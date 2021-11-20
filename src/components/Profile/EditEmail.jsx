@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
-import { RootContext } from '../../Provider.js';
+import { AuthStateContext } from '../../providers/AuthStateProvider';
+import { AuthContext } from '../../providers/AuthProvider';
 import CreateIcon from '@material-ui/icons/Create';
 import BaseIconButton from '../Button/BaseIconButton';
 import BaseButton from '../Button/BaseButton';
@@ -27,7 +28,8 @@ const EditEmail = () => {
   const [isEmailChanged, setIsEmailChanged] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [open, setOpen] = useState(false);
-  const { Reauthentication, currentUser } = useContext(RootContext);
+  const { currentUser } = useContext(AuthStateContext);
+  const { Reauthentication } = useContext(AuthContext);
 
   const handleClose = () => {
     setOpen(false);
@@ -75,27 +77,30 @@ const EditEmail = () => {
       <BaseModal open={open}>
         <SInputFieldWrapper>
           <h3>Please enter a new Email</h3>
-          <STextInputField
-            fullWidth
-            type='password'
-            label='Current Password'
-            placeholder='Current Password'
-            value={currentPassword}
-            setState={(e) => {
-              setCurrentPassword(e.target.value);
-            }}
-          />
-          <TextInputField
-            fullWidth
-            id='standard-name-required'
-            name='email'
-            type='email'
-            placeholder='new Email'
-            value={email}
-            setState={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
+          <form>
+            <STextInputField
+              fullWidth
+              autoComplete='true'
+              type='password'
+              label='Current Password'
+              placeholder='Current Password'
+              value={currentPassword}
+              setState={(e) => {
+                setCurrentPassword(e.target.value);
+              }}
+            />
+            <TextInputField
+              fullWidth
+              id='standard-name-required'
+              name='email'
+              type='email'
+              placeholder='new Email'
+              value={email}
+              setState={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </form>
         </SInputFieldWrapper>
         <SButtonWrapper>
           <BaseButton
