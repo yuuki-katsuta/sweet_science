@@ -90,6 +90,7 @@ const ScoreListItem = memo(({ scoreData }) => {
             />
           </>
         )}
+        {` ${scoreData.fighterTotal} - ${scoreData.opponentTotal}`}
       </SDescription>
       <MuiThemeProvider theme={theme}>
         <Paper className={classes.root}>

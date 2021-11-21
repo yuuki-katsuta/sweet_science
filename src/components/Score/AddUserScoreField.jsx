@@ -45,6 +45,8 @@ const AddUserScoreField = memo(({ matchInfo }) => {
       `${matchInfo.opponent.slice(0, opponentLength - 1)}`,
       ...Object.values(oscore)
     );
+    const fighterTotal = Object.values(fscore).reduce((sum, num) => sum + num);
+    const opponentTotal = Object.values(oscore).reduce((sum, num) => sum + num);
     await db
       .collection('scorecard')
       .doc(matchInfo.room)
@@ -55,6 +57,8 @@ const AddUserScoreField = memo(({ matchInfo }) => {
         createdAt: new Date(),
         fighter: fighterScore,
         opponent: opponentScore,
+        fighterTotal: fighterTotal,
+        opponentTotal: opponentTotal,
       })
       .then(() =>
         alert(
