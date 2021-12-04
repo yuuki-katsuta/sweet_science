@@ -79,6 +79,7 @@ const ScoreListItem = memo(({ scoreData }) => {
     <div className={classes.wrapper}>
       <SDescription>
         ユーザー名: {scoreData.user || 'ゲストユーザー'}
+        {` ${scoreData.fighterTotal}-${scoreData.opponentTotal}`}
         {currentUser.uid === scoreData.uid && (
           <>
             {' '}
@@ -90,7 +91,6 @@ const ScoreListItem = memo(({ scoreData }) => {
             />
           </>
         )}
-        {` ${scoreData.fighterTotal} - ${scoreData.opponentTotal}`}
       </SDescription>
       <MuiThemeProvider theme={theme}>
         <Paper className={classes.root}>
