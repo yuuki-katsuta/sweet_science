@@ -64,7 +64,6 @@ const MatchListTable = ({ size, colums, matchData }) => {
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
-    matchData.sort((a, b) => (a.date > b.date ? -1 : 1));
     setPage(0);
   };
   return (
@@ -88,6 +87,7 @@ const MatchListTable = ({ size, colums, matchData }) => {
           </ThemeProvider>
           <TableBody>
             {matchData
+              .sort((a, b) => (a.date > b.date ? -1 : 1))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((data, index) => {
                 data.removeEmojivenue = removeEmoji(data.venue);
