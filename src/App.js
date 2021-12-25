@@ -1,4 +1,3 @@
-import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './providers/AuthProvider';
 import { AuthStateProvider } from './providers/AuthStateProvider';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
@@ -15,14 +14,14 @@ const options = {
 
 function App() {
   return (
-    <AlertProvider template={AlertTemplate} {...options}>
-      <AuthStateProvider>
+    <AuthStateProvider>
+      <AlertProvider template={AlertTemplate} {...options}>
         <AuthProvider>
           <BrowserRouter>
             <Layout>
               <Switch>
                 {routes.map((route) => (
-                  <PrivateRoute
+                  <Route
                     key={route.path}
                     exact
                     path={route.path}
@@ -34,8 +33,8 @@ function App() {
             </Layout>
           </BrowserRouter>
         </AuthProvider>
-      </AuthStateProvider>
-    </AlertProvider>
+      </AlertProvider>
+    </AuthStateProvider>
   );
 }
 

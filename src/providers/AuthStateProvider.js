@@ -16,12 +16,9 @@ export const AuthStateProvider = ({ children }) => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         user.getIdTokenResult(true).then((idTokenResult) => {
-          if (idTokenResult.claims.admin) {
-            setAdminUser(true);
-          }
-          if (idTokenResult.claims.provider_id === 'anonymous') {
+          if (idTokenResult.claims.admin) setAdminUser(true);
+          if (idTokenResult.claims.provider_id === 'anonymous')
             setGuestUser(true);
-          }
         });
       } else {
         setAdminUser(false);
