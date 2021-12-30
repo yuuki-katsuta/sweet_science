@@ -1,10 +1,10 @@
-import Home from '../components/Home';
-import ChatPage from '../components/ChatPage';
-import Profile from '../components/Profile/Profile';
-import About from '../components/About';
-import Feedback from '../components/Feedback';
-import Schedule from '../components/Schedule';
-import UserScores from '../components/Score/UserScores';
+import Home from '../components/pages/Home';
+import ChatPage from '../components/pages/ChatPage';
+import Profile from '../components/pages/Profile';
+import About from '../components/pages/About';
+import Feedback from '../components/pages/Feedback';
+import Schedule from '../components/pages/Schedule';
+import UserScores from '../components/pages/UserScores';
 
 const routes = [
   { path: '/', component: Home },

@@ -1,7 +1,7 @@
-import Header from '../components/Header/Header';
+import Header from '../components/ui/Header/Header';
 import { useContext } from 'react';
 import { AuthStateContext } from '../providers/AuthStateProvider';
-import Auth from '../components/Auth/Auth';
+import Auth from '../components/pages/Auth';
 
 const Layout = ({ children }) => {
   const { currentUser } = useContext(AuthStateContext);
