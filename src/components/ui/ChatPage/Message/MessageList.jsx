@@ -4,7 +4,6 @@ import MessageAddField from './MessageAddField';
 import MessageItem from './MessageItem.jsx';
 import List from '@material-ui/core/List';
 import styled from 'styled-components';
-import { memo } from 'react';
 
 const SList = styled(List)`
   &.MessageExists {
@@ -19,7 +18,7 @@ const SList = styled(List)`
   }
 `;
 
-const MessageList = memo(({ room }) => {
+const MessageList = ({ room }) => {
   const [messages, setMessages] = useState([]);
   const ref = useRef();
 
@@ -41,6 +40,7 @@ const MessageList = memo(({ room }) => {
               uid: doc.data().uid,
               photoURL: doc.data().photoURL,
               id: doc.id,
+              liked: doc.data().liked,
             });
           }
         });
@@ -66,5 +66,5 @@ const MessageList = memo(({ room }) => {
       <MessageAddField room={room} refer={ref} />
     </>
   );
-});
+};
 export default MessageList;

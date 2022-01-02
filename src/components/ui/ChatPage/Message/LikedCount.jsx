@@ -10,8 +10,7 @@ const SCount = styled.span`
   color: '#666666';
 `;
 
-const LikedCount = memo(({ room, id, userUid }) => {
-  const [count, setCount] = useState(0);
+const LikedCount = memo(({ room, id, userUid, liked }) => {
   const [isLiked, setIsLiked] = useState(false);
   const processing = useRef(false);
   useEffect(() => {
@@ -22,9 +21,6 @@ const LikedCount = memo(({ room, id, userUid }) => {
       .collection('messages')
       .doc(`${id}`);
     (async () => {
-      docRef.onSnapshot((doc) => {
-        isMounted && setCount(doc.data().liked);
-      });
       const likedUser = await docRef
         .collection('likedUser')
         .doc(`${userUid}`)
@@ -104,7 +100,7 @@ const LikedCount = memo(({ room, id, userUid }) => {
             checked={isLiked}
           />
         }
-        label={count !== 0 && <SCount>{count}</SCount>}
+        label={liked !== 0 && <SCount>{liked}</SCount>}
       />
     </span>
   );
