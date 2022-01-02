@@ -1,9 +1,8 @@
-import { memo } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
 import AddUserScoreField from '../ui/UserScores/AddUserScoreField';
 import UserScoresList from '../ui/UserScores/UserScoresList';
 
-const UserScores = memo(() => {
+const UserScores = () => {
   const location = useLocation();
   const matchInfo = location.state?.matchInfo;
 
@@ -16,5 +15,5 @@ const UserScores = memo(() => {
   ) : (
     <Redirect to={'/'} />
   );
-});
+};
 export default UserScores;

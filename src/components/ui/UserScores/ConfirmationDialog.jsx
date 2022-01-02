@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Dialog from '@mui/material/Dialog';
@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import BaseButton from '../atoms/Button/BaseButton';
 
-const ConfirmationDialog = memo(({ addUserScore }) => {
+const ConfirmationDialog = ({ addUserScore }) => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -56,5 +56,5 @@ const ConfirmationDialog = memo(({ addUserScore }) => {
       </Dialog>
     </>
   );
-});
+};
 export default ConfirmationDialog;

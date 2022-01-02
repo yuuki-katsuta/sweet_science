@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import AddScoreForm from './AddScoreForm';
 import AddAvgScoreForm from './AddAvgScoreForm';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -21,7 +21,7 @@ const SFormControlLabel = styled(FormControlLabel)`
   padding: 0 16px;
 `;
 
-const FormItem = memo(({ addRoom }) => {
+const FormItem = ({ addRoom }) => {
   const [isAddScore, setIsAddScore] = useState(false);
   const [isAddAvg, setIsAddAvg] = useState(false);
 
@@ -74,5 +74,5 @@ const FormItem = memo(({ addRoom }) => {
       {isAddAvg && <AddAvgScoreForm addRoom={addRoom} />}
     </>
   );
-});
+};
 export default FormItem;

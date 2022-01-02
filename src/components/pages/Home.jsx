@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, memo, useCallback } from 'react';
+import { useContext, useEffect, useState, useCallback } from 'react';
 import { AuthStateContext } from '../../providers/AuthStateProvider';
 import { db } from '../../base';
 import MediaQuery from 'react-responsive';
@@ -27,7 +27,7 @@ const SNewsSection = styled.div`
   text-align: center;
 `;
 
-const Home = memo(() => {
+const Home = () => {
   const { adminUser } = useContext(AuthStateContext);
   const [matchData, setMatchData] = useState([]);
 
@@ -102,5 +102,5 @@ const Home = memo(() => {
       )}
     </div>
   );
-});
+};
 export default Home;

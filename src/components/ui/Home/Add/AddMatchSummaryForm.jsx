@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextInputField from '../../atoms/InputField/TextInputField';
 
@@ -12,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddMatchSummaryForm = memo(({ matchSummary, setMatchSummary }) => {
+const AddMatchSummaryForm = ({ matchSummary, setMatchSummary }) => {
   const handleVideoFile = (e) => {
     const videoFile = e.target.files[0];
     if (videoFile) {
@@ -128,5 +127,5 @@ const AddMatchSummaryForm = memo(({ matchSummary, setMatchSummary }) => {
       </div>
     </form>
   );
-});
+};
 export default AddMatchSummaryForm;

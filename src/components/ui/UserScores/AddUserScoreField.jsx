@@ -1,4 +1,4 @@
-import { useState, useContext, memo } from 'react';
+import { useState, useContext } from 'react';
 import { RoundData } from '../Utils/util';
 import { db } from '../../../base';
 import { AuthStateContext } from '../../../providers/AuthStateProvider';
@@ -29,7 +29,7 @@ const SDescription = styled.div`
   }
 `;
 
-const AddUserScoreField = memo(({ matchInfo }) => {
+const AddUserScoreField = ({ matchInfo }) => {
   const { currentUser } = useContext(AuthStateContext);
   const [fscore, setFScore] = useState(RoundData);
   const [oscore, setOScore] = useState(RoundData);
@@ -177,5 +177,5 @@ const AddUserScoreField = memo(({ matchInfo }) => {
       <ConfirmationDialog addUserScore={addUserScore} />
     </Container>
   );
-});
+};
 export default AddUserScoreField;

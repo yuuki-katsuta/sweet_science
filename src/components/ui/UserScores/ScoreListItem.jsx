@@ -1,4 +1,4 @@
-import { memo, useContext } from 'react';
+import { useContext } from 'react';
 import { AuthStateContext } from '../../../providers/AuthStateProvider';
 import {
   makeStyles,
@@ -72,7 +72,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ScoreListItem = memo(({ scoreData }) => {
+const ScoreListItem = ({ scoreData }) => {
   const { currentUser } = useContext(AuthStateContext);
   const classes = useStyles();
   return (
@@ -143,5 +143,5 @@ const ScoreListItem = memo(({ scoreData }) => {
       </MuiThemeProvider>
     </div>
   );
-});
+};
 export default ScoreListItem;

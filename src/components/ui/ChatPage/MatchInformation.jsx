@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { storage } from '../../../base';
 import RoomIcon from '@material-ui/icons/Room';
 import MediaQuery from 'react-responsive';
@@ -44,7 +44,7 @@ const SMatchDataWithVideoId = styled.div`
   margin-bottom: 8px;
 `;
 
-const MatchInformation = memo(({ matchInfo }) => {
+const MatchInformation = ({ matchInfo }) => {
   const [url, setUrl] = useState('');
   useEffect(() => {
     if (matchInfo.fileName) {
@@ -104,5 +104,5 @@ const MatchInformation = memo(({ matchInfo }) => {
       )}
     </div>
   );
-});
+};
 export default MatchInformation;

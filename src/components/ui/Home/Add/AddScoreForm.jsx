@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -25,7 +25,7 @@ const basicScoreData = {
   opponentScore: '',
 };
 
-const AddScoreForm = memo(({ addRoom }) => {
+const AddScoreForm = ({ addRoom }) => {
   const classes = useStyles();
   const [scoreA, setScoreA] = useState(basicScoreData);
   const [scoreB, setScoreB] = useState(basicScoreData);
@@ -165,5 +165,5 @@ const AddScoreForm = memo(({ addRoom }) => {
       </SSubmitWrapper>
     </SContainer>
   );
-});
+};
 export default AddScoreForm;

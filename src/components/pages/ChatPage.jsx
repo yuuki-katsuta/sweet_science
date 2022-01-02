@@ -1,20 +1,19 @@
-import { memo } from 'react';
 import { Redirect, useLocation, useHistory } from 'react-router-dom';
 import MatchInformation from '../ui/ChatPage/MatchInformation';
-import MessageItem from '../ui/ChatPage/Message/MessageItem';
 import AvgScore from '../ui/ChatPage/Score/AvgScore';
 import Score from '../ui/ChatPage/Score/Score.jsx';
 import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
 import Fab from '@mui/material/Fab';
 import CreateIcon from '@mui/icons-material/Create';
+import MessageList from '../ui/ChatPage/Message/MessageList';
 
 const SContainer = styled(Container)`
   padding: 0 10px;
   margin-top: 24px;
 `;
 
-const ChatPage = memo(() => {
+const ChatPage = () => {
   const history = useHistory();
   const location = useLocation();
   const matchInfo = location.state?.matchInformation;
@@ -46,11 +45,11 @@ const ChatPage = memo(() => {
         <FabField />
       </Container>
       <SContainer maxWidth='lg' disableGutters={true}>
-        <MessageItem room={matchInfo.room} />
+        <MessageList room={matchInfo.room} />
       </SContainer>
     </div>
   ) : (
     <Redirect to={'/'} />
   );
-});
+};
 export default ChatPage;

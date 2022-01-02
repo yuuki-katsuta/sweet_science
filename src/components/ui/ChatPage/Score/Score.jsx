@@ -1,4 +1,4 @@
-import { useEffect, useState, memo, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { db } from '../../../../base';
 import { createData } from '../../Utils/util';
 import ScoreTable from './ScoreTable';
@@ -14,7 +14,7 @@ const SJudgeName = styled.h4`
   margin: 0 0 0 8px;
 `;
 
-const Score = memo(({ matchInfo }) => {
+const Score = ({ matchInfo }) => {
   const [update, setUpdata] = useState(false);
   const ScoringA = useRef([]);
   const ScoringB = useRef([]);
@@ -100,5 +100,5 @@ const Score = memo(({ matchInfo }) => {
       <ScoreTable Scoring={ScoringC.current} />
     </SContainer>
   );
-});
+};
 export default Score;

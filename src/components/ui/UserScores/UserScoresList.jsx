@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { db } from '../../../base';
 import Container from '@material-ui/core/Container';
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const UserScoresList = memo(({ room }) => {
+const UserScoresList = ({ room }) => {
   const [scorecardList, setScorecardList] = useState([]);
   const [update, setUpdate] = useState(false);
   const page = useRef(1); //ページ番号
@@ -115,5 +115,5 @@ const UserScoresList = memo(({ room }) => {
       <Divider sx={{ mt: 7 }} />
     </SContainer>
   );
-});
+};
 export default UserScoresList;
