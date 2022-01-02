@@ -1,70 +1,135 @@
-import { useEffect, useState, useRef } from 'react';
-import { db } from '../../../../base';
-import MessageAddField from './MessageAddField';
-import MessageList from './MessageList';
-import List from '@material-ui/core/List';
+import { memo, useContext } from 'react';
+import { AuthStateContext } from '../../../../providers/AuthStateProvider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Divider from '@material-ui/core/Divider';
+import Avatar from '@material-ui/core/Avatar';
+import LikedCount from './LikedCount';
 import styled from 'styled-components';
-import { memo } from 'react';
 
-const SList = styled(List)`
-  &.MessageExists {
-    max-height: 56vh;
-    overflow: auto;
-    gridrow: 1;
-    width: 100%;
-    max-width: 1150px;
-    margin: 24px auto 10px;
-    border-top: thin solid #cccccc;
-    padding: 0;
+const SContainer = styled.div`
+  background-color: #fcfcfc;
+  &.ownMessage {
+    background-color: #f7f7f7;
   }
 `;
+const SAvatar = styled(Avatar)`
+  width: 11.5vmin;
+  height: 11.5vmin;
+  border: 1px solid #aaaaaa;
+  display: inline-block;
+  max-width: 50px;
+  max-height: 50px;
+`;
+const SOwnMessage = styled.div`
+  text-align: left;
+  display: inline-block;
+  word-break: break-word;
+`;
+const SListItemIcon = styled(ListItemIcon)`
+  display: inline-block;
+  text-align: center;
+  margin: 4px 0 0 0;
+`;
+const SOwnlikedCountWrapper = styled.span`
+  display: flex;
+  justify-content: flex-end;
+`;
+const SlikedCountWrapper = styled.span`
+  display: flex;
+  justify-content: flex-start;
+`;
+const SMessage = styled.span`
+  display: block;
+`;
+const SMyName = styled.h4`
+  text-align: right;
+  margin: 0 0px 3px 0px;
+`;
+const SOwnMessageWrapper = styled.div`
+  text-align: right;
+`;
+const SOtherName = styled.h4`
+  margin: 0;
+`;
+const STypography = styled(Typography)`
+  word-break: break-word;
+`;
 
-const MessageItem = memo(({ room }) => {
-  const [messages, setMessages] = useState([]);
-  const ref = useRef();
-
-  //データ取得
-  useEffect(() => {
-    let isMounted = true;
-    db.collection('chats')
-      .doc(room)
-      .collection('messages')
-      .orderBy('createdAt', 'desc')
-      .limit(50)
-      .onSnapshot((Snapshot) => {
-        let msg = [];
-        Snapshot.forEach((doc) => {
-          if (doc.data()) {
-            msg.push({
-              message: doc.data().message,
-              user: doc.data().user,
-              uid: doc.data().uid,
-              photoURL: doc.data().photoURL,
-              id: doc.id,
-            });
-          }
-        });
-        //配列の要素を反転
-        isMounted && setMessages(msg.reverse());
-      });
-    return () => {
-      isMounted = false;
-    };
-  }, [room]);
-
-  return (
-    <>
-      <SList className={messages.length !== 0 && 'MessageExists'}>
-        {messages.map((message, index) => {
-          return (
-            <div ref={ref} key={index}>
-              <MessageList room={room} message={message} />
-            </div>
-          );
-        })}
-      </SList>
-      <MessageAddField room={room} refer={ref} />
-    </>
-  );
-});
+const MessageItem = memo(
+  ({ message: { message, user: name, uid, photoURL, id }, room }) => {
+    const { currentUser } = useContext(AuthStateContext);
+    return (
+      <SContainer className={uid === currentUser.uid && 'ownMessage'}>
+        {uid === currentUser.uid ? (
+          <>
+            <ListItem alignItems='flex-start'>
+              <ListItemText
+                className='listItem'
+                secondary={
+                  <Typography
+                    component='span'
+                    variant='body2'
+                    color='textPrimary'
+                  >
+                    <SOwnMessageWrapper>
+                      <SOwnMessage>
+                        <SMyName>{name || 'ゲストユーザー'}</SMyName>
+                        {message.split('\n').map((t, i) => {
+                          return <SMessage key={i}>{t}</SMessage>;
+                        })}
+                        <SOwnlikedCountWrapper>
+                          <LikedCount room={room} id={id} userUid={uid} />
+                        </SOwnlikedCountWrapper>
+                      </SOwnMessage>
+                    </SOwnMessageWrapper>
+                  </Typography>
+                }
+              />
+              <SListItemIcon>
+                <SAvatar alt='uploaded' src={currentUser.photoURL} />
+              </SListItemIcon>
+            </ListItem>
+            <Divider variant='fullWidth' />
+          </>
+        ) : (
+          <>
+            <ListItem alignItems='flex-start'>
+              <SListItemIcon>
+                <SAvatar alt='uploaded' src={photoURL} />
+              </SListItemIcon>
+              <ListItemText
+                className='listItem'
+                primary={<SOtherName>{name || 'ゲストユーザー'}</SOtherName>}
+                secondary={
+                  <>
+                    <STypography
+                      component='span'
+                      variant='body2'
+                      color='textPrimary'
+                    >
+                      {message.split('\n').map((t, i) => {
+                        return <SMessage key={i}>{t}</SMessage>;
+                      })}
+                    </STypography>
+                    <SlikedCountWrapper>
+                      <LikedCount
+                        room={room}
+                        id={id}
+                        userUid={currentUser.uid}
+                      />
+                    </SlikedCountWrapper>
+                  </>
+                }
+              />
+            </ListItem>
+            <Divider variant='fullWidth' />
+          </>
+        )}
+      </SContainer>
+    );
+  }
+);
 export default MessageItem;
