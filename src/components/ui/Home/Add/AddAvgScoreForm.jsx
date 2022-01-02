@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddAvgScoreForm = ({ addRoom }) => {
+const AddAvgScoreForm = ({ matchSummary, addRoom }) => {
   const classes = useStyles();
   const [avgScore, setAvgScore] = useState({
     fighterScore: '',
@@ -29,7 +29,7 @@ const AddAvgScoreForm = ({ addRoom }) => {
     const FighterScore = avgScore.fighterScore.split('/').map(Number);
     const OpponentScore = avgScore.opponentScore.split('/').map(Number);
     const avgScores = { FighterScore, OpponentScore };
-    await addRoom(false, avgScores);
+    await addRoom(matchSummary, false, avgScores);
   };
 
   return (

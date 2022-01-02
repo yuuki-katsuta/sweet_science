@@ -25,7 +25,7 @@ const basicScoreData = {
   opponentScore: '',
 };
 
-const AddScoreForm = ({ addRoom }) => {
+const AddScoreForm = ({ matchSummary, addRoom }) => {
   const classes = useStyles();
   const [scoreA, setScoreA] = useState(basicScoreData);
   const [scoreB, setScoreB] = useState(basicScoreData);
@@ -44,7 +44,7 @@ const AddScoreForm = ({ addRoom }) => {
         },
       };
     });
-    await addRoom(scores, false);
+    await addRoom(matchSummary, scores, false);
   };
 
   return (

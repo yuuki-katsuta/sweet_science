@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAddRoom } from '../../../hooks/useAddRoom';
 import AddScoreForm from './AddScoreForm';
 import AddAvgScoreForm from './AddAvgScoreForm';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -21,9 +22,10 @@ const SFormControlLabel = styled(FormControlLabel)`
   padding: 0 16px;
 `;
 
-const FormItem = ({ addRoom }) => {
+const FormItem = ({ matchSummary }) => {
   const [isAddScore, setIsAddScore] = useState(false);
   const [isAddAvg, setIsAddAvg] = useState(false);
+  const addRoom = useAddRoom;
 
   return (
     <>
@@ -62,7 +64,7 @@ const FormItem = ({ addRoom }) => {
               color='primary'
               size='small'
               onClick={() => {
-                addRoom();
+                addRoom(matchSummary);
               }}
             >
               <AddIcon />
@@ -70,8 +72,12 @@ const FormItem = ({ addRoom }) => {
           </STooltip>
         )}
       </SFormItemWrapper>
-      {isAddScore && <AddScoreForm addRoom={addRoom} />}
-      {isAddAvg && <AddAvgScoreForm addRoom={addRoom} />}
+      {isAddScore && (
+        <AddScoreForm matchSummary={matchSummary} addRoom={addRoom} />
+      )}
+      {isAddAvg && (
+        <AddAvgScoreForm matchSummary={matchSummary} addRoom={addRoom} />
+      )}
     </>
   );
 };

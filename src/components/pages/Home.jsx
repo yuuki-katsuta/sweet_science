@@ -82,10 +82,7 @@ const Home = () => {
             <Container maxWidth='md'>
               <SAddMatchSectionStyle>
                 <Divider />
-                <MatchInformationAddField
-                  getMatcheInformation={getMatcheInformation}
-                  setMatchData={setMatchData}
-                />
+                <MatchInformationAddField />
               </SAddMatchSectionStyle>
             </Container>
           </MediaQuery>
