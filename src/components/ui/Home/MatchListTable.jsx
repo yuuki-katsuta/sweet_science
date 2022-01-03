@@ -125,13 +125,13 @@ const MatchListTable = ({ size, colums, matchData }) => {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
         component='div'
         count={matchData.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        rowsPerPageOptions={[0]}
       />
     </Paper>
   );
