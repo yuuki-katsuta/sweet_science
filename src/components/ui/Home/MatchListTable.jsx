@@ -58,14 +58,12 @@ const MatchListTable = ({ size, colums, matchData }) => {
   const history = useHistory();
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const rowsPerPage = 10;
   const handleChangePage = (event, newPage) => {
+    matchData.sort((a, b) => (a.date > b.date ? -1 : 1));
     setPage(newPage);
   };
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
@@ -87,7 +85,6 @@ const MatchListTable = ({ size, colums, matchData }) => {
           </ThemeProvider>
           <TableBody>
             {matchData
-              .sort((a, b) => (a.date > b.date ? -1 : 1))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((data, index) => {
                 data.removeEmojivenue = removeEmoji(data.venue);
@@ -130,7 +127,6 @@ const MatchListTable = ({ size, colums, matchData }) => {
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
         rowsPerPageOptions={[0]}
       />
     </Paper>

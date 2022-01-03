@@ -33,7 +33,12 @@ const Home = () => {
 
   //試合情報を取得
   const getMatcheInformation = useCallback(async () => {
-    const querySnapshot = await db.collection('chats').get();
+    const querySnapshot = await db
+      .collection('chats')
+      .orderBy('date', 'desc')
+      .orderBy('createdAt', 'desc')
+      .limit(50)
+      .get();
     const newMatcheInformation = [];
     querySnapshot.forEach((doc) => {
       if (doc.data()?.isCanceled === true) return;
