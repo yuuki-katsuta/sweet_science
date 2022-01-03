@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState, useCallback } from 'react';
 import { AuthStateContext } from '../../providers/AuthStateProvider';
 import { db } from '../../base';
+import { media } from '../ui/Utils/style-utils';
 import MediaQuery from 'react-responsive';
 import MatchList from '../ui/Home/MatchList';
 import News from '../ui/Home/News';
@@ -25,6 +26,12 @@ const SNewsSection = styled.div`
   width: 100%;
   margin: 56px auto 0;
   text-align: center;
+`;
+const SHelperText = styled.span`
+  display: none;
+  ${media.handheld580`
+  display: block
+  `}
 `;
 
 const Home = () => {
@@ -71,9 +78,7 @@ const Home = () => {
           <br />
           クリックすると各チャットページへ遷移します。
           <br />
-          <MediaQuery query='(max-width: 580px)'>
-            (横にスクロールできます。)
-          </MediaQuery>
+          <SHelperText>(横にスクロールできます。)</SHelperText>
         </p>
       </SDescription>
       <MatchList matchData={matchData} />

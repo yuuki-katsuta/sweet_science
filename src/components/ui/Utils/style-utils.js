@@ -6,6 +6,11 @@ export const media = {
       ${css(...args)};
     }
   `,
+  handheld580: (...args) => css`
+    @media (max-width: 580px) {
+      ${css(...args)};
+    }
+  `,
   handheld710: (...args) => css`
     @media (max-width: 711px) {
       ${css(...args)};
