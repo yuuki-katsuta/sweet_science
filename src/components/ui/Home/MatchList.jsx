@@ -18,18 +18,14 @@ const ForResponsiveColums = [
   { id: 'removeEmojivenue', label: '開催地', minWidth: 300 },
 ];
 
-const MatchList = memo(({ matchData }) => {
+const MatchList = memo(() => {
   return (
     <>
       <MediaQuery query='(max-width: 580px)'>
-        <MatchListTable
-          size='small'
-          colums={ForResponsiveColums}
-          matchData={matchData}
-        />
+        <MatchListTable size='small' colums={ForResponsiveColums} />
       </MediaQuery>
       <MediaQuery query='(min-width: 581px)'>
-        <MatchListTable size='medium' colums={colums} matchData={matchData} />
+        <MatchListTable size='medium' colums={colums} />
       </MediaQuery>
     </>
   );

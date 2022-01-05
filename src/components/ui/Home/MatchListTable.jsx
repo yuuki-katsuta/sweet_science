@@ -11,6 +11,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { removeEmoji } from '../Utils/util';
+import { db } from '../../../base';
+import useSWR from 'swr';
 
 const theme = createTheme({
   palette: {
@@ -54,7 +56,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MatchListTable = ({ size, colums, matchData }) => {
+const useMatchData = () => {
+  const { data, error } = useSWR('firestore/chats', getMatcheInformation, {
+    //ウィンドウがフォーカスされたときに自動的に再検証
+    revalidateOnFocus: false,
+  });
+  return {
+    matchData: data,
+    isError: error,
+  };
+};
+
+const getMatcheInformation = async () => {
+  const querySnapshot = await db
+    .collection('chats')
+    .orderBy('date', 'desc')
+    .orderBy('createdAt', 'desc')
+    .limit(50)
+    .get();
+  const newMatcheInformation = [];
+  querySnapshot.forEach((doc) => {
+    if (doc.data()?.isCanceled === true) return;
+    newMatcheInformation.push(doc.data());
+  });
+  return newMatcheInformation;
+};
+
+const MatchListTable = ({ size, colums }) => {
   const history = useHistory();
   const classes = useStyles();
   const [page, setPage] = useState(0);
@@ -64,6 +92,10 @@ const MatchListTable = ({ size, colums, matchData }) => {
     setPage(newPage);
   };
 
+  const { matchData, isError } = useMatchData();
+
+  if (isError) return <div>failed to load</div>;
+  if (!matchData) return null;
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>

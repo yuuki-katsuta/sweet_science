@@ -1,4 +1,6 @@
 import { memo } from 'react';
+import { db } from '../../../base';
+import useSWR from 'swr';
 import styled from 'styled-components';
 
 const Section = styled.div`
@@ -47,6 +49,32 @@ const STable = styled.table`
   }
 `;
 
+const getLimitedMatcheInformation = async () => {
+  const querySnapshot = await db
+    .collection('chats')
+    .orderBy('createdAt', 'desc')
+    .limit(5)
+    .get();
+  const newMatcheInformation = [];
+  querySnapshot.forEach((doc) => {
+    if (doc.data()?.isCanceled === true) return;
+    newMatcheInformation.push(doc.data());
+  });
+  return newMatcheInformation;
+};
+
+const useLimitedMatchData = () => {
+  const { data, error } = useSWR(
+    'firestore/chats/limit',
+    getLimitedMatcheInformation,
+    { revalidateOnFocus: false }
+  );
+  return {
+    limitedMatchData: data,
+    isError: error,
+  };
+};
+
 const FromTimeStampToDate = (date) => {
   const d = new Date(date.seconds * 1000);
   const month = `0${d.getMonth() + 1}`.slice(-2);
@@ -54,7 +82,10 @@ const FromTimeStampToDate = (date) => {
   return `${month}/${day}`;
 };
 
-const News = memo(({ matchData }) => {
+const News = memo(() => {
+  const { limitedMatchData, isError } = useLimitedMatchData();
+  if (isError) return <div>failed to load</div>;
+  if (!limitedMatchData) return null;
   return (
     <div>
       <h2 className='section-title'>News</h2>
@@ -72,21 +103,14 @@ const News = memo(({ matchData }) => {
             </tr>
           </thead>
           <tbody>
-            {matchData
-              .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
-              .slice(0, 5)
-              .map((data, index) => {
-                return (
-                  <tr key={index}>
-                    {
-                      <>
-                        <td>{FromTimeStampToDate(data.createdAt)}</td>
-                        <td>追加 : {data.room}</td>
-                      </>
-                    }
-                  </tr>
-                );
-              })}
+            {limitedMatchData.map((data, index) => {
+              return (
+                <tr key={index}>
+                  <td>{FromTimeStampToDate(data.createdAt)}</td>
+                  <td>追加 : {data.room}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </STable>
       </TableWrapper>

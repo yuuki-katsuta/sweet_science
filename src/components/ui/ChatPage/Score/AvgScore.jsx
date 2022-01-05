@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
 import { db } from '../../../../base';
 import { createData } from '../../Utils/util';
 import ScoreTable from './ScoreTable';
 import styled from 'styled-components';
 import split from 'graphemesplit';
+import useSWR from 'swr';
 
 const SContainer = styled.div`
   max-width: 950px;
@@ -15,65 +15,79 @@ const STotalScore = styled.h4`
 `;
 
 const AvgScore = ({ matchInfo }) => {
-  const [update, setUpdata] = useState(false);
-  const Scoring = useRef([]);
-  const totalScore = useRef({});
-
-  useEffect(() => {
-    let unmounted = false;
-    if (matchInfo) {
-      let avgScore = {};
-      (async () => {
-        const scoreData = await db
-          .collection('chats')
-          .doc(matchInfo.room)
-          .collection('score')
-          .doc('AverageScore')
-          .get();
-        if (scoreData.exists) {
-          avgScore = {
-            fighterScore: scoreData.data().fighter,
-            opponentScore: scoreData.data().opponent,
-          };
-        }
-        //totalを算出
-        const fighterTotal = avgScore.fighterScore.reduce((sum, num) => {
-          return sum + num;
-        });
-        const opponentTotal = avgScore.opponentScore.reduce((sum, num) => {
-          return sum + num;
-        });
-        totalScore.current = {
-          total: `${fighterTotal}-${opponentTotal}`,
-        };
-        //スコア算出
-        const fighterLength = split(matchInfo.fighter).length;
-        const opponentLength = split(matchInfo.opponent).length;
-        Scoring.current = [
-          createData(
-            `${matchInfo.fighter.slice(0, fighterLength - 1)}`,
-            ...avgScore.fighterScore
-          ),
-          createData(
-            `${matchInfo.opponent.slice(0, opponentLength - 1)}`,
-            ...avgScore.opponentScore
-          ),
-        ];
-        if (!unmounted) {
-          setUpdata(!update);
-        }
-      })();
-      return () => {
-        unmounted = true;
+  const getAvgScoreData = async () => {
+    let avgScore = {};
+    const scoreData = await db
+      .collection('chats')
+      .doc(matchInfo.room)
+      .collection('score')
+      .doc('AverageScore')
+      .get();
+    if (scoreData.exists) {
+      avgScore = {
+        fighterScore: scoreData.data().fighter,
+        opponentScore: scoreData.data().opponent,
       };
     }
-    // eslint-disable-next-line
-  }, [matchInfo]);
+    //totalを算出
+    const calculateTotalScore = () => {
+      const fighterTotal = avgScore.fighterScore.reduce((sum, num) => {
+        return sum + num;
+      });
+      const opponentTotal = avgScore.opponentScore.reduce((sum, num) => {
+        return sum + num;
+      });
+      return `${fighterTotal}-${opponentTotal}`;
+    };
+
+    //スコア算出
+    const calculateScore = () => {
+      let scoring = [];
+      const fighterLength = split(matchInfo.fighter).length;
+      const opponentLength = split(matchInfo.opponent).length;
+      scoring.push(
+        createData(
+          `${matchInfo.fighter.slice(0, fighterLength - 1)}`,
+          ...avgScore.fighterScore
+        ),
+        createData(
+          `${matchInfo.opponent.slice(0, opponentLength - 1)}`,
+          ...avgScore.opponentScore
+        )
+      );
+      return scoring;
+    };
+
+    const totalScore = calculateTotalScore();
+    const scoring = calculateScore();
+
+    return { scoring, totalScore };
+  };
+
+  const useAvgScoreData = () => {
+    const { data, error } = useSWR(
+      `firestore/${matchInfo.room}/avgScoreData`,
+      getAvgScoreData,
+      {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+      }
+    );
+    return {
+      avgScoreData: data,
+      isError: error,
+    };
+  };
+  const { avgScoreData, isError } = useAvgScoreData();
+  if (isError) return <div>failed to load</div>;
+  if (!avgScoreData) return null;
+  const { scoring, totalScore } = avgScoreData;
 
   return (
     <SContainer>
-      <STotalScore>Average Score {totalScore.current.total}</STotalScore>
-      <ScoreTable Scoring={Scoring.current} />
+      <STotalScore>Average Score {totalScore.total}</STotalScore>
+      <ScoreTable Scoring={scoring} />
     </SContainer>
   );
 };

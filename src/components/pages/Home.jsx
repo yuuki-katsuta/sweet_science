@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState, useCallback } from 'react';
+import { useContext } from 'react';
 import { AuthStateContext } from '../../providers/AuthStateProvider';
-import { db } from '../../base';
 import { media } from '../ui/Utils/style-utils';
 import MediaQuery from 'react-responsive';
 import MatchList from '../ui/Home/MatchList';
@@ -36,38 +35,6 @@ const SHelperText = styled.span`
 
 const Home = () => {
   const { adminUser } = useContext(AuthStateContext);
-  const [matchData, setMatchData] = useState([]);
-
-  //試合情報を取得
-  const getMatcheInformation = useCallback(async () => {
-    const querySnapshot = await db
-      .collection('chats')
-      .orderBy('date', 'desc')
-      .orderBy('createdAt', 'desc')
-      .limit(50)
-      .get();
-    const newMatcheInformation = [];
-    querySnapshot.forEach((doc) => {
-      if (doc.data()?.isCanceled === true) return;
-      newMatcheInformation.push(doc.data());
-    });
-    return newMatcheInformation;
-  }, []);
-
-  useEffect(() => {
-    let unmounted = false;
-    (async () => {
-      const matchData = await getMatcheInformation();
-      //アンマウントされていなければステートを更新
-      if (!unmounted) {
-        setMatchData(matchData);
-      }
-    })();
-    //クリーンアップ関数を返す
-    return () => {
-      unmounted = true;
-    };
-  }, [getMatcheInformation]);
 
   return (
     <div className='container'>
@@ -81,12 +48,12 @@ const Home = () => {
           <SHelperText>(横にスクロールできます。)</SHelperText>
         </p>
       </SDescription>
-      <MatchList matchData={matchData} />
+      <MatchList />
       {adminUser ? (
         <>
           <MediaQuery query='(max-width: 840px)'>
             <Divider />
-            <News matchData={matchData} />
+            <News />
           </MediaQuery>
           <MediaQuery query='(min-width: 841px)'>
             <Container maxWidth='md'>
@@ -98,14 +65,12 @@ const Home = () => {
           </MediaQuery>
         </>
       ) : (
-        matchData.length > 0 && (
-          <Container maxWidth='md'>
-            <SNewsSection>
-              <Divider />
-              <News matchData={matchData} />
-            </SNewsSection>
-          </Container>
-        )
+        <Container maxWidth='md'>
+          <SNewsSection>
+            <Divider />
+            <News />
+          </SNewsSection>
+        </Container>
       )}
     </div>
   );
