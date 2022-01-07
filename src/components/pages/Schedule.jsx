@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { db } from '../../base';
 import { media } from '../ui/Utils/style-utils';
 import styled from 'styled-components';
@@ -10,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import PlaceIcon from '@material-ui/icons/Place';
 import TvIcon from '@material-ui/icons/Tv';
+import useSWR from 'swr';
 
 const SDescription = styled.div`
   margin-bottom: 16px;
@@ -74,36 +74,44 @@ const SListItem = styled(ListItem)`
     letter-spacing: -0.2px;
   }
 `;
-const date = new Date();
-const today =
-  date.getFullYear() +
-  '/' +
-  ('0' + (date.getMonth() + 1)).slice(-2) +
-  '/' +
-  ('0' + date.getDate()).slice(-2);
+
+const getDay = () => {
+  const date = new Date();
+  return (
+    date.getFullYear() +
+    '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) +
+    '/' +
+    ('0' + date.getDate()).slice(-2)
+  );
+};
+
+const fetchScheduleData = async (isMounted) => {
+  const day = getDay();
+  const ｍatchSchedule = await db
+    .collection('schedule')
+    .where('date', '>=', `${day}`)
+    .get();
+  const scheduleData = [];
+  ｍatchSchedule.forEach((doc) => {
+    scheduleData.push(doc.data());
+  });
+  return scheduleData;
+};
 const Schedule = () => {
-  const [schedule, setSchedule] = useState([]);
-
-  const fetchSchedule = async (isMounted) => {
-    const ｍatchSchedule = await db
-      .collection('schedule')
-      .where('date', '>=', `${today}`)
-      .get();
-    const scheduleData = [];
-    ｍatchSchedule.forEach((doc) => {
-      scheduleData.push(doc.data());
+  const useScheduleData = () => {
+    const { data, error } = useSWR('firestore/schedule', fetchScheduleData, {
+      revalidateOnFocus: false,
     });
-    isMounted && setSchedule(scheduleData);
-  };
-
-  useEffect(() => {
-    let isMounted = true;
-    fetchSchedule(isMounted);
-    return () => {
-      isMounted = false;
+    return {
+      scheduleData: data,
+      isError: error,
     };
-  }, []);
+  };
+  const { scheduleData, isError } = useScheduleData();
 
+  if (isError) return <div>failed to load</div>;
+  if (!scheduleData) return null;
   return (
     <div className='container'>
       <h2 className='section-title'>Fight Schedule</h2>
@@ -115,7 +123,7 @@ const Schedule = () => {
         </p>
       </SDescription>
       <SList>
-        {schedule.map((information) => (
+        {scheduleData.map((information) => (
           <div key={information.title}>
             <Divider />
             <SListItem alignItems='flex-start'>
@@ -127,26 +135,24 @@ const Schedule = () => {
                   </SPrimaryText>
                 }
                 secondary={
-                  <>
-                    <STypography
-                      component='span'
-                      color='textPrimary'
-                      variant='body2'
-                    >
-                      <SSecondary>
-                        <QueryBuilderIcon fontSize='small' />
-                        {information.time}
-                      </SSecondary>
-                      <SSecondary>
-                        <PlaceIcon fontSize='small' />
-                        {information.venue}
-                      </SSecondary>
-                      <SSecondary>
-                        <TvIcon fontSize='small' />
-                        {information.broadcast}
-                      </SSecondary>
-                    </STypography>
-                  </>
+                  <STypography
+                    component='span'
+                    color='textPrimary'
+                    variant='body2'
+                  >
+                    <SSecondary>
+                      <QueryBuilderIcon fontSize='small' />
+                      {information.time}
+                    </SSecondary>
+                    <SSecondary>
+                      <PlaceIcon fontSize='small' />
+                      {information.venue}
+                    </SSecondary>
+                    <SSecondary>
+                      <TvIcon fontSize='small' />
+                      {information.broadcast}
+                    </SSecondary>
+                  </STypography>
                 }
               />
             </SListItem>
