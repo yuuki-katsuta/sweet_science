@@ -5,6 +5,7 @@ import { positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import routes from './router/routes';
 import Layout from './Layout/Layout';
+import ScrollToTop from './ScrollToTop';
 
 const options = {
   timeout: 2500,
@@ -18,6 +19,7 @@ function App() {
       <AlertProvider template={AlertTemplate} {...options}>
         <AuthProvider>
           <BrowserRouter>
+            <ScrollToTop />
             <Layout>
               <Switch>
                 {routes.map((route) => (
