@@ -1,4 +1,4 @@
-import { Redirect, useLocation, useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import MatchInformation from '../ui/ChatPage/MatchInformation';
 import AvgScore from '../ui/ChatPage/Score/AvgScore';
 import Score from '../ui/ChatPage/Score/Score.jsx';
@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Fab from '@mui/material/Fab';
 import CreateIcon from '@mui/icons-material/Create';
 import MessageList from '../ui/ChatPage/Message/MessageList';
+import { useEffect } from 'react';
 
 const SContainer = styled(Container)`
   padding: 0 10px;
@@ -15,8 +16,18 @@ const SContainer = styled(Container)`
 
 const ChatPage = () => {
   const history = useHistory();
-  const location = useLocation();
-  const matchInfo = location.state?.matchInformation;
+  const matchInfo = history.location.state?.matchInformation;
+  const page = history.location.state?.page;
+  useEffect(() => {
+    const goBack = () => {
+      history.push({
+        pathname: '/',
+        state: { currentPage: page },
+      });
+    };
+    window.addEventListener('popstate', goBack);
+    return () => window.removeEventListener('popstate', goBack);
+  }, [history, page]);
 
   const FabField = () => {
     return (
@@ -25,7 +36,7 @@ const ChatPage = () => {
         variant='extended'
         onClick={() => {
           history.push({
-            pathname: `${location.pathname}/scores`,
+            pathname: `${history.location.pathname}/scores`,
             state: { matchInfo },
           });
         }}
@@ -36,7 +47,7 @@ const ChatPage = () => {
     );
   };
 
-  return location.state ? (
+  return history.location.state ? (
     <div className='container'>
       <Container maxWidth='lg' disableGutters={true}>
         <MatchInformation matchInfo={matchInfo} />

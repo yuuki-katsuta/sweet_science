@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { withStyles, makeStyles, createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
@@ -55,18 +55,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
   },
 }));
-
-const useMatchData = () => {
-  const { data, error } = useSWR('firestore/chats', getMatcheInformation, {
-    //ウィンドウがフォーカスされたときに自動的に再検証
-    revalidateOnFocus: false,
-  });
-  return {
-    matchData: data,
-    isError: error,
-  };
-};
-
 const getMatcheInformation = async () => {
   const querySnapshot = await db
     .collection('chats')
@@ -82,17 +70,32 @@ const getMatcheInformation = async () => {
   return newMatcheInformation;
 };
 
+const useMatchData = (page) => {
+  const { data, error } = useSWR(
+    `firestore/chat/${page}`,
+    getMatcheInformation,
+    { revalidateOnFocus: false }
+  );
+  return {
+    matchData: data,
+    isError: error,
+  };
+};
+const rowsPerPage = 10;
+
 const MatchListTable = ({ size, colums }) => {
   const history = useHistory();
   const classes = useStyles();
   const [page, setPage] = useState(0);
-  const rowsPerPage = 10;
+
+  useEffect(() => {
+    const currentPage = history.location.state?.currentPage;
+    setPage(currentPage || 0);
+  }, [history]);
+  const { matchData, isError } = useMatchData(page);
   const handleChangePage = (event, newPage) => {
-    matchData.sort((a, b) => (a.date > b.date ? -1 : 1));
     setPage(newPage);
   };
-
-  const { matchData, isError } = useMatchData();
 
   if (isError) return <div>failed to load</div>;
   if (!matchData) return null;
@@ -129,7 +132,10 @@ const MatchListTable = ({ size, colums }) => {
                     onClick={() => {
                       history.push({
                         pathname: `/chat/${index}`,
-                        state: { matchInformation: data },
+                        state: {
+                          matchInformation: data,
+                          page: page,
+                        },
                       });
                     }}
                   >
