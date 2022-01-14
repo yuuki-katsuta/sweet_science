@@ -1,7 +1,6 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { AuthStateContext } from '../../../providers/AuthStateProvider';
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,19 +11,7 @@ import styled from 'styled-components';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import InfoIcon from '@material-ui/icons/InfoOutlined';
-import FeedbackIcon from '@material-ui/icons/Feedback';
-import HomeIcon from '@material-ui/icons/Home';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import EventNoteIcon from '@material-ui/icons/EventNote';
-import { media } from '../Utils/style-utils';
-import { signOut } from '../../../controllers/AuthController';
-import { useAlert } from 'react-alert';
+import MenuItemList from './MenuItemList';
 
 const theme = createTheme({
   palette: {
@@ -39,41 +26,8 @@ const SHeader = styled.div`
 const STitle = styled(Typography)`
   flex-grow: 1;
 `;
-const SList = styled(List)`
-  margin-top: 64px;
-  color: white;
-`;
-const SListWrapper = styled.div`
-  background-color: #213045;
-  height: 100%;
-  ${media.handheld420`
-    width: 200px;
-  `}
-  width: 250px;
-`;
-const SListItem = styled(ListItem)`
-  padding-bottom: 16px;
-  &:hover {
-    background-color: #2b4263;
-  }
-  _:lang(x) + _:-webkit-full-screen-document,
-  span {
-    letter-spacing: -0.5px;
-  }
-`;
-const SHomeIcon = styled(HomeIcon)`
-  color: white;
-  font-size: 32px;
-`;
-const SInfoIcon = SHomeIcon.withComponent(InfoIcon);
-const SAccountCircleIcon = SHomeIcon.withComponent(AccountCircleIcon);
-const SFeedbackIcon = SHomeIcon.withComponent(FeedbackIcon);
-const SExitToAppIcon = SHomeIcon.withComponent(ExitToAppIcon);
-const SEventNoteIcon = SHomeIcon.withComponent(EventNoteIcon);
 
 const Header = () => {
-  const Alert = useAlert();
-  const { guestUser } = useContext(AuthStateContext);
   const history = useHistory();
   const [state, setState] = useState({
     top: false,
@@ -91,79 +45,6 @@ const Header = () => {
     }
     setState({ ...state, [anchor]: open });
   };
-
-  const list = (anchor) => (
-    <SListWrapper
-      role='presentation'
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <SList>
-        <SListItem
-          button
-          onClick={() => {
-            history.push('/');
-          }}
-        >
-          <ListItemIcon>
-            <SHomeIcon />
-          </ListItemIcon>
-          <ListItemText primary={'Home'} />
-        </SListItem>
-        <SListItem
-          button
-          onClick={() => {
-            history.push('/about');
-          }}
-        >
-          <ListItemIcon>
-            <SInfoIcon />
-          </ListItemIcon>
-          <ListItemText primary={'About'} />
-        </SListItem>
-        <SListItem
-          disabled={guestUser}
-          button
-          onClick={() => {
-            history.push('/profile');
-          }}
-        >
-          <ListItemIcon>
-            <SAccountCircleIcon />
-          </ListItemIcon>
-          <ListItemText primary={'Profile'} />
-        </SListItem>
-        <SListItem
-          button
-          onClick={() => {
-            history.push('/schedule');
-          }}
-        >
-          <ListItemIcon>
-            <SEventNoteIcon />
-          </ListItemIcon>
-          <ListItemText primary={'Schedule'} />
-        </SListItem>
-        <SListItem
-          button
-          onClick={() => {
-            history.push('/feedback');
-          }}
-        >
-          <ListItemIcon>
-            <SFeedbackIcon />
-          </ListItemIcon>
-          <ListItemText primary={'Feedback'} />
-        </SListItem>
-        <SListItem button onClick={() => signOut(Alert)}>
-          <ListItemIcon>
-            <SExitToAppIcon />
-          </ListItemIcon>
-          <ListItemText primary={'Log out'} />
-        </SListItem>
-      </SList>
-    </SListWrapper>
-  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -195,7 +76,11 @@ const Header = () => {
                 open={state['right']}
                 onClose={toggleDrawer('right', false)}
               >
-                {list('right')}
+                <MenuItemList
+                  anchor='right'
+                  toggleDrawer={toggleDrawer}
+                  history={history}
+                />
               </Drawer>
             </div>
           </Toolbar>
