@@ -1,4 +1,3 @@
-import { AuthProvider } from './providers/AuthProvider';
 import { AuthStateProvider } from './providers/AuthStateProvider';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { positions, Provider as AlertProvider } from 'react-alert';
@@ -17,24 +16,22 @@ function App() {
   return (
     <AuthStateProvider>
       <AlertProvider template={AlertTemplate} {...options}>
-        <AuthProvider>
-          <BrowserRouter>
-            <ScrollToTop />
-            <Layout>
-              <Switch>
-                {routes.map((route) => (
-                  <Route
-                    key={route.path}
-                    exact
-                    path={route.path}
-                    component={route.component}
-                  />
-                ))}
-                <Route path='*' render={() => <Redirect to='/' />} />
-              </Switch>
-            </Layout>
-          </BrowserRouter>
-        </AuthProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <Layout>
+            <Switch>
+              {routes.map((route) => (
+                <Route
+                  key={route.path}
+                  exact
+                  path={route.path}
+                  component={route.component}
+                />
+              ))}
+              <Route path='*' render={() => <Redirect to='/' />} />
+            </Switch>
+          </Layout>
+        </BrowserRouter>
       </AlertProvider>
     </AuthStateProvider>
   );

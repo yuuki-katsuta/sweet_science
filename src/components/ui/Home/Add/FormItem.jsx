@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAddRoom } from '../../../hooks/useAddRoom';
+import { useAddRoom } from '../../../../hooks/useAddRoom';
 import AddScoreForm from './AddScoreForm';
 import AddAvgScoreForm from './AddAvgScoreForm';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

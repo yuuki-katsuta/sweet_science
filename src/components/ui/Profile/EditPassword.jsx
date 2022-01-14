@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { AuthStateContext } from '../../../providers/AuthStateProvider';
-import { AuthContext } from '../../../providers/AuthProvider';
+import { Reauthentication } from '../../../controllers/AuthController';
 import BaseButton from '../atoms/Button/BaseButton';
 import TextInputField from '../atoms/InputField/TextInputField';
 import BaseModal from './BaseModal.jsx';
@@ -27,7 +27,6 @@ const Password = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [open, setOpen] = useState(false);
   const { currentUser } = useContext(AuthStateContext);
-  const { Reauthentication } = useContext(AuthContext);
   const handleClose = () => {
     setOpen(false);
   };

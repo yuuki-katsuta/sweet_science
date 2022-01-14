@@ -1,5 +1,6 @@
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../../providers/AuthProvider';
+import { useState } from 'react';
+import { useAlert } from 'react-alert';
+import { guestLogin, login } from '../../../controllers/AuthController';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import TextInputField from '../atoms/InputField/TextInputField';
@@ -27,9 +28,9 @@ const SGuestLoginButton = styled(BaseButton)`
 `;
 
 const LoginForm = ({ setIsLogin, isLogin }) => {
+  const Alert = useAlert();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { guestLogin, login } = useContext(AuthContext);
   const resetItems = () => {
     setEmail('');
     setPassword('');
@@ -77,9 +78,7 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           fullWidth
           variant='contained'
           color='primary'
-          setState={() => {
-            login(email, password);
-          }}
+          setState={() => login(email, password, Alert)}
         >
           ログイン
         </SLoginButton>
@@ -87,9 +86,7 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
           fullWidth
           variant='contained'
           color='default'
-          setState={() => {
-            guestLogin();
-          }}
+          setState={() => guestLogin(Alert)}
         >
           ゲストログイン
         </SGuestLoginButton>

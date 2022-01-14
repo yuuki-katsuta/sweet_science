@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { AuthContext } from '../../../providers/AuthProvider';
 import { AuthStateContext } from '../../../providers/AuthStateProvider';
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -24,6 +23,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import { media } from '../Utils/style-utils';
+import { signOut } from '../../../controllers/AuthController';
+import { useAlert } from 'react-alert';
 
 const theme = createTheme({
   palette: {
@@ -71,7 +72,7 @@ const SExitToAppIcon = SHomeIcon.withComponent(ExitToAppIcon);
 const SEventNoteIcon = SHomeIcon.withComponent(EventNoteIcon);
 
 const Header = () => {
-  const { signOut } = useContext(AuthContext);
+  const Alert = useAlert();
   const { guestUser } = useContext(AuthStateContext);
   const history = useHistory();
   const [state, setState] = useState({
@@ -154,12 +155,7 @@ const Header = () => {
           </ListItemIcon>
           <ListItemText primary={'Feedback'} />
         </SListItem>
-        <SListItem
-          button
-          onClick={async () => {
-            await signOut();
-          }}
-        >
+        <SListItem button onClick={() => signOut(Alert)}>
           <ListItemIcon>
             <SExitToAppIcon />
           </ListItemIcon>

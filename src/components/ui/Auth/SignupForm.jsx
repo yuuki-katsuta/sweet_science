@@ -1,5 +1,6 @@
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../../providers/AuthProvider';
+import { useState } from 'react';
+import { useAlert } from 'react-alert';
+import { signup } from '../../../controllers/AuthController';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import TextInputField from '../atoms/InputField/TextInputField';
@@ -19,7 +20,7 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
-  const { signup } = useContext(AuthContext);
+  const Alert = useAlert();
   const resetItems = () => {
     setEmail('');
     setPassword('');
@@ -87,7 +88,7 @@ const SignupForm = ({ setIsLogin, isLogin }) => {
         variant='contained'
         color='primary'
         setState={() => {
-          signup(email, password, confirmPassword, name);
+          signup(email, password, confirmPassword, name, Alert);
         }}
       >
         サインアップ
