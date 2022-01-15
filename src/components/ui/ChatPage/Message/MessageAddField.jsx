@@ -2,6 +2,7 @@ import { useState, memo } from 'react';
 import { db } from '../../../../base';
 import { useRecoilValue } from 'recoil';
 import { currentUserState } from '../../../../store/authState';
+import { useAlert } from 'react-alert';
 import BaseIconButton from '../../atoms/Button/BaseIconButton';
 import TextInputField from '../../atoms/InputField/TextInputField';
 import Grid from '@material-ui/core/Grid';
@@ -23,6 +24,7 @@ const SSendButtonWrapper = styled.span`
 
 const MessageAddField = memo(({ room, refer }) => {
   const currentUser = useRecoilValue(currentUserState);
+  const Alert = useAlert();
   const [text, setText] = useState('');
 
   const messageAdd = async () => {
@@ -39,8 +41,7 @@ const MessageAddField = memo(({ room, refer }) => {
       liked: 0,
     });
     setText('');
-    //自動スクロール
-    refer.current.scrollIntoView({ behavior: 'smooth' });
+    Alert.success('コメントを追加しました!!');
   };
 
   return (
