@@ -47,6 +47,7 @@ const UserScoresList = ({ room }) => {
       .collection('scorecard')
       .doc(room)
       .collection('score')
+      .orderBy('createdAt', 'desc')
       .get();
     const scoreData = [];
     querySnapshot.forEach((doc) => {
@@ -59,9 +60,9 @@ const UserScoresList = ({ room }) => {
   };
   const useUserScoreData = (page) => {
     const { data, error } = useSWR(
-      `firestore/chat/${room}/userScore/${page}`,
+      `firestore/chat/${room}/userScore/`,
       fetchUserScore,
-      { revalidateOnFocus: false, suspense: true }
+      { suspense: true }
     );
     return {
       scorecardList: data,
@@ -72,7 +73,6 @@ const UserScoresList = ({ room }) => {
   const { scorecardList, isError } = useUserScoreData(page);
 
   if (isError) return <div>failed to load</div>;
-  if (!scorecardList) return null;
   return (
     <SContainer maxWidth='md'>
       <SDescription>

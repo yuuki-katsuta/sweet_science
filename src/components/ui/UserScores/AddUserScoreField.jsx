@@ -18,6 +18,8 @@ import split from 'graphemesplit';
 import ConfirmationDialog from './ConfirmationDialog';
 import styled from 'styled-components';
 import { currentUserState } from '../../../store/authState';
+import { useSWRConfig } from 'swr';
+import { useAlert } from 'react-alert';
 
 const SDescription = styled.div`
   text-align: center;
@@ -31,6 +33,8 @@ const SDescription = styled.div`
 `;
 
 const AddUserScoreField = ({ matchInfo }) => {
+  const Alert = useAlert();
+  const { mutate } = useSWRConfig();
   const currentUser = useRecoilValue(currentUserState);
   const [fscore, setFScore] = useState(RoundData);
   const [oscore, setOScore] = useState(RoundData);
@@ -61,11 +65,10 @@ const AddUserScoreField = ({ matchInfo }) => {
         fighterTotal: fighterTotal,
         opponentTotal: opponentTotal,
       })
-      .then(() =>
-        alert(
-          'スコアカードを追加しました！！\nページを更新すると投稿した内容が表示されます。'
-        )
-      )
+      .then(() => {
+        Alert.success('スコアカードを追加しました!!');
+        mutate(`firestore/chat/${matchInfo.room}/userScore/`);
+      })
       .catch((error) => alert(error.message));
   };
 
