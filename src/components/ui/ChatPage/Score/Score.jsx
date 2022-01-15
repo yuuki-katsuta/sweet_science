@@ -78,6 +78,7 @@ const Score = ({ matchInfo }) => {
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
+        suspense: true,
       }
     );
     return {
@@ -87,7 +88,6 @@ const Score = ({ matchInfo }) => {
   };
   const { scoreData, isError } = useScoreData();
   if (isError) return <div>failed to load</div>;
-  if (!scoreData) return null;
   const { totalScore, scoringA, scoringB, scoringC } = scoreData;
   return (
     <SContainer>

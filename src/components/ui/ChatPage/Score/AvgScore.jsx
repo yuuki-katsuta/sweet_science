@@ -72,6 +72,7 @@ const AvgScore = ({ matchInfo }) => {
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
+        suspense: true,
       }
     );
     return {
@@ -81,7 +82,6 @@ const AvgScore = ({ matchInfo }) => {
   };
   const { avgScoreData, isError } = useAvgScoreData();
   if (isError) return <div>failed to load</div>;
-  if (!avgScoreData) return null;
   const { scoring, totalScore } = avgScoreData;
 
   return (

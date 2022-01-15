@@ -8,6 +8,7 @@ import Fab from '@mui/material/Fab';
 import CreateIcon from '@mui/icons-material/Create';
 import MessageList from '../ui/ChatPage/Message/MessageList';
 import { useEffect } from 'react';
+import { Suspense } from 'react';
 
 const SContainer = styled(Container)`
   padding: 0 10px;
@@ -48,17 +49,23 @@ const ChatPage = () => {
   };
 
   return history.location.state ? (
-    <div className='container'>
-      <Container maxWidth='lg' disableGutters={true}>
-        <MatchInformation matchInfo={matchInfo} />
-        {matchInfo.scoreData && <Score matchInfo={matchInfo} />}
-        {matchInfo.AvgScore && <AvgScore matchInfo={matchInfo} />}
-        <FabField />
-      </Container>
-      <SContainer maxWidth='lg' disableGutters={true}>
-        <MessageList room={matchInfo.room} />
-      </SContainer>
-    </div>
+    <Suspense
+      fallback={
+        <h2 style={{ marginTop: '200px', textAlign: 'center' }}>Loading...</h2>
+      }
+    >
+      <div className='container'>
+        <Container maxWidth='lg' disableGutters={true}>
+          <MatchInformation matchInfo={matchInfo} />
+          {matchInfo.scoreData && <Score matchInfo={matchInfo} />}
+          {matchInfo.AvgScore && <AvgScore matchInfo={matchInfo} />}
+          <FabField />
+        </Container>
+        <SContainer maxWidth='lg' disableGutters={true}>
+          <MessageList room={matchInfo.room} />
+        </SContainer>
+      </div>
+    </Suspense>
   ) : (
     <Redirect to={'/'} />
   );
