@@ -28,7 +28,7 @@ const MessageList = ({ room }) => {
     db.collection('chats')
       .doc(room)
       .collection('messages')
-      .orderBy('createdAt', 'desc')
+      .orderBy('createdAt', 'asc')
       .limit(50)
       .onSnapshot((Snapshot) => {
         let msg = [];
@@ -45,7 +45,7 @@ const MessageList = ({ room }) => {
           }
         });
         //配列の要素を反転
-        isMounted && setMessages(msg.reverse());
+        isMounted && setMessages(msg);
       });
     return () => {
       isMounted = false;
