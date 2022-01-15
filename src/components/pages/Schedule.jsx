@@ -10,6 +10,7 @@ import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import PlaceIcon from '@material-ui/icons/Place';
 import TvIcon from '@material-ui/icons/Tv';
 import useSWR from 'swr';
+import ScrollToTop from '../../ScrollToTop';
 
 const SDescription = styled.div`
   margin-bottom: 16px;
@@ -113,53 +114,56 @@ const Schedule = () => {
   if (isError) return <div>failed to load</div>;
   if (!scheduleData) return null;
   return (
-    <div className='container'>
-      <h2 className='section-title'>Fight Schedule</h2>
-      <SDescription>
-        <p>
-          ボクシングの試合予定を表示します。
-          <br />
-          (日時は現地時間を記載しています。)
-        </p>
-      </SDescription>
-      <SList>
-        {scheduleData.map((information) => (
-          <div key={information.title}>
-            <Divider />
-            <SListItem alignItems='flex-start'>
-              <ListItemText
-                primary={
-                  <SPrimaryText>
-                    <SDate>{information.date}</SDate>
-                    <STitle>{information.title}</STitle>
-                  </SPrimaryText>
-                }
-                secondary={
-                  <STypography
-                    component='span'
-                    color='textPrimary'
-                    variant='body2'
-                  >
-                    <SSecondary>
-                      <QueryBuilderIcon fontSize='small' />
-                      {information.time}
-                    </SSecondary>
-                    <SSecondary>
-                      <PlaceIcon fontSize='small' />
-                      {information.venue}
-                    </SSecondary>
-                    <SSecondary>
-                      <TvIcon fontSize='small' />
-                      {information.broadcast}
-                    </SSecondary>
-                  </STypography>
-                }
-              />
-            </SListItem>
-          </div>
-        ))}
-      </SList>
-    </div>
+    <>
+      <ScrollToTop />
+      <div className='container'>
+        <h2 className='section-title'>Fight Schedule</h2>
+        <SDescription>
+          <p>
+            ボクシングの試合予定を表示します。
+            <br />
+            (日時は現地時間を記載しています。)
+          </p>
+        </SDescription>
+        <SList>
+          {scheduleData.map((information) => (
+            <div key={information.title}>
+              <Divider />
+              <SListItem alignItems='flex-start'>
+                <ListItemText
+                  primary={
+                    <SPrimaryText>
+                      <SDate>{information.date}</SDate>
+                      <STitle>{information.title}</STitle>
+                    </SPrimaryText>
+                  }
+                  secondary={
+                    <STypography
+                      component='span'
+                      color='textPrimary'
+                      variant='body2'
+                    >
+                      <SSecondary>
+                        <QueryBuilderIcon fontSize='small' />
+                        {information.time}
+                      </SSecondary>
+                      <SSecondary>
+                        <PlaceIcon fontSize='small' />
+                        {information.venue}
+                      </SSecondary>
+                      <SSecondary>
+                        <TvIcon fontSize='small' />
+                        {information.broadcast}
+                      </SSecondary>
+                    </STypography>
+                  }
+                />
+              </SListItem>
+            </div>
+          ))}
+        </SList>
+      </div>
+    </>
   );
 };
 export default Schedule;
