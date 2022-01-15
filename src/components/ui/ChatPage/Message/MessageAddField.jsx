@@ -22,7 +22,7 @@ const SSendButtonWrapper = styled.span`
   left: 8px;
 `;
 
-const MessageAddField = memo(({ room, refer }) => {
+const MessageAddField = memo(({ room }) => {
   const currentUser = useRecoilValue(currentUserState);
   const Alert = useAlert();
   const [text, setText] = useState('');
