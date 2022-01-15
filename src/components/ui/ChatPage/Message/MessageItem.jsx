@@ -66,76 +66,67 @@ const MessageItem = ({
   return (
     <SContainer className={uid === currentUser.uid && 'ownMessage'}>
       {uid === currentUser.uid ? (
-        <>
-          <ListItem alignItems='flex-start'>
-            <ListItemText
-              className='listItem'
-              secondary={
-                <Typography
+        <ListItem alignItems='flex-start'>
+          <ListItemText
+            className='listItem'
+            secondary={
+              <Typography component='span' variant='body2' color='textPrimary'>
+                <SOwnMessageWrapper>
+                  <SOwnMessage>
+                    <SMyName>{name || 'ゲストユーザー'}</SMyName>
+                    {message.split('\n').map((t, i) => {
+                      return <SMessage key={i}>{t}</SMessage>;
+                    })}
+                    <SOwnlikedCountWrapper>
+                      <LikedCount
+                        room={room}
+                        id={id}
+                        userUid={uid}
+                        liked={liked}
+                      />
+                    </SOwnlikedCountWrapper>
+                  </SOwnMessage>
+                </SOwnMessageWrapper>
+              </Typography>
+            }
+          />
+          <SListItemIcon>
+            <SAvatar alt='uploaded' src={currentUser.photoURL} />
+          </SListItemIcon>
+        </ListItem>
+      ) : (
+        <ListItem alignItems='flex-start'>
+          <SListItemIcon>
+            <SAvatar alt='uploaded' src={photoURL} />
+          </SListItemIcon>
+          <ListItemText
+            className='listItem'
+            primary={<SOtherName>{name || 'ゲストユーザー'}</SOtherName>}
+            secondary={
+              <>
+                <STypography
                   component='span'
                   variant='body2'
                   color='textPrimary'
                 >
-                  <SOwnMessageWrapper>
-                    <SOwnMessage>
-                      <SMyName>{name || 'ゲストユーザー'}</SMyName>
-                      {message.split('\n').map((t, i) => {
-                        return <SMessage key={i}>{t}</SMessage>;
-                      })}
-                      <SOwnlikedCountWrapper>
-                        <LikedCount
-                          room={room}
-                          id={id}
-                          userUid={uid}
-                          liked={liked}
-                        />
-                      </SOwnlikedCountWrapper>
-                    </SOwnMessage>
-                  </SOwnMessageWrapper>
-                </Typography>
-              }
-            />
-            <SListItemIcon>
-              <SAvatar alt='uploaded' src={currentUser.photoURL} />
-            </SListItemIcon>
-          </ListItem>
-          <Divider variant='fullWidth' />
-        </>
-      ) : (
-        <>
-          <ListItem alignItems='flex-start'>
-            <SListItemIcon>
-              <SAvatar alt='uploaded' src={photoURL} />
-            </SListItemIcon>
-            <ListItemText
-              className='listItem'
-              primary={<SOtherName>{name || 'ゲストユーザー'}</SOtherName>}
-              secondary={
-                <>
-                  <STypography
-                    component='span'
-                    variant='body2'
-                    color='textPrimary'
-                  >
-                    {message.split('\n').map((t, i) => {
-                      return <SMessage key={i}>{t}</SMessage>;
-                    })}
-                  </STypography>
-                  <SlikedCountWrapper>
-                    <LikedCount
-                      room={room}
-                      id={id}
-                      userUid={currentUser.uid}
-                      liked={liked}
-                    />
-                  </SlikedCountWrapper>
-                </>
-              }
-            />
-          </ListItem>
-          <Divider variant='fullWidth' />
-        </>
+                  {message.split('\n').map((t, i) => {
+                    return <SMessage key={i}>{t}</SMessage>;
+                  })}
+                </STypography>
+                <SlikedCountWrapper>
+                  <LikedCount
+                    room={room}
+                    id={id}
+                    userUid={currentUser.uid}
+                    liked={liked}
+                  />
+                </SlikedCountWrapper>
+              </>
+            }
+          />
+        </ListItem>
       )}
+      <Divider variant='fullWidth' />
     </SContainer>
   );
 };
