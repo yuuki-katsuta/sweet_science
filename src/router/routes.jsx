@@ -1,18 +1,19 @@
-import Home from '../components/pages/Home';
-import ChatPage from '../components/pages/ChatPage';
-import Profile from '../components/pages/Profile';
-import About from '../components/pages/About';
-import Feedback from '../components/pages/Feedback';
-import Schedule from '../components/pages/Schedule';
-import UserScores from '../components/pages/UserScores';
+import { lazy } from 'react';
+const Home = lazy(() => import('../components/pages/Home'));
+const ChatPage = lazy(() => import('../components/pages/ChatPage'));
+const Profile = lazy(() => import('../components/pages/Profile'));
+const About = lazy(() => import('../components/pages/About'));
+const Feedback = lazy(() => import('../components/pages/Feedback'));
+const Schedule = lazy(() => import('../components/pages/Schedule'));
+const UserScores = lazy(() => import('../components/pages/UserScores'));
 
 const routes = [
   { path: '/', component: Home },
   { path: '/chat/:id', component: ChatPage },
-  { path: '/chat/:id/scores', component: UserScores },
   { path: '/profile', component: Profile },
   { path: '/about', component: About },
-  { path: '/schedule', component: Schedule },
   { path: '/feedback', component: Feedback },
+  { path: '/schedule', component: Schedule },
+  { path: '/chat/:id/scores', component: UserScores },
 ];
 export default routes;

@@ -1,10 +1,10 @@
-import { AuthStateProvider } from './providers/AuthStateProvider';
+import { RecoilRoot } from 'recoil';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import routes from './router/routes';
 import Layout from './Layout/Layout';
-import ScrollToTop from './ScrollToTop';
+import { Suspense } from 'react';
 
 const options = {
   timeout: 2500,
@@ -14,26 +14,27 @@ const options = {
 
 function App() {
   return (
-    <AuthStateProvider>
+    <RecoilRoot>
       <AlertProvider template={AlertTemplate} {...options}>
         <BrowserRouter>
-          <ScrollToTop />
           <Layout>
-            <Switch>
-              {routes.map((route) => (
-                <Route
-                  key={route.path}
-                  exact
-                  path={route.path}
-                  component={route.component}
-                />
-              ))}
-              <Route path='*' render={() => <Redirect to='/' />} />
-            </Switch>
+            <Suspense fallback={null}>
+              <Switch>
+                {routes.map((route) => (
+                  <Route
+                    key={route.path}
+                    exact
+                    path={route.path}
+                    component={route.component}
+                  />
+                ))}
+                <Route path='*' render={() => <Redirect to='/' />} />
+              </Switch>
+            </Suspense>
           </Layout>
         </BrowserRouter>
       </AlertProvider>
-    </AuthStateProvider>
+    </RecoilRoot>
   );
 }
 
