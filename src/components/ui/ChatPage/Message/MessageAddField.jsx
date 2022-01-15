@@ -8,6 +8,7 @@ import TextInputField from '../../atoms/InputField/TextInputField';
 import Grid from '@material-ui/core/Grid';
 import SendIcon from '@material-ui/icons/Send';
 import styled from 'styled-components';
+import { useSWRConfig } from 'swr';
 
 const SContainer = styled.div`
   width: 75%;
@@ -23,6 +24,7 @@ const SSendButtonWrapper = styled.span`
 `;
 
 const MessageAddField = memo(({ room }) => {
+  const { mutate } = useSWRConfig();
   const currentUser = useRecoilValue(currentUserState);
   const Alert = useAlert();
   const [text, setText] = useState('');
@@ -40,6 +42,7 @@ const MessageAddField = memo(({ room }) => {
       photoURL: currentUser.photoURL,
       liked: 0,
     });
+    mutate(`firestore/chat/${room}/message`);
     setText('');
     Alert.success('コメントを追加しました!!');
   };

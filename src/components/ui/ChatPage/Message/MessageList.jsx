@@ -43,10 +43,11 @@ const MessageList = ({ room }) => {
     return msg.reverse();
   };
   const useMessages = (room) => {
-    const { data, error } = useSWR(`firestore/chat/${room}`, fetchMessages, {
-      refreshInterval: 2500,
-      suspense: true,
-    });
+    const { data, error } = useSWR(
+      `firestore/chat/${room}/message`,
+      fetchMessages,
+      { suspense: true, refreshInterval: 10000 }
+    );
     return {
       messages: data,
       isError: error,
@@ -55,7 +56,6 @@ const MessageList = ({ room }) => {
   const { messages, isError } = useMessages(room);
 
   if (isError) return <div>failed to load</div>;
-  if (!messages) return null;
   return (
     <>
       <SList className={messages.length !== 0 && 'MessageExists'}>
