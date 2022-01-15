@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { db } from '../../../base';
 import Container from '@material-ui/core/Container';
@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import ScoreListItem from './ScoreListItem';
 import Pagination from '@material-ui/lab/Pagination';
 import Divider from '@mui/material/Divider';
+import useSWR from 'swr';
 
 const SContainer = styled(Container)`
   margin-bottom: 32px;
@@ -35,57 +36,43 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 const UserScoresList = ({ room }) => {
-  const [scorecardList, setScorecardList] = useState([]);
-  const [update, setUpdate] = useState(false);
-  const page = useRef(1); //ページ番号
+  const [page, setPage] = useState(1); //ページ番号
   const pageCount = useRef(); //ページ数
-  const allItems = useRef([]); //全データ
   const classes = useStyles();
 
-  useEffect(() => {
-    let unmounted = false;
-    (async () => {
-      const querySnapshot = await db
-        .collection('scorecard')
-        .doc(room)
-        .collection('score')
-        .get();
-      const scoreData = [];
-      querySnapshot.forEach((doc) => {
-        scoreData.push(doc.data());
-      });
-      if (!unmounted) {
-        allItems.current = scoreData.sort((a, b) =>
-          a.createdAt > b.createdAt ? -1 : 1
-        );
-        //ページカウントの計算
-        pageCount.current = Math.ceil(scoreData.length / displayNum);
-        //表示データを抽出
-        setScorecardList(
-          scoreData.slice(
-            (page.current - 1) * displayNum,
-            page.current * displayNum
-          )
-        );
-      }
-    })();
-    return () => {
-      setUpdate(!update);
-      unmounted = true;
-    };
-  }, [room, update]);
-
-  const handleChange = (event, index) => {
-    //ページ移動時にページ番号を更新
-    page.current = index;
-    //ページ移動時に表示データを書き換える
-    setScorecardList(
-      allItems.current.slice((index - 1) * displayNum, index * displayNum)
-    );
-    setUpdate(true);
+  const fetchUserScore = async () => {
+    const querySnapshot = await db
+      .collection('scorecard')
+      .doc(room)
+      .collection('score')
+      .get();
+    const scoreData = [];
+    querySnapshot.forEach((doc) => {
+      scoreData.push(doc.data());
+    });
+    //ページカウントの計算
+    pageCount.current = Math.ceil(scoreData.length / displayNum);
+    //表示データを抽出
+    return scoreData.slice((page - 1) * displayNum, page * displayNum);
   };
+  const useUserScoreData = (page) => {
+    const { data, error } = useSWR(
+      `firestore/chat/${room}/userScore/${page}`,
+      fetchUserScore,
+      { revalidateOnFocus: false, suspense: true }
+    );
+    return {
+      scorecardList: data,
+      isError: error,
+    };
+  };
+  const handleChange = (event, index) => setPage(index);
+  const { scorecardList, isError } = useUserScoreData(page);
 
+  if (isError) return <div>failed to load</div>;
+  if (!scorecardList) return null;
   return (
     <SContainer maxWidth='md'>
       <SDescription>
@@ -103,7 +90,7 @@ const UserScoresList = ({ room }) => {
           <div className={classes.pagenation}>
             <Pagination
               count={pageCount.current}
-              page={page.current}
+              page={page}
               variant='outlined'
               color='primary'
               size='small'
