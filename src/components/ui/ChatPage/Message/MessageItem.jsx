@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { AuthStateContext } from '../../../../providers/AuthStateProvider';
+import { useRecoilValue } from 'recoil';
+import { currentUserState } from '../../../../store/authState';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
@@ -62,7 +62,7 @@ const MessageItem = ({
   message: { message, user: name, uid, photoURL, id, liked },
   room,
 }) => {
-  const { currentUser } = useContext(AuthStateContext);
+  const currentUser = useRecoilValue(currentUserState);
   return (
     <SContainer className={uid === currentUser.uid && 'ownMessage'}>
       {uid === currentUser.uid ? (

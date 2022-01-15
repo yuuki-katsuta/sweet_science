@@ -1,9 +1,6 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { withRouter } from 'react-router';
-import { AuthStateContext } from '../../providers/AuthStateProvider';
 import { makeStyles } from '@material-ui/core/styles';
-import { Redirect } from 'react-router-dom';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
@@ -12,7 +9,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import LoginForm from '../ui/Auth/LoginForm';
 import SignupForm from '../ui/Auth/SignupForm';
-import styled from 'styled-components';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,23 +35,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
 }));
-const SWrapper = styled.div`
-  margin-top: 180px;
-  text-align: center;
-`;
-
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const { isLoading, currentUser } = useContext(AuthStateContext);
   const classes = useStyles();
-
-  return isLoading ? (
-    <SWrapper>
-      <CircularProgress />
-    </SWrapper>
-  ) : currentUser ? (
-    <Redirect to={'/'} />
-  ) : (
+  return (
     <Grid container component='main' className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />

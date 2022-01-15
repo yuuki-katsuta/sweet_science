@@ -1,6 +1,7 @@
-import { useContext, useState, memo } from 'react';
+import { useState, memo } from 'react';
 import { db } from '../../../../base';
-import { AuthStateContext } from '../../../../providers/AuthStateProvider';
+import { useRecoilValue } from 'recoil';
+import { currentUserState } from '../../../../store/authState';
 import BaseIconButton from '../../atoms/Button/BaseIconButton';
 import TextInputField from '../../atoms/InputField/TextInputField';
 import Grid from '@material-ui/core/Grid';
@@ -21,7 +22,7 @@ const SSendButtonWrapper = styled.span`
 `;
 
 const MessageAddField = memo(({ room, refer }) => {
-  const { currentUser } = useContext(AuthStateContext);
+  const currentUser = useRecoilValue(currentUserState);
   const [text, setText] = useState('');
 
   const messageAdd = async () => {

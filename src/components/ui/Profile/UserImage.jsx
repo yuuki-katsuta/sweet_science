@@ -1,6 +1,6 @@
-import { useContext, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { storage } from '../../../base';
-import { AuthStateContext } from '../../../providers/AuthStateProvider';
+import { currentUserState } from '../../../store/authState';
 import firebase from 'firebase/app';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -10,6 +10,7 @@ import SendIcon from '@material-ui/icons/Send';
 import styled from 'styled-components';
 import { db } from '../../../base';
 import { useAlert } from 'react-alert';
+import { useRecoilValue } from 'recoil';
 
 const SAvatarWrapper = styled.span`
   position: relative;
@@ -34,7 +35,7 @@ const SInput = styled.input`
 `;
 
 const UserImage = () => {
-  const { currentUser } = useContext(AuthStateContext);
+  const currentUser = useRecoilValue(currentUserState);
   const [image, setImage] = useState('');
   const [imageUrl, setImageUrl] = useState(currentUser.photoURL);
   const [filename, setFileName] = useState('');

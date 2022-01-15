@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { AuthStateContext } from '../../providers/AuthStateProvider';
+import { adminUserState } from '../../store/authState';
+import { useRecoilValue } from 'recoil';
 import { media } from '../ui/Utils/style-utils';
 import MediaQuery from 'react-responsive';
 import MatchList from '../ui/Home/MatchList';
@@ -34,7 +34,7 @@ const SHelperText = styled.span`
 `;
 
 const Home = () => {
-  const { adminUser } = useContext(AuthStateContext);
+  const adminUser = useRecoilValue(adminUserState);
 
   return (
     <div className='container'>

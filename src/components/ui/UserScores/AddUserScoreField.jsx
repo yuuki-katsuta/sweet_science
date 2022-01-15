@@ -1,7 +1,7 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { RoundData } from '../Utils/util';
 import { db } from '../../../base';
-import { AuthStateContext } from '../../../providers/AuthStateProvider';
 import { createData } from '../Utils/util';
 import Container from '@material-ui/core/Container';
 import Table from '@mui/material/Table';
@@ -17,6 +17,7 @@ import Select from '@mui/material/Select';
 import split from 'graphemesplit';
 import ConfirmationDialog from './ConfirmationDialog';
 import styled from 'styled-components';
+import { currentUserState } from '../../../store/authState';
 
 const SDescription = styled.div`
   text-align: center;
@@ -30,7 +31,7 @@ const SDescription = styled.div`
 `;
 
 const AddUserScoreField = ({ matchInfo }) => {
-  const { currentUser } = useContext(AuthStateContext);
+  const currentUser = useRecoilValue(currentUserState);
   const [fscore, setFScore] = useState(RoundData);
   const [oscore, setOScore] = useState(RoundData);
 

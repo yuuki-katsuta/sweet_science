@@ -1,6 +1,7 @@
-import { useContext, useState } from 'react';
-import { AuthStateContext } from '../../../providers/AuthStateProvider';
+import { useState } from 'react';
 import { Reauthentication } from '../../../controllers/AuthController';
+import { useRecoilValue } from 'recoil';
+import { currentUserState } from '../../../store/authState';
 import CreateIcon from '@material-ui/icons/Create';
 import BaseIconButton from '../atoms/Button/BaseIconButton';
 import BaseButton from '../atoms/Button/BaseButton';
@@ -28,7 +29,7 @@ const EditEmail = () => {
   const [isEmailChanged, setIsEmailChanged] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [open, setOpen] = useState(false);
-  const { currentUser } = useContext(AuthStateContext);
+  const currentUser = useRecoilValue(currentUserState);
 
   const handleClose = () => {
     setOpen(false);

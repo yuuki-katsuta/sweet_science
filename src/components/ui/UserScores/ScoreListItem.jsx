@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import { AuthStateContext } from '../../../providers/AuthStateProvider';
+import { useRecoilValue } from 'recoil';
 import {
   makeStyles,
   createTheme,
@@ -15,6 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import styled from 'styled-components';
 import Chip from '@mui/material/Chip';
+import { currentUserState } from '../../../store/authState';
 
 const theme = createTheme({
   palette: {
@@ -73,7 +73,7 @@ const useStyles = makeStyles({
 });
 
 const ScoreListItem = ({ scoreData }) => {
-  const { currentUser } = useContext(AuthStateContext);
+  const currentUser = useRecoilValue(currentUserState);
   const classes = useStyles();
   return (
     <div className={classes.wrapper}>

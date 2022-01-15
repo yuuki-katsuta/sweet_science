@@ -1,5 +1,6 @@
-import { useState, useContext } from 'react';
-import { AuthStateContext } from '../../providers/AuthStateProvider';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { currentUserState } from '../../store/authState';
 import firebase from 'firebase/app';
 import 'firebase/functions';
 import TextInputField from '../ui/atoms/InputField/TextInputField';
@@ -33,7 +34,7 @@ const SSendButton = styled(BaseButton)`
 `;
 
 const Feedback = () => {
-  const { currentUser } = useContext(AuthStateContext);
+  const currentUser = useRecoilValue(currentUserState);
   const [data, setData] = useState({
     name: currentUser.displayName || 'ゲストユーザー',
     message: '',

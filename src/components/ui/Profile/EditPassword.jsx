@@ -1,6 +1,7 @@
-import { useContext, useState } from 'react';
-import { AuthStateContext } from '../../../providers/AuthStateProvider';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Reauthentication } from '../../../controllers/AuthController';
+import { currentUserState } from '../../../store/authState';
 import BaseButton from '../atoms/Button/BaseButton';
 import TextInputField from '../atoms/InputField/TextInputField';
 import BaseModal from './BaseModal.jsx';
@@ -26,7 +27,7 @@ const Password = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [open, setOpen] = useState(false);
-  const { currentUser } = useContext(AuthStateContext);
+  const currentUser = useRecoilValue(currentUserState);
   const handleClose = () => {
     setOpen(false);
   };

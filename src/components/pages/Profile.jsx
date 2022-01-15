@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import { AuthStateContext } from '../../providers/AuthStateProvider';
+import { useRecoilValue } from 'recoil';
 import { Redirect } from 'react-router-dom';
+import { currentUserState } from '../../store/authState';
 import Container from '@material-ui/core/Container';
 import UserImage from '../ui/Profile/UserImage';
 import EditName from '../ui/Profile/EditName';
@@ -35,7 +35,7 @@ const SProfileItemWrapper = styled.div`
 `;
 
 const Profile = () => {
-  const { currentUser } = useContext(AuthStateContext);
+  const currentUser = useRecoilValue(currentUserState);
 
   return currentUser.isAnonymous ? (
     <Redirect to={'/'} />

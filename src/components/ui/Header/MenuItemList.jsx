@@ -9,11 +9,11 @@ import FeedbackIcon from '@material-ui/icons/Feedback';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EventNoteIcon from '@material-ui/icons/EventNote';
-import { useContext } from 'react';
 import { media } from '../Utils/style-utils';
 import { signOut } from '../../../controllers/AuthController';
-import { AuthStateContext } from '../../../providers/AuthStateProvider';
 import { useAlert } from 'react-alert';
+import { useRecoilValue } from 'recoil';
+import { guestUserState } from '../../../store/authState';
 
 const SList = styled(List)`
   margin-top: 64px;
@@ -50,7 +50,7 @@ const SEventNoteIcon = SHomeIcon.withComponent(EventNoteIcon);
 
 const MenuItemList = ({ anchor, toggleDrawer, history }) => {
   const Alert = useAlert();
-  const { guestUser } = useContext(AuthStateContext);
+  const guestUser = useRecoilValue(guestUserState);
   return (
     <SListWrapper
       role='presentation'

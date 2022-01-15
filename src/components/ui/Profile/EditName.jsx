@@ -1,11 +1,12 @@
-import { useContext, useState } from 'react';
-import { AuthStateContext } from '../../../providers/AuthStateProvider';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import CreateIcon from '@material-ui/icons/Create';
 import BaseIconButton from '../atoms/Button/BaseIconButton';
 import BaseButton from '../atoms/Button/BaseButton';
 import TextInputField from '../atoms/InputField/TextInputField';
 import BaseModal from './BaseModal.jsx';
 import styled from 'styled-components';
+import { currentUserState } from '../../../store/authState';
 
 const SIconButton = styled(BaseIconButton)`
   margin: 0 0 3px auto;
@@ -21,7 +22,7 @@ const SInputField = styled.div`
 const EditName = () => {
   const [isNameChanged, setIsNameChanged] = useState(false);
   const [name, setName] = useState('');
-  const { currentUser } = useContext(AuthStateContext);
+  const currentUser = useRecoilValue(currentUserState);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
