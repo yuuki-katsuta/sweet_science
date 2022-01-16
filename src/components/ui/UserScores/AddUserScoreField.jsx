@@ -40,7 +40,9 @@ const AddUserScoreField = ({ matchInfo }) => {
   const [oscore, setOScore] = useState(RoundData);
 
   const calcTotal = (score) => {
-    return Object.values(score).reduce((sum, num) => sum + num);
+    return Object.values(score)
+      .filter((n) => n !== '')
+      .reduce((sum, num) => sum + num);
   };
 
   const createScoreData = (boxerName, score) => {
