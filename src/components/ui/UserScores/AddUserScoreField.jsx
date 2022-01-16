@@ -39,19 +39,23 @@ const AddUserScoreField = ({ matchInfo }) => {
   const [fscore, setFScore] = useState(RoundData);
   const [oscore, setOScore] = useState(RoundData);
 
+  const calcTotal = (score) => {
+    return Object.values(score).reduce((sum, num) => sum + num);
+  };
+
+  const createScoreData = (boxerName, score) => {
+    const nameLength = split(boxerName).length;
+    return createData(
+      `${boxerName.slice(0, nameLength - 1)}`,
+      ...Object.values(score)
+    );
+  };
+
   const addUserScore = async () => {
-    const fighterLength = split(matchInfo.fighter).length;
-    const opponentLength = split(matchInfo.opponent).length;
-    const fighterScore = createData(
-      `${matchInfo.fighter.slice(0, fighterLength - 1)}`,
-      ...Object.values(fscore)
-    );
-    const opponentScore = createData(
-      `${matchInfo.opponent.slice(0, opponentLength - 1)}`,
-      ...Object.values(oscore)
-    );
-    const fighterTotal = Object.values(fscore).reduce((sum, num) => sum + num);
-    const opponentTotal = Object.values(oscore).reduce((sum, num) => sum + num);
+    const fighterScore = createScoreData(matchInfo.fighter, fscore);
+    const opponentScore = createScoreData(matchInfo.opponent, oscore);
+    const fighterTotal = calcTotal(fscore);
+    const opponentTotal = calcTotal(oscore);
     await db
       .collection('scorecard')
       .doc(matchInfo.room)
@@ -70,6 +74,41 @@ const AddUserScoreField = ({ matchInfo }) => {
         mutate(`firestore/chat/${matchInfo.room}/userScore/`);
       })
       .catch((error) => alert(error.message));
+  };
+
+  const ScoreRow = ({ name, score, setScore }) => {
+    return (
+      <TableRow>
+        <TableCell className='scoreTable-Select'>
+          {name.slice(0, split(name).length - 1)}
+        </TableCell>
+        {Object.keys(RoundData).map((round) => {
+          return (
+            <TableCell align='left' key={round} className='scoreTable-Select'>
+              <FormControl variant='filled'>
+                <Select
+                  disableUnderline={true}
+                  value={score[round]}
+                  name={round}
+                  onChange={(e) => {
+                    setScore({
+                      ...score,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                >
+                  <MenuItem value={''}>/</MenuItem>
+                  <MenuItem value={10}>10</MenuItem>
+                  <MenuItem value={9}>9</MenuItem>
+                  <MenuItem value={8}>8</MenuItem>
+                  <MenuItem value={7}>7</MenuItem>
+                </Select>
+              </FormControl>
+            </TableCell>
+          );
+        })}
+      </TableRow>
+    );
   };
 
   return (
@@ -101,80 +140,16 @@ const AddUserScoreField = ({ matchInfo }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell className='scoreTable-Select'>
-                {matchInfo.fighter.slice(
-                  0,
-                  split(matchInfo.fighter).length - 1
-                )}
-              </TableCell>
-              {Object.keys(RoundData).map((round) => {
-                return (
-                  <TableCell
-                    align='left'
-                    key={round}
-                    className='scoreTable-Select'
-                  >
-                    <FormControl variant='filled'>
-                      <Select
-                        disableUnderline={true}
-                        value={fscore[round]}
-                        name={round}
-                        onChange={(e) => {
-                          setFScore({
-                            ...fscore,
-                            [e.target.name]: e.target.value,
-                          });
-                        }}
-                      >
-                        <MenuItem value={''}>/</MenuItem>
-                        <MenuItem value={10}>10</MenuItem>
-                        <MenuItem value={9}>9</MenuItem>
-                        <MenuItem value={8}>8</MenuItem>
-                        <MenuItem value={7}>7</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-            <TableRow>
-              <TableCell className='scoreTable-Select'>
-                {matchInfo.opponent.slice(
-                  0,
-                  split(matchInfo.opponent).length - 1
-                )}
-              </TableCell>
-              {Object.keys(RoundData).map((round, i) => {
-                return (
-                  <TableCell
-                    align='left'
-                    key={round}
-                    className='scoreTable-Select'
-                  >
-                    <FormControl variant='filled'>
-                      <Select
-                        disableUnderline={true}
-                        value={oscore[round]}
-                        name={round}
-                        onChange={(e) => {
-                          setOScore({
-                            ...oscore,
-                            [e.target.name]: e.target.value,
-                          });
-                        }}
-                      >
-                        <MenuItem value={''}>/</MenuItem>
-                        <MenuItem value={10}>10</MenuItem>
-                        <MenuItem value={9}>9</MenuItem>
-                        <MenuItem value={8}>8</MenuItem>
-                        <MenuItem value={7}>7</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </TableCell>
-                );
-              })}
-            </TableRow>
+            <ScoreRow
+              name={matchInfo.fighter}
+              score={fscore}
+              setScore={setFScore}
+            />
+            <ScoreRow
+              name={matchInfo.opponent}
+              score={oscore}
+              setScore={setOScore}
+            />
           </TableBody>
         </Table>
       </TableContainer>
