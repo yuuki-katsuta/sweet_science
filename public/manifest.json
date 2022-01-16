@@ -3,17 +3,17 @@
   "name": "Boxing Lab",
   "icons": [
     {
-      "src": "boxing-gloves.png",
+      "src": "boxing_a11.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "boxing-gloves.png",
+      "src": "boxing_a11.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "boxing-gloves.png",
+      "src": "boxing_a11.png",
       "type": "image/png",
       "sizes": "512x512"
     }
