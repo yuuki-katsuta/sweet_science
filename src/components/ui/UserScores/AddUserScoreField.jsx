@@ -32,7 +32,7 @@ const SDescription = styled.div`
   }
 `;
 
-const AddUserScoreField = ({ matchInfo }) => {
+const AddUserScoreField = ({ matchInfo, page }) => {
   const Alert = useAlert();
   const { mutate } = useSWRConfig();
   const currentUser = useRecoilValue(currentUserState);
@@ -73,7 +73,7 @@ const AddUserScoreField = ({ matchInfo }) => {
       })
       .then(() => {
         Alert.success('スコアカードを追加しました!!');
-        mutate(`firestore/chat/${matchInfo.room}/userScore/`);
+        mutate(`firestore/chat/${matchInfo.room}/userScore/${page}`);
       })
       .catch((error) => alert(error.message));
   };
