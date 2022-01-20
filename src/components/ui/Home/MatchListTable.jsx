@@ -74,7 +74,7 @@ const useMatchData = (page) => {
   const { data, error } = useSWR(
     `firestore/chat/${page}`,
     getMatcheInformation,
-    { revalidateOnFocus: false }
+    { revalidateOnFocus: false, suspense: true }
   );
   return {
     matchData: data,
@@ -98,7 +98,7 @@ const MatchListTable = ({ size, colums }) => {
   };
 
   if (isError) return <div>failed to load</div>;
-  if (!matchData) return null;
+
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>

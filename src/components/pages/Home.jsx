@@ -8,6 +8,7 @@ import MatchInformationAddField from '../ui/Home/Add/MatchInformationAddField';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
+import { Suspense } from 'react';
 
 const SDescription = styled.div`
   margin-bottom: 16px;
@@ -37,42 +38,48 @@ const Home = () => {
   const adminUser = useRecoilValue(adminUserState);
 
   return (
-    <div className='container'>
-      <h2 className='section-title'>Boxing Fights</h2>
-      <SDescription>
-        <p>
-          ボクシングの試合一覧を表示しています。
-          <br />
-          クリックすると各チャットページへ遷移します。
-          <br />
-          <SHelperText>(横にスクロールできます。)</SHelperText>
-        </p>
-      </SDescription>
-      <MatchList />
-      {adminUser ? (
-        <>
-          <MediaQuery query='(max-width: 840px)'>
-            <Divider />
-            <News />
-          </MediaQuery>
-          <MediaQuery query='(min-width: 841px)'>
-            <Container maxWidth='md'>
-              <SAddMatchSectionStyle>
-                <Divider />
-                <MatchInformationAddField />
-              </SAddMatchSectionStyle>
-            </Container>
-          </MediaQuery>
-        </>
-      ) : (
-        <Container maxWidth='md'>
-          <SNewsSection>
-            <Divider />
-            <News />
-          </SNewsSection>
-        </Container>
-      )}
-    </div>
+    <Suspense
+      fallback={
+        <h2 style={{ marginTop: '200px', textAlign: 'center' }}>Loading...</h2>
+      }
+    >
+      <div className='container'>
+        <h2 className='section-title'>Boxing Fights</h2>
+        <SDescription>
+          <p>
+            ボクシングの試合一覧を表示しています。
+            <br />
+            クリックすると各チャットページへ遷移します。
+            <br />
+            <SHelperText>(横にスクロールできます。)</SHelperText>
+          </p>
+        </SDescription>
+        <MatchList />
+        {adminUser ? (
+          <>
+            <MediaQuery query='(max-width: 840px)'>
+              <Divider />
+              <News />
+            </MediaQuery>
+            <MediaQuery query='(min-width: 841px)'>
+              <Container maxWidth='md'>
+                <SAddMatchSectionStyle>
+                  <Divider />
+                  <MatchInformationAddField />
+                </SAddMatchSectionStyle>
+              </Container>
+            </MediaQuery>
+          </>
+        ) : (
+          <Container maxWidth='md'>
+            <SNewsSection>
+              <Divider />
+              <News />
+            </SNewsSection>
+          </Container>
+        )}
+      </div>
+    </Suspense>
   );
 };
 export default Home;
