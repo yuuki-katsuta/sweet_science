@@ -72,7 +72,7 @@ const getMatcheInformation = async () => {
 
 const useMatchData = (page) => {
   const { data, error } = useSWR(
-    `firestore/chat/${page}`,
+    page !== null ? `firestore/chat/${page}` : null,
     getMatcheInformation,
     { revalidateOnFocus: false, suspense: true }
   );
@@ -86,7 +86,7 @@ const rowsPerPage = 10;
 const MatchListTable = ({ size, colums }) => {
   const history = useHistory();
   const classes = useStyles();
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(null);
 
   useEffect(() => {
     const currentPage = history.location.state?.currentPage;
@@ -98,7 +98,7 @@ const MatchListTable = ({ size, colums }) => {
   };
 
   if (isError) return <div>failed to load</div>;
-
+  if (!matchData) return null;
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>

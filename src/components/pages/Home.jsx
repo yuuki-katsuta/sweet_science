@@ -38,11 +38,7 @@ const Home = () => {
   const adminUser = useRecoilValue(adminUserState);
 
   return (
-    <Suspense
-      fallback={
-        <h2 style={{ marginTop: '200px', textAlign: 'center' }}>Loading...</h2>
-      }
-    >
+    <>
       <div className='container'>
         <h2 className='section-title'>Boxing Fights</h2>
         <SDescription>
@@ -54,32 +50,46 @@ const Home = () => {
             <SHelperText>(横にスクロールできます。)</SHelperText>
           </p>
         </SDescription>
-        <MatchList />
-        {adminUser ? (
-          <>
-            <MediaQuery query='(max-width: 840px)'>
-              <Divider />
-              <News />
-            </MediaQuery>
-            <MediaQuery query='(min-width: 841px)'>
-              <Container maxWidth='md'>
-                <SAddMatchSectionStyle>
-                  <Divider />
-                  <MatchInformationAddField />
-                </SAddMatchSectionStyle>
-              </Container>
-            </MediaQuery>
-          </>
-        ) : (
-          <Container maxWidth='md'>
-            <SNewsSection>
-              <Divider />
-              <News />
-            </SNewsSection>
-          </Container>
-        )}
+        <Suspense
+          fallback={
+            <p
+              style={{
+                marginTop: '100px',
+                textAlign: 'center',
+                fontWeight: 'bold',
+              }}
+            >
+              Loading...
+            </p>
+          }
+        >
+          <MatchList />
+          {adminUser ? (
+            <>
+              <MediaQuery query='(max-width: 840px)'>
+                <Divider />
+                <News />
+              </MediaQuery>
+              <MediaQuery query='(min-width: 841px)'>
+                <Container maxWidth='md'>
+                  <SAddMatchSectionStyle>
+                    <Divider />
+                    <MatchInformationAddField />
+                  </SAddMatchSectionStyle>
+                </Container>
+              </MediaQuery>
+            </>
+          ) : (
+            <Container maxWidth='md'>
+              <SNewsSection>
+                <Divider />
+                <News />
+              </SNewsSection>
+            </Container>
+          )}
+        </Suspense>
       </div>
-    </Suspense>
+    </>
   );
 };
 export default Home;
