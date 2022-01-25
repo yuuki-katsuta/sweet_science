@@ -23,7 +23,7 @@ const SVideo = styled.video`
 const SMatchDataWrapper = styled.div`
   p {
     font-weight: 600;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Merriweather', serif;
   }
   &.small {
     text-align: left;
