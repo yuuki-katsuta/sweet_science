@@ -9,6 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
 import { Suspense } from 'react';
+import { ThreeDots, useLoading } from '@agney/react-loading';
 
 const SDescription = styled.div`
   margin-bottom: 16px;
@@ -37,6 +38,21 @@ const SHelperText = styled.span`
 const Home = () => {
   const adminUser = useRecoilValue(adminUserState);
 
+  const { containerProps, indicatorEl } = useLoading({
+    loading: true,
+    indicator: (
+      <div
+        style={{
+          marginTop: '100px',
+          textAlign: 'center',
+          fontWeight: 'bold',
+        }}
+      >
+        <ThreeDots width='50' />
+      </div>
+    ),
+  });
+
   return (
     <>
       <div className='container'>
@@ -51,17 +67,7 @@ const Home = () => {
           </p>
         </SDescription>
         <Suspense
-          fallback={
-            <p
-              style={{
-                marginTop: '100px',
-                textAlign: 'center',
-                fontWeight: 'bold',
-              }}
-            >
-              Loading...
-            </p>
-          }
+          fallback={<section {...containerProps}>{indicatorEl}</section>}
         >
           <MatchList />
           {adminUser ? (
