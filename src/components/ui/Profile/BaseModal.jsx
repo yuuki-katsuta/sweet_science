@@ -20,6 +20,7 @@ const SPaper = styled.div`
   background-color: white;
   border: 2px solid #000;
   padding: 16px 32px 24px;
+  outline: 0;
 `;
 
 const BaseModal = ({ children, open }) => {
