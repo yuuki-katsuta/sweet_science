@@ -9,10 +9,6 @@ const Section = styled.div`
 const Heading = styled.div`
   color: #666666;
   font-weight: bold;
-  _:lang(x) + _:-webkit-full-screen-document,
-  p {
-    letter-spacing: -1.4px;
-  }
 `;
 const TableWrapper = styled.div`
   margin: 10px 0 56px 0;
@@ -40,12 +36,6 @@ const STable = styled.table`
     &:hover {
       background-color: #f7f7f7;
     }
-  }
-  _:lang(x) + _:-webkit-full-screen-document,
-  th,
-  tr,
-  td {
-    letter-spacing: -0.6px;
   }
 `;
 

@@ -12,7 +12,6 @@ const SInputFieldWrapper = styled.div`
 `;
 const SPasswordInputField = styled(TextInputField)`
   margin: 8px 0;
-  ma-width: 552px;
 `;
 const SChangePasswordButton = styled(BaseButton)`
   margin: 16px auto 42px;

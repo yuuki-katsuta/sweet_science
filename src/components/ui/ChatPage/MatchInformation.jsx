@@ -34,7 +34,7 @@ const SMatchDataWrapper = styled.div`
   }
   _:lang(x) + _:-webkit-full-screen-document,
   p {
-    letter-spacing: -0.9px;
+    letter-spacing: -0.4px;
   }
 `;
 const SContainer = styled.div`

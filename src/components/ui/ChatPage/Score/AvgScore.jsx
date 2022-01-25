@@ -12,6 +12,7 @@ const SContainer = styled.div`
 const STotalScore = styled.h4`
   text-align: left;
   margin: 0 0 0 8px;
+  font-size: 1rem;
 `;
 
 const AvgScore = ({ matchInfo }) => {

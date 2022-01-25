@@ -10,19 +10,11 @@ import styled from 'styled-components';
 const SContainer = styled.div`
   text-align: center;
   margin: 120px auto 20px;
-  _:lang(x) + _:-webkit-full-screen-document,
-  h2 {
-    letter-spacing: -1.5px;
-  }
 `;
 const STextWrapper = styled.div`
   margin-bottom: 14px;
   color: #666666;
   font-weight: bold;
-  _:lang(x) + _:-webkit-full-screen-document,
-  p {
-    letter-spacing: -0.9px;
-  }
 `;
 const STextInputField = styled(TextInputField)`
   width: 95%;

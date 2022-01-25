@@ -7,10 +7,6 @@ const SModal = styled(Modal)`
   display: flex;
   align-items: center;
   justify-content: center;
-  _:lang(x) + _:-webkit-full-screen-document,
-  h3 {
-    letter-spacing: -0.8px;
-  }
 `;
 const SPaper = styled.div`
   height: auto;

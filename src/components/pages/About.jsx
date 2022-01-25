@@ -15,11 +15,6 @@ const SContainer = styled.div`
     font-size: 16px;
   `}
   }
-  _:lang(x) + _:-webkit-full-screen-document,
-  h3,
-  h1 {
-    letter-spacing: -0.9px;
-  }
 `;
 const SDescription = styled.div`
   text-align: left;

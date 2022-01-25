@@ -26,10 +26,6 @@ const SDescription = styled.div`
   margin-bottom: 10px;
   color: #666666;
   font-weight: bold;
-  _:lang(x) + _:-webkit-full-screen-document,
-  p {
-    letter-spacing: -1.5px;
-  }
 `;
 
 const AddUserScoreField = ({ matchInfo, page }) => {

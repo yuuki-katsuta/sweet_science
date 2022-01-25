@@ -46,13 +46,7 @@ _:lang(x)+_:-webkit-full-screen-document, h2.section-title, h4 {
   letter-spacing: -0.9px;
 }
 _:lang(x)+_:-webkit-full-screen-document, h1.match-title {
-  letter-spacing: -1.5px;
-}
-_:lang(x) + _:-webkit-full-screen-document, td.MuiTableCell-body {
-  letter-spacing: -0.8px;
-}
-_:lang(x) + _:-webkit-full-screen-document, div.edit-name-section > h3 {
-  letter-spacing: -0.8px;
+  letter-spacing: -0.5px;
 }
 div.MuiSelect-select {
   padding: 5px 12px;

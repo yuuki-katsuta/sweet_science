@@ -12,10 +12,6 @@ const STitle = styled.div`
   margin-bottom: 16px;
   color: #666666;
   font-weight: bold;
-  _:lang(x) + _:-webkit-full-screen-document,
-  p {
-    letter-spacing: -0.8px;
-  }
 `;
 const SProfileItem = styled.div`
   display: flex;
@@ -28,10 +24,6 @@ const SProfileItemWrapper = styled.div`
   white-space: nowrap;
   width: 100%;
   max-width: 300px;
-  _:lang(x) + _:-webkit-full-screen-document,
-  h3 {
-    letter-spacing: -0.8px;
-  }
 `;
 
 const Profile = () => {

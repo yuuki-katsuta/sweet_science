@@ -16,10 +16,6 @@ const SDescription = styled.div`
   margin-bottom: 16px;
   color: #666666;
   font-weight: bold;
-  _:lang(x) + _:-webkit-full-screen-document,
-  p {
-    letter-spacing: -0.9px;
-  }
 `;
 const SList = styled(List)`
   width: 100%;
@@ -52,7 +48,6 @@ const STitle = styled.h2`
   `}
 `;
 const SDate = styled.h2`
-  letter-spacing: -0.02em;
   margin: 16px 32px 10px 0;
   opacity: 0.8;
   ${media.handheld710`
@@ -65,14 +60,6 @@ const SListItem = styled(ListItem)`
   margin: 0 auto;
   SVG {
     margin-right: 7px;
-  }
-  _:lang(x) + _:-webkit-full-screen-document,
-  h2 {
-    letter-spacing: -1px;
-  }
-  _:lang(x) + _:-webkit-full-screen-document,
-  span {
-    letter-spacing: -0.2px;
   }
 `;
 

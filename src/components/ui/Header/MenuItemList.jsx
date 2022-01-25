@@ -32,10 +32,6 @@ const SListItem = styled(ListItem)`
   &:hover {
     background-color: #2b4263;
   }
-  _:lang(x) + _:-webkit-full-screen-document,
-  span {
-    letter-spacing: -0.5px;
-  }
 `;
 const SHomeIcon = styled(HomeIcon)`
   color: white;

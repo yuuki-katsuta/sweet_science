@@ -11,10 +11,6 @@ const SDescription = styled.div`
   margin-top: 18px;
   color: #666666;
   font-weight: bold;
-  _:lang(x) + _:-webkit-full-screen-document,
-  p {
-    letter-spacing: -1.2px;
-  }
 `;
 const SForm = styled.form`
   width: 100%;
