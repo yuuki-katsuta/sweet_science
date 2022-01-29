@@ -28,7 +28,8 @@ const SListWrapper = styled.div`
   width: 250px;
 `;
 const SListItem = styled(ListItem)`
-  padding-bottom: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   &:hover {
     background-color: #2b4263;
   }

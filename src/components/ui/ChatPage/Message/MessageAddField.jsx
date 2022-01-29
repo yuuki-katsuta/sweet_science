@@ -12,7 +12,7 @@ import { useSWRConfig } from 'swr';
 
 const SContainer = styled.div`
   width: 75%;
-  margin: 0 auto 16px;
+  margin: 0 auto 40px;
 `;
 const SGrid = styled(Grid)`
   position: relative;

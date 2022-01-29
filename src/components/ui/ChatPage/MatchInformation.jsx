@@ -3,6 +3,7 @@ import { storage } from '../../../base';
 import RoomIcon from '@material-ui/icons/Room';
 import MediaQuery from 'react-responsive';
 import styled from 'styled-components';
+import { media } from '../Utils/style-utils';
 
 const SMovieInner = styled.div`
   position: relative;
@@ -24,6 +25,10 @@ const SMatchDataWrapper = styled.div`
   p {
     font-weight: 600;
     font-family: 'Merriweather', serif;
+    ${media.handheld1024`
+    font-size: 18px;
+    `}
+    }
   }
   &.small {
     text-align: left;
@@ -34,7 +39,7 @@ const SMatchDataWrapper = styled.div`
   }
   _:lang(x) + _:-webkit-full-screen-document,
   p {
-    letter-spacing: -0.4px;
+    letter-spacing: -0.3px;
   }
 `;
 const SContainer = styled.div`
