@@ -45,10 +45,10 @@ const Layout = ({ children }) => {
       </SWrapper>
     );
   return currentUser ? (
-    <>
+    <SContentWrapper>
       <Header />
-      {children}
-    </>
+      <SContent>{children}</SContent>
+    </SContentWrapper>
   ) : (
     <Auth />
   );
@@ -56,5 +56,12 @@ const Layout = ({ children }) => {
 const SWrapper = styled.div`
   margin-top: 180px;
   text-align: center;
+`;
+const SContentWrapper = styled.div`
+  position: relative;
+  min-height: 100vh;
+`;
+const SContent = styled.div`
+  padding-bottom: 32px;
 `;
 export default Layout;

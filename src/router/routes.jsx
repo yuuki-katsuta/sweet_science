@@ -1,4 +1,6 @@
 import { lazy } from 'react';
+const Privacy = lazy(() => import('../components/pages/Privacy'));
+const Terms = lazy(() => import('../components/pages/Terms'));
 const Home = lazy(() => import('../components/pages/Home'));
 const ChatPage = lazy(() => import('../components/pages/ChatPage'));
 const Profile = lazy(() => import('../components/pages/Profile'));
@@ -15,5 +17,7 @@ const routes = [
   { path: '/feedback', component: Feedback },
   { path: '/schedule', component: Schedule },
   { path: '/chat/:id/scores', component: UserScores },
+  { path: '/terms', component: Terms },
+  { path: '/privacy', component: Privacy },
 ];
 export default routes;

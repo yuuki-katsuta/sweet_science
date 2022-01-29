@@ -9,6 +9,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import LoginForm from '../ui/Auth/LoginForm';
 import SignupForm from '../ui/Auth/SignupForm';
+import Modal from '@material-ui/core/Modal';
+import Box from '@mui/material/Box';
+import { TermsText } from '../ui/text/TermsText';
+import { PrivacyText } from '../ui/text/PrivacyText';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,9 +38,41 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
+  textWrapper: {
+    width: '100%',
+    marginTop: '8px',
+  },
+  text: {
+    cursor: 'pointer',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
 }));
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '95%',
+  minWidth: '270px',
+  maxWidth: '800px',
+  maxHeight: '450px',
+  overflow: 'scroll',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 2,
+  outline: 0,
+};
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [openTerm, setOpenTerm] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+    setOpenTerm(false);
+  };
   const classes = useStyles();
   return (
     <Grid container component='main' className={classes.root}>
@@ -52,6 +88,20 @@ const Auth = () => {
               Log in
             </Typography>
             <LoginForm setIsLogin={setIsLogin} isLogin={isLogin} />
+            <div className={classes.textWrapper}>
+              <p
+                className={classes.text}
+                onClick={() => {
+                  setOpenTerm(true);
+                  setOpen(true);
+                }}
+              >
+                利用規約
+              </p>
+              <p className={classes.text} onClick={() => setOpen(true)}>
+                プライバシーポリシー
+              </p>
+            </div>
           </div>
         ) : (
           <div className={classes.paper}>
@@ -65,6 +115,14 @@ const Auth = () => {
           </div>
         )}
       </Grid>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box sx={style}>{openTerm ? <TermsText /> : <PrivacyText />}</Box>
+      </Modal>
     </Grid>
   );
 };
