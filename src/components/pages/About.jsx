@@ -15,6 +15,9 @@ const SContainer = styled.div`
     font-size: 16px;
   `}
   }
+  h2 {
+    letter-spacing: -0.5px;
+  }
 `;
 const SDescription = styled.div`
   text-align: left;
@@ -27,25 +30,22 @@ const About = () => {
       <ScrollToTop />
       <SContainer>
         <Container maxWidth='md'>
-          <h2 className='section-title'>About</h2>
-          <h3>
-            本アプリケーションをご利用いただきましてありがとうございます。
-          </h3>
+          <h2>本アプリケーションについて</h2>
           <SDescription>
             <p>
-              本アプリでは、ボクシングの採点結果について談論・ディスカッションすることができます。
+              本アプリケーションでは、ボクシングの採点結果について談論・ディスカッションすることができます。
               <br />
               ボクシングは通称 「The sweet science」,「The art of hitting and
               not getting hit」と呼ばれています。 <br />
               その名の通り、科学のように秩序だった思考が要求されるスポーツであることを理解し、多様な視点からボクシングを楽しめるようになれたら嬉しいです。
               また、ボクシング愛するコアなファンの意見を知り、知見を広げることでその奥深さ、魅力を伝えられると思います。
               <br />
-              ボクシングのスコアリングシステムは、時に多くの論争を引き起こすかもしれませんが、健全なチャットにご協力お願いします！
+              ボクシングのスコアリングシステムは、時に多くの論争を引き起こすかもしれませんが、健全なチャットにご協力お願いします!
               <br />
             </p>
           </SDescription>
 
-          <h1>Official scoring criteria</h1>
+          <h1>公式採点基準</h1>
           <SSection>
             <h3>有効なクリーンヒット</h3>
             <p>
@@ -65,7 +65,7 @@ const About = () => {
             </p>
           </SSection>
 
-          <h1>Basic information</h1>
+          <h1>基本情報</h1>
           <SSection>
             <p>
               ・1ラウンドごとに優勢な方を10点とし、劣勢な方を減点する。（10POINT
@@ -83,7 +83,7 @@ const About = () => {
             </p>
           </SSection>
 
-          <h1>Point at issue</h1>
+          <h1>問題点</h1>
           <SSection>
             <p>
               ・有効なクリーンヒット等で優劣が明かなラウンドと、僅差で微妙なラウンドとが

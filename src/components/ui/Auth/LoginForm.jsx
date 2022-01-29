@@ -38,7 +38,9 @@ const LoginForm = ({ setIsLogin, isLogin }) => {
         <p>
           ボクシングファンのためのチャットアプリ
           <br />
-          試合内容や採点結果についてに談論することができます！
+          試合内容や採点結果についてに談論することができます!
+          <br />
+          また、試合のスコアカードを作成して公開することができます!
         </p>
       </SDescription>
       <SForm noValidate>

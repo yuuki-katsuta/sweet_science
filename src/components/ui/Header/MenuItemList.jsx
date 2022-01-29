@@ -64,7 +64,7 @@ const MenuItemList = ({ anchor, toggleDrawer, history }) => {
           <ListItemIcon>
             <SHomeIcon />
           </ListItemIcon>
-          <ListItemText primary={'Home'} />
+          <ListItemText primary={'ホーム'} />
         </SListItem>
         <SListItem
           button
@@ -75,7 +75,7 @@ const MenuItemList = ({ anchor, toggleDrawer, history }) => {
           <ListItemIcon>
             <SInfoIcon />
           </ListItemIcon>
-          <ListItemText primary={'About'} />
+          <ListItemText primary={'基礎知識'} />
         </SListItem>
         <SListItem
           disabled={guestUser}
@@ -87,7 +87,7 @@ const MenuItemList = ({ anchor, toggleDrawer, history }) => {
           <ListItemIcon>
             <SAccountCircleIcon />
           </ListItemIcon>
-          <ListItemText primary={'Profile'} />
+          <ListItemText primary={'プロフィール'} />
         </SListItem>
         <SListItem
           button
@@ -98,7 +98,7 @@ const MenuItemList = ({ anchor, toggleDrawer, history }) => {
           <ListItemIcon>
             <SEventNoteIcon />
           </ListItemIcon>
-          <ListItemText primary={'Schedule'} />
+          <ListItemText primary={'スケジュール'} />
         </SListItem>
         <SListItem
           button
@@ -109,13 +109,13 @@ const MenuItemList = ({ anchor, toggleDrawer, history }) => {
           <ListItemIcon>
             <SFeedbackIcon />
           </ListItemIcon>
-          <ListItemText primary={'Feedback'} />
+          <ListItemText primary={'フィードバック'} />
         </SListItem>
         <SListItem button onClick={() => signOut(Alert)}>
           <ListItemIcon>
             <SExitToAppIcon />
           </ListItemIcon>
-          <ListItemText primary={'Log out'} />
+          <ListItemText primary={'ログアウト'} />
         </SListItem>
       </SList>
     </SListWrapper>
