@@ -24,6 +24,12 @@ p {
 h3 {
   margin-bottom: 8px;
 }
+ol {
+  padding-left: 24px;
+}
+ul {
+  padding-left: 16px;
+}
 svg.MuiAvatar-fallback {
   height: 90%;
 }
