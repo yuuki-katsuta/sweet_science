@@ -128,7 +128,7 @@ const MatchListTable = ({ size, colums }) => {
                     hover
                     role='checkbox'
                     tabIndex={-1}
-                    key={index}
+                    key={data.room}
                     onClick={() => {
                       history.push({
                         pathname: `/chat/${data.room.replace(/\s+/g, '_')}`,
