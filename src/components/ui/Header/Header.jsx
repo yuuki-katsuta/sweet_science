@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { createTheme } from '@material-ui/core/styles';
+import { createTheme, makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,14 +20,20 @@ const theme = createTheme({
     },
   },
 });
+const useStyles = makeStyles({
+  paper: {
+    background: '#213045',
+  },
+});
+
 const SHeader = styled.div`
   flex-grow: 1;
 `;
 const STitle = styled(Typography)`
   flex-grow: 1;
 `;
-
 const Header = () => {
+  const classes = useStyles();
   const history = useHistory();
   const [state, setState] = useState({
     top: false,
@@ -72,6 +78,7 @@ const Header = () => {
                 <MenuIcon fontSize='large' />
               </IconButton>
               <Drawer
+                classes={{ paper: classes.paper }}
                 anchor={'right'}
                 open={state['right']}
                 onClose={toggleDrawer('right', false)}

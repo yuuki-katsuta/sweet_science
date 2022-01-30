@@ -20,8 +20,6 @@ const SList = styled(List)`
   color: white;
 `;
 const SListWrapper = styled.div`
-  background-color: #213045;
-  height: 100%;
   ${media.handheld420`
     width: 200px;
   `}
