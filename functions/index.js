@@ -2,8 +2,6 @@ const puppeteer = require('puppeteer');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
-const firebase_tools = require('firebase-tools');
-const projectName = functions.config().project.name;
 const gmailEmail = functions.config().gmail.email;
 const gmailPassword = functions.config().gmail.password;
 const adminEmail = functions.config().admin.email;
@@ -18,7 +16,7 @@ admin.initializeApp({
 const PUPPETEER_OPTIONS = {
   args: [
     '--disable-gpu',
-    '-–disable-dev-shm-usage',
+    '--disable-dev-shm-usage',
     '--disable-setuid-sandbox',
     '--no-first-run',
     '--no-sandbox',
@@ -54,14 +52,12 @@ exports.fetchSchedule = functions
         (e) => e.textContent
       );
       const dateObj = new Date(date);
-      const dt = new Date();
       let year = '';
       //試合の月が現在の月より過去なら来年
-      if (dateObj.getMonth() + 1 < dt.getMonth() + 1) {
-        year = dt.getFullYear() + 1;
-      } else {
-        year = dt.getFullYear();
-      }
+      if (new Date(date).getMonth() + 1 < new Date().getMonth() + 1)
+        year = new Date().getFullYear() + 1;
+      else year = new Date().getFullYear();
+
       const newDate =
         year +
         '/' +
@@ -96,12 +92,12 @@ exports.fetchSchedule = functions
         time,
       });
     }
-    await firebase_tools.firestore.delete('schedule', {
-      project: projectName,
-      recursive: true,
-      yes: true,
-    });
     const ref = db.collection('schedule');
+    const querySnapshot = await ref.get();
+    querySnapshot.forEach(async (doc) => {
+      await ref.doc(doc.id).delete();
+    });
+
     for await (const matchData of matchInformation) {
       await ref.doc().set({
         ...matchData,
