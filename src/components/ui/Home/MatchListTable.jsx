@@ -131,7 +131,7 @@ const MatchListTable = ({ size, colums }) => {
                     key={index}
                     onClick={() => {
                       history.push({
-                        pathname: `/chat/${index}`,
+                        pathname: `/chat/${data.room.replace(/\s+/g, '_')}`,
                         state: {
                           matchInformation: data,
                           page: page,
