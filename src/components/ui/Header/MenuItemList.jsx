@@ -9,14 +9,16 @@ import FeedbackIcon from '@material-ui/icons/Feedback';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EventNoteIcon from '@material-ui/icons/EventNote';
+import { useHistory } from 'react-router-dom';
 import { media } from '../Utils/style-utils';
 import { signOut } from '../../../controllers/AuthController';
 import { useAlert } from 'react-alert';
 import { useRecoilValue } from 'recoil';
 import { guestUserState } from '../../../store/authState';
+import MediaQuery from 'react-responsive';
 
 const SList = styled(List)`
-  margin-top: 64px;
+  margin-top: 50px;
   color: white;
 `;
 const SListWrapper = styled.div`
@@ -36,6 +38,16 @@ const SHomeIcon = styled(HomeIcon)`
   color: white;
   font-size: 32px;
 `;
+const STextWrapper = styled.div`
+  padding: 16px;
+  border-top: solid 1px #485a60;
+  display: flex;
+  flex-direction: column;
+  span {
+    padding: 3px;
+    cursor: pointer;
+  }
+`;
 
 const SInfoIcon = SHomeIcon.withComponent(InfoIcon);
 const SAccountCircleIcon = SHomeIcon.withComponent(AccountCircleIcon);
@@ -43,7 +55,8 @@ const SFeedbackIcon = SHomeIcon.withComponent(FeedbackIcon);
 const SExitToAppIcon = SHomeIcon.withComponent(ExitToAppIcon);
 const SEventNoteIcon = SHomeIcon.withComponent(EventNoteIcon);
 
-const MenuItemList = ({ anchor, toggleDrawer, history }) => {
+const MenuItemList = ({ anchor, toggleDrawer }) => {
+  const history = useHistory();
   const Alert = useAlert();
   const guestUser = useRecoilValue(guestUserState);
   return (
@@ -115,6 +128,15 @@ const MenuItemList = ({ anchor, toggleDrawer, history }) => {
           </ListItemIcon>
           <ListItemText primary={'ログアウト'} />
         </SListItem>
+
+        <MediaQuery query='(max-width: 580px)'>
+          <STextWrapper>
+            <span onClick={() => history.push('/terms')}>利用規約</span>
+            <span onClick={() => history.push('/privacy')}>
+              プライバシーポリシー
+            </span>
+          </STextWrapper>
+        </MediaQuery>
       </SList>
     </SListWrapper>
   );

@@ -5,7 +5,6 @@ import AlertTemplate from 'react-alert-template-basic';
 import routes from './router/routes';
 import Layout from './Layout/Layout';
 import { Suspense } from 'react';
-import Footer from './components/ui/footer/Footer';
 
 const options = {
   timeout: 2500,
@@ -31,7 +30,6 @@ function App() {
                 ))}
                 <Route path='*' render={() => <Redirect to='/' />} />
               </Switch>
-              <Footer />
             </Suspense>
           </Layout>
         </BrowserRouter>

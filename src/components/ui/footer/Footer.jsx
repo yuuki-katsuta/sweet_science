@@ -3,9 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'absolute',
-    bottom: 0,
     width: '100%',
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
   },
   footer: {
     padding: theme.spacing(1, 1),
@@ -13,21 +14,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#4B5667',
     display: 'flex',
     justifyContent: 'space-between',
-    [theme.breakpoints.down('xs')]: {
-      justifyContent: 'end',
-    },
   },
   copyright: {
     color: '#FFFFFF',
     textAlign: 'left',
-    [theme.breakpoints.down('xs')]: {
-      display: 'none',
-    },
   },
   privacy: {
     color: 'white',
   },
   text: {
+    cursor: 'pointer',
     padding: '0 8px',
   },
 }));

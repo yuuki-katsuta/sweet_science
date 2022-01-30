@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { createTheme, makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -34,7 +33,6 @@ const STitle = styled(Typography)`
 `;
 const Header = () => {
   const classes = useStyles();
-  const history = useHistory();
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -59,14 +57,7 @@ const Header = () => {
         <AppBar position='fixed'>
           <Toolbar>
             <STitle variant='h6'>
-              <span
-                onClick={() => {
-                  history.push('/');
-                }}
-                className='main-title'
-              >
-                Boxing Lab
-              </span>
+              <span className='main-title'>Boxing Lab</span>
             </STitle>
             <div>
               <IconButton
@@ -83,11 +74,7 @@ const Header = () => {
                 open={state['right']}
                 onClose={toggleDrawer('right', false)}
               >
-                <MenuItemList
-                  anchor='right'
-                  toggleDrawer={toggleDrawer}
-                  history={history}
-                />
+                <MenuItemList anchor='right' toggleDrawer={toggleDrawer} />
               </Drawer>
             </div>
           </Toolbar>

@@ -10,6 +10,9 @@ import {
   guestUserState,
   adminUserState,
 } from '../store/authState';
+import Footer from '../components/ui/footer/Footer';
+import MediaQuery from 'react-responsive';
+import { media } from '../components/ui/Utils/style-utils';
 
 const Layout = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -47,21 +50,23 @@ const Layout = ({ children }) => {
   return currentUser ? (
     <SContentWrapper>
       <Header />
-      <SContent>{children}</SContent>
+      <SMain>{children}</SMain>
+      <MediaQuery query='(min-width: 581px)'>
+        <Footer />
+      </MediaQuery>
     </SContentWrapper>
   ) : (
     <Auth />
   );
 };
+const SMain = styled.div`
+  ${media.handheld581`
+    padding-bottom: 28px;
+  `}
+`;
 const SWrapper = styled.div`
   margin-top: 180px;
   text-align: center;
 `;
-const SContentWrapper = styled.div`
-  position: relative;
-  min-height: 100vh;
-`;
-const SContent = styled.div`
-  padding-bottom: 32px;
-`;
+const SContentWrapper = styled.div``;
 export default Layout;
