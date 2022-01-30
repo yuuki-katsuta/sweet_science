@@ -57,7 +57,7 @@ const useLimitedMatchData = () => {
   const { data, error } = useSWR(
     'firestore/chats/limit',
     getLimitedMatcheInformation,
-    { revalidateOnFocus: false }
+    { suspense: true, revalidateOnFocus: false }
   );
   return {
     limitedMatchData: data,

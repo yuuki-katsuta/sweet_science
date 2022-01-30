@@ -62,7 +62,7 @@ const UserScores = () => {
     const { data, error } = useSWR(
       matchInfo ? `firestore/chat/${matchInfo.room}/userScore/${page}` : null,
       fetchUserScore,
-      { suspense: true }
+      { suspense: true, revalidateOnFocus: false }
     );
     return {
       scorecardList: data,
