@@ -75,7 +75,6 @@ const FromTimeStampToDate = (date) => {
 const News = memo(() => {
   const { limitedMatchData, isError } = useLimitedMatchData();
   if (isError) return <div>failed to load</div>;
-  if (!limitedMatchData) return null;
   return (
     <div>
       <h2 className='section-title'>News</h2>
