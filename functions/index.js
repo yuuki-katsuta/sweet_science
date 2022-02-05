@@ -93,12 +93,11 @@ exports.fetchSchedule = functions
       });
     }
     const ref = db.collection('schedule');
-    const querySnapshot = await ref.get();
-    querySnapshot.forEach(async (doc) => {
-      await ref.doc(doc.id).delete();
-    });
-
-    for await (const matchData of matchInformation) {
+    const snapshot = await ref.get();
+    await Promise.all(
+      snapshot.docs.map(async (doc) => await ref.doc(doc.id).delete())
+    ).catch((error) => error.message);
+    for (const matchData of matchInformation) {
       await ref.doc().set({
         ...matchData,
         fetchedAt: new Date(),
