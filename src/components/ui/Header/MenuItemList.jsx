@@ -46,6 +46,10 @@ const STextWrapper = styled.div`
   span {
     padding: 3px;
     cursor: pointer;
+    width: fit-content;
+    &:hover {
+      color: #c0c0c0;
+    }
   }
 `;
 

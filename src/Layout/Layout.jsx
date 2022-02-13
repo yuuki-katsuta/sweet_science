@@ -48,13 +48,13 @@ const Layout = ({ children }) => {
       </SWrapper>
     );
   return currentUser ? (
-    <SContentWrapper>
+    <div>
       <Header />
       <SMain>{children}</SMain>
       <MediaQuery query='(min-width: 581px)'>
         <Footer />
       </MediaQuery>
-    </SContentWrapper>
+    </div>
   ) : (
     <Auth />
   );
@@ -68,5 +68,4 @@ const SWrapper = styled.div`
   margin-top: 180px;
   text-align: center;
 `;
-const SContentWrapper = styled.div``;
 export default Layout;

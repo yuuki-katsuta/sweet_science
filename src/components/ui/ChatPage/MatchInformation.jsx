@@ -43,7 +43,7 @@ const SMatchDataWrapper = styled.div`
   }
 `;
 const SContainer = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 `;
 const SMatchDataWithVideoId = styled.div`
   text-align: right;

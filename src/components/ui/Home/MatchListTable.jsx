@@ -98,7 +98,7 @@ const MatchListTable = ({ size, colums }) => {
   };
 
   if (isError) return <div>failed to load</div>;
-  if (!matchData) return null;
+  if (!matchData) return <div style={{ minHeight: '100vh' }}></div>;
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>

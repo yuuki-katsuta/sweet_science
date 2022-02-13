@@ -1,7 +1,7 @@
-import { memo } from 'react';
 import { db } from '../../../base';
 import useSWR from 'swr';
 import styled from 'styled-components';
+import { removeEmoji } from '../Utils/util';
 
 const Section = styled.div`
   marginbottom: 12px;
@@ -72,7 +72,7 @@ const FromTimeStampToDate = (date) => {
   return `${month}/${day}`;
 };
 
-const News = memo(() => {
+const News = () => {
   const { limitedMatchData, isError } = useLimitedMatchData();
   if (isError) return <div>failed to load</div>;
   return (
@@ -96,7 +96,7 @@ const News = memo(() => {
               return (
                 <tr key={index}>
                   <td>{FromTimeStampToDate(data.createdAt)}</td>
-                  <td>追加 : {data.room}</td>
+                  <td>追加 : {removeEmoji(data.title)}</td>
                 </tr>
               );
             })}
@@ -105,5 +105,5 @@ const News = memo(() => {
       </TableWrapper>
     </div>
   );
-});
+};
 export default News;

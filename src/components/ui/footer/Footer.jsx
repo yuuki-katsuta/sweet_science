@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
   text: {
     cursor: 'pointer',
     padding: '0 8px',
+    '&:hover': {
+      color: '#c0c0c0',
+    },
   },
 }));
 

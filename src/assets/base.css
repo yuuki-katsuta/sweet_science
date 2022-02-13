@@ -40,7 +40,6 @@ div.container {
 span.main-title {
   font-family: 'Patua One', cursive;
   font-size: 23px;
-  cursor: pointer;
 }
 h1.match-title, h2.section-title{
   font-family: 'Neuton', serif;
@@ -48,11 +47,14 @@ h1.match-title, h2.section-title{
   overflow-x: scroll;
   white-space: nowrap;
 }
-_:lang(x)+_:-webkit-full-screen-document, h2.section-title, h4 {
-  letter-spacing: -0.9px;
+_:lang(x)+_:-webkit-full-screen-document, h2.section-title {
+  letter-spacing: -1.6px;
+}
+_:lang(x)+_:-webkit-full-screen-document, h4 {
+  letter-spacing: -0.7px;
 }
 _:lang(x)+_:-webkit-full-screen-document, h1.match-title {
-  letter-spacing: -0.5px;
+  letter-spacing: -1.5px;
 }
 div.MuiSelect-select {
   padding: 5px 12px;
@@ -78,10 +80,11 @@ button.MuiFab-sizeSmall {
 @media screen and (min-width:280px) {
   /*画面サイズが280pxからはここを読み込む*/
   p {
-    font-size: 4vmin;
+    font-size: 4vw;
+    /* font-feature-settings: "pwid"; */
   }
   h1 {
-    font-size :6.3vmin;
+    font-size :6.4vw;
   }
   h2.section-title {
     font-size: 32px
@@ -165,6 +168,11 @@ button.MuiFab-sizeSmall {
   }
   td.scoreTable {
     font-size: 15px;
+  }
+}
+@media screen and (max-width:680px) {
+  p {
+    font-feature-settings: "palt"
   }
 }
 @media screen and (min-width:680px) and ( max-width:1024px) {
