@@ -74,7 +74,7 @@ const AddUserScoreField = ({ matchInfo, page }) => {
       .catch((error) => alert(error.message));
   };
 
-  const ScoreRow = ({ name, score, setScore }) => {
+  const ScoreRow = ({ name, score, setScore, row }) => {
     return (
       <TableRow>
         <TableCell className='scoreTable-Select'>
@@ -89,6 +89,18 @@ const AddUserScoreField = ({ matchInfo, page }) => {
                   value={score[round]}
                   name={round}
                   onChange={(e) => {
+                    if (e.target.value === '') {
+                      row === 'fighterScoreLine' &&
+                        setOScore({
+                          ...oscore,
+                          [e.target.name]: e.target.value,
+                        });
+                      row === 'opponentScoreLine' &&
+                        setFScore({
+                          ...fscore,
+                          [e.target.name]: e.target.value,
+                        });
+                    }
                     setScore({
                       ...score,
                       [e.target.name]: e.target.value,
@@ -142,11 +154,14 @@ const AddUserScoreField = ({ matchInfo, page }) => {
               name={matchInfo.fighter}
               score={fscore}
               setScore={setFScore}
+              row='fighterScoreLine'
             />
             <ScoreRow
               name={matchInfo.opponent}
               score={oscore}
               setScore={setOScore}
+              opponentScore
+              row='opponentScoreLine'
             />
           </TableBody>
         </Table>
