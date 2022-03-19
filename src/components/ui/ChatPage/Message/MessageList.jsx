@@ -46,7 +46,7 @@ const MessageList = ({ room }) => {
     const { data, error } = useSWR(
       `firestore/chat/${room}/message`,
       fetchMessages,
-      { suspense: true, refreshInterval: 10000 }
+      { suspense: true, revalidateOnFocus: false }
     );
     return {
       messages: data,
