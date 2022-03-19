@@ -28,18 +28,9 @@ const MessageList = ({ room }) => {
       .limit(50)
       .get();
     const msg = [];
-    querySnapshot.forEach((doc) => {
-      if (doc.data()) {
-        msg.push({
-          message: doc.data().message,
-          user: doc.data().user,
-          uid: doc.data().uid,
-          photoURL: doc.data().photoURL,
-          id: doc.id,
-          liked: doc.data().liked,
-        });
-      }
-    });
+    querySnapshot.forEach(
+      (doc) => doc.exists && msg.push({ id: doc.id, ...doc.data() })
+    );
     return msg.reverse();
   };
   const useMessages = (room) => {
