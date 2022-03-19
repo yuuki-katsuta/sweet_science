@@ -89,6 +89,7 @@ const fetchScheduleData = async (isMounted) => {
 const Schedule = () => {
   const useScheduleData = () => {
     const { data, error } = useSWR('firestore/schedule', fetchScheduleData, {
+      suspense: true,
       revalidateOnFocus: false,
     });
     return {
@@ -99,9 +100,8 @@ const Schedule = () => {
   const { scheduleData, isError } = useScheduleData();
 
   if (isError) return <div>failed to load</div>;
-  if (!scheduleData) return null;
   return (
-    <>
+    <div>
       <ScrollToTop />
       <div className='container'>
         <h2 className='section-title'>Fight Schedule</h2>
@@ -150,7 +150,7 @@ const Schedule = () => {
           ))}
         </SList>
       </div>
-    </>
+    </div>
   );
 };
 export default Schedule;
