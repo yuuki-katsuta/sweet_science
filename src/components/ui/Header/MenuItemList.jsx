@@ -9,6 +9,7 @@ import FeedbackIcon from '@material-ui/icons/Feedback';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EventNoteIcon from '@material-ui/icons/EventNote';
+import ChatIcon from '@material-ui/icons/Chat';
 import { useHistory } from 'react-router-dom';
 import { media } from '../Utils/style-utils';
 import { signOut } from '../../../controllers/AuthController';
@@ -58,6 +59,7 @@ const SAccountCircleIcon = SHomeIcon.withComponent(AccountCircleIcon);
 const SFeedbackIcon = SHomeIcon.withComponent(FeedbackIcon);
 const SExitToAppIcon = SHomeIcon.withComponent(ExitToAppIcon);
 const SEventNoteIcon = SHomeIcon.withComponent(EventNoteIcon);
+const SChatIcon = SHomeIcon.withComponent(ChatIcon);
 
 const MenuItemList = ({ anchor, toggleDrawer }) => {
   const history = useHistory();
@@ -80,6 +82,17 @@ const MenuItemList = ({ anchor, toggleDrawer }) => {
             <SHomeIcon />
           </ListItemIcon>
           <ListItemText primary={'ホーム'} />
+        </SListItem>
+        <SListItem
+          button
+          onClick={() => {
+            history.push('/free-chat');
+          }}
+        >
+          <ListItemIcon>
+            <SChatIcon />
+          </ListItemIcon>
+          <ListItemText primary={'チャット'} />
         </SListItem>
         <SListItem
           button
