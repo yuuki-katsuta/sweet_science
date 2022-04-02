@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+
 import { withStyles, makeStyles, createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
@@ -13,6 +13,8 @@ import TableRow from '@material-ui/core/TableRow';
 import { removeEmoji } from '../Utils/util';
 import { db } from '../../../base';
 import useSWR from 'swr';
+import { useRecoilState } from 'recoil';
+import { currentPage } from '../../../store/pageState';
 
 const theme = createTheme({
   palette: {
@@ -86,12 +88,7 @@ const rowsPerPage = 10;
 const MatchListTable = ({ size, colums }) => {
   const history = useHistory();
   const classes = useStyles();
-  const [page, setPage] = useState(null);
-
-  useEffect(() => {
-    const currentPage = history.location.state?.currentPage;
-    setPage(currentPage || 0);
-  }, [history]);
+  const [page, setPage] = useRecoilState(currentPage);
   const { matchData, isError } = useMatchData(page);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

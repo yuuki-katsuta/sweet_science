@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import Fab from '@mui/material/Fab';
 import CreateIcon from '@mui/icons-material/Create';
 import MessageList from '../ui/ChatPage/Message/MessageList';
-import { useEffect } from 'react';
 import { Suspense } from 'react';
 
 const SContainer = styled(Container)`
@@ -18,17 +17,6 @@ const SContainer = styled(Container)`
 const ChatPage = () => {
   const history = useHistory();
   const matchInfo = history.location.state?.matchInformation;
-  const page = history.location.state?.page;
-  useEffect(() => {
-    const goBack = () => {
-      history.push({
-        pathname: '/',
-        state: { currentPage: page },
-      });
-    };
-    window.addEventListener('popstate', goBack);
-    return () => window.removeEventListener('popstate', goBack);
-  }, [history, page]);
 
   const FabField = () => {
     return (
