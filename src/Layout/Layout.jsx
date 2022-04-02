@@ -13,6 +13,7 @@ import {
 import Footer from '../components/ui/footer/Footer';
 import MediaQuery from 'react-responsive';
 import { media } from '../components/ui/Utils/style-utils';
+import { flushSync } from 'react-dom';
 
 const Layout = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +37,7 @@ const Layout = ({ children }) => {
         setAdminUser(false);
         setGuestUser(false);
       }
-      setCurrentUser(user);
+      flushSync(() => setCurrentUser(user));
       setIsLoading(false);
     });
   }, [setAdminUser, setCurrentUser, setGuestUser]);
