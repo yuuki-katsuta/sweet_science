@@ -81,6 +81,14 @@ React × Firebase
     - puppeteer 10.1.0
     - nodemailer 6.5.0
     - firebase-admin 9.2.0
+  
+## ユーザーの声
+<p>
+<img width="200" alt="42701c647be32eb476c99dd2723f7598" src="https://user-images.githubusercontent.com/60274709/164981783-15a77309-ea07-4b31-87b6-6670d1e50a84.png">
+<img width="200" alt="42701c647be32eb476c99dd2723f7598" src="https://user-images.githubusercontent.com/60274709/164981811-707e594c-972b-4e45-8661-b78737892188.png">
+<img width="200" alt="42701c647be32eb476c99dd2723f7598" src="https://user-images.githubusercontent.com/60274709/164981859-dcd30f46-33cc-45c4-a568-74e1744778d3.png">
+<img width="200" alt="42701c647be32eb476c99dd2723f7598" src="https://user-images.githubusercontent.com/60274709/164981843-81facdab-27b2-4dee-9fe7-df53f6edba74.png">
+ </p>
  
 ## セットアップ
 
