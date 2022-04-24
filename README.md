@@ -3,6 +3,8 @@
 https://boxing-lab.net/  
 ゲストログインボタンから、メールアドレスとパスワードを入力せずにログインできます
 
+<img width="750" alt="42701c647be32eb476c99dd2723f7598" src="https://user-images.githubusercontent.com/60274709/164981600-32edac7a-cbd7-4628-a70f-148accfefcd3.png">
+
 ## サービス概要
 
 ボクシングの採点結果について談論・ディスカッションすることができます。<br/>
