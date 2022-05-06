@@ -59,15 +59,15 @@ React × Firebase
 
 フロントエンド
 
-- react 17.0.1
-- react-dom 17.0.1
+- react 18.0.0
+- react-dom 18.0.0
 - react-scripts 4.0.1
-- react-responsive 8.2.0
 - react-router-dom 5.2.0
-- react-alert 7.0.2
-- styled-components 5.2.1
 - recoil 0.5.2
 - swr 1.1.2
+- react-alert 7.0.2
+- react-responsive 8.2.0
+- styled-components 5.2.1
 - Material-UI
 
 バックエンド
