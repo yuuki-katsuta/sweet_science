@@ -15,23 +15,23 @@ https://boxing-lab.net/
 ## 主要ページについて
 
 ### サインアップ画面
-<img src="https://user-images.githubusercontent.com/60274709/155864268-8a6babe0-a8b5-4111-ac8a-a51e01dbe7d4.jpg" width="700px">
+<img src="https://user-images.githubusercontent.com/60274709/155864268-8a6babe0-a8b5-4111-ac8a-a51e01dbe7d4.jpg" width="600px">
 フォーム下部の「Already have an account? Log in」をクリックすると、ログインフォームに切り替わります。
 
 ### ホーム画面
-<img src="https://user-images.githubusercontent.com/60274709/155864294-4482a5ce-d873-4924-b503-7baae205f77a.jpg" width="700px">
+<img src="https://user-images.githubusercontent.com/60274709/155864294-4482a5ce-d873-4924-b503-7baae205f77a.jpg" width="600px">
 
 ボクシングの試合一覧と更新情報を表示しています。<br>
 一覧内の試合情報をクリックすることで、各チャットページへ遷移します。
 
 ### チャット画面
-<img src="https://user-images.githubusercontent.com/60274709/155864363-f505707a-65e5-44a3-987d-2e65ebb01b14.jpg" width="700px">
+<img src="https://user-images.githubusercontent.com/60274709/155864363-f505707a-65e5-44a3-987d-2e65ebb01b14.jpg" width="600px">
 
 その試合の概要や公式採点結果などを表示しています。<br>
 他のユーザーとチャットを楽しむことができます。
 
 ### スコアカード追加画面
-<img src="https://user-images.githubusercontent.com/60274709/155864349-2d6b0250-f096-40ec-8e30-81e283b106a7.jpg" width="700px">
+<img src="https://user-images.githubusercontent.com/60274709/155864349-2d6b0250-f096-40ec-8e30-81e283b106a7.jpg" width="600px">
 
 自分の採点結果をを追加することができます。
 
